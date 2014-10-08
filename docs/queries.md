@@ -33,6 +33,8 @@ These parameters can then be directly added to the API endpoint. For example, he
 
 In these examples, we will leave the parameters as is, but it is best to [URL Encode](http://en.wikipedia.org/wiki/Url_encode) your parameters to ensure they are parsed correctly.
 
+<a name="the_select_parameter"></a> 
+
 ### The $select Parameter
 
 The `$select` parameter is similar to a `SELECT` in SQL. It allows expressions and aliases, as well as aggregations when using
@@ -52,7 +54,9 @@ You can also use SoQL functions and operators to modify the output of a SODA que
 
 For a full listing of the functions available by datatype, check out the [datatype-specific documentation](/docs/datatypes/).
 
-### The $where Parameter
+<a name="the_where_parameter"></a> 
+
+### The $where Parameter 
 
 The `$where` parameter allows you to filter your results using boolean operators. For example, to retrieve only quakes with a `magnitude` of greater than 3.0:
 
@@ -81,6 +85,8 @@ Multiple equality clauses can be even simpler:
 
 {% include tryit.html domain='soda.demo.socrata.com' path='/resource/4tka-6guv' args='region=Virgin Islands region&amp;source=pr' %}
 
+<a name="the_order_parameter"></a> 
+
 ### The $order Parameter
 
 The `$order` parameter determines how the results should be sorted, using the values from the specified columns, similar to a SQL `ORDER BY`. Sorting can be performed in either ascending or descending order, the default being ascending, but you can also reverse the order with `DESC`.
@@ -92,6 +98,8 @@ For example, to sort our earthquakes by `magnitude`, in descending order:
 We could sort them in ascending order by replacing `DESC` with `ASC`, or by simply omitting it.
 
 {% include ordering-note.html %}
+
+<a name="the_group_parameter"></a> 
 
 ### The $group Parameter
 
@@ -109,6 +117,8 @@ The currently supported grouping expressions are:
 | `min`    | Number              | Finds the minimum value of numbers in this column          |
 | `max`    | Number              | Finds the maximum value of numbers in this column          |
 
+<a name="search_with_q"></a> 
+
 ### Search with $q
 
 The `$q` parameter is used to access a special full-text index that searches within the dataset. The full-text index spans all of the fields of the dataset, so think of it more like using a search engine than performing a SQL query.
@@ -116,6 +126,8 @@ The `$q` parameter is used to access a special full-text index that searches wit
 For example, to search for the string "Islands" inside our earthquakes dataset:
 
 {% include tryit.html domain='soda.demo.socrata.com' path='/resource/4tka-6guv' args='$q=Islands' %}
+
+<a name="the_limit_parameter"></a> 
 
 ### The $limit Parameter
 
@@ -128,9 +140,11 @@ For example, if you wanted to only return the top ten strongest earthquakes, you
 <div class="alert alert-info"><strong>Note:</strong> The maximum you can request with <code>$limit</code> is 1000 records. If you request greater than 1000, you'll get a {% include status-code.html code='400' %} 
 response.</div>
 
+<a name="the_offset_parameter"></a> 
+
 ### The $offset Parameter
 
-The `$offset` parameter is most often used in conjunction with `$limit` to page through a dataset. The `$offset` is the number of records into a dataset that you want to start. For example, to retrieve "page 3" of a dataset where you are using `$limit` to page 50 records at a time, you'd ask for an `$offset` of 150:
+The `$offset` parameter is most often used in conjunction with `$limit` to page through a dataset. The `$offset` is the number of records into a dataset that you want to start, indexed at 0. For example, to retrieve the "4th page" of records (records 151 - 200) where you are using `$limit` to page 50 records at a time, you'd ask for an `$offset` of 150:
 
 {% include tryit.html domain='soda.demo.socrata.com' path='/resource/4tka-6guv' args='$limit=50&amp;$offset=150' %}
 
