@@ -35,7 +35,7 @@ First, we'll structure a query that uses [SoQL](/docs/queries.html) to aggregate
 
 {% include tryit.html domain='data.lacity.org' path='/resource/mgue-vbsx.json' args="$group=date&call_type_code=507P&$select=date_trunc_ymd(dispatch_date)%20AS%20date%2C%20count(*)&$order=date" %}
 
-Bokeh makes it super easy to read data from a JSON API, so we can just read our data directly using the `read_json` function:
+Pandas makes it super easy to read data from a JSON API, so we can just read our data directly using the `read_json` function:
 
 {% highlight python %}
 import numpy as np

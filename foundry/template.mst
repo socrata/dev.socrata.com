@@ -1,4 +1,15 @@
-<h1 class="title">{{ metadata.name }}</h1>
+<h1 class="title">{{ metadata.name }}</h1> 
+{{#show_migration}}
+  <div class="alert alert-info">
+    <p><em><i class="fa fa-warning"></i> Heads up!</em> A <a target="_blank" href="/foundry/#/{{domain}}/{{nbe_uid}}">new, improved version of this API</a> is available for your use. <a target="_blank" href="/foundry/#/{{domain}}/{{nbe_uid}}">Go check it out</a>, or read on for details on how to migrate.</p>
+  </div>
+{{/show_migration}}
+
+{{#is_nbe}}
+  <div class="alert alert-success">
+    <p><em><i class="fa fa-thumbs-up"></i> Good to go!</em> You're already using the latest version of this dataset API.</p> 
+  </div>
+{{/is_nbe}}
 
 <div class="panel panel-info metadata pull-right">
   <div class="panel-heading">
@@ -72,9 +83,9 @@
 
 <p>Each column in <a href="http://{{domain}}/d/{{uid}}">the dataset</a> is represented by a single <code>field</code> in its SODA API. Using <a href="/docs/filters.html">filters</a> and <a href="/docs/queries.html">SoQL queries</a>, you can search for records, limit your results, and change the way the data is output. For example, you could filter this dataset by its <code>{{metadata.columns.0.fieldName}}</code> field using a query like the following:</p>
 
-{{#metadata.columns.0.filter_url}}
-  <a class="tryit" href="{{metadata.columns.0.filter_url}}">{{metadata.columns.0.filter_url}}</a>
-{{/metadata.columns.0.filter_url}}
+{{#metadata.columns.0.filter}}
+  <a class="tryit" href="{{full_url}}?{{metadata.columns.0.filter}}">{{full_url}}?{{metadata.columns.0.filter}}</a>
+{{/metadata.columns.0.filter}}
 
 <p>For richer filtering, you can combine filters together by stacking parameters on your URL or by using <a href="/docs/queries.html">SoQL</a> queries. Learn more about about each of the fields in this dataset by clicking the headers below, or read more about the SODA API using the navigation at the top of the page.</p>
 
@@ -87,10 +98,40 @@
   </ul>
 </div>
 
+{{#show_migration}}
+  <h2>Migrating</h2>
+
+  <p>A <a href="/foundry/#/{{domain}}/{{nbe_uid}}" target="_blank">new version of this dataset</a> exists that you should migrate to as soon as you're ready. This now deprecated version of the dataset will continue to be available for some time, and will be automatically kept in sync with the new dataset. The last time this dataset was synchronized was {{ last_synced }}, and the dataset was last updated at {{metadata.rowsUpdatedAt}}.</p>
+
+  <p>Most things will continue to function exactly the same, but the new dataset has great new features like <a href="/docs/functions/index.html">new query functionality</a>, increased performance, and <a href="http://labs.socrata.com">access to new beta APIs</a>. Those features <em>will not</em> be available on the legacy dataset.</p>
+
+  {{#has_structural_changes}}
+    <p>For this dataset, the following complex columns will change structurally:</p>
+    <ul>
+      {{#splits}}
+        <li><code>{{from_col}}</code> will be split into {{&to_cols}}</li>
+      {{/splits}}
+    </ul>
+  {{/has_structural_changes}}
+
+  {{#has_renames}}
+    <p>The following columns are renamed in the new version:</p>
+    <ul>
+      {{#renames}}
+        <li><code>{{from}}</code> will be renamed to <code>{{to}}</code></li>
+      {{/renames}}
+    </ul>
+  {{/has_renames}}
+
+  <div class="well">
+    Learn more about <a href="/changelog/2015-04-27-new-higher-performance-apis.html">the migration process</a>.
+  </div>
+{{/show_migration}}
+
 <ul class="fields panel-group" id="accordion">
   {{#metadata.columns}}
     <li class="field panel panel-default">
-      <div class="heading panel-heading {{dataTypeName}}" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{fieldName}}">
+      <div class="heading panel-heading {{dataTypeName}}" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{id}}">
         <h3 class="panel-title">
           <i class="collapse-icon fa fa-fw fa-plus-square-o"></i>
           <code class="field-name {{dataTypeName}}">{{fieldName}}</code>
@@ -98,32 +139,17 @@
         </h3>
         <span class="human-name">{{name}}</span>
       </div>
-      <div id="collapse-{{fieldName}}" class="panel-collapse collapse">
+      <div id="collapse-{{id}}" data-datatype="{{dataTypeName}}" data-fieldname="{{fieldName}}" class="panel-collapse collapse">
         <div class="panel-body">
           {{#description}}
             <p class="description">{{description}}</p>
           {{/description}}
 
-          <p class="overview">The <code>{{fieldName}}</code> column is a {{dataTypeName}} column.</p>
+          <p class="overview">The <code>{{fieldName}}</code> column is of the <a href="/docs/datatypes/{{dataTypeName}}.html"><code>{{dataTypeName}}</code></a> datatype.</p>
 
-          <h4>Simple Filters</h4>
-
-          <p>To filter the dataset to only return records containing a specified value for <code>{{fieldName}}</code> simply add a URL parameter to your URL with {{fieldName}} as the key and your specified value. For example:</p>
-
-          <div class="tryit-block">
-            {{#filter_url}}
-              <a class="tryit" href="{{filter_url}}">{{filter_url}}</a>
-            {{/filter_url}}
+          <div class="tryit">
+            <p><i class="fa fa-code fa-spin"></i> Please wait while we fetch an example for you...</p>
           </div>
-
-          <h4>Query Options</h4>
-
-          <p>You can also use <a href="/docs/queries.html">SoQL queries</a> with this column. Since it is a <code>{{dataTypeName}}</code> column, the following query options are available:
-          <ul>
-            {{#available_functions}}
-              <li>{{function_template}}</li>
-            {{/available_functions}}
-          </ul>
 
           <p>For more details on what query options you have for this column, see the <a href="/docs/datatypes/{{dataTypeName}}.html">detailed docs on the <code>{{dataTypeName}}</code> datatype</a></p>
         </div>

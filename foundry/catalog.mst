@@ -1,9 +1,0 @@
-<h1>Catalog for: {{ domain }}</h1>
-
-<h2>Datasets</h2>
-<ul>
-{{#datasets}}
-  <li><a target="_blank" href="/foundry/#/{{ domain }}/{{ view.id }}">{{ view.name }}</a></li>
-{{/datasets}}
-</ul>
-<p>{{ count }} total results.</p>

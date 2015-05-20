@@ -14,7 +14,7 @@ This guide describes how to use FME Desktop to setup a basic workspace to publis
 Before you begin this tutorial, you should have the following:
 
 - An installed copy of FME Desktop 2015 or 2014 SP4 (Windows, Mac, or Linux)
- - Download [FME 2015 Beta](http://www.safe.com/support/support-resources/fme-downloads/beta/) (recommended) or [FME 2014 SP4](http://www.safe.com/support/support-resources/fme-downloads/)
+ - Download [FME 2015](http://www.safe.com/support/support-resources/fme-downloads/) (recommended) or [FME 2014 SP4](http://www.safe.com/support/support-resources/fme-downloads/)
  - If you are using FME 2013 or FME 2014, we strongly recommend updating to the latest version of FME to make use of the newest Socrata Writer.
 - Socrata account with a Publisher role or Owner rights to at least one *existing* dataset
 
@@ -113,6 +113,7 @@ In general there are two approaches you can take to schedule an FME Workflow:
 
 - [Getting Started with FME](http://www.safe.com/fme/getting-started/)
 - [FMEpedia](http://fmepedia.safe.com)
+- [FME Training Resources](https://www.safe.com/learning/training/)
 - [FME write-up on Socrata Writer](http://www.safe.com/solutions/for-applications/socrata)
 - [Safe FME Support](http://www.safe.com/support/support-resources/)
 - List of [350+ formats/systems supported by FME](http://www.safe.com/fme/format-search/)

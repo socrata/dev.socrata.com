@@ -1,7 +1,0 @@
-<div class="tryit-link">
-  <i class="fa fa-fw fa-cog"><!-- This Space Left Blank --></i>
-  <code>
-    <a class="exec has-tooltip" data-toggle="tooltip" title="" href="{{url}}" data-original-title="View the output of this query" data-container="body">{{url}}</a>
-  </code>
-  <a class="hurl-it has-tooltip" data-toggle="tooltip" title="" target="_blank" href="{{hurl_url}}" data-original-title="Edit this request on Hurl.it" data-hurl-full-url="{{url}}" data-placement="left" data-container="body"><i class="fa fa-pencil"><!-- This Space Left Blank --></i></a>
-</div>

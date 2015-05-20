@@ -63,5 +63,7 @@ To learn more about the Socrata Publisher API, see the [getting started guide](/
 - [PHP](http://github.com/socrata/soda-php)
 - [.NET](https://github.com/CityofSantaMonica/SODA.NET)
 
+## Sign up for our publisher newsletter!
 
+Once or twice a month, we send out an email newsletter full of helpful tips and tricks, news about upcoming changes, and other things you might want to know as a Socrata data publisher. [Sign up now!](http://tinyletter.com/socrata-publishers)
 

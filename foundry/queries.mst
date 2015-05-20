@@ -1,0 +1,22 @@
+{{#suggestions.filter}}
+  <h4>Simple Filters</h4>
+
+  <p>To filter the dataset to only return records containing a specified value for <code>{{fieldName}}</code> simply add a URL parameter to your URL with {{fieldName}} as the key and your specified value. For example:</p>
+
+  <div class="tryit-block">
+    <a class="tryit" href="{{full_url}}?{{suggestions.filter}}">{{full_url}}?{{suggestions.filter}}</a>
+  </div>
+{{/suggestions.filter}}
+
+<h4>Query Options</h4>
+
+<p>You can also use <a href="/docs/queries.html">SoQL queries</a> with this column. Since it is a <code>{{datatype}}</code> column, <a href="/docs/datatypes/{{datatype}}.html">many different query functions</a> are available.</p>
+
+{{#suggestions.query}}
+  <p>For example:</p>
+
+  <div class="tryit-block">
+    <a class="tryit" href="{{full_url}}?$where={{suggestions.query}}">{{full_url}}?$where={{suggestions.query}}</a>
+  </div>
+{{/suggestions.query}}
+

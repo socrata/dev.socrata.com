@@ -1,0 +1,24 @@
+---
+layout: with-sidebar
+sidebar: documentation
+title: SoQL Function Listing
+---
+
+<p>The following are all the functions available in SoQL:</p>
+
+<table>
+  <thead>
+    <th>Function Name</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    {% for page in site.pages %} 
+      {% if page.type == "function" %} 
+        <tr>
+          <td><a href="{{page.url}}">{{page.title}}</a></td>
+          <td>{{page.description}}</td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>

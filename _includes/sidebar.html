@@ -85,21 +85,27 @@
   <li><a href="/docs/filtering.html">Simple Filters</a></li>
   <li><a href="/docs/queries.html">SoQL Queries</a></li>
   <li><a href="/docs/paging.html">Paging Through Data</a></li>
+  <li><a href="/docs/functions/index.html">SoQL Function Listing</a></li>
 
   <li class="nav-header dropdown-header">Data Formats</li>
   <li><a href="/docs/formats/index.html">Selecting Output Formats</a></li>
   <li><a href="/docs/formats/json.html">JSON</a></li>
+  <li><a href="/docs/formats/geojson.html">GeoJSON</a></li>
   <li><a href="/docs/formats/csv.html">CSV</a></li>
   <li><a href="/docs/formats/rdf-xml.html">RDF-XML</a></li>
   <li><a href="/odata/">OData</a></li>
 
   <li class="nav-header dropdown-header">Datatypes</li>
-  <li><a href="/docs/datatypes/string.html">String</a></li>
-  <li><a href="/docs/datatypes/numeric.html">Numeric</a></li>
-  <li><a href="/docs/datatypes/boolean.html">Boolean</a></li>
-  <li><a href="/docs/datatypes/timestamp.html">Timestamp</a></li>
-  <li><a href="/docs/datatypes/location.html">Location</a></li>
+  {% for page in site.pages %}
+    {% if page.type == 'datatype' %}
+      <li><a href="{{ page.url }}">{{ page.title | replace: ' Datatype', '' }}</a></li>
+    {% endif %}
+  {% endfor %}
   {% comment %} <li><a href="/docs/datatypes/converting.html">Conversions</a></li> {% endcomment %}
+
+  <li class="nav-header dropdown-header">Other</li>
+  <li><a href="/changelog/">API Changelog</a></li>
+  <li><a href="/support.html">Getting Help</a></li>
 
 {% else %}
   <li>Whoever created this page messed something up. Please <a href="/contributing.html">file an issue</a> and ask them to pass a "type" variable.</li>

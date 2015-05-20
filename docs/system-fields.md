@@ -23,7 +23,7 @@ Since `:created_at` and `:updated_at` are [Fixed Timestamp](/docs/datatypes/time
 
 <div class="alert alert-info">
   <h4>A note on how datasets are updated</h4>
-  <p>Data providers use many different methods to update datasets. In some cases, they use tools like [DataSync](http://socrata.github.io/datasync/) or the [Publisher API](/publishers/) to update datasets, and we can tell which records within the dataset have actually been modified, and only update them accordingly. But in other cases, data providers perform a full replace of the dataset, and all of its records will be updated at the same time, in which case a query based on `:updated_at` will show that all of the records have changed.</p>
+  <p>Data providers use many different methods to update datasets. In some cases, they use tools like <a href="http://socrata.github.io/datasync/">DataSync</a> or the <a href="/publishers/">Publisher API</a> to update datasets, and we can tell which records within the dataset have actually been modified, and only update them accordingly. When data providers perform a full replace of the dataset using the <a href="/publishers/replace.html">Publisher API</a>, all of its records will be updated at the same time, in which case a query based on `:updated_at` will show that all of the records have changed.</p>
 </div>
 
 

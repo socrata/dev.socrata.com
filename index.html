@@ -10,7 +10,6 @@ redirect_from:
   - /console
   - /gallery
 custom_js:
-  - /js/snuffleupadata.js
   - /js/homepage.js
 ---
 
@@ -34,10 +33,6 @@ custom_js:
       <ul class="fa-ul"><li><h2><a href="/libraries/"><i class="fa fa-li fa-mobile-phone"></i>Libraries &amp; SDKs</a></h2></li></ul>
       <p>Support for most popular programming languages and platforms.</p>
     </div>
-    {% comment %}<div class="col-md-4">
-      <ul class="fa-ul"><li><h2><a href="/abcs-of-apis/"><i class="fa fa-li fa-question-circle"></i>What's an API?!?</a></h2></li></ul>
-      <p>Don't know the difference between an HTTP, SDK, and JSON? Check out the <a href="/abcs-of-apis/">ABCs of APIs</a> and get smart fast!</p>
-    </div>{% endcomment %}
     <div class="col-md-4">
       <ul class="fa-ul"><li><h2><a href="/support.html"><i class="fa fa-li fa-question-circle"></i>Need Help?</a></h2></li></ul>
       <p>Struggling with a problem you can't figure out? <a href="/support.html">Get help fast!</a></p>
@@ -57,8 +52,14 @@ custom_js:
 
   <div class="row trailhead yet-more">
     <div class="col-md-4">
-      <ul class="fa-ul"><li><h3><a href="/changelog.html"><i class="fa fa-li fa-code-fork"></i>Changelog</a></h3></li></ul>
+      <ul class="fa-ul"><li><h3><a href="/changelog/"><i class="fa fa-li fa-code-fork"></i>Changelog</a></h3></li></ul>
       <p>Track the latest updates to our APIs and learn about upcoming changes.</p>
+      <ul>
+        {% for change in site.categories.changelog limit:3 %}
+          <li><em>{{ change.date | date: "%Y-%m-%d" }}</em> - <a href="{{change.url}}">{{ change.short_title }}</a></li>
+        {% endfor %}
+      </ul>
+      <p><a href="/changelog/">More...</a></p>
     </div>
     <div class="col-md-4">
       <ul class="fa-ul"><li><h3><a href="/contributing.html"><i class="fa fa-li fa-group"></i>Contributing</a></h3></li></ul>

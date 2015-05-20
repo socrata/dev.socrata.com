@@ -2,7 +2,7 @@
 layout: external-link
 title: Julia
 type: sdk 
-audience: all
+audience: consumer
 
 language: Julia
 

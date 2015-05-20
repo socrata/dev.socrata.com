@@ -61,12 +61,6 @@ All of these operations take advantage of the [row identifiers](/docs/row-identi
   <li>Replace a dataset entirely using a <a href="/publishers/replace.html">bulk <code>PUT</code></a></li>
 </ul>
 
-{% comment %}
-## Updating Dataset Metadata and Permissions
+## Sign up for our publisher newsletter!
 
-The Socrata Publisher API also allows you to modify the metadata for a dataset, such as its name, description, and tags. You can also change a dataset's permissions to make it public or private.
-
-<ul class="well">
-  <li>Learn how to modify a <a href="/publishers/modifying-metadata.html">dataset&#8217;s metadata</a></li>
-  <li>Change a dataset&#8217;s <a href="/publishers/.html">permissions</a></li>
-</ul>{% endcomment %}
+Once or twice a month, we send out an email newsletter full of helpful tips and tricks, news about upcoming changes, and other things you might want to know as a Socrata data publisher. [Sign up now!](http://tinyletter.com/socrata-publishers)

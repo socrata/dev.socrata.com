@@ -1,5 +1,6 @@
 destination: public
 exclude: [Makefile, Gemfile, Gemfile.lock, .rvmrc, public, sample-code]
+# permalink: pretty
 splash: false
 splash_homepage: false
 
@@ -11,10 +12,13 @@ icon: fa fa-code
 github_repo: https://github.com/socrata/dev.socrata.com
 contribute: /contributing.html
 
-local_js: 
+flags:
+  show_migration: true
+
+local_js:
   - //cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js
-  - /js/purl.js
-  - /js/try.js
+  - /common/js/purl.js
+  - /common/js/try.js
   - /js/snuffleupadata.js
   - /js/github.js
   - /js/external-link.js

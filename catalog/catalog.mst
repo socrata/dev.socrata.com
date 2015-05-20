@@ -1,0 +1,37 @@
+<ul class="catalog panel-group" id="accordion">
+  {{#datasets}}
+    <li class="catalog-entry panel panel-default">
+      <div class="heading panel-heading catalog-entry" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{resource.id}}">
+        <h3 class="panel-title">
+          <i class="collapse-icon fa fa-fw fa-plus-square-o"></i>
+          <span class="name">{{resource.name}}</span>
+        </h3>
+        <span class="summary">
+          <span class="categories">
+            {{#classification.categories}}
+              <span class="category">{{.}}</span>
+            {{/classification.categories}}
+          </span>
+          <span class="datatypes">
+            {{#has_number}}<i class="fa fa-calculator"></i>{{/has_number}}
+            {{#has_datetime}}<i class="fa fa-clock-o"></i>{{/has_datetime}}
+            {{#has_geospatial}}<i class="fa fa-globe"></i>{{/has_geospatial}}
+          </span>
+        </span>
+      </div>
+      <div id="collapse-{{resource.id}}" class="panel-collapse collapse">
+        <div class="panel-body">
+          {{#resource.description}}
+            <p class="description">{{resource.description}}</p>
+          {{/resource.description}}
+
+          <div class="tryit-block">
+            <a class="tryit" href="{{resource_link}}">{{resource_link}}</a>
+          </div>
+        </div>
+      </div>
+    </li>
+  {{/datasets}}
+</ul>
+
+<p>Your search took {{time_millis}} milliseconds to process!</p>

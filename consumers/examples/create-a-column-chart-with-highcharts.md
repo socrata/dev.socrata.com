@@ -13,9 +13,9 @@ author: marks
   <strong>TL;DR: </strong>This page contains example code to get a grouped column chart working with Socrata Open Data APIs plus Highcharts, a javascript charting library. If you are looking for the code and want to get tinkering right away, you can visit <a href="http://jsfiddle.net/marksskram/ed42ghw5/1/">this example&#8217;s jsFiddle page here</a>.
 </div>
 
-Previously, [we wrote about how to create a simple column chart](/consumers/examples/simple-chart-with-d3) with [Michael Bostock](http://bost.ocks.org/mike/)'s [d3](http://d3js.org/). D3 is great for visualizing data but it can be quite complicated for some users.
+Previously, [we wrote about how to create a simple column chart](/consumers/examples/simple-chart-with-d3.html) with [Michael Bostock](http://bost.ocks.org/mike/)'s [d3](http://d3js.org/). D3 is great for visualizing data but it can be quite complicated for some users.
 
-Today, I want to share some simple sample code to create a grouped bar chart using [Highcharts](highcharts.com), a simpler (but still very customizable) alternative to d3.
+Today, I want to share some simple sample code to create a grouped bar chart using [Highcharts](http://highcharts.com), a simpler (but still very customizable) alternative to d3.
 
 For this example, I am going to use the [Inpatient Prospective Payment System (IPPS) Provider Summary for the Top 100 Diagnosis-Related Groups (DRG) - FY2012](https://data.cms.gov/Public-Use-Files/Inpatient-Prospective-Payment-System-IPPS-Provider/xpsg-6hup?) dataset from the HHS/CMS (the United States Department of Health and Human Services Center for Medicare and Medicaid Services) open data portal, [data.cms.gov](https://data.cms.gov). Essentially, this dataset has up to 100 rows for each Medicare-participating hospital and their pricing, reimbursement, and discharge volume for the most common diagnosis groups. 
 
