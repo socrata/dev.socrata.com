@@ -1,24 +1,22 @@
 ---
 layout: with-sidebar
-title: Using the FME Socrata Writer
+title: Using the Tableau Web Data Connector
 sidebar: publisher
 type: example
 audience: publisher
-author: alaurenz
+author: aghate
 ---
 
-This guide describes how to use FME Desktop to setup a basic workspace to publish data to a Socrata dataset from a Microsoft Excel (.xlsx/.xls) file.
+This guide describes how to use Tableau's new Web Data Connectors to pull data from a Socrata dataset into Tableau Desktop 9.1. More information on the Web Data Connectors can be found here: http://tabsoft.co/1PIZ527.
 
 ## Prerequisites
 
 Before you begin this tutorial, you should have the following:
 
-- An installed copy of FME Desktop 2015 or 2014 SP4 (Windows, Mac, or Linux)
- - Download [FME 2015](http://www.safe.com/support/support-resources/fme-downloads/) (recommended) or [FME 2014 SP4](http://www.safe.com/support/support-resources/fme-downloads/)
- - If you are using FME 2013 or FME 2014, we strongly recommend updating to the latest version of FME to make use of the newest Socrata Writer.
-- Socrata account with a Publisher role or Owner rights to at least one *existing* dataset
+- An installed copy of Tableau Desktop version 9.1 or higher
+- An IDE to edit the web connector code
+- Viewer rights to the dataset you want to import into Tableau
 
-<p class="alert alert-info">If you do not have a license of FME, as a Socrata user you can get a <a href="http://www.safe.com/solutions/for-applications/socrata/">30 day free trial here</a>.</p>
  
 ## Contents
 
