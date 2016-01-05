@@ -7,7 +7,7 @@ audience: publisher
 author: aghate
 ---
 
-This guide describes how to use Tableau's new Web Data Connectors to pull data from a Socrata dataset into Tableau Desktop 9.1. More information on the Web Data Connectors can be found here: http://tabsoft.co/1PIZ527.
+This guide describes how to use Tableau's new Web Data Connectors to pull data from a Socrata dataset into Tableau Desktop 9.1. More information on the Web Data Connectors, code samples, and API documentation can be found here: http://tabsoft.co/1PIZ527.
 
 ## Prerequisites
 
@@ -20,16 +20,29 @@ Before you begin this tutorial, you should have the following:
  
 ## Contents
 
-1. [Setting up the workflow in FME Desktop](#setting-up-the-workflow-in-fme-desktop)
-2. [Example FME workflow to download](#example-fme-template-workflow-to-download)
-3. [Proxy configuration](#proxy-configuration)
-4. [Scheduling FME transformations](#scheduling-fme-transformations)
+1. [Tableau Web Data Connector and SDK](#Tableau-Web-Data-Connector-and-SDK)
+2. [Socrata Connector Example in SDK](#example-fme-template-workflow-to-download)
+3. [Paging and Incremental Refresh](#proxy-configuration)
+4. [Connecting to Tableau Desktop](#scheduling-fme-transformations)
 
-## Setting up the workflow in FME Desktop
+## Tableau Web Data Connector and SDK
 
-![FME Diagram](/img/fme/fme_diagram.png)
+* Tableau's new WDC allows you to connect to a Socrata dataset using it's API endpoint and bring it into Tableau
+* Really detailed information about the WDC and the developer docs are available on their site - this is Socrata specific
+* Tableau has also published a Socrata specific example here: ----
 
-### Step 1: Open FME and create a new blank workspace
+## Testing Web Data Connector
+
+* Tableau has created a Simulator you can use to test the connector
+* Can use hosted server here: https://github.com/tableau/webdataconnector
+* Or run local server - can use the Python development server
+
+## Creating Web Data Connector
+
+* Tableau has a Socrata example
+* Another example here 
+
+## Connecting to Tableau 
 
 Open up FME Workbench and create new blank workspace (File -> New and select Blank Workspace on the right).
 
