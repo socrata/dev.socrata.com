@@ -41,6 +41,9 @@ Before you begin this tutorial, you should have the following:
 
 * Tableau has a Socrata example
 * Another example here 
+* Paging 
+* Incremental Refresh
+* Authentication
 
 ## Connecting to Tableau 
 
