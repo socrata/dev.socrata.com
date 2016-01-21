@@ -21,19 +21,11 @@ done:
 taglines:
 	curl --user chris.metcalf@socrata.com -X PUT --data @taglines.json --header "Content-type: application/json" --header "X-App-Token: bjp8KrRvAPtuf809u1UXnI0Z8" https://soda.demo.socrata.com/resource/etih-7ix2.json
 
-surge-stage:
-	surge --project ./public --domain https://dev-socrata-staging.surge.sh
-
-surge-prod:
-	surge --project ./public --domain https://dev.socrata.com
+surge:
+	surge --project ./public --domain https://$(DOMAIN)
 
 # Default: Build the site
 all: clean jekyll stamp done
 
 # Builds the site and runs linklint to check for bad links
 test: clean jekyll stamp htmlproof done
-
-stage: clean jekyll stamp htmlproof surge-stage done
-
-prod: clean jekyll stamp htmlproof surge-prod done
-

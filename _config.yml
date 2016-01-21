@@ -30,7 +30,6 @@ author:
   name: 'Socrata Developer Program'
   uri: 'https://dev.socrata.com'
 
-
 flags:
   show_migration: true
   peeper:
