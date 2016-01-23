@@ -1,23 +1,3 @@
-<h1 class="title">{{ metadata.name }}</h1>
-{{#show_migration}}
-  <div class="alert alert-info">
-    <p><em><i class="fa fa-warning"></i> Heads up!</em> A <a target="_blank" href="/foundry/#/{{domain}}/{{nbe_uid}}">new, improved version of this API</a> is available for your use. <a target="_blank" href="/foundry/#/{{domain}}/{{nbe_uid}}">Go check it out</a>, or read on for details on how to migrate.</p>
-  </div>
-{{/show_migration}}
-
-{{#is_nbe}}
-  {{#redirected}}
-    <div class="alert alert-success">
-      <p><em><i class="fa fa-thumbs-up"></i> Heads up!</em> You've been automatically redirected to the latest version of this dataset API. If for some reason you want to refer to the documentation for the old version of this dataset API, you can <a href="/foundry/#/{{domain}}/{{obe_uid}}/no-redirect" target="_blank">view those instead</a>.</p>
-    </div>
-  {{/redirected}}
-  {{^redirected}}
-    <div class="alert alert-success">
-      <p><em><i class="fa fa-thumbs-up"></i> Good to go!</em> You're already using the latest version of this dataset API.</p>
-    </div>
-  {{/redirected}}
-{{/is_nbe}}
-
 <div class="pull-right sidebar">
   {{#is_private}}
     <div class="panel panel-success logged-in">
@@ -42,10 +22,10 @@
       {{/metadata.description}}
 
       <ul>
-        <li><em>Total Rows:</em> {{count}}</li>
+        <li><em>Total Rows:</em> <span class="row-count" data-query-base="{{query_base}}" data-uid="{{uid}}">&hellip;</span></li>
         <li><em>Source Domain:</em> <a href="http://{{domain}}">{{domain}}</a></li>
         <li><em>Created:</em> {{metadata.createdAt}}</li>
-        <li><em>Last Updated:</em> {{metadata.rowsUpdatedAt}}</li>
+        <li><em>Last Updated:</em> {{structural_metadata.rowsUpdatedAt}}</li>
         {{#metadata.category}}
           <li><em>Category:</em> {{metadata.category}}</li>
         {{/metadata.category}}
@@ -61,20 +41,22 @@
         <li><em>Endpoint Version:</em> <a href="/docs/endpoints.html#{{version}}">{{version}}</a></li>
       </ul>
     </div>
-    <div class="panel-footer"><a target="_blank" href="http://{{domain}}/d/{{uid}}">View dataset &raquo;</a></div>
+    <div class="panel-footer"><a target="_blank" href="http://{{domain}}/d/{{metadata.id}}">View dataset &raquo;</a></div>
   </div>
 
-  {{#is_synced}}
-    <div class="panel panel-default synced" data-query-base="{{query_base}}" data-obe-uid="{{obe_uid}}">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-refresh"></i> Synchronized Copy</h3>
+  {{#migration}}
+    {{#structural_metadata.newBackend}}
+      <div class="panel panel-default synced" data-query-base="{{query_base}}" data-obe-uid="{{obe_uid}}">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-refresh"></i> Synchronized Copy</h3>
+        </div>
+        <div class="panel-body">
+          <p>This dataset is actually a synchronized copy provided so you can use the <a href="/docs/endpoints.html#{{version}}">{{version}} API</a> before migration is complete. This dataset was last synchronized at <span class="sync-time">...</span>, and is currently <span class="sync-state">...</span>.</p>
+        </div>
+        <div class="panel-footer"><a target="_blank" href="/docs/endpoints.html#dataset-synchronization">Learn how this works &raquo;</a></div>
       </div>
-      <div class="panel-body">
-        <p>This dataset is actually a synchronized copy provided so you can use the <a href="/docs/endpoints.html#{{version}}">{{version}} API</a> before migration is complete. This dataset was last synchronized at <span class="sync-time">...</span>, and is currently <span class="sync-state">...</span>.</p>
-      </div>
-      <div class="panel-footer"><a target="_blank" href="/docs/endpoints.html#dataset-synchronization">Learn how this works &raquo;</a></div>
-    </div>
-  {{/is_synced}}
+    {{/structural_metadata.newBackend}}
+  {{/migration}}
 </div>
 
 <div class="getting-started">
@@ -132,11 +114,11 @@
 
 <h2>Fields</h2>
 
-<p>Each column in <a href="http://{{domain}}/d/{{uid}}">the dataset</a> is represented by a single <code>field</code> in its SODA API. Using <a href="/docs/filtering.html">filters</a> and <a href="/docs/queries/">SoQL queries</a>, you can search for records, limit your results, and change the way the data is output. For example, you could filter this dataset by its <code>{{metadata.columns.0.fieldName}}</code> field using a query like the following:</p>
+<p>Each column in <a href="{{display_url}}">the dataset</a> is represented by a single <code>field</code> in its SODA API. Using <a href="/docs/filtering.html">filters</a> and <a href="/docs/queries/">SoQL queries</a>, you can search for records, limit your results, and change the way the data is output. For example, you could filter this dataset by its <code>{{metadata.columns.0.fieldName}}</code> field using a query like the following:</p>
 
-{{#metadata.columns.0.filter}}
-  <a class="tryit" href="{{full_url}}?{{metadata.columns.0.filter}}">{{display_url}}?{{metadata.columns.0.filter}}</a>
-{{/metadata.columns.0.filter}}
+{{#metadata.0.filter}}
+  <a class="tryit" href="{{full_url}}?{{columns.0.filter}}">{{display_url}}?{{metadata.columns.0.filter}}</a>
+{{/metadata.0.filter}}
 
 <p>For richer filtering, you can combine filters together by stacking parameters on your URL or by using <a href="/docs/queries/">SoQL</a> queries. Learn more about about each of the fields in this dataset by clicking the headers below, or read more about the SODA API using the navigation at the top of the page.</p>
 
@@ -150,64 +132,79 @@
   </ul>
 </div>
 
-{{#show_migration}}
-  <h2>Migrating</h2>
+{{#migration}}
+  {{^structural_metadata.newBackend}}
+    <h2>Migrating</h2>
 
-  <p>A <a href="/foundry/#/{{domain}}/{{nbe_uid}}" target="_blank">new version of this dataset</a> exists that you should migrate to as soon as you're ready. This now deprecated version of the dataset will continue to be available for some time, and will be automatically kept in sync with the new dataset. The last time this dataset was synchronized was {{ last_synced }}, and the dataset was last updated at {{metadata.rowsUpdatedAt}}.</p>
+    <p>A <a href="/foundry/#/{{domain}}/{{nbe_uid}}" target="_blank">new version of this dataset</a> exists that you should migrate to as soon as you're ready. This now deprecated version of the dataset will continue to be available for some time, and will be automatically kept in sync with the new dataset. The last time this dataset was synchronized was {{ last_synced }}, and the dataset was last updated at {{metadata.rowsUpdatedAt}}.</p>
 
-  <p>Most things will continue to function exactly the same, but the new dataset has great new features like <a href="/docs/functions/index.html">new query functionality</a>, increased performance, and <a href="http://labs.socrata.com">access to new beta APIs</a>. Those features <em>will not</em> be available on the legacy dataset.</p>
+    <p>Most things will continue to function exactly the same, but the new dataset has great new features like <a href="/docs/functions/index.html">new query functionality</a>, increased performance, and <a href="http://labs.socrata.com">access to new beta APIs</a>. Those features <em>will not</em> be available on the legacy dataset.</p>
 
-  {{#has_structural_changes}}
-    <p>For this dataset, the following complex columns will change structurally:</p>
-    <ul>
-      {{#splits}}
-        <li><code>{{from_col}}</code> will be split into {{&to_cols}}</li>
-      {{/splits}}
-    </ul>
-  {{/has_structural_changes}}
+    {{#splits}}
+      <p>For this dataset, the following complex columns will change structurally:</p>
+      <ul>
+        {{#splits}}
+          <li><code>{{from_col}}</code> will be split into {{&to_cols}}</li>
+        {{/splits}}
+      </ul>
+    {{/splits}}
 
-  {{#has_renames}}
-    <p>The following columns are renamed in the new version:</p>
-    <ul>
-      {{#renames}}
-        <li><code>{{from}}</code> will be renamed to <code>{{to}}</code></li>
-      {{/renames}}
-    </ul>
-  {{/has_renames}}
+    {{#renames}}
+      <p>The following columns are renamed in the new version:</p>
+      <ul>
+        {{#renames}}
+          <li><code>{{from}}</code> will be renamed to <code>{{to}}</code></li>
+        {{/renames}}
+      </ul>
+    {{/renames}}
 
-  <div class="well">
-    Learn more about <a target="_blank" href="/changelog/2015/04/27/new-higher-performance-apis.html">the migration process</a>.
-  </div>
-{{/show_migration}}
+    <div class="well">
+      Learn more about <a target="_blank" href="/changelog/2015/04/27/new-higher-performance-apis.html">the migration process</a>.
+    </div>
+  {{/structural_metadata.newBackend}}
+{{/migration}}
 
 <ul class="fields panel-group" id="accordion">
-  {{#metadata.columns}}
-    {{^hidden}}
-      <li class="field panel panel-default">
-        <div class="heading panel-heading {{dataTypeName}} ga-track" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{id}}" data-action="expand" data-label="column-header" data-value="{{uid}}-{{dataTypeName}}" data-tracking-category="foundry" data-tracking-label="field-{{uid}}-{{fieldName}}">
-          <h3 class="panel-title">
-            <i class="collapse-icon fa fa-fw fa-plus-square-o"></i>
-            <code class="field-name {{dataTypeName}}">{{fieldName}}</code>
-            <code class="datatype">{{dataTypeName}}</code>
-          </h3>
-          <span class="human-name">{{name}}</span>
-        </div>
-        <div id="collapse-{{id}}" data-datatype="{{dataTypeName}}" data-fieldname="{{fieldName}}" class="panel-collapse collapse">
-          <div class="panel-body">
-            {{#description}}
-              <p class="description">{{description}}</p>
-            {{/description}}
+  {{#columns}}
+    <li class="field panel panel-default">
+      <div 
+        class="heading panel-heading {{dataTypeName}} ga-track" 
+        data-toggle="collapse" 
+        data-parent="#accordion" 
+        href="#collapse-{{id}}" 
+        data-action="expand" 
+        data-label="column-header" 
+        data-value="{{uid}}-{{dataTypeName}}" 
+        data-tracking-category="foundry" 
+        data-tracking-label="field-{{uid}}-{{fieldName}}">
+        <h3 class="panel-title">
+          <i class="collapse-icon fa fa-fw fa-plus-square-o"></i>
+          <code class="field-name {{dataTypeName}}">{{fieldName}}</code>
+          <code class="datatype">{{dataTypeName}}</code>
+        </h3>
+        <span class="human-name">{{name}}</span>
+      </div>
+      <div 
+        id="collapse-{{id}}" 
+        data-datatype="{{dataTypeName}}" 
+        data-fieldname="{{fieldName}}" 
+        data-query-base="{{full_url}}"
+        data-display-url="{{display_url}}"
+        class="panel-collapse collapse">
+        <div class="panel-body">
+          {{#description}}
+            <p class="description">{{description}}</p>
+          {{/description}}
 
-            <p class="overview">The <code>{{fieldName}}</code> column is of the <a href="/docs/datatypes/{{dataTypeName}}.html{{version}},"><code>{{dataTypeName}}</code></a> datatype.</p>
+          <p class="overview">The <code>{{fieldName}}</code> column is of the <a href="/docs/datatypes/{{dataTypeName}}.html{{version}},"><code>{{dataTypeName}}</code></a> datatype.</p>
 
-            <div class="tryit">
-              <p><i class="fa fa-code fa-spin"></i> Please wait while we fetch an example for you...</p>
-            </div>
-
-            <p>For more details on what query options you have for this column, see the <a href="/docs/datatypes/{{dataTypeName}}.html#{{version}},">detailed docs on the <code>{{dataTypeName}}</code> datatype</a>.</p>
+          <div class="tryit">
+            <p><i class="fa fa-code fa-spin"></i> Please wait while we fetch an example for you...</p>
           </div>
+
+          <p>For more details on what query options you have for this column, see the <a href="/docs/datatypes/{{dataTypeName}}.html#{{version}},">detailed docs on the <code>{{dataTypeName}}</code> datatype</a>.</p>
         </div>
-      </li>
-    {{/hidden}}
-  {{/metadata.columns}}
+      </div>
+    </li>
+  {{/columns}}
 </ul>
