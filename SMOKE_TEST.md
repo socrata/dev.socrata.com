@@ -3,53 +3,53 @@
 
 # Smoke test URLs for API Foundry
 
-- [Legacy API Foundry V1.0 endpoint](/foundry/#/soda.demo.socrata.com/earthquakes)
-  - Path should be `/foundry/#/soda.demo.socrata.com/earthquakes`
+- [Legacy API Foundry V1.0 endpoint](/foundry/soda.demo.socrata.com/earthquakes)
+  - Path should be `/foundry/soda.demo.socrata.com/earthquakes`
   - API endpoint should be `https://soda.demo.socrata.com/resource/44tw-yjee.json`
   - Version should be `2.0`
   - No upgrade flash should be displayed
-- [Public View on Private Dataset, no 2.0](/foundry/#/data.cityofnewyork.us/bnx9-e6tj)
+- [Public View on Private Dataset, no 2.0](/foundry/data.cityofnewyork.us/bnx9-e6tj)
   - Should prompt you to log in to see the private underlying dataset
-- [Public Filtered view on public dataset](/foundry/#/soda.demo.socrata.com/rm4w-z3zc)
-  - Should redirect you to `/foundry/#/soda.demo.socrata.com/b6kv-3wgw`, via the 2.0 dataset
+- [Public Filtered view on public dataset](/foundry/soda.demo.socrata.com/rm4w-z3zc)
+  - Should redirect you to `/foundry/soda.demo.socrata.com/b6kv-3wgw`, via the 2.0 dataset
   - API endpoint should be `https://soda.demo.socrata.com/resource/b6kv-3wgw.json`
   - Version should be `2.1`
   - Should state you're on the latest version
   - Name should be "Old Backend Dataset Name"
   - Description should be "This is the old backend dataset description"
   - Should have a `point` column
-- [Public 2.0 API with 2.1 shadow copy, forced no redirect](/foundry/#/soda.demo.socrata.com/f45n-c7cd/no-redirect)
-  - Path should be `/foundry/#/soda.demo.socrata.com/f45n-c7cd/no-redirect`
+- [Public 2.0 API with 2.1 shadow copy, forced no redirect](/foundry/soda.demo.socrata.com/f45n-c7cd/no-redirect)
+  - Path should be `/foundry/soda.demo.socrata.com/f45n-c7cd/no-redirect`
   - API endpoint should be `https://soda.demo.socrata.com/resource/f45n-c7cd.json`
   - Version should be `2.0`
   - Upgrade flash should be displayed
   - Should have a `location` column
-- [Public 2.0 API with 2.1 shadow copy, allow redirect](/foundry/#/soda.demo.socrata.com/f45n-c7cd)
-  - Should redirect to `/foundry/#/soda.demo.socrata.com/b6kv-3wgw` 
+- [Public 2.0 API with 2.1 shadow copy, allow redirect](/foundry/soda.demo.socrata.com/f45n-c7cd)
+  - Should redirect to `/foundry/soda.demo.socrata.com/b6kv-3wgw` 
   - API endpoint should be `https://soda.demo.socrata.com/resource/b6kv-3wgw.json`
   - Version should be `2.1`
   - Should state you're on the latest version
   - Name should be "Old Backend Dataset Name"
   - Description should be "This is the old backend dataset description"
   - Should have a `point` column
-- [Public 2.1 API with 2.0 shadow copy, differing metadata](/foundry/#/soda.demo.socrata.com/b6kv-3wgw)
-  - Path should be `/foundry/#/soda.demo.socrata.com/b6kv-3wgw` 
+- [Public 2.1 API with 2.0 shadow copy, differing metadata](/foundry/soda.demo.socrata.com/b6kv-3wgw)
+  - Path should be `/foundry/soda.demo.socrata.com/b6kv-3wgw` 
   - API endpoint should be `https://soda.demo.socrata.com/resource/b6kv-3wgw.json`
   - Version should be `2.1`
   - Should state you're on the latest version
   - Name should be "Old Backend Dataset Name"
   - Description should be "This is the old backend dataset description"
   - Should have a `point` column
-- [Private dataset](/foundry/#/soda.demo.socrata.com/h8gm-tmij)
+- [Private dataset](/foundry/soda.demo.socrata.com/h8gm-tmij)
   - Should prompt for login
-  - Should redirect to `/foundry/#/soda.demo.socrata.com/8zup-mqss` 
+  - Should redirect to `/foundry/soda.demo.socrata.com/8zup-mqss` 
   - API endpoint should be `https://soda.demo.socrata.com/resource/8zup-mqss.json`
   - Version should be `2.1`
   - Should state you're on the latest version
   - Name should be "Private Dataset"
   - Description should be "This is a private dataset"
   - Should have a `point` column
-- [Doesn't exist](/foundry/#/soda.demo.socrata.com/abad-4ex4)
+- [Doesn't exist](/foundry/soda.demo.socrata.com/abad-4ex4)
   - Should get a friendly error message
 
 

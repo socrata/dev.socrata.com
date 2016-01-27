@@ -1,4 +1,4 @@
-<div class="pull-right sidebar">
+<div class="pull-right sidebar metadata">
   {{#is_private}}
     <div class="panel panel-success logged-in">
       <div class="panel-heading">
@@ -12,15 +12,11 @@
     </div>
   {{/is_private}}
 
-  <div class="panel panel-info metadata">
+  <div class="panel panel-info about">
     <div class="panel-heading">
       <h3 class="panel-title"><i class="fa fa-info-circle"></i> About This Dataset</h3>
     </div>
     <div class="panel-body">
-      {{#metadata.description}}
-        <p class="description">{{metadata.description}}</p>
-      {{/metadata.description}}
-
       <ul>
         <li><em>Total Rows:</em> <span class="row-count" data-query-base="{{query_base}}" data-uid="{{uid}}">&hellip;</span></li>
         <li><em>Source Domain:</em> <a href="http://{{domain}}">{{domain}}</a></li>
@@ -51,20 +47,27 @@
           <h3 class="panel-title"><i class="fa fa-refresh"></i> Synchronized Copy</h3>
         </div>
         <div class="panel-body">
-          <p>This dataset is actually a synchronized copy provided so you can use the <a href="/docs/endpoints.html#{{version}}">{{version}} API</a> before migration is complete. This dataset was last synchronized at <span class="sync-time">...</span>, and is currently <span class="sync-state">...</span>.</p>
+          <p>This is actually a synchronized copy provided so you can use the <a href="/docs/endpoints.html#{{version}}">{{version}} API</a> before migration is complete. It was last synchronized at <code class="sync-time">...</code>, and is currently <code class="sync-state">...</code>.</p>
+          <p>You can also reference <a href="/foundry/{{domain}}/{{obe_uid}}/no-redirect">the documentation for the 2.0 version of this API</a>.</p>
         </div>
         <div class="panel-footer"><a target="_blank" href="/docs/endpoints.html#dataset-synchronization">Learn how this works &raquo;</a></div>
       </div>
     {{/structural_metadata.newBackend}}
   {{/migration}}
+
+  <div class="odn" data-uid="{{uid}}" data-domain="{{domain}}" data-name="{{metadata.name}}"/>
 </div>
+
+{{#metadata.description}}
+  <div class="description">
+    <p class="description">{{metadata.description}}</p>
+  </div>
+{{/metadata.description}}
 
 <div class="getting-started">
   <h2>Getting Started</h2>
 
   <p>All communication with the API is done through HTTPS, and errors are communicated through HTTP response codes. Available response types include <code>JSON</code>, <code>XML</code>, and <code>CSV</code>, which are selectable by the "extension" (<code>.json</code>, etc.) on the API endpoint or through content-negotiation with HTTP <code>Accepts</code> headers.</p>
-
-  <p>Following <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">REST</a>-ful paradigms, we return standard <a href="/docs/response-codes.html">HTTP Status Codes</a> to denote success or failure. For example, a successful request will get a <code>200 OK</code>, while a bad query will get a <code>400 Bad Request</code>. Errors are also accompanied by an <a href="/docs/response-codes.html">error response</a> including a human-readable error message.</p>
 
   <p>This documentation also includes inline, runable examples. Click on any link that contains a <code><i class="fa fa-fw fa-cog" style="color: #c7254e"></i> gear symbol</code> next to it to run that example live against the <code>{{metadata.name}}</code> API. If you just want to grab the API endpoint and go, you'll find it below.</p>
 
@@ -72,8 +75,6 @@
     <a class="tryit" href="{{full_url}}">{{display_url}}</a>
   </div>
 </div>
-
-<div class="clearfix"></div>
 
 <div class="well">
   <p>Learn more about:</p>
@@ -180,9 +181,9 @@
         <h3 class="panel-title">
           <i class="collapse-icon fa fa-fw fa-plus-square-o"></i>
           <code class="field-name {{dataTypeName}}">{{fieldName}}</code>
-          <code class="datatype">{{dataTypeName}}</code>
+          <code class="datatype hidden-xs">{{dataTypeName}}</code>
         </h3>
-        <span class="human-name">{{name}}</span>
+        <span class="human-name hidden-xs">{{name}}</span>
       </div>
       <div 
         id="collapse-{{id}}" 
@@ -192,6 +193,8 @@
         data-display-url="{{display_url}}"
         class="panel-collapse collapse">
         <div class="panel-body">
+          <h4 class="visible-xs-block">{{name}}</h4>
+
           {{#description}}
             <p class="description">{{description}}</p>
           {{/description}}

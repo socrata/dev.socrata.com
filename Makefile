@@ -5,7 +5,7 @@ clean:
 	rm -rf public
 
 htmlproof:
-	bundle exec htmlproof ./public --only-4xx --check-html --href-ignore "/#/,/\/register/,/APP_TOKEN/"
+	bundle exec htmlproof ./public --only-4xx --check-html --href-ignore "/#/,/\/foundry/,/\/register/,/APP_TOKEN/"
 
 # Generates a build stamp and plugs it into a file in public
 stamp:

@@ -1,0 +1,18 @@
+<div class="panel panel-info odn">
+  <div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-globe"></i> Other Resources</h3>
+  </div>
+
+  <div class="panel-body">
+    <p>Explore this dataset and others using the links below:</p>
+
+    <ul>
+      <li><a target="_blank" href="http://www.opendatanetwork.com/dataset/{{domain}}/{{uid}}">More about this dataset</a></li>
+      <li><a target="_blank" href="http://www.opendatanetwork.com/search?categories={{category}}">See more {{category}} datasets</a></li>
+      {{#mapping}}
+      <li><a target="_blank" href="http://www.opendatanetwork.com/region/{{region_id}}">Learn more about the "{{region_name}}" area</a></li>
+      {{/mapping}}
+    </ul>
+  </div>
+  <div class="panel-footer"><a target="_blank" href="http://www.opendatanetwork.com">Explore the Open Data Network &raquo;</a></div>
+</div>

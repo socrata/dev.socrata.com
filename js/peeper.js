@@ -5,7 +5,7 @@ require(["jquery", "js.cookie"], function($, Cookies) {
       return;
     }
 
-    var peeper = '<div id="peeper">'
+    var peeper = '<div class="hidden-xs" id="peeper">'
       + '<a href="' + flags.peeper.link + '">'
       + '<img src="' + flags.peeper.img + '" alt="Need a hand?" />'
       + '</a>'

@@ -21,7 +21,7 @@ define(
               method: 'GET',
               datatype: 'json'
             }) // metadata
-            ).done(function(migration, meta) {
+        ).done(function(migration, meta) {
           // Clean up
           $(el).removeClass('btn-warning btn-success');
 
@@ -232,6 +232,37 @@ define(
           $(el).html(count[0].count);
         });
       });
+    },
+
+    // Fetch details on this dataset from the ODN
+    update_odn: function() {
+      $(this).each(function() {
+        var uid = $(this).attr('data-uid');
+        var domain = $(this).attr('data-domain');
+        var name = $(this).attr('data-name');
+        var el = $(this);
+
+        $.when(
+          $.ajax('/foundry/odn.mst'),
+          $.ajax('https://api.us.socrata.com/api/catalog/v1?q=' + name),
+          $.ajax('https://odn.data.socrata.com/resource/jwbj-xtgt.json?$limit=1&domain=' + domain)
+        ).done(function(template, search, mappings) {
+          // Hopefully one of these is our dataset
+          var dataset = _.find(search[0].results, function(ds) {
+            return ds.resource.nbe_fxf == uid || ds.resource.obe_fxf == uid
+          });
+
+          if(dataset) {
+            // Found something!
+            $(el).html(Mustache.render(template[0], {
+              domain: domain,
+              uid: uid,
+              category: dataset.classification.domain_category.toLowerCase(),
+              mapping: mappings[0]
+            }));
+          }
+        });
+      });
     }
   });
 
@@ -357,7 +388,7 @@ define(
           level: 'warning',
           icon: 'warning',
           title: 'Heads up!',
-          message: 'A <a target="_blank" href="/foundry/#/' +
+          message: 'A <a target="_blank" href="/foundry/' +
             domain + '/' + migration.nbeId + 
             '">new, improved version of this API</a> is available for your use.'
         });
@@ -403,6 +434,18 @@ define(
 
       // If we're on NBE, update our sync status
       $('.synced').load_sync_state();
+
+      // Load related links from the ODN
+      $('.odn').update_odn();
+
+      // If we're on a small screen, un-float the float
+      if($(window).width() < 768) {
+        $('.metadata')
+          .removeClass('pull-right')
+          .removeClass('sidebar')
+          .detach()
+          .insertBefore('.getting-started');
+      }
     });
   };
 
@@ -471,7 +514,7 @@ define(
           title: 'Please wait!',
           message: "Redirecting you to the API endpoint for this filtered view..."
         });
-        $.redirect(window.location.pathname + "#/" + args.domain + "/" + default_view[0]["id"]);
+        $.redirect("/foundry/" + args.domain + "/" + default_view[0]["id"]);
         return false;
       } else if(!default_view && by_resource && by_resource[1] == "success") {
         // We didn't get a default view, but we did get it by resource
@@ -488,7 +531,7 @@ define(
           title: 'Please wait!',
           message: "Redirecting you to the new API endpoint for this datset..."
         });
-        $.redirect(window.location.pathname + "#/" + args.domain + "/" + migration[0].nbeId);
+        $.redirect("/foundry/" + args.domain + "/" + migration[0].nbeId);
         return false;
       }
 

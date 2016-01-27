@@ -48,7 +48,6 @@ custom_js:
 
 gems:
 - jekyll-redirect-from
-- jekyll-sitemap
 - jekyll-mentions
 - jekyll-feed
 
