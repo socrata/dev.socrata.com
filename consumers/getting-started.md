@@ -71,7 +71,7 @@ For performance, SODA APIs are paged, and return a maximum of 50,000 records per
 
 So, to request page two, at 100 records per page, of our fuel locations API:
 
-{% include tryit.html domain='data.cityofchicago.org' path='/resource/alternative-fuel-locations.json' args='$limit=100&amp;$offset=50' %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/alternative-fuel-locations.json' args='$limit=100&amp;$offset=100' %}
 
 <div class="well">
   Read the detailed documentation on <a href="/docs/paging.html">Paging</a> for more info.
