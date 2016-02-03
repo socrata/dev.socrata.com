@@ -7,7 +7,7 @@ audience: consumer
 author: stuagano
 ---
 
-Ever since the City of Chicago team built the [RSocrata Connector](https://github.com/Chicago/RSocrata) I have been dying to put together this simple tutorial for showing the ability for forecasting data in R on top of Socrata datasets. Most recently the City of Chicago updated the RSocrata connector to include `write.Socrata` which will have a number of interesting uses. 
+Ever since the City of Chicago team built the [RSocrata Connector](https://github.com/Chicago/RSocrata) I have been dying to put together this simple tutorial for showing the ability for forecasting data in R on top of Socrata datasets. Most recently the City of Chicago updated the RSocrata connector to include `write.socrata` which will have a number of interesting uses. 
 
 This example is pulling a dataset in from the [City of Austin Open Data Portal](http://data.austintexas.gov) containing [EMS Incidents by Month](https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d) and forecasting the next two years of EMS Incidents. 
 
