@@ -1,3 +1,7 @@
 require(["jquery", "jquery.redirect"], function($, Redirect) {
-  $.redirect("/foundry" + window.location.hash.replace("#", ""));
+  if(window.hash != null) {
+    $.redirect("/foundry" + window.location.hash.replace("#", ""));
+  } else {
+    $.redirect("/");
+  }
 });
