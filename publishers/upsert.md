@@ -164,3 +164,8 @@ Content-Type: application/json; charset=utf-8
 }
 {% endhighlight %}
 
+Finally, note that appending and upserting geographic information to be geo-coded by Socrata requires writing a string into a single location column. Please refer to our Support Portal documentation for specific information on formatting this string:
+
+1. [Location Information Which Can Be Geo-coded](https://support.socrata.com/hc/en-us/articles/202950508-Location-Information-Data-which-can-be-geocoded)
+
+2. [Importing, Data Types, and You](https://support.socrata.com/hc/en-us/articles/202949918-Importing-Data-Types-and-You-)
