@@ -5,10 +5,10 @@
 
   <div class="panel-body">
     <p>Explore this dataset using other tools:</p>
-    <ul>
-      {{#integrations}}
-      	<li><a target="_blank" href="{{url}}">Open with {{name}}: {{tagline}}</a></li>
-      {{/integrations}}
-    </ul>
+
+    {{#integrations}}
+      <a href="{{url}}" class="btn btn-default btn-block">Open with {{name}}<br /><small>{{tagline}}</small></a>
+    {{/integrations}}
+
   </div>
 </div>
