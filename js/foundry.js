@@ -299,7 +299,38 @@ define(
           }));
         });
       });
+    },
+
+    // Load discussion details from GitHub
+    update_external_integrations: function() {
+      var integration_configs = [
+        {"slug":"plotly", "name":"Plot.ly", "url":"https://plot.ly/external/?url=", "tagline":"Collaborative data science", "format":"csv" },
+        {"slug":"cartodb", "name":"CartoDB.com", "url":"http://oneclick.cartodb.com/?file=", "tagline":"Maps for the web, made easy", "format":"geojson"}
+      ]
+
+      $(this).each(function() {
+        var uid = $(this).attr('data-uid');
+        var domain = $(this).attr('data-domain');
+        var name = $(this).attr('data-name');
+        var el = $(this);
+
+        var integrations = _.map(integration_configs, function(integration_config){
+          integration_config.url += ["https://",domain,"/api/views/"+uid+"/rows.",integration_config.format,"?accessType=DOWNLOAD"].join('')
+          return integration_config  
+        })
+        
+        $.when(
+          $.ajax('/foundry/external-integrations.mst')
+        ).done(function(template) {
+          $(el).html(Mustache.render(template, {
+            domain: domain,
+            uid: uid,
+            integrations: integrations
+          }));
+        });
+      });
     }
+
   });
 
   // Render the page given the proper metadata
@@ -484,6 +515,9 @@ define(
 
       // Load up issues from GitHub
       $('.issues').update_issues();
+
+      // Load external integration options
+      $('.external-integrations').update_external_integrations();
 
       // If we're on a small screen, un-float the float
       if($(window).width() < 768) {

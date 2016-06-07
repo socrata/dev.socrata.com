@@ -59,6 +59,11 @@
   <div class="issues" data-uid="{{uid}}" data-domain="{{domain}}" data-name="{{metadata.name}}"/>
 
   <div class="odn" data-uid="{{uid}}" data-domain="{{domain}}" data-name="{{metadata.name}}"/>
+  
+  {{#structural_metadata.newBackend}}
+    <div class="external-integrations" data-uid="{{uid}}" data-domain="{{domain}}" data-name="{{metadata.name}}"/>
+  {{/structural_metadata.newBackend}}
+
 </div>
 
 {{#metadata.description}}
