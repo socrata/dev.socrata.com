@@ -219,3 +219,58 @@
     </li>
   {{/columns}}
 </ul>
+
+<h2 id="code-snippets">Code Snippets</h2>
+
+<p>The following are grab-and-go code snippets you can take and use with popular programming languages and data analysis and visualization tools.</p>
+
+<div id="exTab2" class="container">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#jquery" data-toggle="tab">jQuery</a>
+    </li>
+    <li>
+      <a href="#r" data-toggle="tab">R</a>
+    </li>
+    <li><a href="#sas" data-toggle="tab">SAS</a>
+    </li>
+    <li><a href="#stata" data-toggle="tab">Stata</a>
+    </li>
+  </ul>
+
+  <div class="tab-content ">
+    <div class="tab-pane active" id="jquery">
+      <h3>Use this dataset with jQuery</h3>
+      <p>jQuery makes it super simple to fetch and parse JSON from an API endpoint. Here's how:
+      <pre>
+$.getJSON("{{display_url}}?$limit=5000", function(data){
+  alert("Retrieved "+data.length+" records from the dataset!")
+  console.log(data)
+})</pre>
+    </div>
+    <div class="tab-pane" id="r">
+      <h3>Use this dataset with R</h3>
+      <p>The City of Chicago and community maintains a great <a href="https://github.com/chicago/rsocrata" target="blank"><code>RSocrata</code> package on Github</a>. Here's how to bring this dataset into R:
+      <pre>
+install.packages("RSocrata")
+library("RSocrata")
+df <- read.socrata("{{display_url}}")</pre>
+    </div>
+    <div class="tab-pane" id="sas">
+      <h3>Use this dataset with SAS</h3>
+      <p>SAS is a tried and true application suite for data analysis and visualization. The following snippet brings Socrata data into a SAS. <a href="https://dev.socrata.com/blog/2015/11/10/analyzing-open-data-with-sas.html">We've also got a blog post about using Socrata and SAS together here</a>.
+<pre>filename datain url 'http://{{domain}}/resource/{{uid}}.csv?$limit=5000';
+proc import datafile=datain out=dataout dbms=csv replace;
+  getnames=yes;
+run;</pre>
+    </div>
+    <div class="tab-pane" id="stata">
+      <h3>Use this dataset with Stata</h3>
+      <p>Copy and paste the following to import this dataset into Stata</p>
+      <pre>
+clear
+. import delimited "{{query_base}}/resource/{{uid}}.csv?%24limit=5000"
+</pre>
+    </div>
+  </div>
+</div>
