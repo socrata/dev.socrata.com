@@ -5,17 +5,11 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 
 # Use Poltergiest for headless testing
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, {
-    # debug: true,
-    phantomjs_options: [
-      '--web-security=no',
-      '--ssl-protocol=tlsv1.2'
-    ],
-    # phantomjs_logger: STDERR
-  })
-end
-Capybara.default_driver = :poltergeist
+# Capybara.register_driver :poltergeist do |app|
+#   Capybara::Poltergeist::Driver.new(app, {
+#     debug: true
+#   })
+# end
 Capybara.javascript_driver = :poltergeist
 
 # A somewhat dramatic way of loading my simple rack wrapper app
