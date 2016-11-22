@@ -40,6 +40,8 @@ def exec_and_manually_watch_for_errors(cmd)
   end
 end
 
+task :default => [:clean, :jekyll]
+
 desc "clean up after ourselves"
 task :clean do
   puts "Cleaning up after ourselves...".green
