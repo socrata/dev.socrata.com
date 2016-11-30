@@ -47,6 +47,16 @@
     <div class="panel-footer"><a target="_blank" href="http://{{domain}}/d/{{metadata.id}}">View dataset &raquo;</a></div>
   </div>
 
+  <div class="panel panel-info download">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-download"></i> Download &amp; Export</h3>
+    </div>
+    <div class="panel-body">
+      <p>Just want to grab this dataset in bulk to analyize offline? You can use the <a href="/docs/paging.html">SoQL paging parameters</a> to iterate through the dataset, or you can export the entire dataset as a static, downloadable CSV file.</p>
+    </div>
+    <div class="panel-footer"><a href="http://{{domain}}/api/views/{{metadata.id}}/rows.csv?accessType=DOWNLOAD&api_foundry=true">Export dataset as CSV &raquo;</a></div>
+  </div>
+
   {{#migration}}
     {{#structural_metadata.newBackend}}
       <div class="panel panel-default synced" data-query-base="{{query_base}}" data-obe-uid="{{obe_uid}}">
@@ -65,7 +75,7 @@
   <div class="issues" data-uid="{{uid}}" data-domain="{{domain}}" data-name="{{metadata.name}}"/>
 
   <div class="odn" data-uid="{{uid}}" data-domain="{{domain}}" data-name="{{metadata.name}}"/>
-  
+
   {{#structural_metadata.newBackend}}
     <div class="external-integrations" data-uid="{{uid}}" data-domain="{{domain}}" data-name="{{metadata.name}}"/>
   {{/structural_metadata.newBackend}}
@@ -179,15 +189,15 @@
 <ul class="fields panel-group" id="accordion">
   {{#columns}}
     <li class="field panel panel-default">
-      <div 
-        class="heading panel-heading {{dataTypeName}} ga-track" 
-        data-toggle="collapse" 
-        data-parent="#accordion" 
-        href="#collapse-{{id}}" 
-        data-action="expand" 
-        data-label="column-header" 
-        data-value="{{uid}}-{{dataTypeName}}" 
-        data-tracking-category="foundry" 
+      <div
+        class="heading panel-heading {{dataTypeName}} ga-track"
+        data-toggle="collapse"
+        data-parent="#accordion"
+        href="#collapse-{{id}}"
+        data-action="expand"
+        data-label="column-header"
+        data-value="{{uid}}-{{dataTypeName}}"
+        data-tracking-category="foundry"
         data-tracking-label="field-{{uid}}-{{fieldName}}">
         <h3 class="panel-title">
           <i class="collapse-icon fa fa-fw fa-plus-square-o"></i>
@@ -196,10 +206,10 @@
         </h3>
         <span class="human-name hidden-xs">{{name}}</span>
       </div>
-      <div 
-        id="collapse-{{id}}" 
-        data-datatype="{{dataTypeName}}" 
-        data-fieldname="{{fieldName}}" 
+      <div
+        id="collapse-{{id}}"
+        data-datatype="{{dataTypeName}}"
+        data-fieldname="{{fieldName}}"
         data-query-base="{{full_url}}"
         data-display-url="{{display_url}}"
         class="panel-collapse collapse">
