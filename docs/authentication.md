@@ -4,7 +4,7 @@ sidebar: documentation
 title: Authentication
 ---
 
-<div class="alert alert-info"><em>Note:</em> Authentication is only necessary when accessing datasets that have been marked as <em>private</em> or when making write requests (<code>PUT</code>, <code>POST</code>, and <code>DELETE</code>). For reading datasets that have not been marked as private, simply use an <a href="/docs/app-tokens.html">application token</a>.</div>
+<div class="alert alert-info"><i class="fa fa-hand-stop-o fa-4x pull-left"></i> <em>Wait a second!</em> Authentication is only necessary when accessing datasets that have been marked as <em>private</em> or when making write requests (<code>PUT</code>, <code>POST</code>, and <code>DELETE</code>). For reading datasets that have not been marked as private, simply use an <a href="/docs/app-tokens.html">application token</a>.</div>
 
 There are two methods available for authentication: HTTP Basic and OAuth 2.0.
 - HTTP Basic authentication may be used in cases where you are authenticating from an update script that runs without interaction with the user and without a web front-end.
@@ -12,7 +12,7 @@ There are two methods available for authentication: HTTP Basic and OAuth 2.0.
 
 ## Authenticating using HTTP Basic Authentication
 
-Requests can be authenticated by passing in HTTP Basic Authentication headers. We only support this method for legacy purposes, and encourage all our API users to use the OAuth 2.0 workflow to authenticate their users. We may deprecate this authentication method in the future.
+Requests can be authenticated by passing in HTTP Basic Authentication headers. We only support this method for non-interactive applications, and encourage all our developers of interactive applications to use the OAuth 2.0 workflow to authenticate their users. We may deprecate this authentication method in the future, but it will be replaced with a similar token-based alternative.
 
 All HTTP-basic-authenticated requests *must* be performed over a secure (`https`) connection, and should include an application token, which is obtained when you [register your application](http://opendata.socrata.com/profile/app_tokens). However, authentication tokens are not strictly required when a request is authenticated. Authenticated requests made over an insecure connection will be denied.
 

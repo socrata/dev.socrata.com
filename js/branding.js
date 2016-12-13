@@ -57,7 +57,7 @@ define(['jquery', 'mustache'], function($, Mustache) {
             });
         })
         .fail(function(xhr) {
-          console.log("Something went wrong loading branding configuration: " + xhr);
+          console.log("Something went wrong loading branding configuration: " + JSON.stringify(xhr));
         });
     }
   }
