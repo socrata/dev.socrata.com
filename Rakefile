@@ -4,6 +4,7 @@ require 'json'
 require 'erb'
 require 'rspec'
 require 'rspec/core/rake_task'
+require 'open3'
 
 # Variables and setup
 SHA = `git rev-parse --short HEAD`.strip
@@ -18,6 +19,29 @@ define STAMP
 STAMP
 URL = "https://dev-socrata-com-#{ENV['TRAVIS_BUILD_NUMBER'] || SHA}.surge.sh"
 
+# Borrowed from https://github.com/fedspendingtransparency/openbeta/blob/master/Rakefile
+def exec_and_manually_watch_for_errors(cmd)
+  stderr_output = []
+  # we want to monitor stderr without blocking it from printing live
+  # so we setup a pipe and fork a seperate process to run the command
+  rd, wr = IO.pipe
+  fork do
+    system(cmd, out: :out, err: wr)
+  end
+  wr.close   # close the write end of the pipe, since we don't need it.
+  rd.each_line { |line|
+    $stderr.puts line;
+    stderr_output << line.chomp
+  }
+  if stderr_output.any?
+    # jekyll doesn't exit 1 if something fails to build, so instead we
+    # check if anything printed to stderr, and if so, exit 1 ourselves
+    exit 1
+  end
+end
+
+task :default => [:clean, :jekyll]
+
 desc "clean up after ourselves"
 task :clean do
   puts "Cleaning up after ourselves...".green
@@ -27,19 +51,19 @@ end
 desc "perform a full jekyll site build"
 task :jekyll do
   puts "Performing a full build...".green
-  sh 'bundle exec jekyll build'
+  exec_and_manually_watch_for_errors 'bundle exec jekyll build'
 end
 
 desc "perform an incremental jekyll build"
 task :incremental do
   puts "Performing an incremental build...".green
-  sh 'bundle exec jekyll build --incremental --safe'
+  exec_and_manually_watch_for_errors 'bundle exec jekyll build --incremental --safe'
 end
 
 desc "watch for changes and automatically rebuild (incrementally)"
 task :watch do
   puts "Performing an incremental build...".green
-  sh 'bundle exec jekyll build --incremental --safe --watch'
+  exec_and_manually_watch_for_errors 'bundle exec jekyll build --incremental --safe --watch'
 end
 
 desc "automatically rebuild (incrementally), running a local server"

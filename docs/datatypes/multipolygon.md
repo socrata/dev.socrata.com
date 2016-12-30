@@ -36,7 +36,8 @@ definition:
 Some geometries may be polygons with "holes" in the center, or may be made up of multiple disconnected polygons. In that case, the [GeoJSON "multipolygon"](http://geojson.org/geojson-spec.html#multipolygon) is used. Example:
 
 {% highlight javascript %}
-{ "type": "MultiPolygon",
+{ 
+  "type": "MultiPolygon",
   "coordinates": [
     [[[102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0], [102.0, 2.0]]],
     [[[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]],

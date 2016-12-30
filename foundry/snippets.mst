@@ -24,7 +24,7 @@
             </div>
           </div>
 
-          <pre class="code prettyprint clip-it">{{{ code }}}</pre>
+          <pre class="code prettyprint clip-it {{language}}">{{{ code }}}</pre>
         </div>
 
         {{#see_also_count}}

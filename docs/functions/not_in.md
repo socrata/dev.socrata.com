@@ -31,4 +31,4 @@ parents:
 
 The `not in(...)` function is used within the `$where` parameter exclude a set of possible values. For example, to exclude the `ARSON`, `NARCOTICS`, and `RITUALISM` values in the [Chicago Crimes](http://data.cityofchicago.org/d/6zsd-86xi):
 
-{% include tryit.html domain='data.cityofchicago.org' path='/resource/6zsd-86xi.json' args="$where=primary_type in('ARSON', 'NARCOTICS', 'RITUALISM')" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/6zsd-86xi.json' args="$where=primary_type not in('ARSON', 'NARCOTICS', 'RITUALISM')" %}

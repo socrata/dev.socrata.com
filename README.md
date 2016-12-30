@@ -21,6 +21,25 @@ The site is a customized [Jekyll](http://jekyllrb.com/) site, so there are some 
     - `rake watch` will perform an incremental build automatically when you change files, which is handy if you're using something like [Pow](https://pow.cx)
     - `rake serve` will run a standalone server for testing
 
+### Submitting a Blog Post
+
+We love submissions from the community! If you'd like to submit a [blog post](https://dev.socrata.com/blog/) about something you've built with the Socrata APIs, about open data technology, or something we might just be interested in, craft your blog post as a [pull request](https://github.com/socrata/dev.socrata.com/pulls) and submit it for review:
+
+1. Review [other posts](https://dev.socrata.com/blog/) and [submissions](https://github.com/socrata/dev.socrata.com/pulls?q=is%3Apr+label%3Ablog+is%3Aclosed) to get a feel for the tone and language, and to see how others have formatted their posts.
+2. Fork [this repo](https://github.com/socrata/dev.socrata.com) into your account
+3. Create a new blog post, either by
+  - Running `rake post` and following the prompts
+  - Copying another post from [`_posts`](https://github.com/socrata/dev.socrata.com/tree/gh-pages/_post) and creating a new file of the format `YYYY-MM-DD-post-title.md`
+4. Write your post in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), following a few rules:
+  - Set the `author` key in the [YAML front matter](https://jekyllrb.com/docs/frontmatter/) to your GitHub username so you get proper author credit
+  - If your post uses any images, add them to the [`img`](https://github.com/socrata/dev.socrata.com/tree/gh-pages/img) folder, prepended with your post date
+  - Proof your post either using the instructions above to build and view the site, or using a Markdown preview tool like [Marked](http://marked2app.com/) or the one provided by GitHub.
+5. Submit your post and any required files as a pull request against the `gh-pages` branch.
+
+We'll review your post for content and acceptability. If there are any problems, we'll either fix them or let you know why we can't accept your post.
+
+Please note that by submitting a post to the Socrata Developer Blog, you are are granting us an irrevocable license to distribute your work on dev.socrata.com or other mediums we choose. It will be covered by the same Creative Commons license as the rest of the content of dev.socrata.com.
+
 ### Before Submitting
 
 Before submitting, run `rake test` and `rake htmlproof` to run the test suite and confirm that you haven't broken anything.

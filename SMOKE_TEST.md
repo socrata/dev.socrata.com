@@ -24,6 +24,13 @@
   - Version should be `2.0`
   - Upgrade flash should be displayed
   - Should have a `location` column
+- [Public 2.0 API with 2.1 shadow copy, forced no redirect, embed mode](/foundry/soda.demo.socrata.com/f45n-c7cd/no-redirect/embed)
+  - Path should be `/foundry/soda.demo.socrata.com/f45n-c7cd/no-redirect`
+  - API endpoint should be `https://soda.demo.socrata.com/resource/f45n-c7cd.json`
+  - Version should be `2.0`
+  - Upgrade flash should be displayed
+  - Should have a `location` column
+  - Should not have header and footer
 - [Public 2.0 API with 2.1 shadow copy, allow redirect](/foundry/soda.demo.socrata.com/f45n-c7cd)
   - Should redirect to `/foundry/soda.demo.socrata.com/b6kv-3wgw` 
   - API endpoint should be `https://soda.demo.socrata.com/resource/b6kv-3wgw.json`
@@ -32,6 +39,15 @@
   - Name should be "Old Backend Dataset Name"
   - Description should be "This is the old backend dataset description"
   - Should have a `point` column
+- [Public 2.0 API with 2.1 shadow copy, allow redirect, embed mode](/foundry/soda.demo.socrata.com/f45n-c7cd/embed)
+  - Should redirect to `/foundry/soda.demo.socrata.com/b6kv-3wgw/embed` 
+  - API endpoint should be `https://soda.demo.socrata.com/resource/b6kv-3wgw.json`
+  - Version should be `2.1`
+  - Should state you're on the latest version
+  - Name should be "Old Backend Dataset Name"
+  - Description should be "This is the old backend dataset description"
+  - Should have a `point` column
+  - Should not show header and footer
 - [Public 2.1 API with 2.0 shadow copy, differing metadata](/foundry/soda.demo.socrata.com/b6kv-3wgw)
   - Path should be `/foundry/soda.demo.socrata.com/b6kv-3wgw` 
   - API endpoint should be `https://soda.demo.socrata.com/resource/b6kv-3wgw.json`
@@ -51,5 +67,8 @@
   - Should have a `point` column
 - [Doesn't exist](/foundry/soda.demo.socrata.com/abad-4ex4)
   - Should get a friendly error message
+- [Doesn't exist, embed mode](/foundry/soda.demo.socrata.com/abad-4ex4/embed)
+  - Should get a friendly error message
+  - Should not have header and footer
 
 

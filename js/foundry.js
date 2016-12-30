@@ -1,6 +1,6 @@
 define(
-  ['jquery', 'mustache', 'underscore', 'jquery.forgiving', 'readmore', 'js.cookie', 'tryit', 'jquery.redirect', 'jquery.splash', 'jquery.sanitize', 'proxy', 'micromarkdown', 'hljs', 'clipboard'],
-  function($, Mustache, _, Forgiving, Readmore, Cookies, TryIt, Redirect, Splash, Sanitize, Proxy, micromarkdown, Highlight, Clipboard) {
+  ['jquery', 'mustache', 'underscore', 'jquery.forgiving', 'readmore', 'js.cookie', 'tryit', 'jquery.redirect', 'jquery.splash', 'jquery.sanitize', 'jquery.message_height', 'proxy', 'micromarkdown', 'hljs', 'clipboard'],
+  function($, Mustache, _, Forgiving, Readmore, Cookies, TryIt, Redirect, Splash, Sanitize, MessageHeight, Proxy, micromarkdown, Highlight, Clipboard) {
 
   // Set up some JQuery convenience functions
   $.fn.extend({
@@ -208,6 +208,9 @@ define(
             }));
 
             TryIt.setup_livedocs($(el).find('a.tryit'));
+
+            // Update our height
+            $.message_height();
           } catch(err) {
             console.log("Error loading sample data: " + err);
           }
@@ -337,6 +340,7 @@ define(
       $(this).each(function() {
         var uid = $(this).attr('data-uid');
         var domain = $(this).attr('data-domain');
+        var priv = ($(this).attr('data-private') == "true");
         var el = $(this);
 
         $.when(
@@ -348,9 +352,23 @@ define(
 
           // Modify the snippets themselves to drop in the domain and UID
           _.each(snippets[0].snippets, function(snip) {
+            // Replace our domain and UID
             snip.code = snip.code
-              .replace("%%domain%%", domain)
-              .replace("%%uid%%", uid);
+              .replace(new RegExp("%%domain%%", "g"), domain)
+              .replace(new RegExp("%%uid%%", "g"), uid);
+
+            // Only include the relevant half of the public/private block
+            if(priv) {
+              snip.code = snip.code
+                .replace(/%%else%%[\s\S]*%%end%%/gm, '')
+                .replace(/\s*%%if_private%%/, '');
+            } else {
+              snip.code = snip.code
+                .replace(/%%if_private%%[\s\S]*%%else%%/gm, '')
+                .replace(/\s*%%end%%/, '');
+            }
+
+            // Mustache doesn't know how to count
             snip.see_also_count = snip.see_also != null
               ? snip.see_also.length
               : 0;
@@ -365,17 +383,28 @@ define(
           el.find('.prettyprint').each(function(i, block) {
             Highlight.highlightBlock(block);
           });
+
+          // Update our height
+          $.message_height();
         });
       });
     }
   });
 
+  var build_url = function(args) {
+    return [
+      args.base + args.domain + "/" + args.uid,
+      _.keys(args.options).join("/")
+    ].join("/").replace(/\/$/, '');
+  };
+
   // Render the page given the proper metadata
   var render = function(args) {
     // Parallelize our data and metadata requests
     $.when(
-      $.ajax("/foundry/template.mst")
-    ).done(function(template, snippets) {
+      $.ajax("/foundry/template.mst"),
+      $.ajax('/foundry/embed-code.mst')
+    ).done(function(template, embed_code) {
       var metadata = args.metadata;
       var structural_metadata = args.structural_metadata;
       var columns = args.columns;
@@ -465,7 +494,15 @@ define(
         metadata.description = micromarkdown.parse($.sanitize(metadata.description));
       }
 
-      var content = Mustache.render(template, {
+      // Render our code bloc
+      var code = Mustache.render(embed_code[0], {
+        uid: args.uid,
+        domain: args.domain,
+        host_domain: location.hostname
+      });
+      code = $('<div/>').text(code).html();
+
+      var content = Mustache.render(template[0], {
         // Metadata
         uid: args.uid,
         domain: args.domain,
@@ -491,6 +528,7 @@ define(
         is_private: !is_public,
         username: Proxy.username(),
         logout_url: Proxy.logout_url(),
+        embed_code: code
       });
       $(args.target).html(content);
 
@@ -518,10 +556,6 @@ define(
       // Set up our livedocs links
       TryIt.setup_livedocs($(args.target).find('a.tryit'));
 
-      // Set up our clipboard buttons
-      // TODO: Find a non-Flash clipbutton option
-      // ClipBoard.clipbutton($('pre'));
-
       // Set up handlers for our collapse-o icons. Unfortunately events only seem
       // to fire on IDs, so we need to be a bit more long winded.
       $("#accordion .panel-collapse").each(function() {
@@ -530,6 +564,9 @@ define(
             .removeClass("fa-plus-square-o")
             .addClass("fa-minus-square-o");
 
+          // Update our height
+          $.message_height();
+
           // Drop in our examples
           $(this).load_query_suggestions();
         });
@@ -537,6 +574,9 @@ define(
           $(this).parent().find(".collapse-icon")
             .removeClass("fa-minus-square-o")
             .addClass("fa-plus-square-o");
+
+          // Update our height
+          $.message_height();
         });
       });
 
@@ -567,6 +607,9 @@ define(
           .detach()
           .insertBefore('.getting-started');
       }
+
+      // Update our content height in the hash
+      $.message_height();
     });
   };
 
@@ -618,7 +661,8 @@ define(
           title: 'Please wait!',
           message: "Redirecting you to the API endpoint for this filtered view..."
         });
-        $.redirect("/foundry/" + args.domain + "/" + default_view[0]["id"]);
+        // $.redirect(args.base + args.domain + "/" + default_view[0]["id"]);
+        $.redirect(build_url($.extend(args, { uid: default_view[0].id })));
         return false;
       } else if(!default_view && by_resource && by_resource[1] == "success") {
         // We didn't get a default view, but we did get it by resource
@@ -627,7 +671,7 @@ define(
 
       // Check to see if we're on a 2.0 endpoint and should redirect to 2.1
       // If we're looking at an OBE dataset and we haven't forced these docs, redirect
-      if(migration && migration[1] == "success" && migration[0].nbeId != args.uid && !args.no_redirect) {
+      if(migration && migration[1] == "success" && migration[0].nbeId != args.uid && !args.options.no_redirect) {
         console.log("Redirecting user to the NBE API for this dataset");
         $("#splash").splash({
           level: "info",
@@ -635,7 +679,8 @@ define(
           title: 'Please wait!',
           message: "Redirecting you to the new API endpoint for this datset..."
         });
-        $.redirect("/foundry/" + args.domain + "/" + migration[0].nbeId);
+        // $.redirect(args.base + args.domain + "/" + migration[0].nbeId);
+        $.redirect(build_url($.extend(args, { uid: migration[0].nbeId })));
         return false;
       }
 
@@ -699,7 +744,7 @@ define(
           $(args.target).append('<p>This dataset is private, and you will need to authenticate before you can access it. When you authenticate, you\'ll be asked to log in and allow access to your private APIs before continuing</p>');
           $(args.target).append('<p>Curious to <a href="/changelog/2015/10/27/private-api-docs.html">learn more about how this works</a>?</p>');
 
-          $(args.target).append('<a href="' + auth_url + '" type="button" class="btn btn-primary">Authenticate</a>');
+          $(args.target).append('<a href="' + auth_url + '" type="button" class="btn btn-primary authenticate">Authenticate</a>');
           $(args.target).show();
           break;
         case 404:

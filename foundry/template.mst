@@ -36,9 +36,25 @@
           <li><em>Owner:</em> <a href="http://{{domain}}/profile/{{id}}">{{displayName}}</a></li>
         {{/metadata.owner}}
         <li><em>Endpoint Version:</em> <a href="/docs/endpoints.html#{{version}}">{{version}}</a></li>
+        <li>
+          <em>Embed These Docs:</em> <a class="copy-it has-tooltip ga-track embed-code" data-toggle="tooltip" title="" target="_blank" data-original-title="Copy this embed code to the clipboard" data-placement="left" data-container="body" data-tracking-category="samples" data-category-label="copy" data-tracking-value="embed" data-clipboard-target="#embed-code"><i class="fa fa-clipboard"><!-- This Space Left Blank --></i> copy</a>
+
+          <!-- HACK: I'm not proud of this, but it works... -->
+          <pre id="embed-code" style="position: absolute; left: -1000px; top: -1000px">{{{embed_code}}}</pre>
+        </li>
       </ul>
     </div>
     <div class="panel-footer"><a target="_blank" href="http://{{domain}}/d/{{metadata.id}}">View dataset &raquo;</a></div>
+  </div>
+
+  <div class="panel panel-info download">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-download"></i> Download &amp; Export</h3>
+    </div>
+    <div class="panel-body">
+      <p>Just want to grab this dataset in bulk to analyize offline? You can use the <a href="/docs/paging.html">SoQL paging parameters</a> to iterate through the dataset, or you can export the entire dataset as a static, downloadable CSV file.</p>
+    </div>
+    <div class="panel-footer"><a href="http://{{domain}}/api/views/{{metadata.id}}/rows.csv?accessType=DOWNLOAD&api_foundry=true">Export dataset as CSV &raquo;</a></div>
   </div>
 
   {{#migration}}
@@ -59,11 +75,10 @@
   <div class="issues" data-uid="{{uid}}" data-domain="{{domain}}" data-name="{{metadata.name}}"/>
 
   <div class="odn" data-uid="{{uid}}" data-domain="{{domain}}" data-name="{{metadata.name}}"/>
-  
+
   {{#structural_metadata.newBackend}}
     <div class="external-integrations" data-uid="{{uid}}" data-domain="{{domain}}" data-name="{{metadata.name}}"/>
   {{/structural_metadata.newBackend}}
-
 </div>
 
 {{#metadata.description}}
@@ -174,15 +189,15 @@
 <ul class="fields panel-group" id="accordion">
   {{#columns}}
     <li class="field panel panel-default">
-      <div 
-        class="heading panel-heading {{dataTypeName}} ga-track" 
-        data-toggle="collapse" 
-        data-parent="#accordion" 
-        href="#collapse-{{id}}" 
-        data-action="expand" 
-        data-label="column-header" 
-        data-value="{{uid}}-{{dataTypeName}}" 
-        data-tracking-category="foundry" 
+      <div
+        class="heading panel-heading {{dataTypeName}} ga-track"
+        data-toggle="collapse"
+        data-parent="#accordion"
+        href="#collapse-{{id}}"
+        data-action="expand"
+        data-label="column-header"
+        data-value="{{uid}}-{{dataTypeName}}"
+        data-tracking-category="foundry"
         data-tracking-label="field-{{uid}}-{{fieldName}}">
         <h3 class="panel-title">
           <i class="collapse-icon fa fa-fw fa-plus-square-o"></i>
@@ -191,10 +206,10 @@
         </h3>
         <span class="human-name hidden-xs">{{name}}</span>
       </div>
-      <div 
-        id="collapse-{{id}}" 
-        data-datatype="{{dataTypeName}}" 
-        data-fieldname="{{fieldName}}" 
+      <div
+        id="collapse-{{id}}"
+        data-datatype="{{dataTypeName}}"
+        data-fieldname="{{fieldName}}"
         data-query-base="{{full_url}}"
         data-display-url="{{display_url}}"
         class="panel-collapse collapse">
@@ -218,4 +233,4 @@
   {{/columns}}
 </ul>
 
-<div class="snippets" data-uid="{{uid}}" data-domain="{{domain}}"></div>
+<div class="snippets" data-uid="{{uid}}" data-domain="{{domain}}" data-private="{{is_private}}"></div>

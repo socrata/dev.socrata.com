@@ -1,11 +1,13 @@
 require(
-    ["jquery", "/js/foundry.js", "/js/branding.js", "jquery.redirect", "mustache", "jquery.404"], 
-    function($, Foundry, Branding, Redirect, Mustache, FourOhFour) {
+    ["jquery", "/js/foundry.js", "/js/branding.js", "jquery.redirect", "mustache", "jquery.404", "underscore"], 
+    function($, Foundry, Branding, Redirect, Mustache, FourOhFour, _) {
   // Extract our parameters out of our URL
   var fullpath = window.location.pathname + window.location.hash;
-  var params = fullpath.match(new RegExp('/foundry/([^/]+)/([^/]+)/?(.*)$'))
+  var path = fullpath.match(new RegExp('(/foundry/)(.*)$'))
 
-  if(params == null) {
+  if(path == null) {
+    $('.navbar').fadeIn(200);
+    $('footer').fadeIn(200);
     $.ajax("/js/404.mst")
       .done(function(template) {
         $('#foundry-docs')
@@ -13,14 +15,30 @@ require(
           .find('.search').search_link();
       });
   } else {
-    var options = ("" || params[3]).split("/");
-    Branding.header(params[1], $('#branding'));
+    var params = path[2].split("/");
+    if($.inArray('embed', params.slice(2)) >= 0) {
+      // If we're in embed mode, make all links open in new windows
+      $('#foundry-docs').delegate('a[href]:not(.tryit-link a):not(.snippets .nav a):not(.authenticate)', 'click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.open(this.href, $('#foundry-docs').attr('data-target'));
+      });
+    } else {
+      // Only show branding if we're not in embed mode
+      Branding.header(params[0], $('#branding'));
+
+      // If we're not in embed mode, show the header and footer
+      $('.navbar').fadeIn(200);
+      $('#branding').fadeIn(200);
+      $('footer').fadeIn(200);
+    }
+
     Foundry.dataset({
       target: $('#foundry-docs'),
-      domain: params[1],
-      uid: params[2],
-      no_redirect: $.inArray("no-redirect", options) >= 0,
-      proxy: $.inArray("proxy", options) >= 0
-    });
+      domain: params[0],
+      uid: params[1],
+      base: '/foundry/',
+      options: _.reduce(params.slice(2), function(m, o) { m[o.replace('-', '_')] = true; return m; }, {})
+    })
   }
 });
