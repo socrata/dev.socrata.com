@@ -20,7 +20,7 @@ icon: fa-calendar
 
 <div id="calendar_basic" style="float:center; width:1000px"><!-- This space intentionally left blank --></div>
 
-This example shows how to pull data from a Socrata Dataset (in this case, the [City of Chicago crime records](https://dev.socrata.com/foundry/data.cityofchicago.org/6zsd-86xi)) with the Google ["Calendar Chart"](https://developers.google.com/chart/interactive/docs/gallery/calendar) visualization. As a bonus, we will then embed that chart into a [Socrata Perspectives page]("https://socrata.com/solutions/publica-open-data-cloud/").
+This example shows how to pull data from a Socrata Dataset (in this case, the [City of Chicago crime records](https://dev.socrata.com/foundry/data.cityofchicago.org/6zsd-86xi)) with the Google ["Calendar Chart"](https://developers.google.com/chart/interactive/docs/gallery/calendar) visualization. As a bonus, we will then embed that chart into a [Socrata Perspectives page](https://socrata.com/solutions/publica-open-data-cloud/).
 
 The [Google Charts library](https://developers.google.com/chart/) provides a number of different chart types for visualization that can be leveraged using the SODA API. The "Calendar Chart" is useful when you have incident level data for which you would like to visualize by daily density over the course of a year. 
 

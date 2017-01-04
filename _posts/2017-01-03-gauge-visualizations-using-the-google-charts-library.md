@@ -19,7 +19,7 @@ icon: fa-tachometer
 
 <div id="chart_div" style="float:center"><!-- This space intentionally left blank --></div>
 
-This example shows how to pull data from a Socrata Dataset (in this case, some [Phoenix performance metrics](https://phoenix.data.socrata.com/dataset/At-a-Glance-Metrics/rgmb-nw6q)) with the Google ["Gauge"](https://developers.google.com/chart/interactive/docs/gallery/gauge) visualization. As a bonus, we will then embed that chart into a [Socrata Perspectives page]("https://socrata.com/solutions/publica-open-data-cloud/").
+This example shows how to pull data from a Socrata Dataset (in this case, some [Phoenix performance metrics](https://phoenix.data.socrata.com/dataset/At-a-Glance-Metrics/rgmb-nw6q)) with the Google ["Gauge"](https://developers.google.com/chart/interactive/docs/gallery/gauge) visualization. As a bonus, we will then embed that chart into a [Socrata Perspectives page](https://socrata.com/solutions/publica-open-data-cloud/).
 
 The [Google Charts library](https://developers.google.com/chart/) provides a number of different chart types for visualization that can be leveraged using the SODA API. The "Gauge" visualization is useful when you have a single metric or measure you'd like to compare against a baseline or goal.
 
