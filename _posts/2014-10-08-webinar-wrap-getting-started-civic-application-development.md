@@ -4,7 +4,7 @@ title: "Webinar Wrap Up: Getting Started with Civic Application Development"
 categories: blog
 tags: blog, developer
 date: 2014-10-08
-original_url: "https://www.socrata.com/developer-blog-article/webinar-wrap-getting-started-civic-application-development/"
+original_url: "https://socrata.com/developer-blog-article/webinar-wrap-getting-started-civic-application-development/"
 author: "Thom Robbins"
 sidebar: post
 type: post

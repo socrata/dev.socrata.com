@@ -4,7 +4,7 @@ title: "Filtering Datasets with SoQl - Developer Spotlight"
 categories: blog
 tags: blog, developer
 date: 2014-10-01
-original_url: "https://www.socrata.com/developer-blog-article/filtering-datasets-soql-developer-spotlight/"
+original_url: "https://socrata.com/developer-blog-article/filtering-datasets-soql-developer-spotlight/"
 author: "Thom Robbins"
 sidebar: post
 type: post

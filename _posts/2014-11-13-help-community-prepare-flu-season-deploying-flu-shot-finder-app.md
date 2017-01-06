@@ -4,7 +4,7 @@ title: "Help Your Community Prepare for Flu Season by Deploying a Flu Shot Finde
 categories: blog
 tags: blog, developer
 date: 2014-11-13
-original_url: "https://www.socrata.com/developer-blog-article/help-community-prepare-flu-season-deploying-flu-shot-finder-app/"
+original_url: "https://socrata.com/developer-blog-article/help-community-prepare-flu-season-deploying-flu-shot-finder-app/"
 author: "chrismetcalf"
 sidebar: post
 type: post
@@ -14,7 +14,7 @@ Have you gotten your flu shot yet? If not, you should. Every year, [influenza ca
 
 So how can you help more people in your community find convenient and affordable flu vaccinations? We’ve improved upon [Tom Kompare](https://github.com/tkompare)’s awesome foundation with the [Chicago Flu Shot Finder](https://github.com/tkompare/flushots2013) and created an easy-to-deploy application CfA Brigades, civic hackers and governments can deploy with ease to Github without writing any custom code, using the power of the [Socrata Open Data API](http://dev.socrata.com).
 
-[![screenshot](https://github.com/socrata/flushots/raw/gh-pages/screenshot.png)](http://www.socrata.com/wp-content/uploads/screenshot.png)
+[![screenshot](https://github.com/socrata/flushots/raw/gh-pages/screenshot.png)](http://socrata.com/wp-content/uploads/screenshot.png)
 
 Deploying a new [flu shot finder](https://github.com/socrata/flushots) is very straightforward:
 

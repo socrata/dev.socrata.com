@@ -12,7 +12,7 @@ author: chrismetcalf
 icon: fa-flag
 ---
 
-It's that time of year again, and we're just two short weeks away from this year's [National Day of Civic Hacking](https://www.codeforamerica.org/events/national-day-2016). Since 2013, National Day of Civic Hacking has brought together developers, community advocates, and government representatives to collaborate on solutions for some the most pressing problems in our communities. At [Socrata](http://www.socrata.com), we're proud to have been a part of National Day since the beginning, and we're excited to be participating yet again.
+It's that time of year again, and we're just two short weeks away from this year's [National Day of Civic Hacking](https://www.codeforamerica.org/events/national-day-2016). Since 2013, National Day of Civic Hacking has brought together developers, community advocates, and government representatives to collaborate on solutions for some the most pressing problems in our communities. At [Socrata](http://socrata.com), we're proud to have been a part of National Day since the beginning, and we're excited to be participating yet again.
 
 ![National Day of Civic Hacking](/img/ndoch_2016.png)
 
@@ -57,7 +57,7 @@ In addition to providing open data for your event, there are many other ways Soc
 - For some events, we'll be able to send Socrata representatives to hang out and help answer questions. If you're one of those lucky cities, we'll be reaching out to you soon with more information. 
 - Many of the cities that are hosting National Day events are also cities where we have customers, so we can facilitate introductions to open data experts from within your local government.
 - If you have participants using open data from Socrata, we'll also be online to provide virtual support via [our IRC channel](/irc.html) or your Slack domain.
-- New this year, we'd also like to offer special access to [Socrata Perspectives](https://www.socrata.com/products/perspectives/), our awesome new tool for telling stories with open data. If you're working on a data-driven challenge, you can use Perspectives to weave together narrative content, media, and data into a beautiful story. For example, check out this showcase story about [the growing opioid epidemic](https://evergreen.data.socrata.com/stories/s/b5gk-7v6a/) in America's cities. 
+- New this year, we'd also like to offer special access to [Socrata Perspectives](https://socrata.com/products/perspectives/), our awesome new tool for telling stories with open data. If you're working on a data-driven challenge, you can use Perspectives to weave together narrative content, media, and data into a beautiful story. For example, check out this showcase story about [the growing opioid epidemic](https://evergreen.data.socrata.com/stories/s/b5gk-7v6a/) in America's cities. 
 
 If any these options sound helpful to you, reach out and let us know, either by [filling out this form with your info](https://docs.google.com/forms/d/1DphGF6yHgjn9jmJyxSQZ-2oM3qO_Uij-PVUmakzbooE/viewform), or dropping in [our IRC chat room](/irc.html). We'd love to help make your event a success!
 

@@ -4,7 +4,7 @@ title: "Finding APIs with Socrata - Developer Spotlight"
 categories: blog
 tags: blog, developer
 date: 2014-09-24
-original_url: "https://www.socrata.com/developer-blog-article/finding-apis-socrata-developer-spotlight/"
+original_url: "https://socrata.com/developer-blog-article/finding-apis-socrata-developer-spotlight/"
 author: "Thom Robbins"
 sidebar: post
 type: post
