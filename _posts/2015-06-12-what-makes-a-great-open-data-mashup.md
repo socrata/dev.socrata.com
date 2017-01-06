@@ -4,7 +4,7 @@ title: "What makes a great &quot;open data mashup&quot;?"
 categories: blog
 tags: blog, developer
 date: 2015-06-12
-original_url: "https://www.socrata.com/developer-blog-article/what-makes-a-great-open-data-mashup/"
+original_url: "https://socrata.com/developer-blog-article/what-makes-a-great-open-data-mashup/"
 author: "chrismetcalf"
 sidebar: post
 type: post

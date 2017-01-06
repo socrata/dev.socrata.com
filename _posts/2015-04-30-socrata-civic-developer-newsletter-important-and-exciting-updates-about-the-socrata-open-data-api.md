@@ -4,7 +4,7 @@ title: "Socrata Civic Developer Newsletter: Important and exciting updates about
 categories: blog
 tags: blog, developer
 date: 2015-04-30
-original_url: "https://www.socrata.com/developer-blog-article/socrata-civic-developer-newsletter-important-and-exciting-updates-about-the-socrata-open-data-api/"
+original_url: "https://socrata.com/developer-blog-article/socrata-civic-developer-newsletter-important-and-exciting-updates-about-the-socrata-open-data-api/"
 author: "chrismetcalf"
 sidebar: post
 type: post

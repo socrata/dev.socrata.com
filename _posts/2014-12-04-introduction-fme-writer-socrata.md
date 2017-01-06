@@ -4,7 +4,7 @@ title: "Introduction to the FME Writer with Socrata"
 categories: blog
 tags: blog, developer
 date: 2014-12-04
-original_url: "https://www.socrata.com/developer-blog-article/introduction-fme-writer-socrata/"
+original_url: "https://socrata.com/developer-blog-article/introduction-fme-writer-socrata/"
 author: "Thom Robbins"
 sidebar: post
 type: post

@@ -4,7 +4,7 @@ title: "Tracking Economic Development with Open Data and Predictive Algorithms"
 categories: blog
 tags: blog, developer
 date: 2015-05-19
-original_url: "https://www.socrata.com/developer-blog-article/tracking-economic-development-with-open-data-and-predictive-algorithms/"
+original_url: "https://socrata.com/developer-blog-article/tracking-economic-development-with-open-data-and-predictive-algorithms/"
 author: "chrismetcalf"
 sidebar: post
 type: post
@@ -14,7 +14,7 @@ The following is a guest post by [Algorithmia](https://algorithmia.com/), and th
 
 * * *
 
-The world runs on data, but all too often, the effort to acquire fresh data, analyze it and deploy a live analysis or model can be a challenge. We here at Algorithmia spend most of our waking hours thinking about how to help you with the latter problem, and our friends at [Socrata](http://www.socrata.com) spend their time thinking about how to make data more available. So, we combined forces to analyze municipal building permit data (using various [time series algorithms](https://algorithmia.com/tags/time%20series)), as a reasonable proxy for economic development. Thanks to Socrata, this information is now available (and automatically updated) for many cities, with no need to navigate any bureaucracy. So we pulled in data for a range of cities, including:
+The world runs on data, but all too often, the effort to acquire fresh data, analyze it and deploy a live analysis or model can be a challenge. We here at Algorithmia spend most of our waking hours thinking about how to help you with the latter problem, and our friends at [Socrata](http://socrata.com) spend their time thinking about how to make data more available. So, we combined forces to analyze municipal building permit data (using various [time series algorithms](https://algorithmia.com/tags/time%20series)), as a reasonable proxy for economic development. Thanks to Socrata, this information is now available (and automatically updated) for many cities, with no need to navigate any bureaucracy. So we pulled in data for a range of cities, including:
 
 - Santa Rosa, CA
 - Fort Worth, TX
