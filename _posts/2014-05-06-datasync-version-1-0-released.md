@@ -4,7 +4,7 @@ title: "DataSync Version 1.0 Released"
 categories: blog
 tags: blog, developer
 date: 2014-05-06
-original_url: "https://www.socrata.com/developer-blog-article/datasync-version-1-0-released/"
+original_url: "https://socrata.com/developer-blog-article/datasync-version-1-0-released/"
 author: "alaurenz"
 sidebar: post
 type: post

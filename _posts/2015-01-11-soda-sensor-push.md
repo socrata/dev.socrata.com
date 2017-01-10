@@ -206,7 +206,7 @@ Heroku Scheduler is a free add-on that will allow us to run this script on a sch
 
 You can [check out the dataset on my demonstration Socrata site](https://chriswhong.demo.socrata.com/Fun/Temperature-Readings-from-my-Apartment/e94e-r7vr), or peruse the latest temperature readings using the Socrata Social Data Player below.
 
-<div><iframe width="500px" title="Temperature Readings from my Apartment" height="425px" src="https://chriswhong.demo.socrata.com/w/e94e-r7vr/?cur=etO3ezAiJjX&from=root" frameborder="0" scrolling="no"><a href="https://chriswhong.demo.socrata.com/Fun/Temperature-Readings-from-my-Apartment/e94e-r7vr" title="Temperature Readings from my Apartment" target="_blank">Temperature Readings from my Apartment</a></iframe><p><a href="http://www.socrata.com/" target="_blank">Powered by Socrata</a></p></div>
+<div><iframe width="500px" title="Temperature Readings from my Apartment" height="425px" src="https://chriswhong.demo.socrata.com/w/e94e-r7vr/?cur=etO3ezAiJjX&from=root" frameborder="0" scrolling="no"><a href="https://chriswhong.demo.socrata.com/Fun/Temperature-Readings-from-my-Apartment/e94e-r7vr" title="Temperature Readings from my Apartment" target="_blank">Temperature Readings from my Apartment</a></iframe><p><a href="http://socrata.com/" target="_blank">Powered by Socrata</a></p></div>
 
 [Check out the code on github](https://github.com/chriswhong/sodaSensorPush).  Happy Hardware Hacking!
 

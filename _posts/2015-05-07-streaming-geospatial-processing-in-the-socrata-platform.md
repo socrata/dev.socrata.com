@@ -4,7 +4,7 @@ title: "Streaming Geospatial Processing in the Socrata Platform"
 categories: blog
 tags: blog, developer
 date: 2015-05-07
-original_url: "https://www.socrata.com/developer-blog-article/streaming-geospatial-processing-in-the-socrata-platform/"
+original_url: "https://socrata.com/developer-blog-article/streaming-geospatial-processing-in-the-socrata-platform/"
 author: "velvia"
 sidebar: post
 type: post
@@ -12,7 +12,7 @@ type: post
 
 Here at Socrata, we host many public datasets, and most of them contain some kind of geospatial data - crime data, 311 and 911 data for example. We provide visualizations ranging from point maps to choropleths, which let citizens quickly see which school districts have more crime. Computing a choropleth means aggregating a set of points against many polygonal boundaries.
 
-[![Choropleth Example](https://www.socrata.com/wp-content/uploads/choropleths-example.png)](http://www.socrata.com/wp-content/uploads/choropleths-example.png)
+[![Choropleth Example](https://socrata.com/wp-content/uploads/choropleths-example.png)](http://socrata.com/wp-content/uploads/choropleths-example.png)
 
 ## Why Streaming?
 
@@ -25,7 +25,7 @@ PostGIS is the most popular database used for geospatial processing, and since a
 
 ## Our Streaming Geospatial Stack
 
-[![Geospace Coding](https://www.socrata.com/wp-content/uploads/geospace-coding.mermaid.png)](http://www.socrata.com/wp-content/uploads/geospace-coding.mermaid.png)
+[![Geospace Coding](https://socrata.com/wp-content/uploads/geospace-coding.mermaid.png)](http://socrata.com/wp-content/uploads/geospace-coding.mermaid.png)
 
 Our streaming geospatial microservice is called Geospace. It is written in Scala and keeps boundaries from different shapefiles in memory. Points are then sent to the service and mapped to the containing polygon. For speed, an in-memory RTree implementation from the JTS library is used.
 

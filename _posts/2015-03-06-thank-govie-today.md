@@ -4,7 +4,7 @@ title: "&quot;Thank a Govie&quot; Today"
 categories: blog
 tags: blog, developer
 date: 2015-03-06
-original_url: "https://www.socrata.com/developer-blog-article/thank-govie-today/"
+original_url: "https://socrata.com/developer-blog-article/thank-govie-today/"
 author: "chrismetcalf"
 sidebar: post
 type: post
@@ -22,7 +22,7 @@ Gifts, money, and big public shows of affection were ruled out, and the idea tha
 
 So, we're proud to announce a personal project I've been working on for the last couple of weeks - the ["Thank a Govie"](http://thank-a-govie.com/) program.
 
-[![Snuffie Hearts Gov](https://www.socrata.com/wp-content/uploads/snuf-luv-e1425681122944.png)](http://www.socrata.com/wp-content/uploads/snuf-luv-e1425681122944.png)
+[![Snuffie Hearts Gov](https://socrata.com/wp-content/uploads/snuf-luv-e1425681122944.png)](http://socrata.com/wp-content/uploads/snuf-luv-e1425681122944.png)
 
 If you mail your thank-you notes to "Thank a Govie", c/o Socrata, we'll forward them on to the individuals that made them happen. It doesn't matter if you don't know who exactly was responsible - just let us know the government, dataset, and/or project, and we'll make sure your note gets to the right person.
 

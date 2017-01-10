@@ -11,7 +11,7 @@ parents:
 author: chrismetcalf
 ---
 
-In April and May 2015, as part of [a huge new set of product and platform releases](https://www.socrata.com/blog/rethink-open-data/), we'll be releasing new, high-performance SODA dataset API endpoints that will replace the existing enes. Developers will be given ample time to migrate their code to the new APIs, but starting later in the year the old SODA APIs for some datasets may stop receiving new data.
+In April and May 2015, as part of [a huge new set of product and platform releases](https://socrata.com/blog/rethink-open-data/), we'll be releasing new, high-performance SODA dataset API endpoints that will replace the existing enes. Developers will be given ample time to migrate their code to the new APIs, but starting later in the year the old SODA APIs for some datasets may stop receiving new data.
 
 In addition to improved performance, the new SODA APIs have a ton of new features that you'll love:
 
@@ -21,7 +21,7 @@ In addition to improved performance, the new SODA APIs have a ton of new feature
 
 The new platform will also  make it easier for us to release new features and entirely new APIs like the new [global search API](http://labs.socrata.com/docs/search.html). Old APIs will not receive these new features.
 
-Additional detail on the new platform release can be found in [Socrata Rethink](https://www.socrata.com/blog/rethink-open-data/), and read on to learn how to migrate to your new improved API.
+Additional detail on the new platform release can be found in [Socrata Rethink](https://socrata.com/blog/rethink-open-data/), and read on to learn how to migrate to your new improved API.
 
 ## Finding your new API endpoint
 
