@@ -4,7 +4,7 @@ title: "Socrata announces support for Open Data Day and CodeAcross local events"
 categories: blog
 tags: blog, developer
 date: 2015-01-30
-original_url: "https://www.socrata.com/developer-blog-article/socrata-announces-support-open-data-day-codeacross-local-events/"
+original_url: "https://socrata.com/developer-blog-article/socrata-announces-support-open-data-day-codeacross-local-events/"
 author: "chrismetcalf"
 sidebar: post
 type: post

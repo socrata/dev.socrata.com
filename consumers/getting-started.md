@@ -14,7 +14,7 @@ So you want to win that hackathon or build the next hot open data app? Follow th
 
 ## Locating Open Data and APIs
 
-[Socrata](http://www.socrata.com) hosts over one hundred different data catalogs for governments, non-profits, and NGOs around the world, so finding an open data catalog to work with is easy:
+[Socrata](http://socrata.com) hosts over one hundred different data catalogs for governments, non-profits, and NGOs around the world, so finding an open data catalog to work with is easy:
 
 - Check to see if your local government or state already has an open data site. Check your city or state website or even just Google "open data" and your government's name. You'll probably find something pretty quickly.
 - Peruse the [Open Data Network](http://www.opendatanetwork.com), our global catalog of open datasets. The same catalog listing is also available programmatically via the [Global Catalog API](http://labs.socrata.com/docs/search.html).
@@ -24,7 +24,7 @@ Once you're on your local open data site, scroll down to the data catalog and us
 
 ## Finding your API endpoint
 
-Every [Socrata](http://www.socrata.com) open dataset has a built-in SODA API. But how you find the API endpoint can vary a bit.
+Every [Socrata](http://socrata.com) open dataset has a built-in SODA API. But how you find the API endpoint can vary a bit.
 
 If you're viewing a DataLens, there will be a prominent "API" button in the upper left of the page. Click that, and you'll get details on the API endpoint and a link to API documentation.
 

@@ -4,7 +4,7 @@ title: "Improving the Developer Experience: New Libraries and SDKs, Community Co
 categories: blog
 tags: blog, developer
 date: 2014-09-15
-original_url: "https://www.socrata.com/developer-blog-article/improving-developer-experience-new-libraries-sdks-community-contributions/"
+original_url: "https://socrata.com/developer-blog-article/improving-developer-experience-new-libraries-sdks-community-contributions/"
 author: "chrismetcalf"
 sidebar: post
 type: post

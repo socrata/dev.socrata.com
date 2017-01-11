@@ -4,7 +4,7 @@ title: "Data Ingress 101 with Socrata"
 categories: blog
 tags: blog, developer
 date: 2014-11-13
-original_url: "https://www.socrata.com/developer-blog-article/data-ingress-101-socrata/"
+original_url: "https://socrata.com/developer-blog-article/data-ingress-101-socrata/"
 author: "Thom Robbins"
 sidebar: post
 type: post

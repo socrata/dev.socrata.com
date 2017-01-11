@@ -4,7 +4,7 @@ title: "App Tokens and Registrations - Developer Spotlight"
 categories: blog
 tags: blog, developer
 date: 2014-10-15
-original_url: "https://www.socrata.com/developer-blog-article/app-tokens-registrations-developer-spotlight/"
+original_url: "https://socrata.com/developer-blog-article/app-tokens-registrations-developer-spotlight/"
 author: "Thom Robbins"
 sidebar: post
 type: post

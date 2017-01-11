@@ -4,7 +4,7 @@ title: "Data Publishing 101: Ingress Basics with the SODA2 API, Socrata interfac
 categories: blog
 tags: blog, developer
 date: 2014-08-29
-original_url: "https://www.socrata.com/developer-blog-article/data-publishing-101-ingress-basics-soda2-api-socrata-interface-datasync/"
+original_url: "https://socrata.com/developer-blog-article/data-publishing-101-ingress-basics-soda2-api-socrata-interface-datasync/"
 author: "Thom Robbins"
 sidebar: post
 type: post

@@ -38,7 +38,7 @@ require(["jquery"], function($) {
     console.log("          .,:::,,..    .,:;''';:,. .....          ");
     console.log("");
     console.log("Hey! Come here often? Snuffleupadata wants YOU!!");
-    console.log("We're hiring! http://www.socrata.com/careers/");
+    console.log("We're hiring! http://socrata.com/careers/");
     console.log("http://snuffleupadata.com");
   });
 });

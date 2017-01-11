@@ -52,7 +52,7 @@ The result will look like the following:
 
 ## Fetch data using jQuery
 
-We'll define a `fetchValues` function that uses the [`jQuery.get(...)`](https://api.jquery.com/jquery.get/) function to fetch data from the SODA API, transform it into an array of JavaScript [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) objects and counts, and returns it for handling:
+We'll define a `fetchValues` function that uses the [`jQuery.get(...)`](https://api.jquery.com/jquery.get/) function to fetch data from the SODA API, transform it into an array of objects, and returns it for handling:
 
 {% highlight javascript %}
 var fetchValues = function() {
