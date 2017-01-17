@@ -10,17 +10,13 @@ versions:
 - 2.1
 datatypes:
 - double
-- floating_timestamp
 - money
 - number
-- text
 params:
   $1:
   - double
-  - floating_timestamp
   - money
   - number
-  - text
 returns: typeof($1)
 
 parent_paths: 
