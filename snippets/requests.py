@@ -11,6 +11,7 @@ see_also:
 
 # Make sure to install requests before running:
 # > pip install requests
+import requests
 
 url = "https://%%domain%%/resource/%%uid%%.json"
 %%if_private%%
