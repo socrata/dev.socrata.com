@@ -67,7 +67,7 @@ define(
           try {
             var val = null;
             try {
-              val = data[0][0][field_name];
+              val = data[0][0][field_name].replace(/&/g, '%26');
             } catch(err) {
               console.log("Despite our best efforts, we didn't get a value back. Because: " + err);
             }
