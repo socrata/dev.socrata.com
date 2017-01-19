@@ -10,17 +10,19 @@ versions:
 - 2.0
 - 2.1
 datatypes:
-- text 
-- number
 - checkbox
-- timestamp
-- location
-- point
-- multipoint
-- polygon
+- double
+- floating_timestamp
 - line
+- location
+- money
 - multiline
+- multipoint
 - multipolygon
+- number
+- point
+- polygon
+- text 
 params:
   $1:
   - any
