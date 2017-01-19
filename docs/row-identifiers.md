@@ -5,9 +5,9 @@ title: Row Identifiers
 audience: docs
 ---
 
-## What is a row identifier?
+## What is a Row Identifier?
 
-Socrata datasets are essentially a collection of rows. Each row can be uniquely designated by it's "row identifier", much like a drivers license number or social security number identifies an individual. For those familiar with database concepts, they essentially act the same way as [primary keys](https://en.wikipedia.org/wiki/Primary_key).
+Socrata datasets are essentially a collection of rows. Each row can be uniquely designated by its "row identifier", much like a driver's license number or social security number identifies an individual. For those familiar with database concepts, they essentially act the same way as [primary keys](https://en.wikipedia.org/wiki/Primary_key).
 
 ## Internal Identifiers vs Publisher-Specified Identifiers
 
@@ -37,10 +37,9 @@ In contrast, the [Chicago Crimes](https://data.cityofchicago.org/Public-Safety/C
 
 A publisher-specified row identifier can be established for any Socrata dataset. A common column to use as a row identifier is an 'ID' column with some kind of number or code that uniquely identifies that row of data. For example, the '*Inspection ID*' column of [Chicago's Food Inspections dataset](https://data.cityofchicago.org/Health-Human-Services/Food-Inspections/4ijn-s7e5) is a Publisher-specified row identifier.
 
-### How to set a row identifier
+### How to Set a Row Identifier
 
-1. When viewing a dataset click the "About" button in the upper right which is a dark red button.
-2. In the side menu that appears click "Edit metadata" (if you do not see this link ensure you are logged in).
-3. Scroll to the subheader called "API Endpoint" and below that you can select the row identifier from the drop down menu that contains all the columns within the dataset.
-4. After selecting the appropriate column. Click "Save" at the bottom.
-
+1. When viewing a dataset click the dark red "About" button in the upper right.
+2. In the side menu that appears, click "Edit metadata" (if you do not see this link, ensure you are logged in).
+3. Scroll to the "API Endpoint" subheader. Below that you can select the row identifier from the drop down menu that contains all the columns within the dataset.
+4. After selecting the appropriate column, click "Save" at the bottom.
