@@ -45,6 +45,6 @@ The following table describes the operators that can be used with Doubles.
 | `%`       | Returns the modulo of one numeric divided by another            |
 | `^`       | Returns the modulo of one numeric divided by another            |
 
-The following table describes the functions that can be used with `text` strings. 
+The following table describes the functions that can be used with Doubles.
 
 {% include function_listing.html datatype="double" %}
