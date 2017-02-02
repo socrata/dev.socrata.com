@@ -47,7 +47,7 @@ The following table describes the operators that can be used with Numbers.
 | `%`       | Returns the modulo of one number divided by another            |
 | `^`       | Returns the modulo of one number divided by another            |
 
-The following table describes the functions that can be used with `text` strings. 
+The following table describes the functions that can be used with Numbers.
 
 {% include function_listing.html datatype="number" %}
 
