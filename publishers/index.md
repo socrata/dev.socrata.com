@@ -47,7 +47,6 @@ For more information about the Socrata Writer for FME, see this [helpful writeup
 For the tightest possible integration between your source system and your Socrata platform, you'll want to integrate directly with the Socrata Publisher API. The Publisher API allows you to programatically:
 
 - Add, update, and delete records within a Socrata dataset
-- Maintain dataset metadata and privacy settings
 - Create and import Socrata datasets
 
 #### RESTful API
