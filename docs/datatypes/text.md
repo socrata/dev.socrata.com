@@ -54,10 +54,10 @@ The following table describes the functions that can be used with `text` strings
 
 {% include function_listing.html datatype="text" %}
 
-For example, to query the [White House Visitor Records](https://open.whitehouse.gov/dataset/White-House-Visitor-Records-Requests/p86s-ychb?) to get only those visits to the First Lady (`FLOTUS`):
+For example, to query the [City of Chicago Salaries](https://data.cityofchicago.org/d/tt4n-kn4t) to get only those employees who work for the aviation department (`AVIATION`):
 
-{% include tryit.html domain='open.whitehouse.gov' path='/resource/p86s-ychb.json' args="visitee_namelast=FLOTUS" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="department=AVIATION" %}
 
-You could also use the `starts_with(...)` function to find all state arrivals:
+You could also use the `starts_with(...)` function to find all employees with `CHIEF` in their title:
 
-{% include tryit.html domain='open.whitehouse.gov' path='/resource/5frf-sppk.json' args="$where=starts_with(description, 'STATE ARRIVAL')" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$where=starts_with(job_titles, 'CHIEF')" %}

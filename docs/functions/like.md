@@ -30,6 +30,6 @@ The `like '...'` function allows you to filter for [Text](/docs/datatypes/text.h
 - An underscore (&#95;) matches a single character
 - A percent symbol (%) matches any string of zero or more characters
 
-For example, to query the [White House Salaries](https://open.whitehouse.gov/d/9j92-xfdk) for "assistants" (the '%' characters are URL encoded as '%25'):
+For example, to query the [City of Chicago Salaries](https://data.cityofchicago.org/d/tt4n-kn4t) for "chiefs" (the '%' characters are URL encoded as '%25'):
 
-{% include tryit.html domain='open.whitehouse.gov' path='/resource/9j92-xfdk.json' args="$where=position_title like '%25ASSISTANT%25'" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$where=job_titles like '%25CHIEF%25'" %}
