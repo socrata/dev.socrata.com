@@ -22,9 +22,9 @@ If you're at an event and you need a hand, we're here to help! You have a number
 4. You can also [post your question to Stack Overflow](http://stackoverflow.com/questions/ask?tags=soda,socrata) using the "socrata" or "soda" tags and our team will be alerted to find an answer to your question.
 5. Looking for open datasets? Check out the [Open Data Network](http://www.opendatanetwork.com/), our open data search engine to discover datasets across our network of hundreds of open data sites. Hint hint, there's also an [API available via Socrata Labs](http://labs.socrata.com.dev/docs/search.html).
 
-Also, if you want to continue your project and get a chance to win a brand new [Apple Watch](http://www.apple.com/watch/), you should check out the [Summer Jam "Open Data Mashup"](http://socrata.com/developer-blog-article/open-data-mashup-summer-jam-online-hackathon/) online hackathon. Running through June 22nd, you can submit your open data visualization or mashup and win awesome prizes!
+Also, if you want to continue your project and get a chance to win a brand new [Apple Watch](http://www.apple.com/watch/), you should check out the [Summer Jam "Open Data Mashup"](https://dev.socrata.com/blog/2015/06/02/open-data-mashup-summer-jam-online-hackathon.html) online hackathon. Running through June 22nd, you can submit your open data visualization or mashup and win awesome prizes!
 
-[![summerjam](/img/summerjam.png)](http://socrata.com/developer-blog-article/open-data-mashup-summer-jam-online-hackathon/p
+[![summerjam](/img/summerjam.png)](https://dev.socrata.com/blog/2015/06/02/open-data-mashup-summer-jam-online-hackathon.html)
 
 We wish all of the awesome National Day participants across the country the best of luck. Happy Hacking!
 

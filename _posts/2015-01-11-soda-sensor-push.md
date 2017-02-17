@@ -16,7 +16,7 @@ This example shows a simple data publishing scenario for publishing near real-ti
 
 ###Overview
 
-We'll be using a [Spark Core](https://www.spark.io/dev-kits), a development board that makes connecting hardware projects to the web really, really simple.  
+We'll be using a [Spark Core](https://www.particle.io), a development board that makes connecting hardware projects to the web really, really simple.  
 
 First we'll set up the hardware and expose temperature readings on-demand with the Spark cloud api.
 Next we'll set up a public dataset on Socrata that has two columns: timestamp and temperature.
@@ -26,7 +26,7 @@ Finally, we'll create a node script on Heroku to act as middle-man, getting temp
 
 ###Hardware
 
-The Spark Core is a Wi-Fi development board that makes it easy to create internet-connected hardware.  It's basically an arduino that's got a lot of intuitive add-ons for easy communication with the web. The first step is to power it on and get it connected to a wi-fi network. Spark makes this super easy, so all you have to do is fire up an app on your iOS or android device. It will sense a nearby Spark core, and allow you to easily add wifi credentials.  Spark has [a great walk-through of this process](http://docs.spark.io/) on their website.  Once the Spark core is on wi-fi, we're ready to wire up the sensor.
+The Spark Core is a Wi-Fi development board that makes it easy to create internet-connected hardware.  It's basically an arduino that's got a lot of intuitive add-ons for easy communication with the web. The first step is to power it on and get it connected to a wi-fi network. Spark makes this super easy, so all you have to do is fire up an app on your iOS or android device. It will sense a nearby Spark core, and allow you to easily add wifi credentials.  Spark has [a great walk-through of this process](http://docs.particle.io/) on their website.  Once the Spark core is on wi-fi, we're ready to wire up the sensor.
 
 ![Smart Config](/img/smart-config.jpg)
 
@@ -38,7 +38,7 @@ Wiring is simple: For power, we connect the DHT11's "VCC" and "GND" pins to the 
 
 ![Wiring](/img/wired.jpg)
 
-Spark has built a really useful cloud IDE (there is also a local version if you want to use it) that can flash the firmware of our Spark core over the web.  Once you have an account on the Spark cloud, head over to [https://www.spark.io/build](https://www.spark.io/build) and you can start coding immediately.  When you're ready to test, use the verify and flash icons in the upper left to send your new program down the core. It's that easy!
+Spark has built a really useful cloud IDE (there is also a local version if you want to use it) that can flash the firmware of our Spark core over the web.  Once you have an account on the Spark cloud, head over to [https://www.particle.io](https://www.particle.io) and you can start coding immediately.  When you're ready to test, use the verify and flash icons in the upper left to send your new program down the core. It's that easy!
 
 ![Spark Web IDE](/img/sparkide.png)
 
@@ -87,7 +87,7 @@ void loop() {
 }
 {% endhighlight %}
 
-But how does this make our temperature reading available on the web?  Take a look at `Spark.variable("temperature", &temperature, DOUBLE);`.  This line of code is anointing special properties to the variable `temperature`, and exposing it via the Spark core's API.  With the API, you can get or set individual pins, get or set variables, and even execute functions on the Spark core.  More details [are available in the docs](http://docs.spark.io/api/).  We'll be using a simple GET that returns a variable, which is structured like this:
+But how does this make our temperature reading available on the web?  Take a look at `Spark.variable("temperature", &temperature, DOUBLE);`.  This line of code is anointing special properties to the variable `temperature`, and exposing it via the Spark core's API.  With the API, you can get or set individual pins, get or set variables, and even execute functions on the Spark core.  More details [are available in the docs](http://docs.particle.io).  We'll be using a simple GET that returns a variable, which is structured like this:
 
 {% highlight javascript %}
 GET /v1/devices/{DEVICE_ID}/{VARIABLE}
