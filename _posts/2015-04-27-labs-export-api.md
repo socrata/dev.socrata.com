@@ -11,6 +11,8 @@ parents:
 author: chrismetcalf
 ---
 
-Through [Socrata Labs](http://labs.socrata.com), we're excited to announce the beta launch of our new [Export API](http://labs.socrata.com/docs/search.html). The new export service allows you to more efficiently export any public Socrata dataset, including the ability to filter that export by any valid [SoQL Query](/docs/queries/).
+<p class="alert alert-info">After a period of experimentation, the Export API was sunsetted and is no longer available.</p>
 
-Check out [the documentation](http://labs.socrata.com/docs/export.html) and send us feedback. Like all Socrata Labs APIs, the Export API is beta, and subject to change as we get feedback from the community.
+Through [Socrata Labs](#), we're excited to announce the beta launch of our new [Export API](#). The new export service allows you to more efficiently export any public Socrata dataset, including the ability to filter that export by any valid [SoQL Query](/docs/queries/).
+
+Check out [the documentation](#) and send us feedback. Like all Socrata Labs APIs, the Export API is beta, and subject to change as we get feedback from the community.

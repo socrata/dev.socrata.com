@@ -25,6 +25,6 @@ parents:
 
 {% include function_header.html %}
 
-`starts_with(...)` allows you to filter for [Text](/docs/datatypes/text.html) values that start with a given substring. For example, to query the [White House Visitor Records](https://open.whitehouse.gov/dataset/White-House-Visitor-Records-Requests/p86s-ychb?) for for only "state arrivals":
+`starts_with(...)` allows you to filter for [Text](/docs/datatypes/text.html) values that start with a given substring. For example, to query the [City of Chicago Salaries](https://data.cityofchicago.org/d/tt4n-kn4t?) for for only `CHIEF`s:
 
-{% include tryit.html domain='open.whitehouse.gov' path='/resource/5frf-sppk.json' args="$where=starts_with(description, 'STATE ARRIVAL')" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$where=starts_with(job_titles, 'CHIEF')" %}

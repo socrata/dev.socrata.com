@@ -18,24 +18,21 @@ The RDF ([Resource Description Framework](http://www.w3.org/TR/REC-rdf-syntax/))
 For example, the following URL
 
 {% highlight xml %}
-    https://open.whitehouse.gov/resource/nmc8-q2u.rdf?$limit=1
+    https://data.cityofchicago.org/resource/xzkq-xp2w.rdf?$limit=1
 {% endhighlight %}
 
 yields:
 
 {% highlight xml %}
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:socrata="http://www.socrata.com/rdf/terms#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:ods="http://open-data-standards.github.com/2012/01/open-data-standards#" xmlns:dcterm="http://purl.org/dc/terms/" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dsbase="http://open.whitehouse.gov/resource/" xmlns:ds="http://open.whitehouse.gov/resource/nominations/">
-    <dsbase:fkvb-uru3 rdf:about="http://open.whitehouse.gov/resource/nominations/Aaron, Henry Jacob">
-        <socrata:rowID>1</socrata:rowID>
-        <rdfs:member rdf:resource="http://open.whitehouse.gov/resource/nominations"/>
-        <ds:name>Aaron, Henry Jacob</ds:name>
-        <ds:position_title>Member (Upon Appointment to be Designated Chairman)</ds:position_title>
-        <ds:agency_name>Social Security Advisory Board</ds:agency_name>
-        <foaf:document rdf:resource="http://www.ssab.gov"/>
-        <ds:nomination_date>2013-04-18T00:00:00</ds:nomination_date>
-        <ds:confirmed>false</ds:confirmed>
-        <ds:holdover>false</ds:holdover>
-    </dsbase:fkvb-uru3>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:socrata="http://www.socrata.com/rdf/terms#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:ods="http://open-data-standards.github.com/2012/01/open-data-standards#" xmlns:dcterm="http://purl.org/dc/terms/" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dsbase="http://data.cityofchicago.org/resource/" xmlns:ds="http://data.cityofchicago.org/resource/xzkq-xp2w/">
+  <dsbase:xzkq-xp2w rdf:about="http://data.cityofchicago.org/resource/xzkq-xp2w/1">
+    <socrata:rowID>1</socrata:rowID>
+    <rdfs:member rdf:resource="http://data.cityofchicago.org/resource/xzkq-xp2w"/>
+    <ds:name>AARON,  ELVIA J</ds:name>
+    <ds:job_titles>WATER RATE TAKER</ds:job_titles>
+    <ds:department>WATER MGMNT</ds:department>
+    <ds:employee_annual_salary>90744.00</ds:employee_annual_salary>
+  </dsbase:xzkq-xp2w>
 </rdf:RDF>
 {% endhighlight %}
 

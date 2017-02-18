@@ -33,9 +33,9 @@ parents:
 
 {% include function_header.html %}
 
-`not between` is used with the `$where` parameter to return numeric or time stamp values excluding those between two input values. For example, to get all of the individuals who make less than $40,000 or more than $150,000 at the White House:
+`not between` is used with the `$where` parameter to return numeric or time stamp values excluding those between two input values. For example, to get all of the individuals who make less than $40,000 or more than $150,000 at the City of Chicago:
 
-{% include tryit.html domain='open.whitehouse.gov' path='/resource/9j92-xfdk.json' args="$where=salary not between '40000' and '150000'" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$where=employee_annual_salary not between '40000' and '150000'" %}
 
 It can also be used on [Floating Timestamps](/docs/datatypes/floating_timestamp.html). For example, to get all of the crimes that occurred outside noon and 2PM on January 10th, 2015 in Chicago:
 

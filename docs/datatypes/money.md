@@ -45,10 +45,10 @@ The following table describes the functions that can be used with `money` fields
 
 {% include function_listing.html datatype="money" %}
 
-For example, to get all of the employees from the [White House Salaries Dataset](https://open.whitehouse.gov/Government/2014-Report-to-Congress-on-White-House-Staff/i9g8-9web) that make more than $100,000/year:
+For example, to get all of the employees from the [City of Chicago](https://data.cityofchicago.org/d/tt4n-kn4t) that make more than $100,000/year:
 
-{% include tryit.html domain='open.whitehouse.gov' path='/resource/9j92-xfdk.json' args="$where=salary > '100000'" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$where=employee_annual_salary > '100000'" %}
 
-You can also aggregate monetary data, so you could also get the total amount of money spent on salaries at the White House:
+You can also aggregate monetary data, so you could also get the total amount of money spent on salaries at the City of Chicago:
 
-{% include tryit.html domain='open.whitehouse.gov' path='/resource/9j92-xfdk.json' args="$select=sum(salary)" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$select=sum(employee_annual_salary)" %}

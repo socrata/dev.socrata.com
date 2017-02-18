@@ -31,7 +31,7 @@ Our streaming geospatial microservice is called Geospace. It is written in Scala
 
 ## Presentation at FOSS4G-NA
 
-For more information, including tips on scaling out the streaming service and performance tips for geospatial computations on the Java/Scala platform, please have a look at the video and slides from our [presentation at FOSS4G-NA](https://2015.foss4g-na.org/node/1409)&nbsp;conference in March.
+For more information, including tips on scaling out the streaming service and performance tips for geospatial computations on the Java/Scala platform, please have a look at the video and slides from our [presentation at FOSS4G-NA](https://2015.foss4g-na.org/) conference in March.
 
 ## Open Source Code!
 

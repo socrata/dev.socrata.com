@@ -27,10 +27,10 @@ parents:
 
 {% include function_header.html %}
 
-The `sum(...)` function is most commonly used in `$select` aggregations to return the sum of a set of numeric values ([Numbers](/docs/datatypes/number.html), [Doubles](/docs/datatypes/double.html), or [Moneys](/docs/datatypes/money.html)). For example, to fetch the total amount spent on salaries at the White House:
+The `sum(...)` function is most commonly used in `$select` aggregations to return the sum of a set of numeric values ([Numbers](/docs/datatypes/number.html), [Doubles](/docs/datatypes/double.html), or [Moneys](/docs/datatypes/money.html)). For example, to fetch the total amount spent on salaries in the City of Chicago:
 
-{% include tryit.html domain='open.whitehouse.gov' path='/resource/9j92-xfdk.json' args="$select=sum(salary)" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$select=sum(employee_annual_salary)" %}
 
 It can also be used in `$group` aggregations, like this one to get the sum of salaries by job type:
 
-{% include tryit.html domain='open.whitehouse.gov' path='/resource/9j92-xfdk.json' args="$select=position_title,sum(salary)&$group=position_title" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$select=job_titles,sum(employee_annual_salary)&$group=job_titles" %}

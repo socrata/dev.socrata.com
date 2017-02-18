@@ -23,13 +23,13 @@ Row identifiers come in two flavors:
 
 ## Retrieving Rows By Their Identifiers
 
-To use a row identifier to look up a row, simply append it to the resource endpoint for that dataset. For example, to look up row `1` from the [White House Visitor Records](https://open.whitehouse.gov/dataset/White-House-Visitor-Records-Requests/p86s-ychb) dataset using its row identifier:
+To use a row identifier to look up a row, simply append it to the resource endpoint for that dataset. For example, to look up row `row-iy9i-gz3f~gx4b` from the [Chicago Salaries Dataset](https://data.cityofchicago.org/d/tt4n-kn4t) dataset using its row identifier:
 
-{% include tryit.html domain='open.whitehouse.gov' path='/resource/p86s-ychb/1.json' %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t/row-iy9i-gz3f~gx4b.json' %}
 
-In contrast, the [Chicago Crimes](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2) dataset is configured to use a publisher-specified identifier. To look up the earthquake with the ID `00388609`:
+In contrast, the [Chicago Crimes](https://data.cityofchicago.org/d/ijzp-q8t2) dataset is configured to use a publisher-specified identifier. To look up the earthquake with the `id` of `10666780`:
 
-{% include tryit.html domain='data.cityofchicago.org' path='/resource/6zsd-86xi/10399602.json' %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/6zsd-86xi/10666780.json' %}
 
 ## Establishing a Publisher-Specified Identifier
 

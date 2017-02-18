@@ -32,11 +32,9 @@ If you're currently using the API in your application, you will need make some u
 
 ### Socrata Labs: New Catalog & Export APIs
 
-In addition to the awesome new functionality that we're introducing to the Socrata Open Data APIs, we're also introducing new APIs via [Socrata Labs](http://labs.socrata.com/), our new website designed to give you an early preview of new APIs our team is working on. Labs APIs are pre-release, and give you a chance to try them and provide feedback to our team. Once they've spent some time in Labs and we've given the community to test them out, we'll release them as full production APIs as part of the [Socrata Developer Portal](http://dev.socrata.com/).
+In addition to the awesome new functionality that we're introducing to the Socrata Open Data APIs, we're also introducing new APIs via [Socrata Labs](http://dev.socrata.com/), our new website designed to give you an early preview of new APIs our team is working on. Labs APIs are pre-release, and give you a chance to try them and provide feedback to our team. Once they've spent some time in Labs and we've given the community to test them out, we'll release them as full production APIs as part of the [Socrata Developer Portal](http://dev.socrata.com/).
 
-As part of the initial launch of Socrata Labs, we're excited to launch two new APIs:
-- The [Catalog Search API](http://labs.socrata.com/docs/search.html) - The catalog search API allows you to query the entire Socrata open data catalog, across all of the public datasets hosted on all of our customers public data portals. In addition, we're applying machine learning techniques to improve how datasets are categorized and to allow for consistent categories across data catalogs.
-- Our new [Export API](http://labs.socrata.com/docs/export.html) - Beyond providing much faster, cached export functionality, the new export service also allows you to filter exports using [SoQL queries](http://dev.socrata.com/docs/queries.html) to retrieve only the data you were looking for.
+As part of the initial launch of Socrata Labs, we're excited to launch our new [Catalog Search API](http://docs.socratadiscovery.apiary.io/). The catalog search API allows you to query the entire Socrata open data catalog, across all of the public datasets hosted on all of our customers public data portals. In addition, we're applying machine learning techniques to improve how datasets are categorized and to allow for consistent categories across data catalogs.
 
 As these are prerelease APIs, they may change to reflect feedback from the community, but we wanted to get them in front of all of you as early as possible to see what you'll be able to build with them!
 

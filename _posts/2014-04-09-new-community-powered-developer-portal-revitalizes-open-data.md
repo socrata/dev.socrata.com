@@ -31,7 +31,7 @@ This also marks the launch of a great new resource for learning about engineerin
 - Details on the exciting work coming out of our developer community
 - A peek into the internal technological work produced by our engineering team that keeps it all humming
 
-If you're interested in keeping up to date about the goings on of technology at Socrata, please make sure you [bookmark](http://socrata.com/developer-blog) our new Tech Blog in order to always receive the latest news.
+If you're interested in keeping up to date about the goings on of technology at Socrata, please make sure you [bookmark](http://dev.socrata.com/blog/) our new Tech Blog in order to always receive the latest news.
 
 Thanks, and keep hacking on open data!
 

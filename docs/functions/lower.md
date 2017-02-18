@@ -23,6 +23,6 @@ parents:
 
 {% include function_header.html %}
 
-The `lower(...)` function is used within the `$select` or `$where` parameters to lower-case a [Text](/docs/datatypes/text.html) value. For example, you could use it within the `$select` statement to lower-case names from the White House salaries dataset:
+The `lower(...)` function is used within the `$select` or `$where` parameters to lower-case a [Text](/docs/datatypes/text.html) value. For example, you could use it within the `$select` statement to lower-case names from the Chicago salaries dataset:
 
-{% include tryit.html domain='open.whitehouse.gov' path='/resource/9j92-xfdk.json' args="$select=lower(name), salary" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$select=lower(name), salary" %}
