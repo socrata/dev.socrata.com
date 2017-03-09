@@ -18,7 +18,7 @@ The Socrata Open Data Publisher API is strictly a superset of the features provi
 
 Regardless of how you plan to keep your dataset up to date, we recommend uploading your data file and creating your initial dataset through our web interface, rather than using the API. This will give you a chance to review how our systems will import your dataset, what datatypes will be selected, and what it will look like and how it will be behave once it's in our platform.
 
-If you've never imported a dataset before, this [helpful guide on importing datasets](http://support.socrata.com/entries/42238523-Publishing-Workflow-Accessing-the-Import-User-Interface) should get you started.
+If you've never imported a dataset before, this [helpful guide on importing datasets](https://support.socrata.com/hc/en-us/articles/202950128-How-to-upload-a-Socrata-dataset-via-the-Web-User-Interface) should get you started.
 
 ## Publishing Strategies
 
@@ -40,7 +40,7 @@ For more information about [DataSync](http://socrata.github.io/datasync), check 
 
 [Safe Software](http://www.safe.com) has partnered with Socrata to build an FME "writer" for Socrata. Using the Socrata Writer, you can easily create workflows to extract data from source systems using [Safe FME](http://www.safe.com/fme/fme-technology/), perform cleanup and transformation, and publish that data to Socrata.
 
-For more information about the Socrata Writer for FME, see this [helpful writeup on Safe's website](http://www.safe.com/solutions/for-applications/socrata/), as well as [this demo tutorial](http://www.youtube.com/watch?v=X5lr6qw20-s). We have also produced a [support article on how to set up a simple FME workflow for Socrata](http://support.socrata.com/entries/24459198-Setting-up-a-simple-Socrata-integration-with-FME).
+For more information about the Socrata Writer for FME, see this [helpful writeup on Safe's website](http://www.safe.com/solutions/for-applications/socrata/), as well as [this demo tutorial](http://www.youtube.com/watch?v=X5lr6qw20-s). We have also produced a [support article detailing the different updat eoptions avaiable](https://support.socrata.com/hc/en-us/articles/202950068-Data-Integration-Cheat-Sheet-Options-for-publishing-data-to-Socrata-) with links to additional detail..
 
 ### Socrata Publisher API/SDKs
 
