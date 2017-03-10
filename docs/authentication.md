@@ -79,7 +79,7 @@ We have a [sample app](https://github.com/socrata/oauth_sample_app_ruby) availab
 
 Once you have obtained an `access_token`, you should include it on requests which need to happen on behalf of the user. The token must be included in the `Authorization` HTTP Header field as follows:
 
-    Authorization: OAuth YOUR_ACCESS_TOKEN
+    Authorization: Bearer YOUR_ACCESS_TOKEN
 
 **Note:** All authenticated requests *must* be performed over a secure connection (`https`). Any attempt to use an `access_token` over a non-secure connection will result in immediate revocation of the token.
 
