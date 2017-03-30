@@ -34,14 +34,16 @@ Datasets will either specify what timezone they should be interpreted in, or you
 
 The following operators can be used to compare and manipulate `floating_timestamp` fields: 
 
-| Operation | Description                                                                       |
-| ---       | ---                                                                               |
-| `<`       | `TRUE` when the first date is earlier than the second date                        |
-| `<=`      | `TRUE` when the first date is earlier than or at the same time as the second date |
-| `>`       | `TRUE` when the first date is after the second date                               |
-| `>=`      | `TRUE` when the first date is after or at the same time as the second date        |
-| `!=`      | `TRUE` when two dates are not at the same time                                    |
-| `=`       | `TRUE` when two dates are at the same time                                        |
+| Operation     | Description                                                                       |
+| ---           | ---                                                                               |
+| `<`           | `TRUE` when the first date is earlier than the second date                        |
+| `<=`          | `TRUE` when the first date is earlier than or at the same time as the second date |
+| `>`           | `TRUE` when the first date is after the second date                               |
+| `>=`          | `TRUE` when the first date is after or at the same time as the second date        |
+| `!=`          | `TRUE` when two dates are not at the same time                                    |
+| `=`           | `TRUE` when two dates are at the same time                                        |
+| `IS NULL`     | `TRUE` for dates that are `NULL`.                                                 |
+| `IS NOT NULL` | `TRUE` for dates that are not `NULL`.                                             |
 
 And the following functions can be used to filter and manipulate them: 
 
