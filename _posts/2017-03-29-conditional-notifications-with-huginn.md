@@ -139,3 +139,12 @@ Your fake event will then propagate through the system, and if everything is con
 ![It worked!](/img/posts/2017-03-28 - text message.png)
 
 By now, hopefully your mind is buzzing with ideas of how you can use Huginn to monitor and alert based on open data! Please let us know what you come up with!
+
+## By the way...
+
+After sleeping on this post, I actually realized we could skip the "Trigger Agent" by modifying our SoQL query slightly. By using the [`$having`](/docs/queries/having.html) filter on our aggregation, we can make it only return a temperature value when its less than our specified threshold:
+
+
+{% include tryit.html domain='data.seattle.gov' path='/resource/ivtm-938t.json' args="$query=SELECT roadsurfacetemperature WHERE stationname = 'AuroraBridge' ORDER BY datetime DESC LIMIT 5 |> SELECT AVG(roadsurfacetemperature) AS rolling_average HAVING rolling_average <= 32" %}
+
+Don't be surprised if the query above doesn't output any records when you click on it, that's the point! It'll only return a `rolling_average` when its 32 degrees or less. This would allow us to connect our Website Agent directly to our Twilio Agent, simplifying our workflow! However, its also harder to test, and we'd need to format our message either with aggregation in our `SELECT` or with an additional "Liquid Output Agent" before the Twilio Agent. That exercise is left up to the reader!
