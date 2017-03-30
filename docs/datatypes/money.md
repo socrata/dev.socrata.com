@@ -28,18 +28,20 @@ That also persists into how they must be encoded in queries - monetary values mu
 
 The following table describes the operators that can be used with Money fields.
 
-| Operation | Description                                                            |
-| ---       | ---                                                                    |
-| `<`       | `TRUE` for monetary values less than this one.                         |
-| `<=`      | `TRUE` for monetary values that are less than or equal to this one.    |
-| `>`       | `TRUE` for monetary values that are greater than this one.             |
-| `>=`      | `TRUE` for monetary values that are greater than or equal to this one. |
-| `!=`      | `TRUE` for monetary values that are not equal to this one.             |
-| `=`       | `TRUE` for monetary values that are equal to this one.                 |
-| `+`       | Adds two monetary values                                               |
-| `-`       | Subtracts one monetary value from another                              |
-| `*`       | Multiplies two values, can be performed with numbers                   |
-| `/`       | Divides one value by another, can be performed with numbers            |
+| Operation     | Description                                                            |
+| ---           | ---                                                                    |
+| `<`           | `TRUE` for monetary values less than this one.                         |
+| `<=`          | `TRUE` for monetary values that are less than or equal to this one.    |
+| `>`           | `TRUE` for monetary values that are greater than this one.             |
+| `>=`          | `TRUE` for monetary values that are greater than or equal to this one. |
+| `!=`          | `TRUE` for monetary values that are not equal to this one.             |
+| `=`           | `TRUE` for monetary values that are equal to this one.                 |
+| `IS NULL`     | `TRUE` for monetary values that are `NULL`.                            |
+| `IS NOT NULL` | `TRUE` for monetary values that are not `NULL`.                        |
+| `+`           | Adds two monetary values                                               |
+| `-`           | Subtracts one monetary value from another                              |
+| `*`           | Multiplies two values, can be performed with numbers                   |
+| `/`           | Divides one value by another, can be performed with numbers            |
 
 The following table describes the functions that can be used with `money` fields. 
 

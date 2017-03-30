@@ -43,7 +43,14 @@ The `Point` datatype is very similar to the [`Location`](/docs/datatypes/locatio
   <em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, the GeoJSON orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordiate systems are encoded. Note that the SoQL <code>within_box</code> and <code>within_circle</code> functions use the more conventional ordering, however.
 </div>
 
-The following table describes the functions that can be used with Points. 
+The following operators can be used on `point` fields: 
+
+| Operation     | Description                            |
+| ---           | ---                                    |
+| `IS NULL`     | `TRUE` for values that are `NULL`.     |
+| `IS NOT NULL` | `TRUE` for values that are not `NULL`. |
+
+The following table describes the functions that can be used with `point`s. 
 
 {% include function_listing.html datatype="point" %}
 
