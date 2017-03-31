@@ -10,6 +10,7 @@ tags:
 title: "Conditional notifications with Huginn"
 date: 2017-03-29
 author: chrismetcalf
+icon: fa-bell
 ---
 
 As more and more open datasets approach the point where they're receiving "real time" updates, the topic of how to receive push or [webhook](https://en.wikipedia.org/wiki/Webhook) notifications when a dataset is updated and matches certain conditions. For example, you might want to be notified when there are crimes in your neighborhood, when your local government releases a new dataset, or when the current number of outstanding pot hole requests go over a certain threshold.
