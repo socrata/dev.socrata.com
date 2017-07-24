@@ -23,6 +23,6 @@ parents:
 
 {% include function_header.html %}
 
-The `date_extract_hh(...)` function is used in the `$select`, `$where`, or `$group` parameters to extract [Floating Timestamps](/docs/datatypes/number.html) the hour of the day as a number from 0-23 (inclusive). For example, `date_extract_dow('2013-10-24T09:33:00.000')` would result in `4`. This is handy for aggregation & display usages. For example, to aggregate the Chicago Crimes dataset by hour of the day: 
+The `date_extract_hh(...)` function is used in the `$select`, `$where`, or `$group` parameters to extract [Floating Timestamps](/docs/datatypes/number.html) the hour of the day as a number from 0-23 (inclusive). For example, `date_extract_hh('2013-10-24T09:33:00.000')` would result in `9`. This is handy for aggregation & display usages. For example, to aggregate the Chicago Crimes dataset by hour of the day: 
 
 {% include tryit.html domain='data.cityofchicago.org' path='/resource/6zsd-86xi.json' args="$select=date_extract_hh(date) as hour_of_day, primary_type, count(*)&$group=hour_of_day, primary_type" %}
