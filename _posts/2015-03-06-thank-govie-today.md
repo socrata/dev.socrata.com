@@ -16,7 +16,7 @@ These open data advocates truly are changing the way governments interact with t
 
 There's one problem, though. We don't thank them enough.
 
-This oversight became apparent in one of the sessions at [Seattle Open Data Day](http://codeforseattle.org/). We in the open data community don't take nearly enough time to thank our government counterparts for the amazing work they do. Most of our energy is spent on pushing for new datasets, complaining when things aren't released, or griping about data being incomplete or wrong.
+This oversight became apparent in one of the sessions at [Seattle Open Data Day](http://openseattle.org/). We in the open data community don't take nearly enough time to thank our government counterparts for the amazing work they do. Most of our energy is spent on pushing for new datasets, complaining when things aren't released, or griping about data being incomplete or wrong.
 
 Gifts, money, and big public shows of affection were ruled out, and the idea that was determined to have the biggest and most personal impact on them seemed to be simple hand-written thank you notes.
 
