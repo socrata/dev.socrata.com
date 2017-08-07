@@ -48,6 +48,6 @@ Watch the GitHub repository to remain up to speed with new features on the roadm
 Related Links:
 
 - [Getting Started Guide](http://socrata.github.io/datasync/)
-- [Integration Class Webinar](http://discover.socrata.com/socratauniversity.html) - in which our integration experts go over a few of the integration options compatible with the Socrata platform, including DataSync. You can register for the next live webinar here: [http://discover.socrata.com/socratauniversity.html](http://discover.socrata.com/socratauniversity.html)
+- [Getting started with DataSync](https://support.socrata.com/hc/en-us/articles/210850597-Getting-Started-with-DataSync)
 
 

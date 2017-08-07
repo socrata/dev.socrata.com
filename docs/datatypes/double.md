@@ -30,20 +30,22 @@ Since Doubles can be either larger or more precise than what JSON parsers allow,
 
 The following table describes the operators that can be used with Doubles. 
 
-| Operation | Description                                                    |
-| ---       | ---                                                            |
-| `<`       | `TRUE` for numerics less than this one.                         |
-| `<=`      | `TRUE` for numerics that are less than or equal to this one.    |
-| `>`       | `TRUE` for numerics that are greater than this one.             |
-| `>=`      | `TRUE` for numerics that are greater than or equal to this one. |
-| `!=`      | `TRUE` for numerics that are not equal to this one.             |
-| `=`       | `TRUE` for numerics that are equal to this one.                 |
-| `+`       | Adds two numerics                                               |
-| `-`       | Subtracts one numeric from another                              |
-| `*`       | Multiplies two numerics                                         |
-| `/`       | Divides one numeric by another                                  |
-| `%`       | Returns the modulo of one numeric divided by another            |
-| `^`       | Returns the modulo of one numeric divided by another            |
+| Operation     | Description                                                     |
+| ---           | ---                                                             |
+| `<`           | `TRUE` for numerics less than this one.                         |
+| `<=`          | `TRUE` for numerics that are less than or equal to this one.    |
+| `>`           | `TRUE` for numerics that are greater than this one.             |
+| `>=`          | `TRUE` for numerics that are greater than or equal to this one. |
+| `!=`          | `TRUE` for numerics that are not equal to this one.             |
+| `=`           | `TRUE` for numerics that are equal to this one.                 |
+| `IS NULL`     | `TRUE` for numerics that are `NULL`.                            |
+| `IS NOT NULL` | `TRUE` for numerics that are not `NULL`.                        |
+| `+`           | Adds two numerics                                               |
+| `-`           | Subtracts one numeric from another                              |
+| `*`           | Multiplies two numerics                                         |
+| `/`           | Divides one numeric by another                                  |
+| `%`           | Returns the modulo of one numeric divided by another            |
+| `^`           | Returns the modulo of one numeric divided by another            |
 
 The following table describes the functions that can be used with Doubles.
 

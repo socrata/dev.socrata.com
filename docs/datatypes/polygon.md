@@ -44,6 +44,13 @@ The `Polygon` datatype represents a shape on the Earth as a ring of WGS84 Latitu
   <em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, GeoJSON orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordiate systems are encoded. Note that the SoQL <code>within_box</code> and <code>within_circle</code> functions use the more conventional ordering, however.
 </div>
 
+The following operators can be used on `polygon` fields: 
+
+| Operation     | Description                            |
+| ---           | ---                                    |
+| `IS NULL`     | `TRUE` for values that are `NULL`.     |
+| `IS NOT NULL` | `TRUE` for values that are not `NULL`. |
+
 The following table describes the functions that can be used with {% include dt.html dt="Polygon" %}. 
 
 {% include function_listing.html datatype="polygon" %}

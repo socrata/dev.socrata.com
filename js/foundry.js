@@ -618,17 +618,26 @@ define(
     var query_base = Proxy.query_base(args.domain);
     var endpoint_base = 'https://' + args.domain;
 
+    var forgive_me = [404];
+
+    // #680: The no-redirect option makes us a little more forgiving on filtered views 
+    // on private datasets
+    if(args.options.no_redirect) {
+      forgive_me.push(403);
+    }
+
     // Front load as many of the things that we can fast-redirct on
     $.when(
       // Get the default view, just in case this is actually a view or something
-      $.ajaxForgiving404({
+      $.ajaxForgiving({
         url: query_base + "/api/views.json",
         method: "GET",
         dataType: "json",
         data: {
           "method": "getDefaultView",
           "id": args.uid
-        }
+        },
+        forgives: forgive_me
       }),
       // #323: So, when we're looking at an NBE endpoint with an OBE shadow copy
       // we actually need to pull its descriptive metadata from the OBE equivalent

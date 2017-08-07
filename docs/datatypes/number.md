@@ -32,20 +32,22 @@ Since Numbers can be either larger or more precise than what doubles allow, many
 
 The following table describes the operators that can be used with Numbers.
 
-| Operation | Description                                                    |
-| ---       | ---                                                            |
-| `<`       | `TRUE` for numbers less than this one.                         |
-| `<=`      | `TRUE` for numbers that are less than or equal to this one.    |
-| `>`       | `TRUE` for numbers that are greater than this one.             |
-| `>=`      | `TRUE` for numbers that are greater than or equal to this one. |
-| `!=`      | `TRUE` for numbers that are not equal to this one.             |
-| `=`       | `TRUE` for numbers that are equal to this one.                 |
-| `+`       | Adds two numbers                                               |
-| `-`       | Subtracts one number from another                              |
-| `*`       | Multiplies two numbers                                         |
-| `/`       | Divides one number by another                                  |
-| `%`       | Returns the modulo of one number divided by another            |
-| `^`       | Returns the modulo of one number divided by another            |
+| Operation     | Description                                                    |
+| ---           | ---                                                            |
+| `<`           | `TRUE` for numbers less than this one.                         |
+| `<=`          | `TRUE` for numbers that are less than or equal to this one.    |
+| `>`           | `TRUE` for numbers that are greater than this one.             |
+| `>=`          | `TRUE` for numbers that are greater than or equal to this one. |
+| `!=`          | `TRUE` for numbers that are not equal to this one.             |
+| `=`           | `TRUE` for numbers that are equal to this one.                 |
+| `IS NULL`     | `TRUE` for numbers that are `NULL`.                            |
+| `IS NOT NULL` | `TRUE` for numbers that are not `NULL`.                        |
+| `+`           | Adds two numbers                                               |
+| `-`           | Subtracts one number from another                              |
+| `*`           | Multiplies two numbers                                         |
+| `/`           | Divides one number by another                                  |
+| `%`           | Returns the modulo of one number divided by another            |
+| `^`           | Returns the modulo of one number divided by another            |
 
 The following table describes the functions that can be used with Numbers.
 

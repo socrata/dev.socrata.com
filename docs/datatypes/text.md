@@ -40,15 +40,17 @@ text_value='Bob''s string'
 
 The following table shows what operations can be used on strings:
 
-| Operation                 | Description                                                               |
-| ---                       | ---                                                                       |
+| Operation                 | Description                                                                 |
+| ---                       | ---                                                                         |
 | `<`                       | `TRUE` for strings that are alphanumerically before this string             |
 | `<=`                      | `TRUE` for strings that are alphanumerically before or equal to this string |
 | `>`                       | `TRUE` for strings that are alphanumerically after this string              |
 | `>=`                      | `TRUE` for strings that are alphanumerically after or equal to this string  |
 | `=`                       | `TRUE` for strings that are equal to this string                            |
 | `!=`                      | `TRUE` for strings that are not equal to this string                        |
-| <code>&#124;&#124;</code> | Concatenate two strings together                                          |
+| `IS NULL`                 | `TRUE` for strings that are `NULL`.                                         |
+| `IS NOT NULL`             | `TRUE` for strings that are not `NULL`.                                     |
+| <code>&#124;&#124;</code> | Concatenate two strings together                                            |
 
 The following table describes the functions that can be used with `text` strings.
 

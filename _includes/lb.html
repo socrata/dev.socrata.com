@@ -1,1 +1,10 @@
-<a href="{{include.image}}" data-featherlight="image"><i class="fa fa-search-plus"></i> {{include.title}}</a>
+{% if include.thumb %}
+  <figure class="figure {{ include.class }}">
+    <a href="{{ include.image }}" data-featherlight="image">
+      <img class="figure-image img-fluid rounded" src="{{ include.thumb }}" alt="{{ include.title }}" />
+      <figcaption class="figure-caption">{{ include.title }} &raquo;</figcaption>
+    </a>
+  </figure>
+{% else %}
+  <a href="{{ include.image }}" data-featherlight="image" class="{{ include.class }}"><i class="fa fa-search-plus"></i> {{ include.title }}</a>
+{% endif %}
