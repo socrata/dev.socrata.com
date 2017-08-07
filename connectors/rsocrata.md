@@ -19,6 +19,7 @@ Lots of companies and the community have created extensions into R for their sol
 
 ### Getting Started Guides 
 
+- [Getting started with R programming](https://www.programiz.com/r-programming)
 - [RStudio Support](https://www.r-project.org/)
 - [Learn R, in R](http://swirlstats.com/)
 - [stackoverflow](http://stackoverflow.com/questions/tagged/r)

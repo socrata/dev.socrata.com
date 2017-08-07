@@ -39,6 +39,10 @@ Within the Control Flow, an Process Task is added that can be execute Datasync o
 
 ![SSIS screenshot workflow](/img/ControlFlowTasks.PNG)
 
+The key settings are to reference java as the **executable** and then the **arguments** for the saved Socrata Integration Job. Be sure to run the command in Windows Command Prompt prior to SSIS to ensure that it executes successfully. Sometimes if the windows environment variable for Java have not been setup, it will need to be set up, or the full path to the Java executable will need to be entered for Windows to execute Java programs, like *C:\Program Files (x86)\Java\jre1.8.0_66\bin\java.exe*.
+
+![SSIS screenshot task settings](/img/ssis_datasync_execute_task_params.png)
+
 #### Package Deployment to SQL Server
 
 Once the SSIS package has been completed, it is deployed to the SQL Server that will be running it. Note, it is important to set the protection level of the package and job so that the database is able to execute it.
