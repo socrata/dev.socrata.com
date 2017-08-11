@@ -5,7 +5,7 @@ title: date_extract_m(...)
 
 type: function
 function: date_extract_m($1)
-description: Extracts the year as an integer.
+description: Extracts the month as an integer.
 versions:
 - 2.1
 datatypes:
