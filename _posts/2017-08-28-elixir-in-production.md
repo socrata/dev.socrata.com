@@ -37,9 +37,9 @@ In our data pipeline service, we implement a different set of functions that are
 
 This, given a columns in your source file called `adresss`, `city`, `state`, and `zip`, will geocode the values and make a new column, which can then be imported alongside the rest of your data.
 
-Obviously more faster is more better, so all the execution happens with as much parallelism as we can get out of the cluster. This is where Elixir really shines. Coordinating all that state across the cluster would have been tricky, but in Erlang and by extension Elixir, it's trivial to spawn processes on remote nodes, which can do their share of the work. It also gives us the ability to meet whatever service level we want by scaling the cluster up or down.
+Obviously more faster is more better, so all the execution happens with as much parallelism as we can get out of the cluster. This is where Elixir really shines. Coordinating all that state across the cluster would have been tricky, but in Erlang and by extension Elixir, it's trivial to spawn processes on remote nodes, which can do their share of the work. With a lot of parallelism, we can do slow transforms that may do IO to other services (like geocoding) and still get reasonable performance. It also gives us the ability to meet whatever service level we want by scaling the cluster up or down.
 
-For a 28 million row dataset, running an expression takes an amount of time proportional to the cluster size
+For a 28 million row dataset, running a simple string concatenation expression takes an amount of time proportional to the cluster size
 
 | ------------ | ------------------------------------ |
 | Cluster Size | Time spent evaluating the expression |
