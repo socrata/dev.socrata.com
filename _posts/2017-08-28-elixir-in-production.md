@@ -41,13 +41,12 @@ Obviously more faster is more better, so all the execution happens with as much 
 
 For a 28 million row dataset, running a simple string concatenation expression takes an amount of time proportional to the cluster size
 
-| ------------ | ------------------------------------ |
-| Cluster Size | Time spent evaluating the expression |
+
+| Cluster Size | Time spent evaluating |
 | -------------| ------------------------------------ |
 | 1 node       |  39.871s |
 | 3 nodes      |  17.539s |
 | 5 nodes      |  11.953s |
-| ------------ | -------- |
 
 
 ## Results
