@@ -45,7 +45,7 @@ Moreover, due to the small size of our engineering organization, we had no dedic
 
 Given the UX problems, the engineering problems, and the goal, we settled on Elixir and Phoenix as the tools to make this thing work.
 There are plenty of other posts that describe why Elixir is interesting, but in short, it was the only tool that would allow us to accomplish the real time feedback we wanted in a single package.
-Elixir and Erlang also provide primitives for building and running distributed systems that can't be beat (at the moment), and given that we were going to be doing computation across the whole cluster in parallel, it seemed like the right tool for the job.
+Elixir and Erlang* also provide primitives for building and running distributed systems that can't be beat (at the moment), and given that we were going to be doing computation across the whole cluster in parallel, it seemed like the right tool for the job.
 
 
 The core of the data pipeline service is really an interpreter, which interprets the same language used for querying data, called SoQL (Socrata Query Language).
@@ -103,3 +103,5 @@ Ultimately though, we've accomplished the goals we set out to accomplish, and mo
 The most positive thing to say about Elixir and the tooling is that we don't really think about it much.
 The amount of time we spend talking, thinking about, and wrestling with tooling (coming from a world of microservices) has been seriously reduced, which leaves much more time to focus on what actually matters, which building the product that our users use every day.
 
+
+*Elixir is a language which compiles to Erlang AST and runs on the Erlang Virtual Machine, BEAM. Elixir has an identical programming model to Erlang, but with a different syntax, standard library, and tooling.
