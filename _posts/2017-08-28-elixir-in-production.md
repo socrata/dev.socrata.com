@@ -20,8 +20,9 @@ Socrata has had, for a long time, an import wizard which would parse certain fil
 
 So when we set out to make that experience better, we had one major user facing goal: don't be so secretive about what's happening with the data. Every step has information that is potentially actionable, and we should surface that information as soon as we know it. We want to frontload all the interaction so the user can upload their file, make their changes, and walk away, before the file is even done uploading. We also want to provide a quick retry cycle if the user uploads something and realizes it's wrong. This allows them to go back to the data owner or source and fix it quickly.
 
-![Uploading a file]("/img/posts/2017-08-28 - upload-preview.gif")
-*Uploading a file gives you a streaming preview of the data as it uploads*
+![Uploading a file](/img/posts/2017-08-28 - upload-preview.gif){:width="800px"}
+
+*Uploading this 10gb/28 million row file gives you a preview and the ability to start interacting and transforming the data before it is uploaded*
 
 We also had an internal goal, which was to run our service(s) sustainably with a relatively small team (about 4 backend engineers, who also have other jobs to do). Our engineering team had been adopting a microservices model, which, despite all the Medium thinkpieces extolling the virtues, had failed to deliver us to engineering nirvana as we had hoped. With a small number of human engineers, and a large number of services, context switching between them became challenging. Moreover, due to the small size of our engineering organization, we had no dedicated team working on tooling, which led to duplicated effort across teams who were all chartered to deliver customer value, not engineering value.
 
