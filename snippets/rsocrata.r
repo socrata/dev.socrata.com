@@ -9,7 +9,14 @@ see_also:
 - name: Forecasting with RSocrata
   url: "/blog/2015/06/17/forecasting_with_rsocrata.html"
 ---
-install.packages("RSocrata")
+## Install the required package with:
+## install.packages("RSocrata")
 
 library("RSocrata")
-df <- read.socrata("https://%%domain%%/resource/%%uid%%?$$app_token=YOURAPPTOKENHERE")
+
+df <- read.socrata(
+  "https://%%domain%%/resource/%%uid%%.json",
+  app_token = "YOURAPPTOKENHERE",
+  email     = "user@example.com",
+  password  = "fakepassword"
+)
