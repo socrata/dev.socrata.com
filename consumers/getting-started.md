@@ -34,9 +34,9 @@ If you're on a Socrata dataset, identifiable by the colorful buttons at the uppe
   Read the detailed documentation on <a href="/docs/endpoints.html">API Endpoints</a> for more info.
 </div>
 
-For this example, we'll use this listing of [Alternative Fuel Locations](https://data.cityofchicago.org/developers/docs/alternative-fuel-locations) in Chicago:
+For this example, we'll use this listing of [Alternative Fuel Locations](https://data.cityofchicago.org/developers/docs/f7f2-ggz5) in Chicago:
 
-{% include tryit.html domain='data.cityofchicago.org' path='/resource/alternative-fuel-locations.json' %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/f7f2-ggz5.json' %}
 
 ## Building simple filters and queries
 
@@ -45,9 +45,9 @@ Filtering data via a SODA API is fairly straightforward. There are two primary m
 
 ### Simple Filters
 
-Filtering data is very straightforward. SODA APIs are self-describing &mdash; the schema and contents of the dataset itself determines how you can query it. Any field within the data can be used as a filter, simply by appending it to the API endpoint as a GET parameter. For example, to query for only fuel locations that provide [Liquefied Petroleum Gas](https://data.cityofchicago.org/developers/docs/alternative-fuel-locations), simply append `?fuel_type_code=LPG` to the URL:
+Filtering data is very straightforward. SODA APIs are self-describing &mdash; the schema and contents of the dataset itself determines how you can query it. Any field within the data can be used as a filter, simply by appending it to the API endpoint as a GET parameter. For example, to query for only fuel locations that provide [Liquefied Petroleum Gas](https://data.cityofchicago.org/developers/docs/f7f2-ggz5), simply append `?fuel_type_code=LPG` to the URL:
 
-{% include tryit.html domain='data.cityofchicago.org' path='/resource/alternative-fuel-locations.json' args='fuel_type_code=LPG' %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/f7f2-ggz5.json' args='fuel_type_code=LPG' %}
 
 Additional filters can be added, and the filters will be `AND`ed together.
 
@@ -59,7 +59,7 @@ Additional filters can be added, and the filters will be `AND`ed together.
 
 The "**So**crata **Q**uery **L**anguage" (SoQL) is a simple, SQL-like query language specifically designed for making it easy to work with data on the web. The language is both powerful and easy to learn, and everything works via `GET` parameters. For example, to search for fuel stations in downtown Chicago:
 
-{% include tryit.html domain='data.cityofchicago.org' path='/resource/alternative-fuel-locations.json' args='$where=within_box(location, 41.885001, -87.645939, 41.867011, -87.618516)' %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/f7f2-ggz5.json' args='$where=within_box(location, 41.885001, -87.645939, 41.867011, -87.618516)' %}
 
 <div class="well">
   Many different functions are available via SoQL. Read the detailed documentation on <a href="/docs/queries/">SoQL Queries</a> for more info.
@@ -71,7 +71,7 @@ For performance, SODA APIs are paged, and return a maximum of 50,000 records per
 
 So, to request page two, at 100 records per page, of our fuel locations API:
 
-{% include tryit.html domain='data.cityofchicago.org' path='/resource/alternative-fuel-locations.json' args='$limit=100&amp;$offset=100' %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/f7f2-ggz5.json' args='$limit=100&amp;$offset=100' %}
 
 <div class="well">
   Read the detailed documentation on <a href="/docs/paging.html">Paging</a> for more info.
