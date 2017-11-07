@@ -25,7 +25,7 @@ parents:
 
 The `upper(...)` function is used within the `$select` or `$where` parameters to upper-case a [Text](/docs/datatypes/text.html) value. For example, you could use it within the `$select` statement to upper-case names from the Chicago salaries dataset:
 
-{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$select=upper(name), employee_annual_salary" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$select=upper(name), annual_salary" %}
 
 You can also use it within the `$where` parameter to do case-insensitive matches:
 

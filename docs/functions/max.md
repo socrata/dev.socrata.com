@@ -33,7 +33,7 @@ parents:
 
 The `max(...)` function is most commonly used in `$select` aggregations to return the maximum of a set of numeric values ([Numbers](/docs/datatypes/number.html), [Doubles](/docs/datatypes/double.html), or [Moneys](/docs/datatypes/money.html)). For example, to fetch the highest salary of all of the employees in the City of Chicago:
 
-{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$select=max(employee_annual_salary)" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$select=max(annual_salary)" %}
 
 It can also be used in `$group` aggregations, like this one to get the maximum salary by job type:
 
