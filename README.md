@@ -15,11 +15,7 @@ The site is a customized [Jekyll](http://jekyllrb.com/) site, so there are some 
 3. Make sure you have Ruby version installed. Check `.ruby-version` to see the preferred version. If you're using rbenv or rvm, this should automatically be set up
 4. Install the Bundler Gem installed: `gem install bundler`
 5. Set up the Gem bundle: `bundle`
-6. Make sure you have the `jekyll` RubyGem installed
-7. You can then run one of several options on the `Rakefile`, depending on your setup:
-    - `rake incremental` will perform a Jekyll build into `./public`. If rerun, it'll be faster since it'll only build what you have changed.
-    - `rake watch` will perform an incremental build automatically when you change files, which is handy if you're using something like [Pow](https://pow.cx)
-    - `rake serve` will run a standalone server for testing
+6. To run a local server for development, run `rake serve`. Your server will be available at <http://localhost:9292>
 
 ### Submitting a Blog Post
 
@@ -27,9 +23,7 @@ We love submissions from the community! If you'd like to submit a [blog post](ht
 
 1. Review [other posts](https://dev.socrata.com/blog/) and [submissions](https://github.com/socrata/dev.socrata.com/pulls?q=is%3Apr+label%3Ablog+is%3Aclosed) to get a feel for the tone and language, and to see how others have formatted their posts.
 2. Fork [this repo](https://github.com/socrata/dev.socrata.com) into your account
-3. Create a new blog post, either by
-  - Running `rake post` and following the prompts
-  - Copying another post from [`_posts`](https://github.com/socrata/dev.socrata.com/tree/gh-pages/_post) and creating a new file of the format `YYYY-MM-DD-post-title.md`
+3. Create a new blog post running `rake post` and following the prompts
 4. Write your post in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), following a few rules:
   - Set the `author` key in the [YAML front matter](https://jekyllrb.com/docs/frontmatter/) to your GitHub username so you get proper author credit
   - If your post uses any images, add them to the [`img`](https://github.com/socrata/dev.socrata.com/tree/gh-pages/img) folder, prepended with your post date
@@ -42,7 +36,9 @@ Please note that by submitting a post to the Socrata Developer Blog, you are are
 
 ### Before Submitting
 
-Before submitting, run `rake test` and `rake htmlproof` to run the test suite and confirm that you haven't broken anything.
+Before submitting, please run `rake test` to run the test suite and confirm that you haven't broken anything. You may need to install `phantomjs` to run the test suite: `npm install -g phantomjs`
+
+Continuous integration tests will be run when you submit a pull request, so this will save time if issues later crop up.
 
 ### Modifying CSS/SASS
 

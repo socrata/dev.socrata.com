@@ -19,7 +19,6 @@ before_install:
 - npm install -g phantomjs
 - npm install -g surge
 script:
-- bundle exec rake htmlproof
 - bundle exec rake test
 after_success:
 # If this is a pull request, stage it and stick a message in the PR comments

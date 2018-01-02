@@ -65,7 +65,7 @@ task :serve do
 
   # Spawn a background fork for our server
   server_pid = fork do 
-    puts "Starting Rack server...".green
+    puts "Starting Rack server at http://localhost:9292...".green
     sh 'bundle exec rackup'
   end
 
@@ -83,9 +83,25 @@ desc "perform a quick build with a stamp"
 task :quick => [:incremental, :stamp] do
 end
 
+desc "run all tests"
+task :test => [:jekyll, :rspec, :htmlproof]
+
 desc "test links with htmlproof"
 task :htmlproof => [:jekyll] do
   sh "bundle exec htmlproof ./public/ --only-4xx --check-html --disable-external --href-ignore \"/#/,/\/foundry/,/\/register/,/APP_TOKEN/\""
+end
+
+desc "run rspec tests"
+task :rspec do
+  RSpec::Core::RakeTask.new(:spec) do |t|
+    t.pattern = '_tests/*.rb'
+  end
+  Rake::Task["spec"].execute
+end
+
+desc "clean up the ROUTER file, so we can push staging sites to Surge.sh"
+task :rm_router do
+  sh "rm public/ROUTER"
 end
 
 desc "stage site to #{URL}"
@@ -135,19 +151,6 @@ task :tag_pull_request do
   )
 
   puts response.inspect
-end
-
-desc "run rspec tests"
-task :test do
-  RSpec::Core::RakeTask.new(:spec) do |t|
-    t.pattern = '_tests/*.rb'
-  end
-  Rake::Task["spec"].execute
-end
-
-desc "clean up the ROUTER file, so we can push staging sites to Surge.sh"
-task :rm_router do
-  sh "rm public/ROUTER"
 end
 
 TEMPLATE = <<TMPL
