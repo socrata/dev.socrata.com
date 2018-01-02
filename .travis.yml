@@ -3,8 +3,6 @@ branches:
     - gh-pages
     - /.*/
 language: ruby
-rvm:
-- 2.1.1
 sudo: false
 cache: bundler
 env:
