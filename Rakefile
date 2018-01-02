@@ -5,6 +5,7 @@ require 'erb'
 require 'rspec'
 require 'rspec/core/rake_task'
 require 'open3'
+require 'timeout'
 
 # Variables and setup
 SHA = `git rev-parse --short HEAD`.strip
@@ -54,22 +55,22 @@ task :jekyll do
   exec_and_manually_watch_for_errors 'bundle exec jekyll build'
 end
 
-desc "perform an incremental jekyll build"
-task :incremental do
-  puts "Performing an incremental build...".green
-  exec_and_manually_watch_for_errors 'bundle exec jekyll build --incremental --safe'
-end
-
-desc "watch for changes and automatically rebuild (incrementally)"
-task :watch do
-  puts "Performing an incremental build...".green
-  exec_and_manually_watch_for_errors 'bundle exec jekyll build --incremental --safe --watch'
-end
-
 desc "automatically rebuild (incrementally), running a local server"
 task :serve do
-  puts "Performing an incremental build...".green
-  sh 'bundle exec jekyll serve --incremental --safe --watch'
+  # Span a background fork for our incremental build
+  jekyll_pid = fork do 
+    puts "Performing an incremental build...".green
+    exec_and_manually_watch_for_errors 'bundle exec jekyll build --incremental --safe --watch'
+  end
+
+  # Spawn a background fork for our server
+  server_pid = fork do 
+    puts "Starting Rack server...".green
+    sh 'bundle exec rackup'
+  end
+
+  # Wait for them to finish or be killed
+  Process.wait
 end
 
 desc "create a build and version build.json file"
