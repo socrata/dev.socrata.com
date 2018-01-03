@@ -5,6 +5,7 @@ require 'erb'
 require 'rspec'
 require 'rspec/core/rake_task'
 require 'open3'
+require 'timeout'
 
 # Variables and setup
 SHA = `git rev-parse --short HEAD`.strip
@@ -54,22 +55,22 @@ task :jekyll do
   exec_and_manually_watch_for_errors 'bundle exec jekyll build'
 end
 
-desc "perform an incremental jekyll build"
-task :incremental do
-  puts "Performing an incremental build...".green
-  exec_and_manually_watch_for_errors 'bundle exec jekyll build --incremental --safe'
-end
-
-desc "watch for changes and automatically rebuild (incrementally)"
-task :watch do
-  puts "Performing an incremental build...".green
-  exec_and_manually_watch_for_errors 'bundle exec jekyll build --incremental --safe --watch'
-end
-
 desc "automatically rebuild (incrementally), running a local server"
 task :serve do
-  puts "Performing an incremental build...".green
-  sh 'bundle exec jekyll serve --incremental --safe --watch'
+  # Span a background fork for our incremental build
+  jekyll_pid = fork do 
+    puts "Performing an incremental build...".green
+    exec_and_manually_watch_for_errors 'bundle exec jekyll build --incremental --safe --watch'
+  end
+
+  # Spawn a background fork for our server
+  server_pid = fork do 
+    puts "Starting Rack server at http://localhost:9292...".green
+    sh 'bundle exec rackup'
+  end
+
+  # Wait for them to finish or be killed
+  Process.wait
 end
 
 desc "create a build and version build.json file"
@@ -82,9 +83,25 @@ desc "perform a quick build with a stamp"
 task :quick => [:incremental, :stamp] do
 end
 
+desc "run all tests"
+task :test => [:jekyll, :rspec, :htmlproof]
+
 desc "test links with htmlproof"
 task :htmlproof => [:jekyll] do
   sh "bundle exec htmlproof ./public/ --only-4xx --check-html --disable-external --href-ignore \"/#/,/\/foundry/,/\/register/,/APP_TOKEN/\""
+end
+
+desc "run rspec tests"
+task :rspec do
+  RSpec::Core::RakeTask.new(:spec) do |t|
+    t.pattern = '_tests/*.rb'
+  end
+  Rake::Task["spec"].execute
+end
+
+desc "clean up the ROUTER file, so we can push staging sites to Surge.sh"
+task :rm_router do
+  sh "rm public/ROUTER"
 end
 
 desc "stage site to #{URL}"
@@ -134,19 +151,6 @@ task :tag_pull_request do
   )
 
   puts response.inspect
-end
-
-desc "run rspec tests"
-task :test do
-  RSpec::Core::RakeTask.new(:spec) do |t|
-    t.pattern = '_tests/*.rb'
-  end
-  Rake::Task["spec"].execute
-end
-
-desc "clean up the ROUTER file, so we can push staging sites to Surge.sh"
-task :rm_router do
-  sh "rm public/ROUTER"
 end
 
 TEMPLATE = <<TMPL
