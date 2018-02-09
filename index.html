@@ -14,36 +14,95 @@ custom_js:
 
 <div class="fat-header hidden-sm hidden-xs">
   <a href="http://snuffleupadata.com" target="_blank"><img src="/img/snuffleupacan.png" alt="snuffleupadata" class="pull-left" /></a>
-  <h1 class="hello-dolly"><noscript>puts “Hello Data!”;</noscript></h1>
+  <h1 class="hello-dolly"><noscript>puts "Hello Data!";</noscript></h1>
 </div>
 
+<!-- First row -->
 <div class="build-something">
-  <h1 class="tagline">Build something awesome with Open Data!</h1>
+  <h1 class="tagline">Building something using data?</h1>
   <p>The Socrata Open Data API allows you to programmatically access a wealth of open data resources from governments, non-profits, and NGOs around the world. Click the link below and try a live example right now.</p>
 
   {% include tryit.html domain='data.ct.gov' path='/resource/y6p2-px98.json' args="category=Fruit&item=Peaches" %}
 
   <div class="row trailhead">
     <div class="col-md-4">
-      <ul class="fa-ul"><li><h2><a href="/consumers/getting-started.html"><i class="fa fa-li fa-cogs"></i>App Developers</a></h2></li></ul>
+      <ul class="fa-ul"><li><h2><a href="/consumers/getting-started.html"><i class="fa fa-li fa-cogs"></i>Getting Started</a></h2></li></ul>
       <p>Looking to use open data as part of your application or your business? Learn how to <a href="/consumers/getting-started.html">get started</a>.</p>
     </div>
+    <div class="col-md-4"j>
+      <ul class="fa-ul"><li><h2><a href="/docs/endpoints.html"><i class="fa fa-li fa-book"></i>API Docs</a></h2></li></ul>
+      <p>Finding API endpoints, querying data, and interacting with different data types.</p>
+    </div>
     <div class="col-md-4">
-      <ul class="fa-ul"><li><h2><a href="/libraries/"><i class="fa fa-li fa-mobile-phone"></i>Libraries &amp; SDKs</a></h2></li></ul>
+      <ul class="fa-ul"><li><h2><a href="/libraries/"><i class="fa fa-li fa-code"></i>Libraries &amp; SDKs</a></h2></li></ul>
       <p>Support for most popular programming languages and platforms.</p>
     </div>
+  </div>
+</div>
+
+<!-- Second row  -->
+<div class="build-something">
+  <h1 class="tagline">Publishing and managing data?</h1>
+  <p>Are you a Socrata data publisher who wants to update your data programmatically and keep your data and metadata up-to-date? Do you want to access and analyze assets listed in your data catalog?</p>
+  <div class="row trailhead">
+    <div class="col-md-4">
+      <ul class="fa-ul"><li><h2><a href="/publishers/"><i class="fa fa-li fa-cloud-upload"></i>Data</a></h2></li></ul>
+      <p>Add, update, or delete data within a Socrata dataset.</p>
+    </div>
     <div class="col-md-4"j>
-      <ul class="fa-ul"><li><h2><a href="/publishers/"><i class="fa fa-li fa-cloud-upload"></i>Data Publishers</a></h2></li></ul>
-      <p>Are you a Socrata customer or data publisher? Check out our <a href="/publishers/">data publishing guide &raquo;</a></p>
+      <ul class="fa-ul"><li><h2><a href="https://socratametadataapi.docs.apiary.io"><i class="fa fa-li fa-info-circle"></i>Metadata</a></h2></li></ul>
+      <p>Access and update asset-level metadata on your data assets.</p>
+    </div>
+    <div class="col-md-4">
+      <ul class="fa-ul"><li><h2><a href="https://socratadiscovery.docs.apiary.io/"><i class="fa fa-li fa-list-alt"></i>Data Catalog</a></h2></li></ul>
+      <p>Review assets in your data catalog and discover assets across our entire corpus of open data using our <a href="https://socratadiscovery.docs.apiary.io">Discovery API</a></p>
     </div>
   </div>
+</div>
 
-  <div class="row odn">
-    <div class="col-xs-10">
-      <h3><a class="logo" href="http://www.opendatanetwork.com" title="Open Data Network"></a></h3>
+<!-- Third row -->
+<div class="build-something">
+  <h1 class="tagline">Need help?</h1>
+  <p>Looking for more guidance on finding and using open data for your analysis or application? Look no further!</p>
 
-      <p>Looking for open data? Search the <a href="http://www.opendatanetwork.com">Open Data Network</a> for datasets from all our customers and partners.</p>
+  <div class="col-md-4">
+    <h3><a href="/blog/"><i class="fa fa-fw fa-rss-square"></i>Developer Examples</a></h3>
+    <p>Tips &amp; tricks, updates about events &amp; hackathons, and interesting projects from the community.</p>
+    <dl>
+      {% for post in site.categories.blog limit:3 %}
+      <dt><a href="{{post.url}}"><a href="{{post.url}}"><i class="fa fa-fw {{ post.icon | default: "fa-rss" }}"></i> {{ post.title }}</a></dt>
+      <dd><em>{% if post.author contains ' ' %}{{post.author}}{% else %}<a href="https://github.com/{{post.author}}">{{post.author}}</a>{% endif %} on {{ post.date | date_to_string }}</em></dd>
+      {% endfor %}
+    </dl>
+    <p><a href="/blog/">More...</a></p>
+  </div>
 
+  <div class="col-md-4">
+    <h3><a href="/support.html"><i class="fa fa-fw fa-question-circle"></i>Support Resources</a></h3>
+    <p>We're here to help! Check out the resources below for answers.</p>
+    
+    <dl>
+      <dt><a href="https://stackoverflow.com/search?tab=newest&q=soda%20OR%20socrata"><i class="fa fa-fw fa-stack-overflow"></i> Stack Overflow</a><dt>
+        <dd>We follow the <code>soda</code> and <code>socrata</code> tags on Stack Overflow.</dd>
+        
+      <dt><a href="/irc.html"><i class="fa fa-fw fa-slack"></i> IRC Chat</a><dt>
+        <dd>Come chat with the Socrata team and ask questions</dd>
+        
+      <dt><a href="https://github.com/socrata"><i class="fa fa-fw fa-github"></i> GitHub</a><dt>
+        <dd>Socrata <i class="fa fa-heart"></i>'s Open Source!</dd>
+        
+      <dt><a href="https://github.com/socrata/discuss/issues"><i class="fa fa-fw fa-bug"></i> Issue Tracker</a><dt>
+        <dd>Raise and discuss issues with the Socrata API, datasets, or data itself</dd>
+
+      <dt><a href="/changelog/"><i class="fa fa-fw fa-code-fork"></i> Changelog</a></dt>
+      <dd>Track the latest updates to our APIs and learn about upcoming changes.</dd>
+    </dl>
+  </div>
+  
+  <div class="row trailhead">
+    <div class="col-md-4">
+      <h3><a href="https://www.opendatanetwork.com/"><i class="fa fa-fw fa-search"></i>Finding Open Data</a></h3>
+      <p>Looking for open data? Search the Open Data Network for datasets from all our customers and partners.</p>
       <form action="http://www.opendatanetwork.com/search" method="GET">
         <div class="search">
           <div class="input-group col-md-12">
@@ -58,53 +117,6 @@ custom_js:
         </div>
       </form>
     </div>
-  </div>
 
-  <div class="row trailhead yet-more">
-    <div class="col-md-4">
-      <h3><a href="/changelog/"><i class="fa fa-fw fa-code-fork"></i>Changelog</a></h3>
-      <p>Track the latest updates to our APIs and learn about upcoming changes.</p>
-      <dl>
-        {% for change in site.categories.changelog limit:3 %}
-          <dt><a href="{{change.url}}"><i class="fa fa-fw fa-code-fork"></i> {{ change.title }}</a></dt>
-          <dd><em>{% if change.author contains ' ' %}{{change.author}}{% else %}<a href="https://github.com/{{change.author}}">{{change.author}}</a>{% endif %} on {{ change.date | date_to_string }}</em></dd>
-        {% endfor %}
-      </dl>
-      <p><a href="/changelog/">More...</a></p>
-    </div>
-
-    <div class="col-md-4">
-      <h3><a href="/blog/"><i class="fa fa-fw fa-rss-square"></i>Developer Blog</a></h3>
-      <p>Tips &amp; tricks, updates about events &amp; hackathons, and interesting projects from the community.</p>
-      <dl>
-        {% for post in site.categories.blog limit:3 %}
-          <dt><a href="{{post.url}}"><a href="{{post.url}}"><i class="fa fa-fw {{ post.icon | default: "fa-rss" }}"></i> {{ post.title }}</a></dt>
-          <dd><em>{% if post.author contains ' ' %}{{post.author}}{% else %}<a href="https://github.com/{{post.author}}">{{post.author}}</a>{% endif %} on {{ post.date | date_to_string }}</em></dd>
-        {% endfor %}
-      </dl>
-      <p><a href="/blog/">More...</a></p>
-    </div>
-
-    <div class="col-md-4">
-      <h3><a href="/support.html"><i class="fa fa-fw fa-question-circle"></i>Support Resources</a></h3>
-      <p>We're here to help! Check out the resources below for answers.</p>
-
-      <dl>
-        <dt><a href="https://stackoverflow.com/search?tab=newest&q=soda%20OR%20socrata"><i class="fa fa-fw fa-stack-overflow"></i> Stack Overflow</a><dt>
-        <dd>We follow the <code>soda</code> and <code>socrata</code> tags on Stack Overflow.</dd>
-
-        <dt><a href="/irc.html"><i class="fa fa-fw fa-slack"></i> IRC Chat</a><dt>
-        <dd>Come chat with the Socrata team and ask questions</dd>
-
-        <dt><a href="https://github.com/socrata"><i class="fa fa-fw fa-github"></i> GitHub</a><dt>
-        <dd>Socrata <i class="fa fa-heart"></i>'s Open Source!</dd>
-
-        <dt><a href="https://github.com/socrata/discuss/issues"><i class="fa fa-fw fa-bug"></i> Issue Tracker</a><dt>
-        <dd>Raise and discuss issues with the Socrata API, datasets, or data itself</dd>
-
-        <dt><a href="/calendar.html"><i class="fa fa-fw fa-calendar"></i> Event Calendar</a></dt>
-        <dd>Where you can find our team in the coming weeks</dd>
-      </dl>
-    </div>
   </div>
 </div>
