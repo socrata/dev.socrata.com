@@ -20,7 +20,7 @@
       <ul>
         <li><em>Dataset Identifier:</em> <code id="uid">{{uid}}</code></li>
         <li><em>Total Rows:</em> <span class="row-count" data-query-base="{{query_base}}" data-uid="{{uid}}">&hellip;</span></li>
-        <li><em>Source Domain:</em> <a href="http://{{domain}}">{{domain}}</a></li>
+        <li><em>Source Domain:</em> <a href="https://{{domain}}">{{domain}}</a></li>
         <li><em>Created:</em> {{metadata.createdAt}}</li>
         <li><em>Last Updated:</em> {{structural_metadata.rowsUpdatedAt}}</li>
         {{#metadata.category}}
@@ -33,7 +33,7 @@
           <li><em>License:</em> <a href="{{termsLink}}" target="_blank">{{name}}</a></li>
         {{/metadata.license}}
         {{#metadata.owner}}
-          <li><em>Owner:</em> <a href="http://{{domain}}/profile/{{id}}">{{displayName}}</a></li>
+          <li><em>Owner:</em> <a href="https://{{domain}}/profile/{{id}}">{{displayName}}</a></li>
         {{/metadata.owner}}
         <li><em>Endpoint Version:</em> <a href="/docs/endpoints.html#{{version}}">{{version}}</a></li>
         <li>
@@ -44,7 +44,7 @@
         </li>
       </ul>
     </div>
-    <div class="panel-footer"><a target="_blank" href="http://{{domain}}/d/{{metadata.id}}">View dataset &raquo;</a></div>
+    <div class="panel-footer"><a target="_blank" href="https://{{domain}}/d/{{metadata.id}}">View dataset &raquo;</a></div>
   </div>
 
   <div class="panel panel-info download">
@@ -54,7 +54,7 @@
     <div class="panel-body">
       <p>Just want to grab this dataset in bulk to analyize offline? You can use the <a href="/docs/paging.html">SoQL paging parameters</a> to iterate through the dataset, or you can export the entire dataset as a static, downloadable CSV file.</p>
     </div>
-    <div class="panel-footer"><a href="http://{{domain}}/api/views/{{metadata.id}}/rows.csv?accessType=DOWNLOAD&api_foundry=true">Export dataset as CSV &raquo;</a></div>
+    <div class="panel-footer"><a href="https://{{domain}}/api/views/{{metadata.id}}/rows.csv?accessType=DOWNLOAD&api_foundry=true">Export dataset as CSV &raquo;</a></div>
   </div>
 
   {{#migration}}
@@ -160,7 +160,7 @@
 
     <p>A <a href="/foundry/#/{{domain}}/{{nbe_uid}}" target="_blank">new version of this dataset</a> exists that you should migrate to as soon as you're ready. This now deprecated version of the dataset will continue to be available for some time, and will be automatically kept in sync with the new dataset. The last time this dataset was synchronized was {{ last_synced }}, and the dataset was last updated at {{metadata.rowsUpdatedAt}}.</p>
 
-    <p>Most things will continue to function exactly the same, but the new dataset has great new features like <a href="/docs/functions/index.html">new query functionality</a>, increased performance, and <a href="http://labs.socrata.com">access to new beta APIs</a>. Those features <em>will not</em> be available on the legacy dataset.</p>
+    <p>Most things will continue to function exactly the same, but the new dataset has great new features like <a href="/docs/functions/index.html">new query functionality</a>, increased performance, and <a href="https://labs.socrata.com">access to new beta APIs</a>. Those features <em>will not</em> be available on the legacy dataset.</p>
 
     {{#splits}}
       <p>For this dataset, the following complex columns will change structurally:</p>
