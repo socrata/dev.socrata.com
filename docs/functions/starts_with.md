@@ -4,7 +4,7 @@ sidebar: documentation
 title: starts_with(...)
 
 type: function
-function: $1 starts_with($2)
+function: starts_with($1, $2)
 description: Matches on text strings that start with a given substring
 versions:
 - 2.1
