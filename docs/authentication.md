@@ -6,13 +6,15 @@ title: Authentication
 
 <div class="alert alert-info"><i class="fa fa-hand-stop-o fa-4x pull-left"></i> <em>Wait a second!</em> Authentication is only necessary when accessing datasets that have been marked as <em>private</em> or when making write requests (<code>PUT</code>, <code>POST</code>, and <code>DELETE</code>). For reading datasets that have not been marked as private, simply use an <a href="/docs/app-tokens.html">application token</a>.</div>
 
-There are two methods available for authentication: HTTP Basic and OAuth 2.0.
-- HTTP Basic authentication may be used in cases where you are authenticating from an update script that runs without interaction with the user and without a web front-end.
-- OAuth 2.0 is preferred for cases where you are building a web application that needs to authenticate on behalf of another user.
+There are two methods available for authentication: HTTP Basic and OAuth 2.0. For non-interactive applications, we only support HTTP Basic Authentication. We encourage all our developers of interactive applications to use the OAuth 2.0 workflow to authenticate their users.
+
+* HTTP Basic Authentication is required when you are authenticating from a script that runs without interaction with the user, like your ETL tool, an update script, or any other data management automation.
+
+* OAuth 2.0 is the preferred option for cases where you are building a web or mobile application that needs to perform actions on behalf of the user, like accessing data, and the interaction model allows you to present the user with a form to obtain their permission for the app to do so.
 
 ## Authenticating using HTTP Basic Authentication
 
-Requests can be authenticated by passing in HTTP Basic Authentication headers. We only support this method for non-interactive applications, and encourage all our developers of interactive applications to use the OAuth 2.0 workflow to authenticate their users. We may deprecate this authentication method in the future, but it will be replaced with a similar token-based alternative.
+Requests can be authenticated by passing in HTTP Basic Authentication headers. We may deprecate this authentication method in the future, but it will be replaced with a similar token-based alternative. Please consider using the OAuth 2.0 workflow if you’re building a web or mobile application.
 
 All HTTP-basic-authenticated requests *must* be performed over a secure (`https`) connection, and should include an application token, which is obtained when you [register your application](http://opendata.socrata.com/profile/app_tokens). However, authentication tokens are not strictly required when a request is authenticated. Authenticated requests made over an insecure connection will be denied.
 
