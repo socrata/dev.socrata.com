@@ -4,7 +4,7 @@ gem 'github-pages'
 
 gem 'jekyll-feed'
 gem 'ferret'
-gem 'nokogiri'
+gem 'nokogiri', '1.8.2'
 gem 'pry'
 gem 'mime-types'
 gem 'html-proofer', '2.6.4'
