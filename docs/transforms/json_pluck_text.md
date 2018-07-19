@@ -5,7 +5,8 @@ title: json_pluck_text
 ---
 
 ##### Function: `json_pluck_text`
-Pluck a text value out of a JSON string. The returned value may be a primitive like a
+```
+  Pluck a text value out of a JSON string. The returned value may be a primitive like a
   string. If you select a non-primitive value like an array or
   an object, it will be rendered back into a string and returned.
 
@@ -30,6 +31,11 @@ Examples:
   -- Use an optional (?) selector to return null when the target is not an object
   json_pluck_text('{"foo":[{"bar":1},{"bar":2},"not-an-object"]}', '.foo.[].bar?')
   -- Result: "[1,2,null]"
+
+
+
+
+```
 
 ###### Signatures
     text, text -> text

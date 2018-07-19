@@ -5,7 +5,8 @@ title: lower
 ---
 
 ##### Function: `lower`
-lowercase a string
+```
+  lowercase a string
 
 Examples:
 
@@ -17,6 +18,11 @@ Examples:
 
   lower(text_column)
   -- Result: "text column datum"
+
+
+
+
+```
 
 ###### Signatures
     text -> text

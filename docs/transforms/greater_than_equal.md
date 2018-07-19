@@ -5,7 +5,8 @@ title: greater_than_equal
 ---
 
 ##### Function: `>=`
-Return true if the value on the left is greater than or equal to the value on the right
+```
+  Return true if the value on the left is greater than or equal to the value on the right
 
 Examples:
 
@@ -17,6 +18,11 @@ Examples:
 
   'a' >= 'b'
   -- Result: false
+
+
+
+
+```
 
 ###### Signatures
     a, a -> checkbox

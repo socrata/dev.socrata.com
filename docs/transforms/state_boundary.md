@@ -5,7 +5,8 @@ title: state_boundary
 ---
 
 ##### Function: `state_boundary`
-returns the boundary of the US state
+```
+  returns the boundary of the US state
   as a multipolygon. The state name is not case sensitive.
 
 Examples:
@@ -26,6 +27,10 @@ Examples:
   )
 
   -- Result: true
+
+
+
+```
 
 ###### Signatures
     text -> multipolygon

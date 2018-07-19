@@ -5,7 +5,8 @@ title: subtract
 ---
 
 ##### Function: `-`
-Subtract a number from another
+```
+  Subtract a number from another
 
 
   Change a number's sign
@@ -24,6 +25,11 @@ Examples:
 
   -(2)
   -- Result: "-2"
+
+
+
+
+```
 
 ###### Signatures
     number, number -> number

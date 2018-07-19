@@ -5,7 +5,8 @@ title: date_extract_y
 ---
 
 ##### Function: `date_extract_y`
-Extract the year as an integer
+```
+  Extract the year as an integer
 
 Examples:
 
@@ -17,6 +18,11 @@ Examples:
 
   date_extract_y(to_fixed_timestamp('2017-12-31T23:24:53-0930'))
   -- Result: "2018"
+
+
+
+
+```
 
 ###### Signatures
     a -> number

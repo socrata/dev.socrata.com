@@ -5,7 +5,8 @@ title: abs
 ---
 
 ##### Function: `abs`
-Produce the absolute value of a number
+```
+  Produce the absolute value of a number
 
 Examples:
 
@@ -14,6 +15,11 @@ Examples:
 
   abs(5)
   -- Result: "5"
+
+
+
+
+```
 
 ###### Signatures
     number -> number

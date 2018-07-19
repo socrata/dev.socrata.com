@@ -5,7 +5,8 @@ title: xml_pluck
 ---
 
 ##### Function: `xml_pluck`
-Pluck a value out of an XML string using XPath. The returned value will be a string.
+```
+  Pluck a value out of an XML string using XPath. The returned value will be a string.
   If a non-text() value is selected, the document will be re-rendered from XML to a string.
 
   The path used is XPath syntax.
@@ -21,6 +22,11 @@ Examples:
         '/foo/bar/text()'
       )
   -- Result: "the contents!"
+
+
+
+
+```
 
 ###### Signatures
     text, text -> text

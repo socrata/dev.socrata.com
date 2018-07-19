@@ -5,7 +5,10 @@ title: to_checkbox
 ---
 
 ##### Function: `to_checkbox`
+```
 No documentation is available.
+
+```
 
 ###### Signatures
     text -> checkbox

@@ -5,7 +5,8 @@ title: ensure_within
 ---
 
 ##### Function: `ensure_within`
-ensure_within is a function which takes a point and a multipolygon
+```
+  ensure_within is a function which takes a point and a multipolygon
   and, if the point is within the multipolygon, returns the point. If the
   point is not within the polygon, it returns an error.
 
@@ -36,6 +37,11 @@ Examples:
   )
 
   -- Result: "The point was not within the polygon given to ensure_within/2"
+
+
+
+
+```
 
 ###### Signatures
     point, multipolygon -> point

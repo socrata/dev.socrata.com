@@ -5,7 +5,8 @@ title: geocode_esri
 ---
 
 ##### Function: `geocode_esri`
-geocode_esri is a function which takes human readable addresses
+```
+  geocode_esri is a function which takes human readable addresses
   and translates them into a latitude, longitude point using an ESRI
   ArcREST server which is publicly accessible on the internet.
 
@@ -41,6 +42,8 @@ geocode_esri is a function which takes human readable addresses
     geocode_esri(`my_address_column`, 'Seattle', 'WA', `zipcode_column`, 'US', 'https://my-esri-arcrest-server.gov/arcgis/rest/services/Locators/name/GeocodeServer')
 
     geocode_esri(`my_address_column`, 'Seattle', 'WA', `zipcode_column`, 'US', 'https://my-esri-arcrest-server.gov/arcgis/rest/services/Locators/name/GeocodeServer', 20)
+
+```
 
 ###### Signatures
     text, text, text, text, text -> point

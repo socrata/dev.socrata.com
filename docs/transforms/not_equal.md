@@ -5,7 +5,8 @@ title: not_equal
 ---
 
 ##### Function: `!=`
-Return true if the left side does not equal the right
+```
+  Return true if the left side does not equal the right
 
 Examples:
 
@@ -17,6 +18,11 @@ Examples:
 
   'a' != 'b'
   -- Result: true
+
+
+
+
+```
 
 ###### Signatures
     a, a -> checkbox

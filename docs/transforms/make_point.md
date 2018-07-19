@@ -5,7 +5,8 @@ title: make_point
 ---
 
 ##### Function: `make_point`
-function to make a point out of a Y (latitude) and X (longitude) coordinate.
+```
+  function to make a point out of a Y (latitude) and X (longitude) coordinate.
 
   Note that the Y component (latitude) comes first
 
@@ -16,6 +17,11 @@ Examples:
 
   make_point(to_number(text_number_column), to_number(text_number_column))
   -- Result: {"type":"Point","coordinates":[42,42]}
+
+
+
+
+```
 
 ###### Signatures
     number, number -> point

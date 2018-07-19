@@ -5,7 +5,8 @@ title: grapheme_length
 ---
 
 ##### Function: `grapheme_length`
-the length of a piece of text in unicode grapheme clusters.
+```
+  the length of a piece of text in unicode grapheme clusters.
 
 Examples:
 
@@ -17,6 +18,10 @@ Examples:
 
   grapheme_length("a\u0301")
   -- Result: "Decomposed a-with-acute: 1"
+
+
+
+```
 
 ###### Signatures
     text -> number

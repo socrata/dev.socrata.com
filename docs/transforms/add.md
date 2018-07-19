@@ -5,7 +5,8 @@ title: add
 ---
 
 ##### Function: `+`
-Add two numbers together
+```
+  Add two numbers together
 
 Examples:
 
@@ -14,6 +15,11 @@ Examples:
 
   2.5 + 3
   -- Result: "5.5"
+
+
+
+
+```
 
 ###### Signatures
     number, number -> number

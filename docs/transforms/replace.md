@@ -5,7 +5,8 @@ title: replace
 ---
 
 ##### Function: `replace`
-replace text with another piece of text
+```
+  replace text with another piece of text
 
 Examples:
 
@@ -14,6 +15,11 @@ Examples:
 
   replace(text_column, 'datum', 'data')
   -- Result: "text column data"
+
+
+
+
+```
 
 ###### Signatures
     text, text, text -> text

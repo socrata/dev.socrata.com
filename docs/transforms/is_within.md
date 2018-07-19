@@ -5,7 +5,8 @@ title: is_within
 ---
 
 ##### Function: `is_within`
-is_within is a function which takes a point and a multipolygon
+```
+  is_within is a function which takes a point and a multipolygon
   and returns a true value if the point is in the multipolygon, otherwise it returns
   false
 
@@ -37,6 +38,11 @@ Examples:
   )
 
   -- Result: false
+
+
+
+
+```
 
 ###### Signatures
     point, multipolygon -> checkbox

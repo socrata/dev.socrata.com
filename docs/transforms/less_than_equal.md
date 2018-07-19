@@ -5,7 +5,8 @@ title: less_than_equal
 ---
 
 ##### Function: `<=`
-Return true if the value on the left is less than or equal to the value on the right
+```
+  Return true if the value on the left is less than or equal to the value on the right
 
 Examples:
 
@@ -17,6 +18,11 @@ Examples:
 
   'a' <= 'b'
   -- Result: true
+
+
+
+
+```
 
 ###### Signatures
     a, a -> checkbox

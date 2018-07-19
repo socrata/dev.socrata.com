@@ -5,7 +5,8 @@ title: contains
 ---
 
 ##### Function: `contains`
-tell whether or not a string contains another string
+```
+  tell whether or not a string contains another string
 
 Examples:
 
@@ -17,6 +18,11 @@ Examples:
 
   contains('foobar', 'baz')
   -- Result: false
+
+
+
+
+```
 
 ###### Signatures
     text, text -> checkbox

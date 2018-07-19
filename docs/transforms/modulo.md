@@ -5,7 +5,8 @@ title: modulo
 ---
 
 ##### Function: `%`
-Find the remainder(modulus) of one number divided by another
+```
+  Find the remainder(modulus) of one number divided by another
 
 Examples:
 
@@ -14,6 +15,11 @@ Examples:
 
   4 % 2
   -- Result: "0"
+
+
+
+
+```
 
 ###### Signatures
     number, number -> number

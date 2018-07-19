@@ -5,7 +5,8 @@ title: equal
 ---
 
 ##### Function: `==`
-Return true if the left side equals the right
+```
+  Return true if the left side equals the right
 
 Examples:
 
@@ -17,6 +18,11 @@ Examples:
 
   'a' == 'b'
   -- Result: false
+
+
+
+
+```
 
 ###### Signatures
     a, a -> checkbox

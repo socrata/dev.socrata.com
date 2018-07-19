@@ -5,7 +5,8 @@ title: to_fixed_timestamp
 ---
 
 ##### Function: `to_fixed_timestamp`
-Turn a text value into a datetime with a fixed timezone.
+```
+  Turn a text value into a datetime with a fixed timezone.
   The formatting string can be constructed with the following tokens
 
     Spec.   Example   Description
@@ -101,6 +102,11 @@ Examples:
   -- Using %r shorthand for %H:%M:%S %p
   to_fixed_timestamp('January 27, 2017 at 01:35:50 PM +0930', '%B %d, %Y at %r %z')
   -- Result: "2017-01-27T04:05:50+00:00"
+
+
+
+
+```
 
 ###### Signatures
     text, text -> date

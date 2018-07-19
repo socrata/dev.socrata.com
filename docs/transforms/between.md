@@ -5,7 +5,8 @@ title: between
 ---
 
 ##### Function: `#BETWEEN`
-Return true if the left is within the range of the right values
+```
+  Return true if the left is within the range of the right values
 
 Examples:
 
@@ -20,6 +21,11 @@ Examples:
 
   'b' BETWEEN 'a' and 'c'
   -- Result: true
+
+
+
+
+```
 
 ###### Signatures
     a, a, a -> checkbox

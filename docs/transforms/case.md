@@ -5,7 +5,8 @@ title: case
 ---
 
 ##### Function: `case`
-Evaluate a series of true/false expressions (predicates) and return the next consequent.
+```
+  Evaluate a series of true/false expressions (predicates) and return the next consequent.
 
   The case takes on the following form.
 
@@ -38,6 +39,8 @@ Evaluate a series of true/false expressions (predicates) and return the next con
       true,
       error('incident_type was not 0, 1, 2 or 3, instead it was: ' || `incident_type`)
     )
+
+```
 
 ###### Signatures
     checkbox, a -> a

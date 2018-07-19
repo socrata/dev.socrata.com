@@ -5,7 +5,8 @@ title: not
 ---
 
 ##### Function: `not`
-Invert a boolean
+```
+  Invert a boolean
 
 Examples:
 
@@ -14,6 +15,11 @@ Examples:
 
   not false
   -- Result: true
+
+
+
+
+```
 
 ###### Signatures
     checkbox -> checkbox

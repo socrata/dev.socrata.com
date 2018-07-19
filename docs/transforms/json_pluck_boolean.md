@@ -5,7 +5,8 @@ title: json_pluck_boolean
 ---
 
 ##### Function: `json_pluck_boolean`
-Pluck a boolean value out of a JSON string. The returned value must be a boolean, otherwise
+```
+  Pluck a boolean value out of a JSON string. The returned value must be a boolean, otherwise
   an error is returned.
 
   The path used consists of '.' to access identifiers and '[n]' to
@@ -25,6 +26,11 @@ Examples:
   -- Quote the identifier using brackets
   json_pluck_boolean('{"foo-bar": {"baz": false}}', '.["foo-bar"].baz')
   -- Result: false
+
+
+
+
+```
 
 ###### Signatures
     text, text -> checkbox

@@ -5,7 +5,8 @@ title: geocode
 ---
 
 ##### Function: `geocode`
-geocode is a function which takes human readable addresses
+```
+  geocode is a function which takes human readable addresses
   and translates them into a latitude, longitude point. The
   point can then be displayed on a map.
 
@@ -22,6 +23,8 @@ geocode is a function which takes human readable addresses
     geocode(`my_address_column`, 'Seattle', 'WA', `zipcode_column`)
 
     geocode(`my_address_column`, 'Seattle', 'WA', `zipcode_column`, 'US')
+
+```
 
 ###### Signatures
     location -> location

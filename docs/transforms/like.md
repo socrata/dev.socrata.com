@@ -5,7 +5,8 @@ title: like
 ---
 
 ##### Function: `#LIKE`
-If a string is like another string.
+```
+  If a string is like another string.
   Behaves like a SQL LIKE, which accepts % prefix/suffix
   for substring LIKE queries.
 
@@ -16,6 +17,8 @@ If a string is like another string.
   "foo%" LIKE "bazfoo" -- false
 
   "%foo%" LIKE "bazfoobar" -- true
+
+```
 
 ###### Signatures
     text, text -> checkbox

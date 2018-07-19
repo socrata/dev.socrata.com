@@ -5,7 +5,8 @@ title: to_boolean
 ---
 
 ##### Function: `to_boolean`
-cast a value to a true or false
+```
+  cast a value to a true or false
 
 Examples:
 
@@ -20,6 +21,11 @@ Examples:
 
   to_boolean(text_boolean_column)
   -- Result: true
+
+
+
+
+```
 
 ###### Signatures
     text -> checkbox

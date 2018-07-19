@@ -5,7 +5,8 @@ title: date_extract_hh
 ---
 
 ##### Function: `date_extract_hh`
-Extract the hour the date as an integer
+```
+  Extract the hour the date as an integer
 
 Examples:
 
@@ -17,6 +18,11 @@ Examples:
 
   date_extract_hh(to_fixed_timestamp('2017-12-13T00:24:53+0930'))
   -- Result: "14"
+
+
+
+
+```
 
 ###### Signatures
     a -> number

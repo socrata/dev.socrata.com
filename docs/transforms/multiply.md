@@ -5,7 +5,8 @@ title: multiply
 ---
 
 ##### Function: `*`
-Multiply two numbers together
+```
+  Multiply two numbers together
 
 Examples:
 
@@ -14,6 +15,11 @@ Examples:
 
   3 * 5
   -- Result: "15"
+
+
+
+
+```
 
 ###### Signatures
     number, number -> number

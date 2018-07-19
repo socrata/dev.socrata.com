@@ -5,7 +5,8 @@ title: not_between
 ---
 
 ##### Function: `#NOT_BETWEEN`
-Return true if the left is not within the range of the right values
+```
+  Return true if the left is not within the range of the right values
 
 Examples:
 
@@ -17,6 +18,11 @@ Examples:
 
   'b' NOT BETWEEN 'a' and 'c'
   -- Result: false
+
+
+
+
+```
 
 ###### Signatures
     a, a, a -> checkbox

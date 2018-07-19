@@ -5,7 +5,8 @@ title: upper
 ---
 
 ##### Function: `upper`
-uppercase a string
+```
+  uppercase a string
 
 Examples:
 
@@ -17,6 +18,11 @@ Examples:
 
   upper(text_column)
   -- Result: "TEXT COLUMN DATUM"
+
+
+
+
+```
 
 ###### Signatures
     text -> text

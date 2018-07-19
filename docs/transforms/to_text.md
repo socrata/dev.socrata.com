@@ -5,7 +5,8 @@ title: to_text
 ---
 
 ##### Function: `to_text`
-cast a value to text
+```
+  cast a value to text
 
 Examples:
 
@@ -17,6 +18,11 @@ Examples:
 
   to_text(to_point('POINT (2 2)'))
   -- Result: "POINT(2 2)"
+
+
+
+
+```
 
 ###### Signatures
     multipolygon -> text

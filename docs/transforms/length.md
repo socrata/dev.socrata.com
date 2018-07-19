@@ -5,7 +5,8 @@ title: length
 ---
 
 ##### Function: `length`
-the length of a piece of text in unicode code points.  This is usually, but not
+```
+  the length of a piece of text in unicode code points.  This is usually, but not
   always, the same as the length of the text in user-perceived characters.
 
 Examples:
@@ -18,6 +19,10 @@ Examples:
 
   length("a\u0301")
   -- Result: "Decomposed a-with-acute: 2"
+
+
+
+```
 
 ###### Signatures
     text -> number

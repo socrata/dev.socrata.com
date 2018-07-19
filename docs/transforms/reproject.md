@@ -5,7 +5,8 @@ title: reproject
 ---
 
 ##### Function: `reproject`
-reproject a geometry from one projection to another.
+```
+  reproject a geometry from one projection to another.
   If the geometry came from a shapefile, it will have the projection information
   associated with it.
   If the geometry does not have projection information associated with it,
@@ -32,6 +33,11 @@ Examples:
 
   reproject(set_projection(to_point('POINT (372728.3308536674 69825.24782297359)'), '+init=epsg:3627'), '+init=epsg:4326')
   -- Result: {"type":"Point","coordinates":[-73.13826,40.79224]}
+
+
+
+
+```
 
 ###### Signatures
     multipolygon, text -> multipolygon
