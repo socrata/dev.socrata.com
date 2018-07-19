@@ -4,14 +4,25 @@ sidebar: documentation
 title: not_equal
 ---
 
-##### Function: `<>`
-Return true if the left side does not equal the right
+##### Function: `!=`
+```
+  Return true if the left side does not equal the right
 
-  Examples
+Examples:
 
-    1 <> 1 -- false
-    1 <> 2 -- true
-    'a' <> 'b' -- true
+  1 != 1
+  -- Result: false
+
+  1 != 2
+  -- Result: true
+
+  'a' != 'b'
+  -- Result: true
+
+
+
+
+```
 
 ###### Signatures
     a, a -> checkbox

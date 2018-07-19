@@ -5,13 +5,21 @@ title: concatenate
 ---
 
 ##### Function: `||`
-concatenate two strings
+```
+  concatenate two strings
 
-  Examples:
+Examples:
 
-    'foo' || 'bar' -- 'foobar'
+  'foo' || 'bar'
+  -- Result: "foobar"
 
-    a_text_column || '_now_has_this_suffix'
+  text_column || ' (now has this text appended)'
+  -- Result: "text column datum (now has this text appended)"
+
+
+
+
+```
 
 ###### Signatures
     a, b -> text

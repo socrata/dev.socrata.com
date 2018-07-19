@@ -5,13 +5,24 @@ title: lower
 ---
 
 ##### Function: `lower`
-lowercase a string
+```
+  lowercase a string
 
-  Examples:
+Examples:
 
-    lower('SOME TEXT') -- 'some text'
+  lower('SOMETHING')
+  -- Result: "something"
 
-    lower(`a_text_column`)
+  lower('SOMEthing')
+  -- Result: "something"
+
+  lower(text_column)
+  -- Result: "text column datum"
+
+
+
+
+```
 
 ###### Signatures
     text -> text

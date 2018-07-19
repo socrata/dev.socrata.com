@@ -5,13 +5,21 @@ title: to_polygon
 ---
 
 ##### Function: `to_polygon`
-parse a WKT (text) representation of a polygon into a polygon value
+```
+  parse a WKT (text) representation of a polygon into a polygon value
 
-  Examples
+Examples:
 
-    to_polygon('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))') -- Polygon(...)
+  to_polygon('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))')
+  -- Result: {"type":"Polygon","coordinates":[[[30,10],[40,40],[20,40],[10,20],[30,10]]]}
 
-    to_polygon(`my_wkt_polygon_column`)
+  to_polygon(`a_wkt_polygon`)
+  -- Result: {"type":"Polygon","coordinates":[[[30,10],[40,40],[20,40],[10,20],[30,10]]]}
+
+
+
+
+```
 
 ###### Signatures
     text -> polygon

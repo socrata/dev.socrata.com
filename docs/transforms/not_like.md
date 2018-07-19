@@ -5,7 +5,8 @@ title: not_like
 ---
 
 ##### Function: `#NOT_LIKE`
-If a string is not like another string.
+```
+  If a string is not like another string.
   Behaves like a SQL LIKE, which accepts % prefix/suffix
   for substring LIKE queries.
 
@@ -17,6 +18,8 @@ If a string is not like another string.
     "foo%" LIKE "bazfoo" -- true
 
     "%foo%" LIKE "bazfoobar" -- false
+
+```
 
 ###### Signatures
     text, text -> checkbox

@@ -5,7 +5,8 @@ title: make_location
 ---
 
 ##### Function: `make_location`
-make_location makes a location column from human readable
+```
+  make_location makes a location column from human readable
   address columns and a point column. A Location column is the amalgamation
   of these two components.
 
@@ -21,6 +22,8 @@ make_location makes a location column from human readable
         to_number(`my_longitude_column`)
       )
     )
+
+```
 
 ###### Signatures
     text, text, text, text, point -> location

@@ -5,7 +5,8 @@ title: coalesce
 ---
 
 ##### Function: `coalesce`
-Take the leftmost non-null value.
+```
+  Take the leftmost non-null value.
   This function can take an arbitrary number of arguments, but
   every argument must be of the same type.
 
@@ -18,6 +19,8 @@ Take the leftmost non-null value.
       maybe_this_other_column,
       maybe_this_one
     )
+
+```
 
 ###### Signatures
     a -> a
