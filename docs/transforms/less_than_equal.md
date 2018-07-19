@@ -7,11 +7,16 @@ title: less_than_equal
 ##### Function: `<=`
 Return true if the value on the left is less than or equal to the value on the right
 
-  Examples
+Examples:
 
-    1 <= 2 -- true
-    1 <= 1 -- true
-    'a' <= 'b' -- true
+  1 <= 2
+  -- Result: true
+
+  1 <= 1
+  -- Result: true
+
+  'a' <= 'b'
+  -- Result: true
 
 ###### Signatures
     a, a -> checkbox

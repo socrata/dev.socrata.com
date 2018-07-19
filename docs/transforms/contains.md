@@ -7,11 +7,16 @@ title: contains
 ##### Function: `contains`
 tell whether or not a string contains another string
 
-  Examples:
+Examples:
 
-    starts_with('foobar', 'foo') -- true
+  contains('foobar', 'foo')
+  -- Result: true
 
-    starts_with('foobar', 'bar') -- true
+  contains('foobar', 'bar')
+  -- Result: true
+
+  contains('foobar', 'baz')
+  -- Result: false
 
 ###### Signatures
     text, text -> checkbox

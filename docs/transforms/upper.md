@@ -7,11 +7,16 @@ title: upper
 ##### Function: `upper`
 uppercase a string
 
-  Examples:
+Examples:
 
-    upper('some text')
+  upper('something')
+  -- Result: "SOMETHING"
 
-    upper(`a_text_column`)
+  upper('SOMETHINg')
+  -- Result: "SOMETHING"
+
+  upper(text_column)
+  -- Result: "TEXT COLUMN DATUM"
 
 ###### Signatures
     text -> text

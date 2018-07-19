@@ -11,18 +11,16 @@ Pluck a value out of an XML string using XPath. The returned value will be a str
   The path used is XPath syntax.
   See here: https://en.wikipedia.org/wiki/XPath
 
-  Examples
+Examples:
 
-    -- Get the "the contents!" out of a piece of XML
-    xml_pluck(
-      '<foo>
-        <bar attr="cool beans">
-          the contents!
-        </bar>
-      </foo>',
-      '/foo/bar/text()'
-
-    ) -- "the contents!"
+  -- Get the 'the contents!' out of a piece of XML
+  xml_pluck(
+        '<foo>
+          <bar attr="cool beans">the contents!</bar>
+        </foo>',
+        '/foo/bar/text()'
+      )
+  -- Result: "the contents!"
 
 ###### Signatures
     text, text -> text

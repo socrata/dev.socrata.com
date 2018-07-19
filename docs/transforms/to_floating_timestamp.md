@@ -14,9 +14,9 @@ Turn a text value into a floating datetime. "Floating" means the timezone
 
   -- Date Specifiers
 
-  %Y  2001  The full proleptic Gregorian year, zero-padded to 4 digits. [1]
-  %C  20  The proleptic Gregorian year divided by 100, zero-padded to 2 digits. [2]
-  %y  01  The proleptic Gregorian year modulo 100, zero-padded to 2 digits. [2]
+  %Y  2001  The full proleptic Gregorian year, zero-padded to 4 digits.
+  %C  20  The proleptic Gregorian year divided by 100, zero-padded to 2 digits.
+  %y  01  The proleptic Gregorian year modulo 100, zero-padded to 2 digits.
 
   %m  07  Month number (01--12), zero-padded to 2 digits.
   %b  Jul   Abbreviated month name. Always 3 letters.
@@ -31,12 +31,12 @@ Turn a text value into a floating datetime. "Floating" means the timezone
   %w  0   Sunday = 0, Monday = 1, ..., Saturday = 6.
   %u  7   Monday = 1, Tuesday = 2, ..., Sunday = 7. (ISO 8601)
 
-  %U  28  Week number starting with Sunday (00--53), zero-padded to 2 digits. [3]
+  %U  28  Week number starting with Sunday (00--53), zero-padded to 2 digits.
   %W  27  Same as %U, but week 1 starts with the first Monday in that year instead.
 
-  %G  2001  Same as %Y but uses the year number in ISO 8601 week date. [4]
-  %g  01  Same as %y but uses the year number in ISO 8601 week date. [4]
-  %V  27  Same as %U but uses the week number in ISO 8601 week date (01--53). [4]
+  %G  2001  Same as %Y but uses the year number in ISO 8601 week date.
+  %g  01  Same as %y but uses the year number in ISO 8601 week date.
+  %V  27  Same as %U but uses the week number in ISO 8601 week date (01--53).
 
   %j  189   Day of the year (001--366), zero-padded to 3 digits.
 
@@ -57,12 +57,12 @@ Turn a text value into a floating datetime. "Floating" means the timezone
   %p  AM  AM or PM in 12-hour clocks.
 
   %M  34  Minute number (00--59), zero-padded to 2 digits.
-  %S  60  Second number (00--60), zero-padded to 2 digits. [5]
-  %f  026490000   The fractional seconds (in nanoseconds) since last whole second. [8]
-  %.f   .026490   Similar to .%f but left-aligned. [8]
-  %.3f  .026  Similar to .%f but left-aligned but fixed to a length of 3. [8]
-  %.6f  .026490   Similar to .%f but left-aligned but fixed to a length of 6. [8]
-  %.9f  .026490000  Similar to .%f but left-aligned but fixed to a length of 9. [8]
+  %S  60  Second number (00--60), zero-padded to 2 digits.
+  %f  026490000   The fractional seconds (in nanoseconds) since last whole second.
+  %.f   .026490   Similar to .%f but left-aligned.
+  %.3f  .026  Similar to .%f but left-aligned but fixed to a length of 3.
+  %.6f  .026490   Similar to .%f but left-aligned but fixed to a length of 6.
+  %.9f  .026490000  Similar to .%f but left-aligned but fixed to a length of 9.
 
   %R  00:34   Hour-minute format. Same as %H:%M.
   %T  00:34:60  Hour-minute-second format. Same as %H:%M:%S.
@@ -81,9 +81,9 @@ Turn a text value into a floating datetime. "Floating" means the timezone
 
   %c  Sun Jul 8 00:34:60 2001   ctime date & time format. Same as %a %b %e %T %Y sans 
 .
-  %+  2001-07-08T00:34:60.026490+09:30  ISO 8601 / RFC 3339 date & time format. [6]
+  %+  2001-07-08T00:34:60.026490+09:30  ISO 8601 / RFC 3339 date & time format.
 
-  %s  994518299   UNIX timestamp, the number of seconds since 1970-01-01 00:00 UTC. [7]
+  %s  994518299   UNIX timestamp, the number of seconds since 1970-01-01 00:00 UTC.
 
 
   -- Special Specifiers
@@ -94,9 +94,10 @@ Turn a text value into a floating datetime. "Floating" means the timezone
   %%    Literal percent sign.
 
 
-  Examples:
+Examples:
 
-    to_floating_timestamp('February 15, 1991', '{Mfull} {D}, {YYYY}')
+  to_floating_timestamp('4/1/2018 1:05:26AM','%m/%d/%Y %I:%M:%S%P')
+  -- Result: "2018-04-01T01:05:26"
 
 ###### Signatures
     text, text -> calendar_date

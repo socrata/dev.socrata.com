@@ -7,10 +7,13 @@ title: not
 ##### Function: `not`
 Invert a boolean
 
-  Examples
+Examples:
 
-    not true -- false
-    not false -- true
+  not true
+  -- Result: false
+
+  not false
+  -- Result: true
 
 ###### Signatures
     checkbox -> checkbox

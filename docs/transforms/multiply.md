@@ -7,10 +7,13 @@ title: multiply
 ##### Function: `*`
 Multiply two numbers together
 
-  Examples
+Examples:
 
-    2 * 2 -- 4
-    3 * 5 -- 15
+  2 * 2
+  -- Result: "4"
+
+  3 * 5
+  -- Result: "15"
 
 ###### Signatures
     number, number -> number

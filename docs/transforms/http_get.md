@@ -11,12 +11,15 @@ Make an HTTP Get request to a URL. The response is returned. If the server
   This call is subject to a rate limit of 2 requests per second. The result will
   be cached.
 
-  Examples
+Examples:
+
 
     json_pluck(
-      http_get('https://some-service-returning/some-json.json'),
-      '.some.value'
-    )
+    http_get('https://some-service-returning/some-json.json'),
+    '.some.value'
+  )
+
+  -- Result: "json value"
 
 ###### Signatures
     text -> text

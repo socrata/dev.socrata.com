@@ -22,6 +22,22 @@ is_within is a function which takes a point and a multipolygon
       'The point is not in either Washington or New York'
     )
 
+Examples:
+
+    is_within(
+    to_point('POINT (5.0 5.0)'),
+    to_multipolygon('MULTIPOLYGON (((0.0 0.0, 10.0 0.0, 10.0 10.0, 0.0 10.0, 0.0 0.0)))')
+  )
+
+  -- Result: true
+
+    is_within(
+    to_point('POINT (50.0 50.0)'),
+    to_multipolygon('MULTIPOLYGON (((0.0 0.0, 10.0 0.0, 10.0 10.0, 0.0 10.0, 0.0 0.0)))')
+  )
+
+  -- Result: false
+
 ###### Signatures
     point, multipolygon -> checkbox
 

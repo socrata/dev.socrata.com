@@ -11,12 +11,13 @@ function to explicitly set the projection value on geometries which do not have 
   other than WGS84, you may set the projection using this function, which will allow you
   to reproject using the reproject or reproject_to_wgs84 functions.
 
-  Examples:
+  Therefore, this only has an effect when used with the reproject transformation fucntions,
+  as it simply sets the source projection on the datum.
 
-    set_projection(
-      `my_stateplane_column`,
-      '+proj=aea +lat_1=34 +lat_2=47 +lat_0=43 +lon_0=-120 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs'
-    )
+Examples:
+
+  reproject_to_wgs84(set_projection(to_point('POINT(30 10)'), '+init=epsg:3627'))
+  -- Result: {"type":"Point","coordinates":[-77.51923750265013,40.11248612944048]}
 
 ###### Signatures
     a, text -> a

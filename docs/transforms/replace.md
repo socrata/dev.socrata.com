@@ -7,11 +7,13 @@ title: replace
 ##### Function: `replace`
 replace text with another piece of text
 
-  Examples:
+Examples:
 
-    replace('some-text-literal' '-', '_') -- 'some_text_literal'
+  replace('some-text-literal', '-', '_')
+  -- Result: "some_text_literal"
 
-    replace(`building_description`, 'colour', 'color')
+  replace(text_column, 'datum', 'data')
+  -- Result: "text column data"
 
 ###### Signatures
     text, text, text -> text

@@ -20,8 +20,8 @@ API for how to use the transform functions as an API user.
 | [`+`](/docs/transforms/add.html) | Add two numbers together |
 | [`||`](/docs/transforms/concatenate.html) | concatenate two strings |
 | [`/`](/docs/transforms/divide.html) | Divide a number by another |
-| [`==`](/docs/transforms/equal.html) | Return true if the left side equals the right |
 | [`=`](/docs/transforms/equal.html) | Return true if the left side equals the right |
+| [`==`](/docs/transforms/equal.html) | Return true if the left side equals the right |
 | [`^`](/docs/transforms/exponent.html) | No documentation is available. |
 | [`>`](/docs/transforms/greater_than.html) | Return true if the value on the left is greater than the value on the right |
 | [`>=`](/docs/transforms/greater_than_equal.html) | Return true if the value on the left is greater than or equal to the value on the right |
@@ -29,25 +29,41 @@ API for how to use the transform functions as an API user.
 | [`<=`](/docs/transforms/less_than_equal.html) | Return true if the value on the left is less than or equal to the value on the right |
 | [`%`](/docs/transforms/modulo.html) | Find the remainder(modulus) of one number divided by another |
 | [`*`](/docs/transforms/multiply.html) | Multiply two numbers together |
-| [`!=`](/docs/transforms/not_equal.html) | Return true if the left side does not equal the right |
 | [`<>`](/docs/transforms/not_equal.html) | Return true if the left side does not equal the right |
+| [`!=`](/docs/transforms/not_equal.html) | Return true if the left side does not equal the right |
 | [`-`](/docs/transforms/subtract.html) | Subtract a number from another |
+| [`abs`](/docs/transforms/abs.html) | Produce the absolute value of a number |
 | [`and`](/docs/transforms/and.html) | Logical and of two boolean values |
 | [`between`](/docs/transforms/between.html) | Return true if the left is within the range of the right values |
 | [`case`](/docs/transforms/case.html) | Evaluate a series of true/false expressions (predicates) and return the next consequent. |
 | [`coalesce`](/docs/transforms/coalesce.html) | Take the leftmost non-null value. |
 | [`contains`](/docs/transforms/contains.html) | tell whether or not a string contains another string |
+| [`date_extract_d`](/docs/transforms/date_extract_d.html) | Extract the day from the date as an integer |
+| [`date_extract_dow`](/docs/transforms/date_extract_dow.html) | Extracts the day of the week as an integer between 0 and 6 where |
+| [`date_extract_hh`](/docs/transforms/date_extract_hh.html) | Extract the hour the date as an integer |
+| [`date_extract_m`](/docs/transforms/date_extract_m.html) | Extract the month as an integer |
+| [`date_extract_mm`](/docs/transforms/date_extract_mm.html) | Extract the minute from the date as an integer |
+| [`date_extract_ss`](/docs/transforms/date_extract_ss.html) | Extract the second from the date as an integer |
+| [`date_extract_woy`](/docs/transforms/date_extract_woy.html) | Extracts the week of the year as an integer between 0 and 51 |
+| [`date_extract_y`](/docs/transforms/date_extract_y.html) | Extract the year as an integer |
+| [`date_trunc_y`](/docs/transforms/date_trunc_y.html) | Trancates a calendar date at the year threshold |
+| [`date_trunc_ym`](/docs/transforms/date_trunc_ym.html) | Trancates a calendar date at the year/month threshold |
+| [`date_trunc_ymd`](/docs/transforms/date_trunc_ymd.html) | Trancates a calendar date at the year/month/day threshold |
 | [`ensure_within`](/docs/transforms/ensure_within.html) | ensure_within is a function which takes a point and a multipolygon |
 | [`error`](/docs/transforms/error.html) | Make an error. This is useful in conjunction with a case function, |
 | [`forgive`](/docs/transforms/forgive.html) | Turn an error into a null value. This is useful if you have a transformation |
 | [`geocode`](/docs/transforms/geocode.html) | geocode is a function which takes human readable addresses |
 | [`geocode_esri`](/docs/transforms/geocode_esri.html) | geocode_esri is a function which takes human readable addresses |
+| [`grapheme_length`](/docs/transforms/grapheme_length.html) | the length of a piece of text in unicode grapheme clusters. |
 | [`http_get`](/docs/transforms/http_get.html) | Make an HTTP Get request to a URL. The response is returned. If the server |
 | [`in`](/docs/transforms/in.html) | Whether or not a value is in a set of other values |
 | [`is_not_null`](/docs/transforms/is_not_null.html) | Whether or not a value is not null |
 | [`is_null`](/docs/transforms/is_null.html) | Whether or not a value is null |
 | [`is_within`](/docs/transforms/is_within.html) | is_within is a function which takes a point and a multipolygon |
-| [`json_pluck`](/docs/transforms/json_pluck.html) | Pluck a value out of a JSON string. The returned value may be a primitive like a |
+| [`json_pluck_boolean`](/docs/transforms/json_pluck_boolean.html) | Pluck a boolean value out of a JSON string. The returned value must be a boolean, otherwise |
+| [`json_pluck_number`](/docs/transforms/json_pluck_number.html) | Pluck a number value out of a JSON string. The returned value must be a number, otherwise |
+| [`json_pluck_text`](/docs/transforms/json_pluck_text.html) | Pluck a text value out of a JSON string. The returned value may be a primitive like a |
+| [`length`](/docs/transforms/length.html) | the length of a piece of text in unicode code points.  This is usually, but not |
 | [`like`](/docs/transforms/like.html) | If a string is like another string. |
 | [`location_to_point`](/docs/transforms/location_to_point.html) | Turn a location value into a point |
 | [`lower`](/docs/transforms/lower.html) | lowercase a string |
@@ -83,4 +99,6 @@ API for how to use the transform functions as an API user.
 | [`to_polygon`](/docs/transforms/to_polygon.html) | parse a WKT (text) representation of a polygon into a polygon value |
 | [`to_text`](/docs/transforms/to_text.html) | cast a value to text |
 | [`upper`](/docs/transforms/upper.html) | uppercase a string |
+| [`url_decode`](/docs/transforms/url_decode.html) | URL Decode a value |
+| [`url_encode`](/docs/transforms/url_encode.html) | URL Encode a value. |
 | [`xml_pluck`](/docs/transforms/xml_pluck.html) | Pluck a value out of an XML string using XPath. The returned value will be a string. |
