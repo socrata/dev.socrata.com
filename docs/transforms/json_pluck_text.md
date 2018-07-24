@@ -32,6 +32,10 @@ Examples:
   json_pluck_text('{"foo":[{"bar":1},{"bar":2},"not-an-object"]}', '.foo.[].bar?')
   -- Result: "[1,2,null]"
 
+  -- When using an object selector to select something from an array, an error is given
+  json_pluck_text('[{"intptlat": "32"}, {"intptlat": "33"}]', '.[intptlat]')
+  -- Result: "Invalid selection, attempted to retrieve 'intptlat' from value '[{\"intptlat\":\"32\"},{\"intptlat\":\"33\"}]'"
+
 
 
 
