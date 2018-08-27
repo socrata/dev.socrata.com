@@ -39,18 +39,24 @@ The `Point` datatype is very similar to the [`Location`](/docs/datatypes/locatio
 }
 {% endhighlight %}
 
+The `Point` datatype is displayed in Well Known Text (WKT) format in the dataset user interface. The Well Known Text format is also used when ingressing `Point` columns using certain tools, like DataSync. Example:
+
+{% highlight javascript %}
+POINT (-87.653274 41.936172)
+{% endhighlight %}
+
 <div class="alert alert-info">
-  <em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, the GeoJSON orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordiate systems are encoded. Note that the SoQL <code>within_box</code> and <code>within_circle</code> functions use the more conventional ordering, however.
+  <em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, GeoJSON and Well Known Text order the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordiate systems are encoded. Note that the SoQL <code>within_box</code> and <code>within_circle</code> functions use the more conventional ordering, however.
 </div>
 
-The following operators can be used on `point` fields: 
+The following operators can be used on `Point` fields: 
 
 | Operation     | Description                            |
 | ---           | ---                                    |
 | `IS NULL`     | `TRUE` for values that are `NULL`.     |
 | `IS NOT NULL` | `TRUE` for values that are not `NULL`. |
 
-The following table describes the functions that can be used with `point`s. 
+The following table describes the functions that can be used with `Point`s. 
 
 {% include function_listing.html datatype="point" %}
 
