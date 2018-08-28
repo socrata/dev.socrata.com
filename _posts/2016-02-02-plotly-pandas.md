@@ -92,7 +92,7 @@ Now let's plot! Cufflinks conviniently connects plotly to the ```iplot``` method
 contributing_factors.value_counts().iplot(kind='bar')
 {% endhighlight %}
 
-<iframe width="750" height="500"frameborder="0" scrolling="no" src="https://plot.ly/~jsanch/27.embed"></iframe>
+<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~jsanch/27.embed"></iframe>
 
 
 That's a nice and fast way to visuzlie this data, but there is room for improvement: Plotly charts have two main components, ```Data``` and ```Layout``` . These components are [very customizable](https://plot.ly/python/reference). Let's recreate the bar chart in a horizontal orientation and with more space for the labels. Also, let's get rid of the ```Unspecified``` values.
@@ -126,7 +126,7 @@ Now let's look at incidents over time. I'm gonna transform the date column into 
 {% highlight python %}
 collisions.date = pd.to_datetime(collisions.date)
 collisions.date.sort_values().index
-df_by_date = collisions.ix[collisions.date.sort_values().index]
+df_by_date = collisions.iloc[collisions.date.sort_values().index]
 {% endhighlight %}
 
 Now we can use  the ```.groupby``` method to aggregate incidents by date as well as sum deaths per day. And again, plotting them is as easy as calling the ```.plot``` method in our dataframe.
@@ -143,7 +143,7 @@ deaths_by_date.iplot(kind='bar', title='Deaths per Day')
 {% endhighlight %}
 
 <iframe width="750" height="500" frameborder="0" scrolling="no" src="https://plot.ly/~jsanch/29.embed"></iframe>
-<iframe width="750" height="500" frameborder="0" scrolling="no" src="https://plot.ly/~jsanch/30.embed"></iframe>
+<iframe width="750" height="500" frameborder="0" scrolling="no" src="https://plot.ly/~jsanch/31.embed"></iframe>
 
 
 
