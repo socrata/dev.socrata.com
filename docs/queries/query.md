@@ -35,7 +35,7 @@ For a full listing of the functionality available in SoQL, check out the [the So
 
 The `$query` parameter also allows you to use another advanced feature of SoQL - sub-queries. Sub-queries allow you to further refine the results of a query by chaining queries together.
 
-To create a sub-select, follow a `$query` string with the `|>` operator and a further query. For example, the following would allow you to determine the number of unique `city_feature` types, as well as the total number of entries, in the Seattle My Neighborhood Maps dataset:
+To create a sub-select, follow a `$query` string with the `|>` operator and a further query. For example, the following would allow you to determine the number of unique `license_description` types, as well as the total number of entries, in the Chicago Business Licenses dataset:
 
-{% include tryit.html domain='data.seattle.gov' path='/resource/3c4b-gdxv.json' args="$query=SELECT city_feature, COUNT(*) AS count GROUP BY city_feature |> SELECT COUNT(city_feature) AS num_types, SUM(count) AS total_features" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/r5kz-chrr.json' args="$query=SELECT license_description, COUNT(*) AS count GROUP BY license_description |> SELECT COUNT(license_description) AS num_types, SUM(count) AS license_description_totals" %}
 
