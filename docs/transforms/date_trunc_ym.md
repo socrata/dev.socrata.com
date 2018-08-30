@@ -6,7 +6,7 @@ title: date_trunc_ym
 
 ##### Function: `date_trunc_ym`
 ```
-  Trancates a calendar date at the year/month threshold
+  Truncates a calendar date at the year/month threshold
 
 Examples:
 

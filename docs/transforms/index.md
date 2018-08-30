@@ -46,9 +46,9 @@ API for how to use the transform functions as an API user.
 | [`date_extract_ss`](/docs/transforms/date_extract_ss.html) |   Extract the second from the date as an integer |
 | [`date_extract_woy`](/docs/transforms/date_extract_woy.html) |   Extracts the week of the year as an integer between 0 and 51 |
 | [`date_extract_y`](/docs/transforms/date_extract_y.html) |   Extract the year as an integer |
-| [`date_trunc_y`](/docs/transforms/date_trunc_y.html) |   Trancates a calendar date at the year threshold |
-| [`date_trunc_ym`](/docs/transforms/date_trunc_ym.html) |   Trancates a calendar date at the year/month threshold |
-| [`date_trunc_ymd`](/docs/transforms/date_trunc_ymd.html) |   Trancates a calendar date at the year/month/day threshold |
+| [`date_trunc_y`](/docs/transforms/date_trunc_y.html) |   Truncates a calendar date at the year threshold |
+| [`date_trunc_ym`](/docs/transforms/date_trunc_ym.html) |   Truncates a calendar date at the year/month threshold |
+| [`date_trunc_ymd`](/docs/transforms/date_trunc_ymd.html) |   Truncates a calendar date at the year/month/day threshold |
 | [`ensure_within`](/docs/transforms/ensure_within.html) |   ensure_within is a function which takes a point and a multipolygon |
 | [`error`](/docs/transforms/error.html) |   Make an error. This is useful in conjunction with a case function, |
 | [`forgive`](/docs/transforms/forgive.html) |   Turn an error into a null value. This is useful if you have a transformation |
