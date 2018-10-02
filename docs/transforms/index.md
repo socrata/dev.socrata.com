@@ -36,6 +36,7 @@ API for how to use the transform functions as an API user.
 | [`and`](/docs/transforms/and.html) |   Logical and of two boolean values |
 | [`between`](/docs/transforms/between.html) |   Return true if the left is within the range of the right values |
 | [`case`](/docs/transforms/case.html) |   Evaluate a series of true/false expressions (predicates) and return the next consequent. |
+| [`centroid`](/docs/transforms/centroid.html) |   returns the geometric centroid of a polygon. Please refer to |
 | [`coalesce`](/docs/transforms/coalesce.html) |   Take the leftmost non-null value. |
 | [`contains`](/docs/transforms/contains.html) |   tell whether or not a string contains another string |
 | [`date_extract_d`](/docs/transforms/date_extract_d.html) |   Extract the day from the date as an integer |
@@ -49,6 +50,7 @@ API for how to use the transform functions as an API user.
 | [`date_trunc_y`](/docs/transforms/date_trunc_y.html) |   Truncates a calendar date at the year threshold |
 | [`date_trunc_ym`](/docs/transforms/date_trunc_ym.html) |   Truncates a calendar date at the year/month threshold |
 | [`date_trunc_ymd`](/docs/transforms/date_trunc_ymd.html) |   Truncates a calendar date at the year/month/day threshold |
+| [`datetime_diff`](/docs/transforms/datetime_diff.html) |   Calculates the difference between two dates in seconds, minutes, hours, days, business days, weeks, calendar weeks, months, or years. |
 | [`ensure_within`](/docs/transforms/ensure_within.html) |   ensure_within is a function which takes a point and a multipolygon |
 | [`error`](/docs/transforms/error.html) |   Make an error. This is useful in conjunction with a case function, |
 | [`forgive`](/docs/transforms/forgive.html) |   Turn an error into a null value. This is useful if you have a transformation |
@@ -82,13 +84,15 @@ API for how to use the transform functions as an API user.
 | [`reproject`](/docs/transforms/reproject.html) |   reproject a geometry from one projection to another. |
 | [`reproject_to_wgs84`](/docs/transforms/reproject_to_wgs84.html) |   function to reproject a geometry to WGS84. This will allow the geometry |
 | [`set_projection`](/docs/transforms/set_projection.html) |   function to explicitly set the projection value on geometries which do not have projection |
+| [`slice`](/docs/transforms/slice.html) |   Get a substring of a specified length of a text from a start index |
+| [`source_created_at`](/docs/transforms/source_created_at.html) |   Get the fixed timestamp that this data source was created (ie: started uploading or importing). |
 | [`split_select`](/docs/transforms/split_select.html) |   function to split a piece of text on a token, and then select |
 | [`starts_with`](/docs/transforms/starts_with.html) |   tell whether or a not a string is prefixed with another string |
 | [`state_boundary`](/docs/transforms/state_boundary.html) |   returns the boundary of the US state |
 | [`to_boolean`](/docs/transforms/to_boolean.html) |   cast a value to a true or false |
 | [`to_checkbox`](/docs/transforms/to_checkbox.html) | No documentation is available. |
-| [`to_fixed_timestamp`](/docs/transforms/to_fixed_timestamp.html) |   Turn a text value into a datetime with a fixed timezone. |
-| [`to_floating_timestamp`](/docs/transforms/to_floating_timestamp.html) |   Turn a text value into a floating datetime. "Floating" means the timezone |
+| [`to_fixed_timestamp`](/docs/transforms/to_fixed_timestamp.html) |   Turn a timestamp in some timezone into an absolute point in time, interpreting it |
+| [`to_floating_timestamp`](/docs/transforms/to_floating_timestamp.html) |   Turn an absolute point in time into a timestamp in the given time zone. |
 | [`to_line`](/docs/transforms/to_line.html) |   parse a WKT (text) representation of a line into a line value |
 | [`to_location`](/docs/transforms/to_location.html) |   Attempt to parse an address into a location column. |
 | [`to_multiline`](/docs/transforms/to_multiline.html) |   parse a WKT (text) representation of a multiline into a multiline value |
@@ -97,7 +101,7 @@ API for how to use the transform functions as an API user.
 | [`to_number`](/docs/transforms/to_number.html) |   cast a value to a number |
 | [`to_point`](/docs/transforms/to_point.html) |   parse a WKT (text) representation of a point into a point value |
 | [`to_polygon`](/docs/transforms/to_polygon.html) |   parse a WKT (text) representation of a polygon into a polygon value |
-| [`to_text`](/docs/transforms/to_text.html) |   cast a value to text |
+| [`to_text`](/docs/transforms/to_text.html) | No documentation is available. |
 | [`upper`](/docs/transforms/upper.html) |   uppercase a string |
 | [`url_decode`](/docs/transforms/url_decode.html) |   URL Decode a value |
 | [`url_encode`](/docs/transforms/url_encode.html) |   URL Encode a value. |

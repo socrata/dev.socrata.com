@@ -6,6 +6,9 @@ title: to_floating_timestamp
 
 ##### Function: `to_floating_timestamp`
 ```
+  Turn an absolute point in time into a timestamp in the given time zone.
+
+
   Turn a text value into a floating datetime. "Floating" means the timezone
   isn't specified, ie: the time "floats" depending on where you are.
 
@@ -97,6 +100,8 @@ title: to_floating_timestamp
 
 Examples:
 
+
+
   to_floating_timestamp('4/1/2018 1:05:26AM','%m/%d/%Y %I:%M:%S%P')
   -- Result: "2018-04-01T01:05:26"
 
@@ -106,6 +111,8 @@ Examples:
 ```
 
 ###### Signatures
+    date, text -> calendar_date
     text, text -> calendar_date
     text -> calendar_date
+    calendar_date -> calendar_date
 

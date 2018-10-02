@@ -6,21 +6,7 @@ title: to_text
 
 ##### Function: `to_text`
 ```
-  cast a value to text
-
-Examples:
-
-  to_text(42)
-  -- Result: "42"
-
-  to_text(true)
-  -- Result: "true"
-
-  to_text(to_point('POINT (2 2)'))
-  -- Result: "POINT(2 2)"
-
-
-
+No documentation is available.
 
 ```
 

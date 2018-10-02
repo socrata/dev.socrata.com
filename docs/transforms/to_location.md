@@ -17,5 +17,6 @@ title: to_location
 ```
 
 ###### Signatures
+    location -> location
     text -> location
 

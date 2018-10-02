@@ -26,4 +26,5 @@ Examples:
 
 ###### Signatures
     text -> point
+    point -> point
 

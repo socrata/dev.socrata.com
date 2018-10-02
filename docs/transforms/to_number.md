@@ -25,4 +25,5 @@ Examples:
     text, text -> number
     text -> number
     checkbox -> number
+    number -> number
 
