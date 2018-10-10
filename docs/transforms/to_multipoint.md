@@ -23,4 +23,5 @@ Examples:
 
 ###### Signatures
     text -> multipoint
+    multipoint -> multipoint
 

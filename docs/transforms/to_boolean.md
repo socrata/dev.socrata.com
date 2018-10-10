@@ -30,4 +30,5 @@ Examples:
 ###### Signatures
     text -> checkbox
     number -> checkbox
+    checkbox -> checkbox
 
