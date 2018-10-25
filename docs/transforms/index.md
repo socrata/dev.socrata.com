@@ -76,6 +76,7 @@ API for how to use the transform functions as an API user.
 | [`not_in`](/docs/transforms/not_in.html) |   Whether or not a value is absent from a set of other values |
 | [`not_like`](/docs/transforms/not_like.html) |   If a string is not like another string. |
 | [`or`](/docs/transforms/or.html) |   Logical or of two boolean values |
+| [`polylabel`](/docs/transforms/polylabel.html) |   Returns a point that must exist within the polygon borders. It uses the recursive grid-based algorithm described here: https://github.com/mapbox/polylabel#how-the-algorithm-works |
 | [`regex_capture`](/docs/transforms/regex_capture.html) |   function to capture a piece of text based on a regular expression |
 | [`regex_named_capture`](/docs/transforms/regex_named_capture.html) |   capture a piece of text based on a regular expression |
 | [`regex_replace`](/docs/transforms/regex_replace.html) |   function to replace a piece of text based on a regular expression |
