@@ -55,7 +55,7 @@ custom_js:
 - /common/js/lib/socrata-status.js
 - /common/js/lib/ga-tracking.js
 
-gems:
+plugins:
 - jekyll-redirect-from
 - jekyll-mentions
 - jekyll-feed

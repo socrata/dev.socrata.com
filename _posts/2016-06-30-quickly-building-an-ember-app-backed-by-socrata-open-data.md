@@ -119,7 +119,7 @@ Finally, let's add the chart component to our template:
 // app/templates/index.hbs
 
 <h1>CTA Ridership</h1>
-{{ember-chart type="bar" options=chartOptions data=chartData height="200"}}
+{% raw %}{{ember-chart type="bar" options=chartOptions data=chartData height="200"}}{% endraw %}
 ```
 
 Here we set the `type` of chart to be a bar chart, the `options` and `data` to the properties we just created in our controller, and `height` to a sensible height (in `px`). When we save it all, we should see a now see our chart on the page.
