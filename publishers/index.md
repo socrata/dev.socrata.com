@@ -58,6 +58,7 @@ To learn more about the Socrata Publisher API, see the [getting started guide](/
 [Libraries &amp; SDKs](/libraries/) that have Publisher API support include:
 
 - [DataSync SDK](http://socrata.github.io/datasync/guides/datasync-library-sdk.html) (recommended Java library)
+- [R](https://github.com/Chicago/RSocrata)
 - [Ruby](https://github.com/socrata/soda-ruby)
 - [PHP](http://github.com/socrata/soda-php)
 - [.NET](https://github.com/CityofSantaMonica/SODA.NET)
