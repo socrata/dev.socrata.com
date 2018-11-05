@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem 'github-pages', '182'
+gem 'github-pages', '192'
 
 gem 'jekyll-feed'
 gem 'ferret'
