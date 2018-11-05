@@ -1,13 +1,13 @@
 source "https://rubygems.org"
 
-gem 'github-pages'
+gem 'github-pages', '182'
 
 gem 'jekyll-feed'
 gem 'ferret'
-gem 'nokogiri', '1.8.2'
+gem 'nokogiri', '>= 1.8.2'
 gem 'pry'
 gem 'mime-types'
-gem 'html-proofer', '2.6.4'
+gem 'html-proofer'
 gem 'httparty'
 gem 'colorize'
 gem 'rake'
@@ -20,4 +20,5 @@ group :development do
   gem 'capybara'
   gem 'poltergeist'
   gem 'rspec'
+  gem 'puma'
 end
