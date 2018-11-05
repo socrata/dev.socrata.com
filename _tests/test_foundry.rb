@@ -29,7 +29,7 @@ describe '2.1 API, no redirect', :type => :feature, :js => true do
     # Check to make sure we have some elements we expect
     expect(find('#foundry-docs'))
     expect(find('h4.welcome').text).to include('Socrata API, powered by Socrata')
-    expect(find('#splash .alert').text).to include('You\'re already using the latest version of this dataset API')
+    expect(find('#splash .alert', :visible => false).text).to include('You\'re already using the latest version of this dataset API')
     expect(find('h1#title').text).to include('Old Backend Dataset Name')
     expect(find('#uid').text).to eq('b6kv-3wgw')
     expect(find('#foundry-docs .description').text).to include('This is the old backend dataset description')
