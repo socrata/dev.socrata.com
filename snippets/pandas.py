@@ -33,4 +33,4 @@ client = Socrata("%%domain%%", None)
 results = client.get("%%uid%%", limit=2000)
 
 # Convert to pandas DataFrame
-results_df = pd.DataFrame.from_records(result_list)
+results_df = pd.DataFrame.from_records(results)
