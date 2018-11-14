@@ -4,19 +4,19 @@ sidebar: documentation
 title: equal
 ---
 
-##### Function: `==`
+##### Function: `=`
 ```
   Return true if the left side equals the right
 
 Examples:
 
-  1 == 1
+  1 = 1
   -- Result: true
 
-  1 == 2
+  1 = 2
   -- Result: false
 
-  'a' == 'b'
+  'a' = 'b'
   -- Result: false
 
 

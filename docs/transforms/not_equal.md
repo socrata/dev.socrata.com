@@ -4,19 +4,19 @@ sidebar: documentation
 title: not_equal
 ---
 
-##### Function: `!=`
+##### Function: `<>`
 ```
   Return true if the left side does not equal the right
 
 Examples:
 
-  1 != 1
+  1 <> 1
   -- Result: false
 
-  1 != 2
+  1 <> 2
   -- Result: true
 
-  'a' != 'b'
+  'a' <> 'b'
   -- Result: true
 
 
