@@ -6,9 +6,16 @@ title: to_multipolygon
 
 ##### Function: `to_multipolygon`
 ```
-  parse a WKT (text) representation of a multiline into a multiline value
+  convert a polygon into a multipolygon
+
+
+  parse a WKT (text) representation of a multipolygon into a multipolygon value
 
 Examples:
+
+  to_multipolygon(to_polygon('POLYGON ((30 20, 45 40, 10 40, 30 20))'))
+  -- Result: {"type":"MultiPolygon","coordinates":[[[[30,20],[45,40],[10,40],[30,20]]]]}
+
 
   to_multipolygon('MULTIPOLYGON (((30 20, 45 40, 10 40, 30 20)), ((15 5, 40 10, 10 20, 5 10, 15 5)))')
   -- Result: {"type":"MultiPolygon","coordinates":[[[[30,20],[45,40],[10,40],[30,20]]],[[[15,5],[40,10],[10,20],[5,10],[15,5]]]]}
@@ -25,6 +32,7 @@ Examples:
 ```
 
 ###### Signatures
+    polygon -> multipolygon
     text -> multipolygon
     multipolygon -> multipolygon
 
