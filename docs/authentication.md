@@ -14,9 +14,16 @@ There are two methods available for authentication: HTTP Basic and OAuth 2.0. Fo
 
 ## Authenticating using HTTP Basic Authentication
 
-Requests can be authenticated by passing in HTTP Basic Authentication headers. We may deprecate this authentication method in the future, but it will be replaced with a similar token-based alternative. Please consider using the OAuth 2.0 workflow if you’re building a web or mobile application.
+Requests can be authenticated using <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic Authentication</a>. You can use your HTTP library’s Basic Auth feature to pass your credentials. All HTTP-basic-authenticated requests must be performed over a secure (https) connection. Authenticated requests made over an insecure connection will be denied.
 
-All HTTP-basic-authenticated requests *must* be performed over a secure (`https`) connection, and should include an application token, which is obtained when you [register your application](http://opendata.socrata.com/profile/app_tokens). However, authentication tokens are not strictly required when a request is authenticated. Authenticated requests made over an insecure connection will be denied.
+Users may use their username and password or an API key and secret pair to authenticate using Basic Authentication. Documentation on how to create and manage API keys can be found <a href="https://socrataapikeys.docs.apiary.io">here</a>.
+
+API Keys provide the following benefits:
+
+* Access Socrata APIs without the risk of embedding your username and password in scripts or code
+* Users on domains that require SSO (and thus without passwords) can access Socrata APIs
+* Create individual keys for different apps or jobs so that if any one needs to be revoked or rotated, other apps are unaffected
+* Change your account password without disrupting apps or rotate API keys without disrupting logins
 
 Here is a sample HTTP session that uses HTTP Basic Authentication:
 
