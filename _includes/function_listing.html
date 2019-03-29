@@ -20,6 +20,25 @@
     </div>
   {% endif %}
 </div>
+<table class="table table-striped table-hover function-listing" style="display:table">
+  <thead>
+    <th>Keyword Name</th>
+    <th>Description</th>
+    <th class="availability"><a href="/docs/endpoints.html">Availability <i class="fa fa-question-circle"></i></a></th>
+  </thead>
+  <tbody>
+    {% for page in site.pages %}
+      {% if page.type == "keyword" and (include.datatype == "all" or page.datatypes contains include.datatype) %}
+        <tr class="function" data-versions="{{page.versions | join}}" data-datatypes="{{page.datatypes | join}}">
+          <td><a href="{{page.url}}"><code>{{page.title}}</code></a></td>
+          <td>{{page.description}}</td>
+          <td>{{page.versions | sort | array_to_sentence_string}}</td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+    <tr></tr>
+  </tbody>
+</table>
 
 <table class="table table-striped table-hover function-listing">
   <thead>
@@ -28,8 +47,8 @@
     <th class="availability"><a href="/docs/endpoints.html">Availability <i class="fa fa-question-circle"></i></a></th>
   </thead>
   <tbody>
-    {% for page in site.pages %} 
-      {% if page.type == "function" and (include.datatype == "all" or page.datatypes contains include.datatype) %} 
+    {% for page in site.pages %}
+      {% if page.type == "function" and (include.datatype == "all" or page.datatypes contains include.datatype) %}
         <tr class="function" data-versions="{{page.versions | join}}" data-datatypes="{{page.datatypes | join}}">
           <td><a href="{{page.url}}"><code>{{page.title}}</code></a></td>
           <td>{{page.description}}</td>

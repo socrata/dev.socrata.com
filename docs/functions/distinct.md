@@ -3,7 +3,7 @@ layout: with-sidebar
 sidebar: documentation
 title: distinct
 
-type: function
+type: keyword
 function: distinct $1
 description: Returns distinct set of records
 versions:
