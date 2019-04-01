@@ -14,7 +14,7 @@ before_install:
 - nvm install # Install node from .nvmrc
 - nvm use # Use node version from .nvmrc
 - npm install
-- npm install -g phantomjs
+- npm install -g phantomjs-prebuilt
 - npm install -g surge
 script:
 - bundle exec rake test
