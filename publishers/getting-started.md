@@ -11,7 +11,7 @@ audience: publisher
 
 ## Introduction
 
-For the tightest possible integration between your source system and your Socrata platform, you'll want to integrate directly with the Socrata Publisher API. The Publisher API allows you to programatically:
+For the tightest possible integration between your source system and your Socrata platform, you'll want to integrate directly with the Socrata Publisher API. The Publisher API allows you to programmatically:
 
 - Add, update, and delete rows within a Socrata dataset
 - Maintain dataset metadata and privacy settings
