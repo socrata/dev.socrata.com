@@ -4,7 +4,7 @@ sidebar: documentation
 title: Data Transform Listing
 ---
 
-These are the transformation functions available in the data source ingress API.
+These are the transformation functions available in the data Socrata Data Management API.
 These functions can be used to transform and validate your data before you publish
 your dataset for consumption.
 
