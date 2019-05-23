@@ -16,11 +16,9 @@ This example will show how to listen for a Wufoo form's webhook, and push the re
 
 ###Overview
 
-Wufoo has the [ability to enable a webhook](http://www.wufoo.com/guides/setup-webhooks-in-wufoo-to-get-push-notifications-to-your-apps/) that fires every time a user submits a form. A webhook is just an HTTP POST to a URL specified by the form administrator, and it carries a form-encoded payload of the data that was entered into the form.
+Wufoo has the [ability to enable a webhook](https://help.wufoo.com/articles/en_US/kb/Wufoo-REST-API-V3) that fires every time a user submits a form. A webhook is just an HTTP POST to a URL specified by the form administrator, and it carries a form-encoded payload of the data that was entered into the form.
 
 To get the data from this webhook into Socrata, we'll use a very simple node.js app running on heroku. The app will have a single POST endpoint whose sole purpose in life is to listen for the wufoo webhook. When the webhook is triggered, the app will transform the data into a format that can be pushed to the SODA Publisher API. POSTing this data will add a new row to the target dataset!
-
-Before we get started, give it a try!  Fill out [this form](https://chriswhong.wufoo.com/forms/socrata-dataset-entry-form/), then check [this Socrata Dataset](https://stubox2.demo.socrata.com/dataset/Form-Data-from-Wuffoo/h3er-sksi) and see your data appear as a new row.
 
 ![Overview Diagram](/img/wufooOverview.png)
 
@@ -33,6 +31,8 @@ Let's start by setting up a dataset that had the columns we want. For this demo,
 ###Create the Wufoo form
 
 Next, we create a new form on Wufoo that mirrors the columns we set up in the Socrata dataset. The form has single-line text input for title and location, two date selectors, a set of address inputs (`street1`, `street2`, `city`, `state`, `zip`, `country`), and a multi-line text input for description. Once the form is complete, it is ready to use immediately and will log data in Wufoo. Now it's time to turn on the webhook!
+
+[Check out this sample form](https://chriswhong.wufoo.com/forms/socrata-dataset-entry-form/)
 
 ![Wufoo Form Builder](/img/wufooFormBuilder.png)
 
@@ -201,5 +201,3 @@ If everything worked properly, you should see the following response from the SO
 {% endhighlight %}
 
 There you have it!  Webhooks allow us to not waste precious resources polling endpoints to look for new form submissions. We can pass along the data directly to Socrata, where it is publicly accessible and discoverable in the catalog!
-
-[Check out the code on Github](https://github.com/chriswhong/wufoo-socrata). Happy Hacking!
