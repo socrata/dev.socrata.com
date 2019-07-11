@@ -69,10 +69,6 @@ Note that the above sample uses OAuth2 authentication; as with the rest of the S
         "checkbox" : 12
       }
     } ],
-    "locations" : [ {
-      "latitude" : 1,
-      "longitude" : 2
-    } ],
     "sample" : [ [...], ... ]
   }
 }
@@ -90,7 +86,6 @@ The results of the scan can be broken into multiple sections:
         - `processed` - How many rows were processed during the analysis
         - `suggestion` - The importer's best guess as to what datatype to use for this column
         - `types` - Other datatypes that may match the data in this column
-    - `locations` - If in your original file, location is split into separate columns, for instance a `latitude`, `longitude`, and an `address` column, you will want to tell the importer to combine them as it reads the data. The `locations` column contains fields that the importer believes match with the component columns of a Location column.  
     - `sample` - The first 20 rows of your data are given back to you in the `sample` subfield, should you need to look at the data again before making any decisions about your import.
 
 Once you take a look at (or completely ignore) the scan results, it is time to tell the importer how to import your data.
@@ -109,7 +104,7 @@ The **import blueprint** is how you tell the importer how to interpret your data
     "datatype" : "number"
   }, {
     "name" : "% complete",
-    "datatype" : "percent"
+    "datatype" : "number"
   }],
   "skip" : 2,
   "name" : "311 Requests"
