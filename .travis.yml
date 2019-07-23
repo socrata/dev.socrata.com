@@ -8,7 +8,6 @@ cache: bundler
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up installation of html-proofer
-  - secure: "DJ9EuDuGm2QZDfAFeTET+OUd3tQJ1myhRLTdFnWLtVBd9tAW+XD+ZUOnU7E3W2ujV/WJ/4sIrf2RamOzAJhROaLW4dhf7mswkkaiYAbylG2Ma/xHlKW80cnT1TVe/eCBUvicRIFtpeU2JBYg9upKSApmoROrLd4QOxntz2xKGKQ="
 bundler_args: "--with test"
 before_install:
 - nvm install # Install node from .nvmrc
@@ -20,7 +19,7 @@ script:
 - bundle exec rake test
 after_success:
 # If this is a pull request, stage it and stick a message in the PR comments
-- test $TRAVIS_PULL_REQUEST && bundle exec stage && bundle exec rake tag_pull_request
+- test $TRAVIS_PULL_REQUEST && bundle exec rake stage && bundle exec rake tag_pull_request
 # If we're on gh-pages and not a PR, deploy to production
 - test $TRAVIS_BRANCH == "gh-pages" && test $TRAVIS_PULL_REQUEST == "false" && surge --project ./public --domain https://dev.socrata.com
 notifications:
