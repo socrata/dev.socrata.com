@@ -167,15 +167,15 @@ author: <%= ENV['GITHUB_USERNAME'] || ENV['USER'] %>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dictum augue ac lorem malesuada at rhoncus turpis condimentum. Maecenas commodo sem ac magna posuere ultrices. Proin ut felis ac odio consectetur rutrum vel quis sem.
 TMPL
 
-desc "generate a new blog post or changelog"
+desc "generate a new blog post"
 task :blog do
   @date = Time.now.strftime("%Y-%m-%d")
- 
+
   print "Title: "
   @title = $stdin.gets.strip
 
   print "Category (default: 'blog'): "
-  @category = $stdin.gets.strip 
+  @category = $stdin.gets.strip
   @category = @category.empty? ? "blog" : @category
 
   print "Tags (comma separated): "
@@ -185,7 +185,7 @@ task :blog do
 
   filename = "_posts/#{@date}-#{@title.gsub(/[^A-Za-z-]/, '-').gsub(/-\+/, '-').downcase}.md"
   File.open(filename, 'w') { |f| f.write(template.result) }
-  system(ENV['EDITOR'], filename)
+  system(ENV['EDITOR'], filename) if ENV['EDITOR']
 end
 
 desc "update the date for a blog post"
