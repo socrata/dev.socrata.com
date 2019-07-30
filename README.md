@@ -12,7 +12,7 @@ The site is a customized [Jekyll](http://jekyllrb.com/) site, so there are some 
 
 1. Make sure you have the `gh-pages` branch checked out: `git checkout -b gh-pages origin/gh-pages`
 2. Pull in the site templates and CSS/SASS, which come from submodules: `git submodule update --init`
-3. Make sure you have Ruby version installed. Check `.ruby-version` to see the preferred version. If you're using rbenv or rvm, this should automatically be set up
+3. Make sure you have Ruby version installed. Check `.ruby-version` to see the preferred version. If you're using rbenv or rvm, this should automatically be set up.
 4. Install the Bundler Gem installed: `gem install bundler`
 5. Set up the Gem bundle: `bundle`
 6. To run a local server for development, run `rake serve`. Your server will be available at <http://localhost:9292>
@@ -23,7 +23,7 @@ We love submissions from the community! If you'd like to submit a [blog post](ht
 
 1. Review [other posts](https://dev.socrata.com/blog/) and [submissions](https://github.com/socrata/dev.socrata.com/pulls?q=is%3Apr+label%3Ablog+is%3Aclosed) to get a feel for the tone and language, and to see how others have formatted their posts.
 2. Fork [this repo](https://github.com/socrata/dev.socrata.com) into your account
-3. Create a new blog post running `rake post` and following the prompts
+3. Create a new blog post running `rake blog` and following the prompts
 4. Write your post in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), following a few rules:
   - Set the `author` key in the [YAML front matter](https://jekyllrb.com/docs/frontmatter/) to your GitHub username so you get proper author credit
   - If your post uses any images, add them to the [`img`](https://github.com/socrata/dev.socrata.com/tree/gh-pages/img) folder, prepended with your post date
