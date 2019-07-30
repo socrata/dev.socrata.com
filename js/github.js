@@ -62,13 +62,17 @@ require(["jquery", "humane"], function($) {
       // Meta
       var meta = $(element).find("ul.meta");
       if(profile.company) {
-        meta.append('<li><a href="' + profile.company + '"><i class="fa fa-fw fa-building-o"></i> ' + profile.company + '</a></li>');
+        if (profile.company.includes(/http/)) {
+          meta.append('<li><a href="' + profile.company + '"><i class="fa fa-fw fa-building-o"></i> ' + profile.company + '</a></li>');
+        } else {
+          meta.append('<li><i class="fa fa-fw fa-building-o"></i> ' + profile.company + '</li>');
+        }
       }
       if(profile.blog) {
         meta.append('<li><a href="' + profile.blog + '"><i class="fa fa-fw fa-link"></i> ' + profile.blog + '</a></li>');
       }
       if(profile.location) {
-        meta.append('<li><a href="' + profile.location + '"><i class="fa fa-fw fa-globe"></i> ' + profile.location + '</a></li>');
+        meta.append('<li><i class="fa fa-fw fa-globe"></i> ' + profile.location + '</li>');
       }
 
     }).fail(function(jqxhr, text_status, error) {
