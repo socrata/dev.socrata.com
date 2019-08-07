@@ -1,11 +1,11 @@
 # Jekyll Config
 destination: public
-exclude: 
+exclude:
 - public
 - Rakefile
 - Gemfile
 - Gemfile.lock
-- .rvmrc, 
+- .rvmrc,
 - sample-code
 - vendor
 - README.md
@@ -34,7 +34,7 @@ dataset_limit: 50000
 name: 'Socrata Developer Portal'
 description: 'Updates, examples, and significant changes to http://dev.socrata.com'
 url: 'https://dev.socrata.com'
-author: 
+author:
   name: 'Socrata Developer Program'
   uri: 'https://dev.socrata.com'
 

@@ -1,7 +1,7 @@
 require(["jquery", "js.cookie"], function($, Cookies) {
   $(document).ready(function(){
     if(document.location.pathname.match(/\/foundry\//) || Cookies.get('hide-peeper')) {
-      console.log("Peeper has been hidden"); 
+      console.log("Peeper has been hidden");
       return;
     }
 
@@ -19,15 +19,16 @@ require(["jquery", "js.cookie"], function($, Cookies) {
       e.preventDefault();
 
       $('#peeper').animate({
-        right: "-200px"   
+        right: "-200px"
       }, 500);
       Cookies.set('hide-peeper', true, { expires: 3 });
     });
-
+    /*
     setTimeout(function() {
       $("#peeper").animate({
         right: "-85px"
       }, 1000);
     }, flags.peeper.delay);
+    */
   });
 });
