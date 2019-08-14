@@ -16,7 +16,7 @@ Hey there! I’m Helena — I joined Tyler Technologies, Data and Insights Divis
 After a nearly 2-year hiatus, I’d like to re-introduce [dev.socrata.com/blog](https://dev.socrata.com/blog/)! 🎉 As part of our re-launch, we’re also doing a little bit of re-focusing. In the past, this blog has been primarily a place for Socrata Open Data API announcements and technical how-to’s. Going forward, we’ll also be mixing in some behind-the-scenes cuts — how the team behind Socrata’s products builds the good stuff (and how we learn from the bad stuff).
 
 Here are some topics you can look forward to in the coming months:
-* **Time Series Data with Jupyter Notebooks**<br>
+* **Time Series Analysis with Jupyter Notebooks and Socrata**<br>
   _Robert Voyer (Software Engineering Manager)_
 
   Learn how to download the Seattle Building Permits dataset from the Socrata API, and do a time series analysis using open source data science tools in Python.<br>
