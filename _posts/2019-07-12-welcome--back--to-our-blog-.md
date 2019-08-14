@@ -29,9 +29,9 @@ Here are some topics you can look forward to in the coming months:
 
 
 * **Jenkins Workers**<br>
-  _Joe Nunnelly (Senior Automation Engineer)_
+  _Joe Nunnelley (Senior Automation Engineer)_
 
-  Tyler's Data and Insights Division uses Jenkins to execute automated jobs that support testing, builds, and deploys. Learn how we started using Jenkins Workers to get more out of our existing servers.
+  Tyler's Data and Insights Division uses Jenkins to execute automated jobs that support testing, builds, and deploys. Learn how we introduced CI/CD to our engineering process and how we started using Jenkins Workers to make this infrastructure more dynamic.
 
 ## Up next
 
