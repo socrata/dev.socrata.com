@@ -36,7 +36,7 @@ Examples:
     to_multipolygon('MULTIPOLYGON (((0.0 0.0, 10.0 0.0, 10.0 10.0, 0.0 10.0, 0.0 0.0)))')
   )
 
-  -- Result: "The point was not within the polygon given to ensure_within/2"
+  -- Result: {"type":"invalid_point","english":"Invalid Point: The point was not within the polygon given to ensure_within/2 latitude=50.0 longitude=50.0","data":{"reason":"The point was not within the polygon given to ensure_within/2","point":{"type":"Point","coordinates":[50.0,50.0]}}}
 
 
 

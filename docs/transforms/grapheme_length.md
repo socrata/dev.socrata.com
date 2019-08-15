@@ -13,11 +13,12 @@ Examples:
   grapheme_length('hello')
   -- Result: "5"
 
-  grapheme_length("\u00e1")
-  -- Result: "Composed a-with-acute: 1"
+  grapheme_length("\u00e1") -- composed 'á'
+  -- Result: "1"
 
-  grapheme_length("a\u0301")
-  -- Result: "Decomposed a-with-acute: 1"
+  grapheme_length("a\u0301") -- decomposed 'á'
+  -- Result: "1"
+
 
 
 

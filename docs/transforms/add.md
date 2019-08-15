@@ -6,9 +6,19 @@ title: add
 
 ##### Function: `+`
 ```
+  Keep a number's sign
+
+
   Add two numbers together
 
 Examples:
+
+  +(2)
+  -- Result: "2"
+
+  +(-2)
+  -- Result: "-2"
+
 
   2 + 2
   -- Result: "4"
@@ -22,5 +32,6 @@ Examples:
 ```
 
 ###### Signatures
+    number -> number
     number, number -> number
 

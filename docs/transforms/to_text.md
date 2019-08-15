@@ -11,6 +11,7 @@ No documentation is available.
 ```
 
 ###### Signatures
+    url -> text
     multipolygon -> text
     polygon -> text
     multiline -> text
