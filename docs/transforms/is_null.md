@@ -8,11 +8,16 @@ title: is_null
 ```
   Whether or not a value is null
 
-  Examples:
+Examples:
 
-    null is null -- true
+  null is null
+  -- Result: true
 
-    some_column is null
+  'foo' is null
+  -- Result: false
+
+
+
 
 ```
 

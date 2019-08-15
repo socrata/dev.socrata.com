@@ -24,7 +24,7 @@ Examples:
   -- Result: {"type":"MultiPolygon","coordinates":[[[[30,20],[45,40],[10,40],[30,20]]],[[[15,5],[40,10],[10,20],[5,10],[15,5]]]]}
 
   to_multipolygon('MULTIPOLYGON (((0.0 0.0)))')
-  -- Result: {"type":"type_conversion_failed","english":"Unable to convert \"MULTIPOLYGON (((0.0 0.0)))\" from text to multipolygon","data":{"value":"MULTIPOLYGON (((0.0 0.0)))","target_type":"multipolygon","source_type":"text"}}
+  -- Result: {"type":"invalid_geometry","english":"Geometry invariant violation: Polygon Exterior is not closed or does not have >= 4 coordinates. See the repair_geometry function to fix this.","data":{"value":{"type":"MultiPolygon","coordinates":[[[[0.0,0.0]]]]},"reason":"Polygon Exterior is not closed or does not have >= 4 coordinates. See the repair_geometry function to fix this."}}
 
 
 
