@@ -6,18 +6,35 @@ title: forgive
 
 ##### Function: `forgive`
 ```
-  Turn an error into a null value. This is useful if you have a transformation
-  where you don't care if it fails.
+  forgive can take an optional default argument
 
-  Examples:
 
-    forgive(to_number('not a number')) -- null
+  Forgive turns error values into nils. It can be given an optional second argument,
+  which it will return instead of nil.
 
-    forgive(to_number(`column_with_numbers_maybe`))
+  This is useful if you have a transformation where you don't care if it fails.
+
+Examples:
+
+  forgive(error('hello'), 'no errors here')
+  -- Result: "no errors here"
+
+  forgive('not an error', 'hello')
+  -- Result: "not an error"
+
+
+  forgive(error('hello'))
+  -- Result: null
+
+  forgive('not an error')
+  -- Result: "not an error"
+
+
+
 
 ```
 
 ###### Signatures
-    a -> a
     a, a -> a
+    a -> a
 

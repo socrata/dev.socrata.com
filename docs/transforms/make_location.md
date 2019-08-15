@@ -6,6 +6,8 @@ title: make_location
 
 ##### Function: `make_location`
 ```
+  This function has been deprecated. Please use the make_point function instead.
+
   make_location makes a location column from human readable
   address columns and a point column. A Location column is the amalgamation
   of these two components.

@@ -14,11 +14,12 @@ Examples:
   length('hello')
   -- Result: "5"
 
-  length("\u00e1")
-  -- Result: "Composed a-with-acute: 1"
+  length("\u00e1") -- composed 'á'
+  -- Result: "1"
 
-  length("a\u0301")
-  -- Result: "Decomposed a-with-acute: 2"
+  length("a\u0301") -- decomposed 'á'
+  -- Result: "2"
+
 
 
 
