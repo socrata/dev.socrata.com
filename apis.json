@@ -30,7 +30,7 @@
         "tags" : {{ api.tags | jsonify }},
         "properties" : [ {
           "type" : "X-signup",
-          "url" : "https://{{ api.domain }}/profile/app_tokens"
+          "url" : "https://{{ api.domain }}/profile/edit/developer_settings"
         } ]
       }{% unless forloop.last %},{% endunless %}
     {% endfor %}
