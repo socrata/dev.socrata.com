@@ -10,12 +10,10 @@ tags:
 - scaling
 title: "Continual Improvement : CI / CD at Tyler Technologies, Data & Insights Division"
 date: 2019-09-26
-author: joe.nunnelley
+author: JoeNunnelley
 ---
 
-# Continual Improvement : CI / CD at <s>Socra</s>..er Tyler Technologies, Data &Insights Division
-#### Author : Joe Nunnelley
-#### Date : September 2019
+# Continual Improvement: CI/CD at <s>Socra</s>..er Tyler Technologies, Data & Insights Division
 
 ## Jenkins in the Closet
 
