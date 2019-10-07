@@ -4,7 +4,7 @@ categories: blog
 tags:
 - python
 - pandas
-- datascience
+- data_science
 - forecasting
 title: "Time Series Analysis with Jupyter Notebooks and Socrata"
 date: 2019-10-07
@@ -19,7 +19,7 @@ A time series is an ordered sequence of observations where each observation is m
 
 ### Getting Started
 
-In the interest of brevity, this post assumes that you are comfortable writing and executing Python code. Further, it assumes that you have setup a virtual environment, and that you have installed a bunch of dependencies, including Jupyer. Finally, it assumes that you have already downloaded the [City of Seattle Building Permits dataset](https://data.seattle.gov/Permitting/Building-Permits/76t5-zqzr) into a [Pandas](https://pandas.pydata.org/) [DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html) named `seattle_permits_df`. The entire notebook is available for download [here](https://dev.socrata.com/files/socrata-time-series-prophet.ipynb). If you need help getting your data to this point, you can follow the first two steps in [this blog post](https://dev.socrata.com/blog/2016/02/01/pandas-and-jupyter-notebook.html).
+In the interest of brevity, this post assumes that you are comfortable writing and executing Python code. Further, it assumes that you have setup a virtual environment, and that you have installed a bunch of dependencies, including Jupyter. Finally, it assumes that you have already downloaded the [City of Seattle Building Permits dataset](https://data.seattle.gov/Permitting/Building-Permits/76t5-zqzr) into a [Pandas](https://pandas.pydata.org/) [DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html) named `seattle_permits_df`. The entire notebook is available for download [here](https://dev.socrata.com/files/20191007.socrata-time-series-prophet.ipynb). If you need help getting your data to this point, you can follow the first two steps in [this blog post](https://dev.socrata.com/blog/2016/02/01/pandas-and-jupyter-notebook.html).
 
 ### Exploring Our Data
 
@@ -58,7 +58,7 @@ seattle_permits_df = seattle_permits_df[["applieddate"]].reset_index(drop=True)
 seattle_permits_df.head(10)
 ```
 
-At this point, each row in our dataset corresponds to a permit application and the only column we've preserved is the date of the application. The task of forecasting number of permit applications is not really interesting (or reliable) at the granularity of day. Predicting at the granularity of week might be interesting, but let's start by grouping by month. To get some datetime functionality from Python, we'll convert our date column to a datetime type.
+At this point, each row in our dataset corresponds to a permit application and the only column we've preserved is the date of the application. The task of forecasting number of permit applications is not really interesting (or reliable) at the granularity of day. Predicting at the granularity of week might be interesting, but let's start by grouping by month. To get some date-time functionality from Python, we'll convert our date column to a `datetime` type.
 
 ```python
 import datetime
