@@ -111,7 +111,7 @@
 
 <p>All requests should include an <a href="/docs/app-tokens.html">app token</a> that identifies your application, and each application should have its own unique app token. A limited number of requests can be made without an app token, but they are subject to much lower throttling limits than request that do include one. With an app token, your application is guaranteed access to it's own pool of requests. If you don't have an app token yet, click the button to the right to sign up for one.</p>
 
-<div class="register"><a href="https://{{domain}}/profile/app_tokens" target="_blank" class="btn btn-primary btn-lg pull-right" data-tracking-category="foundry" data-tracking-label="app token signup"> <i class="fa fa-key fa-lg"></i> Sign up for an app token!</a></div>
+<div class="register"><a href="https://{{domain}}/profile/edit/developer_settings" target="_blank" class="btn btn-primary btn-lg pull-right" data-tracking-category="foundry" data-tracking-label="app token signup"> <i class="fa fa-key fa-lg"></i> Sign up for an app token!</a></div>
 
 <p>Once you have an app token, you can include it with your request either by using the <code>X-App-Token</code> HTTP header, or by passing it via the <code>$$app_token</code> parameter on your URL.</p>
 
