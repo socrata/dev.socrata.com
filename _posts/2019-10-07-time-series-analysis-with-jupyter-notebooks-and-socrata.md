@@ -110,6 +110,7 @@ To better understand the seasonal nature of our data, we can decompose our time 
 $$
 y_t = S_t + T_t + R_t
 $$
+
 where $$ y_t $$ is our data (counts of permit applications), $$ S_t $$ is our seasonal component, $$ T_t $$ is our trend component, and $$ R_t $$ is whatever is left over (the remainder).
 
 We will use a function in the [statsmodels](https://www.statsmodels.org/stable/index.html) module to perform this decomposition for us, but we could compute it ourselves using a technique known as technique is known as [differencing](https://people.duke.edu/~rnau/411diff.htm).
