@@ -17,6 +17,8 @@ The site is a customized [Jekyll](http://jekyllrb.com/) site, so there are some 
 5. Set up the Gem bundle: `bundle`
 6. To run a local server for development, run `rake serve`. Your server will be available at <http://localhost:9292>
 
+If things seem to be going wrong (styles aren't generating, blog post isn't showing up on the blog index page), try doing `rake clean` and then `rake serve` again.
+
 ### Submitting a Blog Post
 
 We love submissions from the community! If you'd like to submit a [blog post](https://dev.socrata.com/blog/) about something you've built with the Socrata APIs, about open data technology, or something we might just be interested in, craft your blog post as a [pull request](https://github.com/socrata/dev.socrata.com/pulls) and submit it for review:
