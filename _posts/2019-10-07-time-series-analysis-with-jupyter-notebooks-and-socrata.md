@@ -89,7 +89,7 @@ data_df.plot(color="purple")
 
 ![Time Series Plot 1](/img/20191007.ts_plot_1.png)
 
-Plotting our time series reveals something interesting that would have been hard to notice earlier. Notice how the number of applications in 2005 and before looks suspiciously low. This certainly appears to be a data problem. Let's remove all data from before 2006, since bad data will impact the accuracy of our model. Let's also remove data from after August of this year, since October is incomplete (at the time of this writing).
+Plotting our time series reveals something interesting that would have been hard to notice earlier. Notice how the number of applications in 2005 and before looks suspiciously low. This certainly appears to be a data problem. Let's remove all data from before 2006, since bad data will impact the accuracy of our model. Let's also remove data from after October of this year, since October is incomplete (at the time of this writing).
 
 ```python
 def is_between_2006_and_now(date):
