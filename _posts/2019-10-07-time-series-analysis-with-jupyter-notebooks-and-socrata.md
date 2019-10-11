@@ -155,9 +155,11 @@ The trend component incorporates a notion of changepoints -- another aspect that
 #### Seasonality $$ s(t) $$
 
 The seasonality component is modeled using [a Fourier series](http://mathworld.wolfram.com/FourierSeries.html). Fourier series are used to approximate periodic functions as an infinite series of sines and cosines.
+
 $$
 s(t) = \sum_{n=1}^{N} (a_n \cos { \frac { (2\pi nt ) } P } + b_n sin { \frac { (2\pi nt ) } P })
 $$
+
 The $$ P $$ parameter corresponds to the period of our seasonality; in our case, the seasonality is yearly, so $$ P = 365 $$. The choice of the parameter $$ N $$ can be thought of as a way of increasing the sensitivity of our seasonality model. As we increase $$ N $$, we allow for the model to capture more seasonal changes, but with the potential downside of [overfitting](https://en.wikipedia.org/wiki/Overfitting), potentially decreasing the model's ability to generalize to future data.
 
 In matrix form, assuming $$ N $$ = 10 (a reasonable default according to the Prophet documentation), we have seasonality vectors that looks as follows:
@@ -173,6 +175,7 @@ $$ \beta $$ is a vector of length $$ 2N $$ of parameters that we'll learn in the
 #### Holidays $$ h(t) $$
 
 The last component is the holiday component. If we pass a list of holidays to the model, for each holiday $$ i $$ we let $$ D_i $$ be the set of past and future dates for those holidays. Those holidays are incorporated as vectors of indicator functions (ie. for each time $$ t $$ in our data set, it has a 1 for each holiday occurring on that day, and a bunch of zeroes). These vectors should be very sparse.
+
 $$
 h(t) = [1(t \in D_1), ..., 1(t \in D_L)]
 $$
