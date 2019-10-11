@@ -161,11 +161,13 @@ $$
 The $$ P $$ parameter corresponds to the period of our seasonality; in our case, the seasonality is yearly, so $$ P = 365 $$. The choice of the parameter $$ N $$ can be thought of as a way of increasing the sensitivity of our seasonality model. As we increase $$ N $$, we allow for the model to capture more seasonal changes, but with the potential downside of [overfitting](https://en.wikipedia.org/wiki/Overfitting), potentially decreasing the model's ability to generalize to future data.
 
 In matrix form, assuming $$ N $$ = 10 (a reasonable default according to the Prophet documentation), we have seasonality vectors that looks as follows:
+
 $$
 X(t) = [\cos { \frac { 2 \pi (1) t } P }, ..., \sin { \frac { 2 \pi (10) t } P }]
 \\
 s(t) = \beta X(t)
 $$
+
 $$ \beta $$ is a vector of length $$ 2N $$ of parameters that we'll learn in the `fit` step. More on that below.
 
 #### Holidays $$ h(t) $$
