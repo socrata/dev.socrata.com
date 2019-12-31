@@ -11,32 +11,16 @@ define(
         var uid = $(this).attr('data-obe-uid');
         var el = $(this);
         $.when(
-            $.ajaxForgiving404({
-              url: query_base + "/api/migrations/" + uid + ".json",
-              method: "GET",
-              dataType: "json"
-            }), // Migrations API
             $.ajax({
               url: query_base + "/api/views/" + uid + ".json",
               method: 'GET',
               datatype: 'json'
             }) // metadata
-        ).done(function(migration, meta) {
+        ).done(function(meta) {
           // Clean up
           $(el).removeClass('btn-warning btn-success');
-
-          // Update our last sync time
-          $(el).find('.sync-time').text((new Date(migration[0].syncedAt*1000)).toLocaleString());
-          var min_ood = meta[0].rowsUpdatedAt - migration[0].syncedAt;
-          if(min_ood > 0) {
-            // OUTATIME!!!
-            $(el).find('.sync-state').text((min_ood/60).toFixed(1) + " minutes out of date");
-            $(el).removeClass("panel-default").addClass("panel-warning");
-          } else {
-            // We're up to date
-            $(el).find('.sync-state').text("up to date");
-            $(el).removeClass("panel-default").addClass("panel-success");
-          }
+          $(el).find('.sync-state').text("up to date");
+          $(el).removeClass("panel-default").addClass("panel-success");
         });
       });
     },
@@ -620,7 +604,7 @@ define(
 
     var forgive_me = [404];
 
-    // #680: The no-redirect option makes us a little more forgiving on filtered views 
+    // #680: The no-redirect option makes us a little more forgiving on filtered views
     // on private datasets
     if(args.options.no_redirect) {
       forgive_me.push(403);
@@ -639,16 +623,7 @@ define(
         },
         forgives: forgive_me
       }),
-      // #323: So, when we're looking at an NBE endpoint with an OBE shadow copy
-      // we actually need to pull its descriptive metadata from the OBE equivalent
-      // Because of this, we need to single thread a call to the migrations service
-      // first, so we can fetch the metadata for two different datasets at the same
-      // time #devexplife
-      $.ajaxForgiving404({
-        url: query_base + "/api/migrations/" + args.uid + ".json",
-        method: "GET",
-        dataType: "json"
-      }),
+
       // For legacy API Foundry endpoints, they have customized resource names
       // Here we should fail if we can't find the dataset by resource name
       $.ajax({
@@ -660,7 +635,7 @@ define(
           "name": args.uid
         }
       })
-    ).done(function(default_view, migration, by_resource) {
+    ).done(function(default_view, by_resource) {
       // First check to make sure we're viewing the default dataset
       if(default_view && default_view[1] == "success" && default_view[0]["id"] != args.uid) {
         console.log("Redirecting user to the API for the default dataset");
@@ -678,71 +653,18 @@ define(
         default_view = by_resource;
       }
 
-      // Check to see if we're on a 2.0 endpoint and should redirect to 2.1
-      // If we're looking at an OBE dataset and we haven't forced these docs, redirect
-      if(migration && migration[1] == "success" && migration[0].nbeId != args.uid && !args.options.no_redirect) {
-        console.log("Redirecting user to the NBE API for this dataset");
-        $("#splash").splash({
-          level: "info",
-          icon: 'clock-o',
-          title: 'Please wait!',
-          message: "Redirecting you to the new API endpoint for this datset..."
-        });
-        // $.redirect(args.base + args.domain + "/" + migration[0].nbeId);
-        $.redirect(build_url($.extend(args, { uid: migration[0].nbeId })));
-        return false;
-      }
-
       // So now we have to decide where to get our metadata from
       var metadata = default_view[0];
       var is_nbe = metadata.newBackend;
-
-      if(is_nbe && migration && migration[1] == "success") {
-        // If we're in NBE, and we have a migration, we need to fetch its OBE metadata because reasons
-        $.ajax({
-          url: query_base + "/api/views/" + migration[0].obeId + ".json",
-          method: "GET",
-          dataType: "json"
-        }).done(function(obe_metadata) {
-          render({
-            uid: metadata.id,
-            target: args.target,
-            metadata: obe_metadata,
-            structural_metadata: metadata,
-            migration: migration[0],
-            domain: args.domain,
-            query_base: query_base,
-            endpoint_base: endpoint_base
-          });
-        });
-      } else if(!is_nbe && migration && migration[1] == "success") {
-        // We must be looking at an OBE dataset with a NBE shadow
-        render({
-          uid: metadata.id,
-          target: args.target,
-          metadata: metadata,
-          structural_metadata: metadata,
-          migration: migration[0],
-          domain: args.domain,
-          query_base: query_base,
-          endpoint_base: endpoint_base
-        });
-      } else {
-        // We're either:
-        // - A solo dataset in NBE
-        // - An OBE dataset with no NBE version
-        // - An OBE dataset and we've been told not to redirect
-        // - A legacy Foundry 1.0 endpoint
-        render({
-          uid: metadata.id,
-          target: args.target,
-          metadata: metadata,
-          structural_metadata: metadata,
-          domain: args.domain,
-          query_base: query_base,
-          endpoint_base: endpoint_base
-        });
-      }
+      render({
+        uid: metadata.id,
+        target: args.target,
+        metadata: metadata,
+        structural_metadata: metadata,
+        domain: args.domain,
+        query_base: query_base,
+        endpoint_base: endpoint_base
+      });
     }).fail(function(xhr) {
       switch(xhr.status) {
         case 403:
