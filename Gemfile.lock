@@ -254,7 +254,7 @@ GEM
     public_suffix (2.0.5)
     puma (4.1.0)
       nio4r (~> 2.0)
-    rack (2.0.7)
+    rack (2.0.8)
     rack-contrib (2.1.0)
       rack (~> 2.0)
     rack-test (1.1.0)
