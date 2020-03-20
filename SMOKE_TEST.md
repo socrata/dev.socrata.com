@@ -6,32 +6,36 @@
 - [Legacy API Foundry V1.0 endpoint](/foundry/soda.demo.socrata.com/earthquakes)
   - Path should be `/foundry/soda.demo.socrata.com/earthquakes`
   - API endpoint should be `https://soda.demo.socrata.com/resource/44tw-yjee.json`
-  - Version should be `2.0`
+  - Version should be `2.1`
   - No upgrade flash should be displayed
 - [Public View on Private Dataset, no 2.0](/foundry/data.cityofnewyork.us/bnx9-e6tj)
-  - Should prompt you to log in to see the private underlying dataset
-- [Public Filtered view on public dataset](/foundry/soda.demo.socrata.com/rm4w-z3zc)
-  - Should redirect you to `/foundry/soda.demo.socrata.com/b6kv-3wgw`, via the 2.0 dataset
-  - API endpoint should be `https://soda.demo.socrata.com/resource/b6kv-3wgw.json`
+  - API endpoint should be `https://soda.demo.socrata.com/resource/bnx9-e6tj.json`
   - Version should be `2.1`
   - Should state you're on the latest version
-  - Name should be "Old Backend Dataset Name"
+  - Name should be "ACRIS - Real Property Master"
+  - Description should be "Document details for Real Property ..."
+  - Should have a `document_id` column
+- [Public Filtered view on public dataset](/foundry/soda.demo.socrata.com/rm4w-z3zc)
+  - API endpoint should be `https://soda.demo.socrata.com/resource/rm4w-z3zc.json`
+  - Version should be `2.1`
+  - Should state you're on the latest version
+  - Name should be "Old Backend Saved Filter"
   - Description should be "This is the old backend dataset description"
-  - Should have a `point` column
-- [Public 2.0 API with 2.1 shadow copy, forced no redirect](/foundry/soda.demo.socrata.com/f45n-c7cd/no-redirect)
+  - Should have a `location` column
+- [Public 2.0 API with 2.1 shadow copy, forced no redirect](/foundry/soda.demo.socrata.com/f45n-c7cd/no-redirect) (BROKEN DATASET NO LONGER 2.0)
   - Path should be `/foundry/soda.demo.socrata.com/f45n-c7cd/no-redirect`
   - API endpoint should be `https://soda.demo.socrata.com/resource/f45n-c7cd.json`
   - Version should be `2.0`
   - Upgrade flash should be displayed
   - Should have a `location` column
-- [Public 2.0 API with 2.1 shadow copy, forced no redirect, embed mode](/foundry/soda.demo.socrata.com/f45n-c7cd/no-redirect/embed)
+- [Public 2.0 API with 2.1 shadow copy, forced no redirect, embed mode](/foundry/soda.demo.socrata.com/f45n-c7cd/no-redirect/embed) (BROKEN DATASET NO LONGER 2.0)
   - Path should be `/foundry/soda.demo.socrata.com/f45n-c7cd/no-redirect`
   - API endpoint should be `https://soda.demo.socrata.com/resource/f45n-c7cd.json`
   - Version should be `2.0`
   - Upgrade flash should be displayed
   - Should have a `location` column
   - Should not have header and footer
-- [Public 2.0 API with 2.1 shadow copy, allow redirect](/foundry/soda.demo.socrata.com/f45n-c7cd)
+- [Public 2.0 API with 2.1 shadow copy, allow redirect](/foundry/soda.demo.socrata.com/f45n-c7cd) (BROKEN DATASET NO LONGER 2.0)
   - Should redirect to `/foundry/soda.demo.socrata.com/b6kv-3wgw` 
   - API endpoint should be `https://soda.demo.socrata.com/resource/b6kv-3wgw.json`
   - Version should be `2.1`
@@ -39,7 +43,7 @@
   - Name should be "Old Backend Dataset Name"
   - Description should be "This is the old backend dataset description"
   - Should have a `point` column
-- [Public 2.0 API with 2.1 shadow copy, allow redirect, embed mode](/foundry/soda.demo.socrata.com/f45n-c7cd/embed)
+- [Public 2.0 API with 2.1 shadow copy, allow redirect, embed mode](/foundry/soda.demo.socrata.com/f45n-c7cd/embed) (BROKEN DATASET NO LONGER 2.0)
   - Should redirect to `/foundry/soda.demo.socrata.com/b6kv-3wgw/embed` 
   - API endpoint should be `https://soda.demo.socrata.com/resource/b6kv-3wgw.json`
   - Version should be `2.1`
@@ -48,7 +52,7 @@
   - Description should be "This is the old backend dataset description"
   - Should have a `point` column
   - Should not show header and footer
-- [Public 2.1 API with 2.0 shadow copy, differing metadata](/foundry/soda.demo.socrata.com/b6kv-3wgw)
+- [Public 2.1 API with 2.0 shadow copy, differing metadata](/foundry/soda.demo.socrata.com/b6kv-3wgw) (BROKEN DATASET NO LONGER 2.0)
   - Path should be `/foundry/soda.demo.socrata.com/b6kv-3wgw` 
   - API endpoint should be `https://soda.demo.socrata.com/resource/b6kv-3wgw.json`
   - Version should be `2.1`

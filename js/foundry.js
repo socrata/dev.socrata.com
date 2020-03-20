@@ -602,65 +602,26 @@ define(
     var query_base = Proxy.query_base(args.domain);
     var endpoint_base = 'https://' + args.domain;
 
-    var forgive_me = [404];
-
-    // #680: The no-redirect option makes us a little more forgiving on filtered views
-    // on private datasets
-    if(args.options.no_redirect) {
-      forgive_me.push(403);
-    }
-
-    // Front load as many of the things that we can fast-redirct on
-    $.when(
-      // Get the default view, just in case this is actually a view or something
-      $.ajaxForgiving({
-        url: query_base + "/api/views.json",
-        method: "GET",
-        dataType: "json",
-        data: {
-          "method": "getDefaultView",
-          "id": args.uid
-        },
-        forgives: forgive_me
-      }),
-
-      // For legacy API Foundry endpoints, they have customized resource names
-      // Here we should fail if we can't find the dataset by resource name
-      $.ajax({
-        url: query_base + "/api/views.json",
-        method: "GET",
-        dataType: "json",
-        data: {
-          "method": "getByResourceName",
-          "name": args.uid
-        }
-      })
-    ).done(function(default_view, by_resource) {
-      // First check to make sure we're viewing the default dataset
-      if(default_view && default_view[1] == "success" && default_view[0]["id"] != args.uid) {
-        console.log("Redirecting user to the API for the default dataset");
-        $("#splash").splash({
-          level: "info",
-          icon: 'clock-o',
-          title: 'Please wait!',
-          message: "Redirecting you to the API endpoint for this filtered view..."
-        });
-        // $.redirect(args.base + args.domain + "/" + default_view[0]["id"]);
-        $.redirect(build_url($.extend(args, { uid: default_view[0].id })));
+    // For legacy API Foundry endpoints, they have customized resource names
+    // Here we should fail if we can't find the dataset by resource name
+    $.ajax({
+      url: query_base + "/api/views.json",
+      method: "GET",
+      dataType: "json",
+      data: {
+        "method": "getByResourceName",
+        "name": args.uid
+      }
+    }).success(function(viewMetadata) {
+      if (!viewMetadata) {
         return false;
-      } else if(!default_view && by_resource && by_resource[1] == "success") {
-        // We didn't get a default view, but we did get it by resource
-        default_view = by_resource;
       }
 
-      // So now we have to decide where to get our metadata from
-      var metadata = default_view[0];
-      var is_nbe = metadata.newBackend;
       render({
-        uid: metadata.id,
+        uid: viewMetadata.id,
         target: args.target,
-        metadata: metadata,
-        structural_metadata: metadata,
+        metadata: viewMetadata,
+        structural_metadata: viewMetadata,
         domain: args.domain,
         query_base: query_base,
         endpoint_base: endpoint_base
