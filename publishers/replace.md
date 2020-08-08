@@ -103,7 +103,7 @@ Here's an example:
     demo,demo1234,1,03/26/2014 10:38:01 PM,1.2,7.9,1,Washington,"(47.59815, -122.334540)"
     nc,71842370,2,09/14/2012 10:14:21 PM,1.4,0,21,Northern California,"(38.8023, -122.7685)"
 
-Just like before, upserting it is as simple as `POST`ing it to your dataset's endpoint, along with the appropriate authentication and application token information. Make sure you use a content type of `text/csv`:
+Just like before, upserting it is as simple as `PUT`ting it to your dataset's endpoint, along with the appropriate authentication and application token information. Make sure you use a content type of `text/csv`:
 
 {% highlight http %}
 PUT /resource/4tka-6guv.json HTTP/1.1
