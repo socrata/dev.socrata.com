@@ -37,7 +37,7 @@ This example contains only a few records, but upsert operations can easily updat
     "region" : "Washington",
     "source" : "demo",
     "location" : {
-      "latitude" : 47.59815, 
+      "latitude" : 47.59815,
       "longitude" : -122.334540
     },
     "magnitude" : 1.2,
@@ -146,9 +146,10 @@ Content-Length: 253
 Content-Type: text/csv
 X-App-Token: [REDACTED]
 
-Source,Earthquake ID,Version,Datetime,Magnitude,Depth,Number of Stations,Region,Location
-demo,demo1234,1,03/26/2014 10:38:01 PM,1.2,7.9,1,Washington,"(47.59815, -122.334540)"
-nc,71842370,2,09/14/2012 10:14:21 PM,1.4,0,21,Northern California,"(38.8023, -122.7685)"
+Source,Earthquake ID,Version,Datetime,Magnitude,Depth,Number of Stations,Region,Location,:deleted
+demo,demo1234,1,03/26/2014 10:38:01 PM,1.2,7.9,1,Washington,"(47.59815, -122.334540)",false
+nc,71842370,2,09/14/2012 10:14:21 PM,1.4,0,21,Northern California,"(38.8023, -122.7685)",false
+,00388609,,,,,,,,true
 {% endhighlight %}
 
 You'll get back a response like you did in the previous example, detailing what went right and wrong:
