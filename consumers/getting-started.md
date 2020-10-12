@@ -19,7 +19,7 @@ So you want to win that hackathon or build the next hot open data app? Follow th
 - Check to see if your local government or state already has an open data site. Check your city or state website or even just Google "open data" and your government's name. You'll probably find something pretty quickly.
 - Peruse the [Open Data Network](http://www.opendatanetwork.com), our global catalog of open datasets. The same catalog listing is also available programmatically via the [Discovery API](http://labs.socrata.com/docs/search.html).
 
-Once you're on your local open data site, scroll down to the data catalog and use the search box and browse filters to find datasets that interest you - every dataset is accessible via the SODA API.
+Once you're on your local open data site, navigate to the data catalog (append `/browse` to the base URL of the site) and use the search box and browse filters to find datasets that interest you - every dataset is accessible via the SODA API.
 
 ## Finding your API endpoint
 
@@ -80,4 +80,4 @@ So, to request page two, at 100 records per page, of our fuel locations API:
 
 Hold on a second! Before you go storming off to make the next great open data app, you should understand how SODA handles throttling. You can make a certain number of requests without an application token, but they come from a shared pool and you're eventually going to get cut off.
 
-If you want more requests, [register for an application token](/register) and your application will be granted up to 1000 requests per rolling hour period. If you need even more than that, special exceptions are made by request. Use the `Help!` tab on the right of this page to file a trouble ticket.
+If you want more requests, [sign up for a Socrata account](https://support.socrata.com/hc/en-us/articles/115004055807-Signing-up-for-an-Account), then [register for an application token](https://support.socrata.com/hc/en-us/articles/210138558-Generating-an-App-Token) and your application will be granted up to 1000 requests per rolling hour period. If you need even more than that, special exceptions are made by request. Use the `Help!` tab on the right of this page to file a trouble ticket.
