@@ -1,6 +1,6 @@
 define(
-  ['jquery', 'mustache', 'underscore', 'jquery.forgiving', 'readmore', 'js.cookie', 'tryit', 'jquery.redirect', 'jquery.splash', 'jquery.sanitize', 'jquery.message_height', 'proxy', 'micromarkdown', 'hljs', 'clipboard'],
-  function($, Mustache, _, Forgiving, Readmore, Cookies, TryIt, Redirect, Splash, Sanitize, MessageHeight, Proxy, micromarkdown, Highlight, Clipboard) {
+  ['jquery', 'mustache', 'underscore', 'jquery.forgiving', 'readmore', 'js.cookie', 'tryit', 'jquery.redirect', 'jquery.splash', 'jquery.sanitize', 'jquery.message_height', 'proxy', 'micromarkdown', 'hljs', 'clipboard', '/js/lib/SOQL_RESERVED_KEYWORDS.js'],
+  function($, Mustache, _, Forgiving, Readmore, Cookies, TryIt, Redirect, Splash, Sanitize, MessageHeight, Proxy, micromarkdown, Highlight, Clipboard, SQL_RESERVED_KEYWORD) {
 
   // Set up some JQuery convenience functions
   $.fn.extend({
@@ -33,6 +33,11 @@ define(
         var field_name = $(this).attr('data-fieldname');
         var datatype = $(this).attr('data-datatype');
         var el = $(this);
+
+        // wrap field_name around ` in case the field name is a SQL reserved keyword
+        if (_.indexOf(SQL_RESERVED_KEYWORD, field_name.toUpperCase()) !== -1) {
+          field_name = "`" + field_name + "`";
+        }
 
         // Fetch sample data & template at the same time
         $.when(
