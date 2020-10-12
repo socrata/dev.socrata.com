@@ -1,4 +1,5 @@
 define('/js/lib/SOQL_RESERVED_KEYWORDS.js', function() {
+  // List grabbed from https://www.drupal.org/docs/develop/coding-standards/list-of-sql-reserved-words
   return [
     "A",
     "ABORT",
