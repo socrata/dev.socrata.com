@@ -18,7 +18,6 @@ So you want to win that hackathon or build the next hot open data app? Follow th
 
 - Check to see if your local government or state already has an open data site. Check your city or state website or even just Google "open data" and your government's name. You'll probably find something pretty quickly.
 - Peruse the [Open Data Network](http://www.opendatanetwork.com), our global catalog of open datasets. The same catalog listing is also available programmatically via the [Discovery API](http://labs.socrata.com/docs/search.html).
-- Check to see if there's a community group in your area with their own catalog hosted on [communities.socrata.com](https://communities.socrata.com/). Got a community group or event of your own and want free hosting for your data and APIs? [Sign up!](http://hackathon-in-a-box.org/open-data-apis/community-groups.html)
 
 Once you're on your local open data site, scroll down to the data catalog and use the search box and browse filters to find datasets that interest you - every dataset is accessible via the SODA API.
 
