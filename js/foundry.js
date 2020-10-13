@@ -1,6 +1,6 @@
 define(
   ['jquery', 'mustache', 'underscore', 'jquery.forgiving', 'readmore', 'js.cookie', 'tryit', 'jquery.redirect', 'jquery.splash', 'jquery.sanitize', 'jquery.message_height', 'proxy', 'micromarkdown', 'hljs', 'clipboard', '/js/lib/SOQL_RESERVED_KEYWORDS.js'],
-  function($, Mustache, _, Forgiving, Readmore, Cookies, TryIt, Redirect, Splash, Sanitize, MessageHeight, Proxy, micromarkdown, Highlight, Clipboard, SQL_RESERVED_KEYWORD) {
+  function($, Mustache, _, Forgiving, Readmore, Cookies, TryIt, Redirect, Splash, Sanitize, MessageHeight, Proxy, micromarkdown, Highlight, Clipboard, SOQL_RESERVED_KEYWORD) {
 
   // Set up some JQuery convenience functions
   $.fn.extend({
@@ -35,8 +35,8 @@ define(
         var el = $(this);
 
         // wrap field_name around ` in case the field name is a SQL reserved keyword
-        var reserveWordSafe = function(field_name) {
-          if (_.indexOf(SQL_RESERVED_KEYWORD, field_name.toUpperCase()) !== -1) {
+        var reservedWordSafe = function(field_name) {
+          if (_.indexOf(SOQL_RESERVED_KEYWORD, field_name.toUpperCase()) !== -1) {
             return field_name = "`" + field_name + "`";
           }
           return field_name

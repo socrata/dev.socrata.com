@@ -35,6 +35,11 @@ define('/js/lib/SOQL_RESERVED_KEYWORDS.js', function() {
     // Weird boolean-valued functions with special syntax
     "IS",
     "BETWEEN",
-    "LIKE"
+    "LIKE",
+    
+    // Literals
+    "TRUE",
+    "FALSE",
+    "NULL"
   ]
 });
