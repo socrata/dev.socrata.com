@@ -5,6 +5,7 @@ title: SODA Producer Basics
 audience: publisher
 redirect_from:
   - /publishers/getting-started.html
+  - /publishers/soda-producer/
 ---
 
 {% include publisher-note.html %}
@@ -15,9 +16,9 @@ For the tightest possible integration between your source system and your Socrat
 
 Three distinct write methods are available via this [REST](https://en.wikipedia.org/wiki/Representational_state_transfer)ful API:
 
-- [Replace](/publishers/replace.html): Replace rows in bulk via a `PUT` operation
-- [Upsert](/publishers/upsert.html): Update rows in bulk via a `POST` operation
-- [Direct Row Manipulation](/publishers/direct-row-manipulation.html): Add, update, and delete individual rows via `PUT`, `POST`, and `DELETE` operations
+- [Replace](/publishers/soda-producer/replace.html): Replace rows in bulk via a `PUT` operation
+- [Upsert](/publishers/soda-producer/upsert.html): Update rows in bulk via a `POST` operation
+- [Direct Row Manipulation](/publishers/soda-producer/direct-row-manipulation.html): Add, update, and delete individual rows via `PUT`, `POST`, and `DELETE` operations
 
 ## Authentication, Application Tokens, and Throttling
 

@@ -50,7 +50,7 @@ For more information about [DataSync](https://socrata.github.io/datasync/), chec
 
 ### SODA Producer API
 
-For the tightest possible integration between your source system and your Socrata platform, you'll want to integrate directly with the [SODA Producer API](/publishers/soda-producer-basics.html). The SODA Producer API allows you to programatically:
+For the tightest possible integration between your source system and your Socrata platform, you'll want to integrate directly with the [SODA Producer API](/publishers/soda-producer/soda-producer-basics.html). The SODA Producer API allows you to programatically:
 
 - Replace rows in bulk via a `PUT` operation
 - Update rows in bulk via a `POST` operation

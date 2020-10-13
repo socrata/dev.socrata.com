@@ -3,6 +3,12 @@ layout: with-sidebar
 sidebar: publisher
 title: Replacing Rows in Bulk
 audience: publisher
+parent_paths:
+- /publishers/soda-producer/soda-producer-basics.html
+parents:
+- SODA Producer API
+redirect_from:
+  - /publishers/replace.html
 ---
 
 {% include publisher-note.html %}
@@ -22,7 +28,7 @@ Please note that all operations that modify datasets must be authenticated as a 
 
 The dataset for this example is the [USGS Earthquakes Sample Dataset](https://soda.demo.socrata.com/dataset/USGS-Earthquake-Reports/4tka-6guv), which has its publisher-specified [row identifier](/docs/row-identifiers.html) set to `earthquake_id`.
 
-We'll format our payload as a JSON array of objects, just like you did for [upsert](/publishers/upsert.html). This example contains only a few records, but replacement operations can easily contain thousands of records at a time.
+We'll format our payload as a JSON array of objects, just like you did for [upsert](/publishers/soda-producer/upsert.html). This example contains only a few records, but replacement operations can easily contain thousands of records at a time.
 
 {% highlight javascript %}
 [ {

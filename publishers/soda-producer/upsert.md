@@ -3,6 +3,12 @@ layout: with-sidebar
 sidebar: publisher
 title: Updating Rows in Bulk with Upsert
 audience: publisher
+parent_paths:
+- /publishers/soda-producer/soda-producer-basics.html
+parents:
+- SODA Producer API
+redirect_from:
+  - /publishers/upsert.html
 ---
 
 {% include publisher-note.html %}
