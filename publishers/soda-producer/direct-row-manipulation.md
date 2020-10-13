@@ -3,6 +3,12 @@ layout: with-sidebar
 sidebar: publisher
 title: Manipulating Rows Directly
 audience: publisher
+parent_paths:
+- /publishers/soda-producer/soda-producer-basics.html
+parents:
+- SODA Producer API
+redirect_from:
+  - /publishers/direct-row-manipulation.html
 ---
 
 {% include publisher-note.html %}
@@ -19,13 +25,13 @@ With the SODA Producer API, you will be able to:
 - Update/replace existing rows
 - Delete rows from your dataset
 
-Bulk updates are also possible via our `upsert` [update method](/publishers/upsert.html).
+Bulk updates are also possible via our `upsert` [update method](/publishers/soda-producer/upsert.html).
 
 <ul class="well">
   <li>Learn how to <a href="/docs/authentication.html">authenticate via HTTP Basic or OAuth 2.0</a></li>
   <li>Learn about <a href="/docs/app-tokens.html">application tokens</a></li>
   <li>Learn more about <a href="/docs/row-identifiers.html">row identifiers</a></li>
-  <li>Learn how to perform an <a href="/publishers/upsert.html">upsert operation</a></li>
+  <li>Learn how to perform an <a href="/publishers/soda-producer/upsert.html">upsert operation</a></li>
 </ul>
 
 ## Creating an Individual Row
@@ -223,5 +229,5 @@ Date: Thu, 27 Mar 2014 00:48:42 GMT
 Got a lot of changes to make? All of these operations can be performed within a single request using upsert.
 
 <ul class="well">
-  <li>Learn more about <a href="/publishers/upsert.html">bulk updates using upsert</a></li>
+  <li>Learn more about <a href="/publishers/soda-producer/upsert.html">bulk updates using upsert</a></li>
 </ul>
