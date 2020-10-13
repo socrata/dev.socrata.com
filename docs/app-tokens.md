@@ -11,7 +11,7 @@ The Socrata Open Data API uses application tokens for two purposes:
 - Using an application token allows us to throttle by application, rather than via IP address, which gives you a higher throttling limit
 - Authentication using OAuth
 
-<div class="alert alert-info"><strong>Note:</strong> The Socrata Open Data API has two concepts around API access: authentication and application tokens. You only need to authenticate if you wish to add, delete, or modify data that is attached to your account, or if you wish to read data you own that you have marked as private. Read-only requests only require the application token. See the <a href="/publishers/soda-producer-basics.html">SODA Producer API documentation</a> for more details on changing data.</div>
+<div class="alert alert-info"><strong>Note:</strong> The Socrata Open Data API has two concepts around API access: authentication and application tokens. You only need to authenticate if you wish to add, delete, or modify data that is attached to your account, or if you wish to read data you own that you have marked as private. Read-only requests only require the application token. See the <a href="/publishers/soda-producer/soda-producer-basics.html">SODA Producer API documentation</a> for more details on changing data.</div>
 
 ## Throttling limits
 
