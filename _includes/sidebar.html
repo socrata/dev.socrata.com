@@ -30,6 +30,11 @@
   <li class="nav-header dropdown-header">Data Publishers</li>
   <li><a href="/publishers/">Publisher Guide</a></li>
 
+  <li class="nav-header dropdown-header">APIs for Publishing Data</li>
+  <li><a href="/publishers/soda-producer-basics.html">SODA Producer API</a></li>
+  <li><a href="/publishers/dsmapi.html">Dataset Management API</a></li>
+  <li><a href="/publishers/import/">Import API</a></li>
+
   <li class="nav-header dropdown-header">Tools &amp; Connectors</li>
   {% for page in site.pages %}
     {% if page.type == 'connector' %}
@@ -40,13 +45,6 @@
       {% endif %}
     {% endif %}
   {% endfor %}
-
-  <li class="nav-header dropdown-header">The Publisher API</li>
-  <li><a href="/publishers/getting-started.html">Publisher API Basics</a></li>
-  <li><a href="/publishers/direct-row-manipulation.html">Direct Row Manipulation</a></li>
-  <li><a href="/publishers/upsert.html">Updating via "Upsert"</a></li>
-  <li><a href="/publishers/replace.html">Full Replace</a></li>
-  <li><a href="/publishers/import/">The Import API</a></li>
 
   <li class="nav-header dropdown-header">SDKs &amp; Libraries</li>
   {% for page in site.pages %}
@@ -106,10 +104,9 @@
   <li class="nav-header dropdown-header">Other APIs</li>
   <li><a href="http://docs.socratadiscovery.apiary.io/">Discovery</a></li>
   <li><a href="http://docs.socratametadataapi.apiary.io">Metadata</a></li>
-  <li><a href="http://docs.openperformance.apiary.io/">Open Performance</a></li>
-  <li><a href="/odata/">OData</a></li>
-  <li><a href="http://socratapublishing.docs.apiary.io/">Data Sources and Transforms</a></li>
+  <li><a href="http://socratapublishing.docs.apiary.io/">Dataset Management</a></li>
   <li><a href="https://socrataapikeys.docs.apiary.io/">API Keys</a></li>
+  <li><a href="/odata/">OData</a></li>
 
 {% when 'post' %}
   <li>
