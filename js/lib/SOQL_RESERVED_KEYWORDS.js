@@ -1,5 +1,5 @@
 define('/js/lib/SOQL_RESERVED_KEYWORDS.js', function() {
-  // List grabbed from https://www.drupal.org/docs/develop/coding-standards/list-of-sql-reserved-words
+  // List grabbed from https://github.com/socrata-platform/soql-reference/blob/master/soql-standalone-parser/src/main/scala/com/socrata/soql/parsing/LexerReader.scala#L57
   return [
     "SELECT",
     "DISTINCT",
