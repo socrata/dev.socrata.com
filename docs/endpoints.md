@@ -17,9 +17,9 @@ Once you've got your API endpoint, you can add on [filtering](/docs/filtering.ht
 
 ## Locating the API endpoint for a dataset
 
-You can also find API endpoints, and links to detailed developer documentation for each dataset in a number of different places, depending on where you are:
+You can also find API endpoints, and links to detailed developer documentation for each dataset, in a number of different places, depending on where you are:
 
-- If you're viewing a dataset listing within the [Open Data Network](http://www.opendatanetwork.com), there will be a prominent "API" button that will take you directly to the API documentation for that dataset. {% include lb.html image='/img/odn_dataset.png' title='See this' %}
+- If you're viewing a dataset listing within the [Open Data Network](https://www.opendatanetwork.com), there will be a prominent "API" button that will take you directly to the API documentation for that dataset. {% include lb.html image='/img/odn_dataset.png' title='See this' %}
 - If you're viewing a dataset directly, there will be an "API Documentation" button under "Export" and then "SODA API". {% include lb.html image='/img/sidebar.gif' title='See this' %}
 - If you're viewing a dataset in Data Lens, there will be an API button you can click to get the API endpoint and a link to API documentation. {% include lb.html image='/img/data_lens.png' title='See this' %}
 
