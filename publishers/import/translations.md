@@ -6,7 +6,7 @@ audience: publisher
 parent_paths:
 - /publishers/import/
 parents:
-- The Import API
+- Import API
 ---
 
 {% include imports-note.html %}

@@ -24,7 +24,7 @@ Since `:created_at` and `:updated_at` are [Fixed Timestamp](/docs/datatypes/time
 
 <div class="alert alert-info">
   <h4>A note on how datasets are updated</h4>
-  <p>Data providers use many different methods to update datasets. In some cases, they use tools like <a href="http://socrata.github.io/datasync/">DataSync</a> or the <a href="/publishers/">Publisher API</a> to update datasets, and we can tell which records within the dataset have actually been modified, and only update them accordingly. When data providers perform a full replace of the dataset using the <a href="/publishers/replace.html">Publisher API</a>, all of its records will be updated within short period of time, in which case a query based on <code>:updated_at</code> will show that all of the records have changed.</p>
+  <p>Data providers use many different methods to update datasets. In some cases, they use tools like <a href="http://socrata.github.io/datasync/">DataSync</a> or the <a href="/publishers/soda-producer/soda-producer-basics.html">SODA Producer API</a> to update datasets, and we can tell which records within the dataset have actually been modified, and only update them accordingly. When data providers perform a full replace of the dataset using the <a href="/publishers/soda-producer/replace.html">SODA Producer Replace API</a>, all of its records will be updated within short period of time, in which case a query based on <code>:updated_at</code> will show that all of the records have changed.</p>
 </div>
 
 {% include tryit.html domain='data.sfgov.org' path='/resource/tmnf-yvry.json' args="$where=:updated_at > '2014-10-20'" %}
