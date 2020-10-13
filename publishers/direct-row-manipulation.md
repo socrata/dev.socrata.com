@@ -9,19 +9,22 @@ audience: publisher
 
 ## Introduction
 
-The Socrata Publisher APIs allow you to directly retrieve, modify, and delete individual rows in a Socrata dataset, using their [row identifiers](/docs/row-identifiers.html). Please note that all operations that modify datasets must be authenticated as a user who has access to modify that dataset, and must be accompanied by an application token.
+The SODA Producer API allows you to directly retrieve, modify, and delete individual rows in a Socrata dataset, using their [row identifiers](/docs/row-identifiers.html).
 
-With the Publisher API, you will be able to:
+Please note that all operations that modify datasets must be authenticated as a user who has access to modify that dataset and may optionally include an application token.
+
+With the SODA Producer API, you will be able to:
 
 - Create new rows individually
 - Update/replace existing rows
 - Delete rows from your dataset
 
-Bulk updates are also possible via our `upsert` update method.
+Bulk updates are also possible via our `upsert` [update method](/publishers/upsert.html).
 
 <ul class="well">
   <li>Learn how to <a href="/docs/authentication.html">authenticate via HTTP Basic or OAuth 2.0</a></li>
   <li>Learn about <a href="/docs/app-tokens.html">application tokens</a></li>
+  <li>Learn more about <a href="/docs/row-identifiers.html">row identifiers</a></li>
   <li>Learn how to perform an <a href="/publishers/upsert.html">upsert operation</a></li>
 </ul>
 
@@ -29,7 +32,7 @@ Bulk updates are also possible via our `upsert` update method.
 
 To create a single row, we're going to do a "mini-`upsert`" with only a single row. If you have a row identifier configured on your dataset, you'll want to make sure your new row is entirely new, including the row identifier, otherwise you'll update an existing row!
 
-Like all Publisher API requests, you'll want to make sure you're:
+Like all SODA Producer API requests, you'll want to make sure you're:
 
 - Using a secure HTTPS connection
 - Authenticating using HTTP Basic or OAuth 2.0
