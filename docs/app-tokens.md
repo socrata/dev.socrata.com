@@ -39,9 +39,10 @@ You can obtain an application token by [registering your application](/register)
 
 ## Using your Application Token
 
-While it is possible to perform simple unauthenticated queries against the Socrata Open Data API without making use of an application token, you'll receive much higher throttling limits if you include an application token in your requests. If you elect not to use an application token, you’ll be subjected to a much lower throttling limit for all requests originating from your IP address.  
+While it is possible to perform simple unauthenticated queries against the Socrata Open Data API without making use of an application token, you'll receive much higher throttling limits if you include an application token in your requests. If you elect not to use an application token, you’ll be subjected to a much lower throttling limit for all requests originating from your IP address.
 
 There are two ways to include the application token in the request:
+
 - Use the `X-App-Token` HTTP header.
 - Use the `$$app_token` parameter in your request (`app_token` if you're using old SODA 1.0 APIs).
 
@@ -52,7 +53,7 @@ Using the header is the preferred method.
 The following is an example of using the `X-App-Token` HTTP header to pass an application token:
 
 {% highlight http %}
-GET /resource/3k2p-39jp.json HTTP/1.1
+GET /resource/kzjm-xkqj.json HTTP/1.1
 Host: data.seattle.gov
 Accept: application/json
 X-App-Token: [REDACTED]
@@ -60,10 +61,8 @@ X-App-Token: [REDACTED]
 
 The same application token could also be passed as a URL parameter:
 
-{% include tryit.html domain='data.seattle.gov' path='/resource/3k2p-39jp.json' args='$$app_token=APP_TOKEN' %}
+{% include tryit.html domain='data.seattle.gov' path='/resource/kzjm-xkqj.json' args='$$app_token=APP_TOKEN' %}
 
 ## Using the Application Token as part of the authentication process
 
 Application tokens can also be used for authentication, using OAuth2.0 or HTTP Basic Authentication. For more information, see the [authentication](/docs/authentication.html) section.
-
-
