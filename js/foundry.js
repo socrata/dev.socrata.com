@@ -49,9 +49,9 @@ define(
               method: "GET",
               dataType: "json",
               data: {
-                "$select": reserveWordSafe(field_name),
+                "$select": reservedWordSafe(field_name),
                 "$limit": 1,
-                "$where": reserveWordSafe(field_name) + " IS NOT NULL"
+                "$where": reservedWordSafe(field_name) + " IS NOT NULL"
               }
             }),
             $.ajax("/foundry/queries.mst")
@@ -68,8 +68,8 @@ define(
             // Custom trial URLs for rich datatypes
             switch(datatype) {
               case "text":
-                if (_.indexOf(SQL_RESERVED_KEYWORD, field_name.toUpperCase()) !== -1) {
-                  suggestions.query = reserveWordSafe(field_name) + "='" + (val || "FOO") + "'";
+                if (_.indexOf(SOQL_RESERVED_KEYWORD, field_name.toUpperCase()) !== -1) {
+                  suggestions.query = reservedWordSafe(field_name) + "='" + (val || "FOO") + "'";
                 } else {
                   suggestions.filter = field_name + "=" + (val || "FOO");
                 }
