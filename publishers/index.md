@@ -10,15 +10,15 @@ redirect_from:
   - /publishers/import-translations/
 ---
 
-## About the Publisher APIs
+## About the SODA APIs
 
-The Socrata Open Data Publisher API is strictly a superset of the features provided in the Consumer API &mdash; in fact, they are one and the same. For details on how to *access* information, please refer to the [Consumer API](/consumers/getting-started.html) documentation. For those of you who wish to publish data, however, venture bravely onwards!
+The SODA Producer API is strictly a superset of the features provided in the Consumer API &mdash; in fact, they are one and the same. For details on how to *access* information, please refer to the [Consumer API](/consumers/getting-started.html) documentation. For those of you who wish to publish data, however, venture bravely onwards!
 
 ### Start with our friendly web tools first
 
-Regardless of how you plan to keep your dataset up to date, we recommend uploading your data file and creating your initial dataset through our web interface, rather than using the API. This will give you a chance to review how our systems will import your dataset, what datatypes will be selected, and what it will look like and how it will be behave once it's in our platform.
+Regardless of how you plan to keep your dataset up to date, we recommend uploading your data file and creating your initial dataset through our [web interface](https://support.socrata.com/hc/en-us/articles/115016067067-Using-the-Socrata-Data-Management-Experience), rather than using the API. This will give you a chance to review how our systems will import your dataset, what datatypes will be selected, and what it will look like and how it will be behave once it's in our platform.
 
-If you've never imported a dataset before, this [helpful guide on importing datasets](https://support.socrata.com/hc/en-us/articles/202950128-How-to-upload-a-Socrata-dataset-via-the-Web-User-Interface) should get you started.
+If you've never imported a dataset before, this [helpful guide on importing datasets](https://support.socrata.com/hc/en-us/articles/360009314294-How-to-Create-and-Publish-a-New-Dataset) should get you started.
 
 ## Publishing Strategies
 
@@ -28,42 +28,40 @@ Before embarking on a project to automate data publishing, it's important to tak
 
 If your dataset is rarely or never updated &mdash; for example, the final results of an election or a census &mdash; our web-based user interface is likely sufficient to keep your data up to date. You can edit, update, or append data to a dataset entirely through your web browser, using our simple web user interface.
 
-For more information about how to update a dataset via the Socrata web interface, read [this how-to guide](http://support.socrata.com/hc/en-us/articles/202949708-Append-and-replace-dataset-rows-wizard).
+For more information about how to update a dataset via the Socrata web interface, check out [these how-to videos](https://support.socrata.com/hc/en-us/sections/360001625993-Create-and-Manage-Datasets-on-Socrata).
+
+### Socrata Gateway
+
+[Socrata Gateway](https://support.socrata.com/hc/en-us/sections/360005092553-Socrata-Gateway) an easy-to-use on-platform solution that allows you to publish, update, and automate datasets directly from key on-premise and cloud-hosted source systems.
+
+Gateway utilizes a user agent, a thin Java client that lives behind the user’s firewall that connects to Socrata backend systems. This user agent is set up on a server that has access to the source system hosting your data. Various plugins exist for your agent to connect to different source systems both on the cloud (Esri, AWS S3, etc) as well as on-premise (MS SQL, Excel, etc).
+
+Gateway updates your dataset using the [Dataset Management API](/publishers/dsmapi.html), so you can still use all of the same tools to edit, manage, transform and schedule your data.
 
 ### Socrata DataSync
 
-[Socrata DataSync](http://socrata.github.io/datasync) is a cross-platform [Java](http://en.wikipedia.org/wiki/Java_(programming_language)) application that makes it easy to set up an automatic process to keep a Socrata dataset up to date. It also uses an intelligent update method to efficiently update datasets even when performing what would otherwise be a full replace.
+[Socrata DataSync](https://socrata.github.io/datasync) is a cross-platform [Java](https://en.wikipedia.org/wiki/Java_(programming_language)) application that makes it easy to set up an automatic process to keep a Socrata dataset up to date. It also uses an intelligent update method to efficiently update datasets even when performing what would otherwise be a full replace.
 
-For more information about [DataSync](http://socrata.github.io/datasync), check out its [documentation and getting started guide](http://socrata.github.io/datasync).
+For more information about [DataSync](https://socrata.github.io/datasync/), check out its [documentation and getting started guide](https://socrata.github.io/datasync).
 
 ### Safe FME
 
-[Safe Software](http://www.safe.com) has partnered with Socrata to build an FME "writer" for Socrata. Using the Socrata Writer, you can easily create workflows to extract data from source systems using [Safe FME](http://www.safe.com/fme/fme-technology/), perform cleanup and transformation, and publish that data to Socrata.
+[Safe Software](https://www.safe.com) has partnered with Socrata to build an FME "writer" for Socrata. Using the Socrata Writer, you can easily create workflows to extract data from source systems using [Safe FME](https://www.safe.com/fme/fme-technology/), perform cleanup and transformation, and publish that data to Socrata.
 
-For more information about the Socrata Writer for FME, see this [helpful writeup on Safe's website](http://www.safe.com/solutions/for-applications/socrata/), as well as [this demo tutorial](http://www.youtube.com/watch?v=X5lr6qw20-s). We have also produced a [support article detailing the different updat eoptions avaiable](https://support.socrata.com/hc/en-us/articles/202950068-Data-Integration-Cheat-Sheet-Options-for-publishing-data-to-Socrata-) with links to additional detail..
+### SODA Producer API
 
-### Socrata Publisher API/SDKs
+For the tightest possible integration between your source system and your Socrata platform, you'll want to integrate directly with the [SODA Producer API](/publishers/soda-producer/soda-producer-basics.html). The SODA Producer API allows you to programatically:
 
-For the tightest possible integration between your source system and your Socrata platform, you'll want to integrate directly with the Socrata Publisher API. The Publisher API allows you to programatically:
+- Replace rows in bulk via a `PUT` operation
+- Update rows in bulk via a `POST` operation
+- Add, update, and delete individual rows via `PUT`, `POST`, and `DELETE` operations
 
-- Add, update, and delete records within a Socrata dataset
-- Create and import Socrata datasets
+### SDKs
 
-#### RESTful API
+[Libraries &amp; SDKs](/libraries/) that support writing to datasets include:
 
-To learn more about the Socrata Publisher API, see the [getting started guide](/publishers/getting-started.html) or check out the API documentation above.
-
-#### SDKs
-
-[Libraries &amp; SDKs](/libraries/) that have Publisher API support include:
-
-- [DataSync SDK](http://socrata.github.io/datasync/guides/datasync-library-sdk.html) (recommended Java library)
+- [Python SDK](https://github.com/socrata/socrata-py)
+- [DataSync SDK](https://socrata.github.io/datasync/guides/datasync-library-sdk.html)
 - [R](https://github.com/Chicago/RSocrata)
 - [Ruby](https://github.com/socrata/soda-ruby)
-- [PHP](http://github.com/socrata/soda-php)
 - [.NET](https://github.com/CityofSantaMonica/SODA.NET)
-
-## Sign up for our publisher newsletter!
-
-Once or twice a month, we send out an email newsletter full of helpful tips and tricks, news about upcoming changes, and other things you might want to know as a Socrata data publisher. [Sign up now!](http://tinyletter.com/socrata-publishers)
-
