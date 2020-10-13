@@ -3,6 +3,8 @@ layout: with-sidebar
 sidebar: publisher
 title: SODA Producer Basics
 audience: publisher
+redirect_from:
+  - /publishers/getting-started.html
 ---
 
 {% include publisher-note.html %}
