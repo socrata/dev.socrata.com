@@ -1,6 +1,6 @@
 ---
 layout: external-link
-title: Python (Data Management API)
+title: Python (Dataset Management API)
 type: sdk
 audience: all
 
