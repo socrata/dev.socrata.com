@@ -35,8 +35,11 @@ define(
         var el = $(this);
 
         // wrap field_name around ` in case the field name is a SQL reserved keyword
-        if (_.indexOf(SQL_RESERVED_KEYWORD, field_name.toUpperCase()) !== -1) {
-          field_name = "`" + field_name + "`";
+        var reserveWordSafe = function(field_name) {
+          if (_.indexOf(SQL_RESERVED_KEYWORD, field_name.toUpperCase()) !== -1) {
+            return field_name = "`" + field_name + "`";
+          }
+          return field_name
         }
 
         // Fetch sample data & template at the same time
@@ -46,9 +49,9 @@ define(
               method: "GET",
               dataType: "json",
               data: {
-                "$select": field_name,
+                "$select": reserveWordSafe(field_name),
                 "$limit": 1,
-                "$where": field_name + " IS NOT NULL"
+                "$where": reserveWordSafe(field_name) + " IS NOT NULL"
               }
             }),
             $.ajax("/foundry/queries.mst")
@@ -65,7 +68,11 @@ define(
             // Custom trial URLs for rich datatypes
             switch(datatype) {
               case "text":
-                suggestions.filter = field_name + "=" + (val || "FOO");
+                if (_.indexOf(SQL_RESERVED_KEYWORD, field_name.toUpperCase()) !== -1) {
+                  suggestions.query = reserveWordSafe(field_name) + "='" + (val || "FOO") + "'";
+                } else {
+                  suggestions.filter = field_name + "=" + (val || "FOO");
+                }
                 break;
 
               case "number":
