@@ -67,47 +67,48 @@ custom_js:
 
   <div class="row trailhead">
     <div class="col-md-4">
-      <h3><a href="/blog/"><i class="fa fa-pull-left fa-rss-square"></i>Developer Examples</a></h3>
+      <h2><a href="/blog/"><i class="fa fa-pull-left fa-rss-square"></i>Developer Examples</a></h2>
       <p>Tips &amp; tricks, updates about events &amp; hackathons, and interesting projects from the community.</p>
       <dl>
         {% for post in site.categories.blog limit:3 %}
-        <dt><a href="{{post.url}}"><a href="{{post.url}}"><i class="fa fa-fw {{ post.icon | default: "fa-rss" }}"></i> {{ post.title }}</a></dt>
+        <dt><a href="{{post.url}}"><i class="fa fa-fw {{ post.icon | default: "fa-rss" }}"></i> {{ post.title }}</a></dt>
         <dd><em>{% if post.author contains ' ' %}{{post.author}}{% else %}<a href="https://github.com/{{post.author}}">{{post.author}}</a>{% endif %} on {{ post.date | date_to_string }}</em></dd>
         {% endfor %}
       </dl>
       <p><a href="/blog/">More...</a></p>
     </div>
-    
+
     <div class="col-md-4">
-      <h3><a href="/support.html"><i class="fa fa-pull-left fa-question-circle"></i>Support Resources</a></h3>
+      <h2><a href="/support.html"><i class="fa fa-pull-left fa-question-circle"></i>Support Resources</a></h2>
       <p>We're here to help! Check out the resources below for answers.</p>
-      
+
       <dl>
         <dt><a href="https://stackoverflow.com/search?tab=newest&q=soda%20OR%20socrata"><i class="fa fa-fw fa-stack-overflow"></i> Stack Overflow</a><dt>
           <dd>We follow the <code>soda</code> and <code>socrata</code> tags on Stack Overflow.</dd>
-          
+
         <dt><a href="https://github.com/socrata"><i class="fa fa-fw fa-github"></i> GitHub</a><dt>
           <dd>Socrata <i class="fa fa-heart"></i>'s Open Source!</dd>
-          
+
         <dt><a href="https://github.com/socrata/discuss/issues"><i class="fa fa-fw fa-bug"></i> Issue Tracker</a><dt>
           <dd>Raise and discuss issues with the Socrata API, datasets, or data itself</dd>
-          
+
         <dt><a href="/changelog/"><i class="fa fa-fw fa-code-fork"></i> Changelog</a></dt>
         <dd>Track the latest updates to our APIs and learn about upcoming changes.</dd>
       </dl>
     </div>
-    
+
     <div class="col-md-4">
-      <h3><a href="https://www.opendatanetwork.com/"><i class="fa fa-pull-left fa-search"></i>Finding Open Data</a></h3>
+      <h2><a href="https://www.opendatanetwork.com/"><i class="fa fa-pull-left fa-search"></i>Finding Open Data</a></h2>
       <p>Looking for open data? Search the Open Data Network for datasets from all our customers and partners.</p>
-      <form action="http://www.opendatanetwork.com/search" method="GET">
+      <form action="https://www.opendatanetwork.com/search" method="GET">
         <div class="search">
           <div class="input-group col-md-12">
             <input name="source" type="hidden" value="dev.socrata.com"/>
-            <input name="q" type="text" class="search-query form-control" placeholder="Search the Open Data Network" />
+            <input name="q" type="text" class="search-query form-control" placeholder="Search the Open Data Network" aria-label="Search terms" />
             <span class="input-group-btn">
               <button class="btn btn-danger" type="button">
                 <span class=" glyphicon glyphicon-search"></span>
+                <span class="sr-only">Search</span>
               </button>
             </span>
           </div>
