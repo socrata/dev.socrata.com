@@ -24,8 +24,8 @@ The following example returns a large number of earthquake results in JSON forma
 
 If we were building a mobile application that only had room for 5 results on a page, we might make our first call to get the first 5 results as follows:
 
-{% include tryit.html domain='soda.demo.socrata.com' path='/resource/earthquakes.json' args='$limit=5&amp;$offset=0' %}
+{% include tryit.html domain='soda.demo.socrata.com' path='/resource/earthquakes.json' args='$limit=5&amp;$offset=0&amp;$order=earthquake_id' %}
 
 Then, if the user clicked **Next**, we would retrieve the next five results with this request:
 
-{% include tryit.html domain='soda.demo.socrata.com' path='/resource/earthquakes.json' args='$limit=5&amp;$offset=5' %}
+{% include tryit.html domain='soda.demo.socrata.com' path='/resource/earthquakes.json' args='$limit=5&amp;$offset=5&amp;$order=earthquake_id' %}
