@@ -1,7 +1,7 @@
 ---
 layout: with-sidebar
 sidebar: publisher
-title: The Import API
+title: Import API
 audience: publisher
 ---
 

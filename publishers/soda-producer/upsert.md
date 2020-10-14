@@ -3,15 +3,21 @@ layout: with-sidebar
 sidebar: publisher
 title: Updating Rows in Bulk with Upsert
 audience: publisher
+parent_paths:
+- /publishers/soda-producer/soda-producer-basics.html
+parents:
+- SODA Producer API
+redirect_from:
+  - /publishers/upsert.html
 ---
 
 {% include publisher-note.html %}
 
 ## Introduction
 
-The Socrata Publisher `upsert` API allows you to create, update, and delete rows in a single operation, using their [row identifiers](/docs/row-identifiers.html). This is an excellent way to keep your Socrata dataset in sync with an internal system.
+The SODA Producer `Upsert` API allows you to create, update, and delete rows in a single operation, using their [row identifiers](/docs/row-identifiers.html). This is an excellent way to keep your Socrata dataset in sync with an internal system.
 
-Please note that all operations that modify datasets must be authenticated as a user who has access to modify that dataset, and must be accompanied by an application token.
+Please note that all operations that modify datasets must be authenticated as a user who has access to modify that dataset and may optionally include an application token.
 
 <ul class="well">
   <li>Learn how to <a href="/docs/authentication.html">authenticate via HTTP Basic or OAuth 2.0</a></li>
@@ -73,7 +79,7 @@ These things combined means that this upsert operation is entirely [idempotent](
 
 ## Performing Your Upsert
 
-Once you've constructed your payload, upserting it is as simple as `POST`ing it to your dataset's endpoint, along with the appropriate authentication and application token information:
+Once you've constructed your payload, upserting it is as simple as `POST`ing it to your dataset's endpoint, along with the appropriate authentication and (optional) application token information:
 
 {% highlight http %}
 POST /resource/4tka-6guv.json HTTP/1.1
@@ -135,7 +141,7 @@ Here's an example:
     demo,demo1234,1,03/26/2014 10:38:01 PM,1.2,7.9,1,Washington,"(47.59815, -122.334540)"
     nc,71842370,2,09/14/2012 10:14:21 PM,1.4,0,21,Northern California,"(38.8023, -122.7685)"
 
-Just like before, upserting it is as simple as `POST`ing it to your dataset's endpoint, along with the appropriate authentication and application token information. Make sure you use a content type of `text/csv`:
+Just like before, upserting it is as simple as `POST`ing it to your dataset's endpoint, along with the appropriate authentication and (optional) application token information. Make sure you use a content type of `text/csv`:
 
 {% highlight http %}
 POST /resource/4tka-6guv.json HTTP/1.1
@@ -165,8 +171,4 @@ Content-Type: application/json; charset=utf-8
 }
 {% endhighlight %}
 
-Finally, note that appending and upserting geographic information to be geo-coded by Socrata requires writing a string into a single location column. Please refer to our Support Portal documentation for specific information on formatting this string:
-
-1. [Location Information Which Can Be Geo-coded](https://support.socrata.com/hc/en-us/articles/202950508-Location-Information-Data-which-can-be-geocoded)
-
-2. [Importing, Data Types, and You](https://support.socrata.com/hc/en-us/articles/202949918-Importing-Data-Types-and-You-)
+Finally, note that appending and upserting geographic information to be geocoded by Socrata requires writing a string into a single location column. Please refer to our Support Portal documentation for specific information on [location columns](https://support.socrata.com/hc/en-us/articles/202949918#location-columns).

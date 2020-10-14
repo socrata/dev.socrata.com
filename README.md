@@ -30,6 +30,7 @@ We love submissions from the community! If you'd like to submit a [blog post](ht
   - Set the `author` key in the [YAML front matter](https://jekyllrb.com/docs/frontmatter/) to your GitHub username so you get proper author credit
   - If your post uses any images, add them to the [`img`](https://github.com/socrata/dev.socrata.com/tree/gh-pages/img) folder, prepended with your post date
   - Proof your post either using the instructions above to build and view the site, or using a Markdown preview tool like [Marked](http://marked2app.com/) or the one provided by GitHub.
+  - (Optional) Use [MathJax](http://docs.mathjax.org/en/latest/basic/mathjax.html) to provide TeX formatting for formulas. We use `\\(` as the starting delimiter and `\\)` as the ending delimiter.
 5. Submit your post and any required files as a pull request against the `gh-pages` branch.
 
 We'll review your post for content and acceptability. If there are any problems, we'll either fix them or let you know why we can't accept your post.

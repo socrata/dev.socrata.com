@@ -107,11 +107,11 @@ After removing data, our new plot makes two things pretty clear. Firstly, there 
 
 To better understand the seasonal nature of our data, we can decompose our time series into components. The first step in decomposing our time series is determining whether our underlying stochastic process should be modeled with an additive or multiplicative decomposition. One heuristic here is if the magnitude of the seasonal fluctuations changes significantly over time, then use a multiplicative model. Otherwise, use an additive model. In our case, the magnitude of the seasonal fluctuations appears to be relatively consistent over time. We can formalize the additive decomposition as follows:
 
-$$
+\\(
 y_t = S_t + T_t + R_t
-$$
+\\)
 
-where $$ y_t $$ is our data (counts of permit applications), $$ S_t $$ is our seasonal component, $$ T_t $$ is our trend component, and $$ R_t $$ is whatever is left over (the remainder).
+where \\( y_t \\) is our data (counts of permit applications), \\( S_t \\) is our seasonal component, \\( T_t \\) is our trend component, and \\( R_t \\) is whatever is left over (the remainder).
 
 We will use a function in the [statsmodels](https://www.statsmodels.org/stable/index.html) module to perform this decomposition for us, but we could compute it ourselves using a technique known as [differencing](https://people.duke.edu/~rnau/411diff.htm).
 
@@ -133,58 +133,58 @@ This decomposition gives us a great overall picture of the data, but we'd like u
 
 Prophet is a module that enables time-series forecasting. The motivations for Prophet's design decisions are outlined [here](https://research.fb.com/blog/2017/02/prophet-forecasting-at-scale/). Prophet uses an additive decomposable time series model very much like what we showed above:
 
-$$
+\\(
 y_t = g(t) + s(t) + h(t) + \epsilon_t
-$$
+\\)
 
 In a Prophet model, there are three main components:
-1. a trend function $$ g(t) $$
-2. a seasonality function $$ s(t) $$
-3. a holidays function $$ h(t) $$
+1. a trend function \\( g(t) \\)
+2. a seasonality function \\( s(t) \\)
+3. a holidays function \\( h(t) \\)
 
-$$ \epsilon_t $$ is an error function, but we won't talk about it in any more depth.
+\\( \epsilon_t \\) is an error function, but we won't talk about it in any more depth.
 
 The introduction of holidays is one unique aspect of Prophet that makes it both powerful and configurable. Let's dive into each component to get a better idea of how Prophet works its magic. If you're just interested in the magic, skip ahead to ["Prophet in Action"](#prophet-in-action).
 
-#### Trend $$ g(t) $$
+#### Trend \\( g(t) \\)
 
-Prophet exposes two options for the trend component: a [logistic growth function](https://www.khanacademy.org/science/biology/ecology/population-growth-and-regulation/a/exponential-logistic-growth), or alternatively, a simpler piecewise linear growth function (both of which are parameterized by a growth rate $$ k $$).
+Prophet exposes two options for the trend component: a [logistic growth function](https://www.khanacademy.org/science/biology/ecology/population-growth-and-regulation/a/exponential-logistic-growth), or alternatively, a simpler piecewise linear growth function (both of which are parameterized by a growth rate \\( k \\)).
 
 The trend component incorporates a notion of changepoints -- another aspect that makes Prophet unique. The motivation for changepoints is that domain experts in a particular time series will have knowledge about dates that they expect in advance that will impact the trend. You can imagine that if our job is to forecast adoption of a product, we may have advance knowledge about release dates and other important dates that will have an impact on product adoption. Prophet allows us to pass an input vector of real numbers that correspond to the change in the growth rate at those times of interest. We won't leverage this feature of the model here, but it's a neat feature that gives domain experts a straightforward way to incorporate prior knowledge into their forecasts.
 
-#### Seasonality $$ s(t) $$
+#### Seasonality \\( s(t) \\)
 
 The seasonality component is modeled using [a Fourier series](http://mathworld.wolfram.com/FourierSeries.html). Fourier series are used to approximate periodic functions as an infinite series of sines and cosines.
 
-$$
+\\(
 s(t) = \sum_{n=1}^{N} (a_n \cos { \frac { (2\pi nt ) } P } + b_n sin { \frac { (2\pi nt ) } P })
-$$
+\\)
 
-The $$ P $$ parameter corresponds to the period of our seasonality; in our case, the seasonality is yearly, so $$ P = 365 $$. The choice of the parameter $$ N $$ can be thought of as a way of increasing the sensitivity of our seasonality model. As we increase $$ N $$, we allow for the model to capture more seasonal changes, but with the potential downside of [overfitting](https://en.wikipedia.org/wiki/Overfitting), potentially decreasing the model's ability to generalize to future data.
+The \\( P \\) parameter corresponds to the period of our seasonality; in our case, the seasonality is yearly, so \\( P = 365 \\). The choice of the parameter \\( N \\) can be thought of as a way of increasing the sensitivity of our seasonality model. As we increase \\( N \\), we allow for the model to capture more seasonal changes, but with the potential downside of [overfitting](https://en.wikipedia.org/wiki/Overfitting), potentially decreasing the model's ability to generalize to future data.
 
-In matrix form, assuming $$ N $$ = 10 (a reasonable default according to the Prophet documentation), we have seasonality vectors that looks as follows:
+In matrix form, assuming \\( N \\) = 10 (a reasonable default according to the Prophet documentation), we have seasonality vectors that looks as follows:
 
-$$
+\\(
 X(t) = [\cos { \frac { 2 \pi (1) t } P }, ..., \sin { \frac { 2 \pi (10) t } P }]
-\\
+
 s(t) = \beta X(t)
-$$
+\\)
 
-$$ \beta $$ is a vector of length $$ 2N $$ of parameters that we'll learn in the `fit` step. More on that below.
+\\( \beta \\) is a vector of length \\( 2N \\) of parameters that we'll learn in the `fit` step. More on that below.
 
-#### Holidays $$ h(t) $$
+#### Holidays \\( h(t) \\)
 
-The last component is the holiday component. If we pass a list of holidays to the model, for each holiday $$ i $$ we let $$ D_i $$ be the set of past and future dates for those holidays. Those holidays are incorporated as vectors of indicator functions (ie. for each time $$ t $$ in our data set, it has a 1 for each holiday occurring on that day, and a bunch of zeroes). These vectors should be very sparse.
+The last component is the holiday component. If we pass a list of holidays to the model, for each holiday \\( i \\) we let \\( D_i \\) be the set of past and future dates for those holidays. Those holidays are incorporated as vectors of indicator functions (ie. for each time \\( t \\) in our data set, it has a 1 for each holiday occurring on that day, and a bunch of zeroes). These vectors should be very sparse.
 
-$$
+\\(
 h(t) = [1(t \in D_1), ..., 1(t \in D_L)]
-$$
+\\)
 
 #### Calculation
 
-Once we've encoded our data in a matrix, where each row corresponds to one of the times $$ t $$ in our dataset, we need to _estimate_ the parameters of our model. Prophet uses the [L-BFGS algorithm](https://en.wikipedia.org/wiki/Limited-memory_BFGS) to *fit* the model. This is the learning step in machine learning, but it's referred to as "fitting" because we're trying to define the function whose curve best fits the observed data. Typically, we do this by identifying an objective function that we want to optimize.
+Once we've encoded our data in a matrix, where each row corresponds to one of the times \\( t \\) in our dataset, we need to _estimate_ the parameters of our model. Prophet uses the [L-BFGS algorithm](https://en.wikipedia.org/wiki/Limited-memory_BFGS) to *fit* the model. This is the learning step in machine learning, but it's referred to as "fitting" because we're trying to define the function whose curve best fits the observed data. Typically, we do this by identifying an objective function that we want to optimize.
 
-If you're not familiar with optimization functions, think back to your calculus days, when you found a function's optima. The goal was to find the inputs that produced our function's minimum or maximum output values. You did this by taking the derivative of the function, setting it equal to zero, and finding the possible inputs that produced that output. In this case, the function we're optimizing is the [maximum a posteriori likelihood function](https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation), which amounts to finding the set of parameters $$ \theta $$ that are most likely _given_ the observed data.
+If you're not familiar with optimization functions, think back to your calculus days, when you found a function's optima. The goal was to find the inputs that produced our function's minimum or maximum output values. You did this by taking the derivative of the function, setting it equal to zero, and finding the possible inputs that produced that output. In this case, the function we're optimizing is the [maximum a posteriori likelihood function](https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation), which amounts to finding the set of parameters \\( \theta \\) that are most likely _given_ the observed data.
 
 ### Prophet In Action
 

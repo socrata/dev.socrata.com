@@ -1,6 +1,6 @@
 define(
-  ['jquery', 'mustache', 'underscore', 'jquery.forgiving', 'readmore', 'js.cookie', 'tryit', 'jquery.redirect', 'jquery.splash', 'jquery.sanitize', 'jquery.message_height', 'proxy', 'micromarkdown', 'hljs', 'clipboard'],
-  function($, Mustache, _, Forgiving, Readmore, Cookies, TryIt, Redirect, Splash, Sanitize, MessageHeight, Proxy, micromarkdown, Highlight, Clipboard) {
+  ['jquery', 'mustache', 'underscore', 'jquery.forgiving', 'readmore', 'js.cookie', 'tryit', 'jquery.redirect', 'jquery.splash', 'jquery.sanitize', 'jquery.message_height', 'proxy', 'micromarkdown', 'hljs', 'clipboard', '/js/lib/SOQL_RESERVED_KEYWORDS.js'],
+  function($, Mustache, _, Forgiving, Readmore, Cookies, TryIt, Redirect, Splash, Sanitize, MessageHeight, Proxy, micromarkdown, Highlight, Clipboard, SOQL_RESERVED_KEYWORD) {
 
   // Set up some JQuery convenience functions
   $.fn.extend({
@@ -34,6 +34,14 @@ define(
         var datatype = $(this).attr('data-datatype');
         var el = $(this);
 
+        // wrap field_name around ` in case the field name is a SQL reserved keyword
+        var reservedWordSafe = function(field_name) {
+          if (_.indexOf(SOQL_RESERVED_KEYWORD, field_name.toUpperCase()) !== -1) {
+            return field_name = "`" + field_name + "`";
+          }
+          return field_name
+        }
+
         // Fetch sample data & template at the same time
         $.when(
             $.ajax({
@@ -41,9 +49,9 @@ define(
               method: "GET",
               dataType: "json",
               data: {
-                "$select": field_name,
+                "$select": reservedWordSafe(field_name),
                 "$limit": 1,
-                "$where": field_name + " IS NOT NULL"
+                "$where": reservedWordSafe(field_name) + " IS NOT NULL"
               }
             }),
             $.ajax("/foundry/queries.mst")
@@ -60,7 +68,11 @@ define(
             // Custom trial URLs for rich datatypes
             switch(datatype) {
               case "text":
-                suggestions.filter = field_name + "=" + (val || "FOO");
+                if (_.indexOf(SOQL_RESERVED_KEYWORD, field_name.toUpperCase()) !== -1) {
+                  suggestions.query = reservedWordSafe(field_name) + "='" + (val || "FOO") + "'";
+                } else {
+                  suggestions.filter = field_name + "=" + (val || "FOO");
+                }
                 break;
 
               case "number":
