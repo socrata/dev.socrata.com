@@ -57,7 +57,7 @@ The following operators can be used on `multipolygon` fields:
 | `IS NULL`     | `TRUE` for values that are `NULL`.     |
 | `IS NOT NULL` | `TRUE` for values that are not `NULL`. |
 
-And thefollowing functions can be used with them:
+And the following functions can be used with them:
 
 {% include function_listing.html datatype="multipolygon" %}
 
