@@ -17,18 +17,18 @@ Once you've got your API endpoint, you can add on [filtering](/docs/filtering.ht
 
 ## Locating the API endpoint for a dataset
 
-You can also find API endpoints, and links to detailed developer documentation for each dataset in a number of different places, depending on where you are:
+You can also find API endpoints, and links to detailed developer documentation for each dataset, in a number of different places, depending on where you are:
 
-- If you're viewing a dataset listing within the [Open Data Network](http://www.opendatanetwork.com), there will be a prominent "API" button that will take you directly to the API documentation for that dataset. {% include lb.html image='/img/odn_dataset.png' title='See this' %}
-- If you're viewing a dataset directly, there will be an "API Documentation" button under "Export" and then "SODA API". {% include lb.html image='/img/sidebar.gif' title='See this' %}
+- If you're viewing a dataset listing within the [Open Data Network](https://www.opendatanetwork.com), there will be a prominent "API" button that will take you directly to the API documentation for that dataset. {% include lb.html image='/img/odn_dataset.png' title='See this' %}
+- If you're viewing a dataset directly, there will be an "API Documentation" button under "Export" and then "SODA API". {% include lb.html image='/img/sidebar.png' title='See this' %}
 - If you're viewing a dataset in Data Lens, there will be an API button you can click to get the API endpoint and a link to API documentation. {% include lb.html image='/img/data_lens.png' title='See this' %}
 
 ## Endpoint Versioning
 
-SODA and SoQL are very flexible, and allow us to add functionality over time without needing to completely deprecate and replace our APIs. We can do so in several different ways:
+SODA and SoQL are very flexible and allow us to add functionality over time without needing to completely deprecate and replace our APIs. We can do so in several different ways:
 
 - By introducing new [SoQL functions](/docs/functions/) that provide new functionality. We could, for example, add a new function that allows you to filter or aggregate a dataset in a new way.
-- By adding new [datatypes](/docs/datatypes/) to represent new data, like a new datatype to for a new class of geospatial data.
+- By adding new [datatypes](/docs/datatypes/) to represent new data, like a new datatype for a new class of geospatial data.
 
 This allows us to introduce additional capabilities while still allowing you to issue the same kinds of queries in a backwards-compatible manner. We can extend SODA APIs without needing all developers to migrate their code to a new version.
 
@@ -40,11 +40,11 @@ Throughout the documentation on this developer portal you'll notice version togg
 
 ### Version 2.1 (Latest)
 
-The first SODA 2.1 APIs (previously referred to as our "high-performance Socrata Open Data APIs") were [released in April of 2015](/changelog/2015/04/27/new-higher-performance-apis.html) and in November of 2015 they received the "2.1" version designation for clarity. SODA 2.1 introduces a number of new datatypes as well as numerous new SoQL functions:
+The first SODA 2.1 APIs (previously referred to as our "high-performance Socrata Open Data APIs") were [released in April of 2015](/changelog/2015/04/27/new-higher-performance-apis.html), and in November of 2015 they received the "2.1" version designation for clarity. SODA 2.1 introduces a number of new datatypes as well as numerous new SoQL functions:
 
 - Tons of new advanced [SoQL functions](/docs/functions/index.html) to introduce powerful filtering and analysis into your queries
 - New geospatial datatypes like {% include dt.html dt="Point" %}, {% include dt.html dt="Line" %}, and {% include dt.html dt="Polygon" %} replace the {% include dt.html dt="Location" %} datatype
-- Support for the standardized [GeoJSON](/docs/formats/geojson.html) output format, for direct use within geospatial tools like [Leaflet](http://leafletjs.com/)
+- Support for the standardized [GeoJSON](/docs/formats/geojson.html) output format, for direct use within geospatial tools like [Leaflet](https://leafletjs.com/)
 - Closer compliance with SQL semantics, such as {% include dt.html dt="Text" %} comparisons becoming case-sensitive
 - Currently only the [JSON](/docs/formats/json.html), [CSV](/docs/formats/csv.html), and [GeoJSON](/docs/formats/geojson.html) output formats are supported
 
@@ -76,12 +76,6 @@ SODA 2.0 was originally released in 2011. Although 2.1 is backwards-compatible w
   </ul>
 </div>
 
-## Dataset Synchronization
-
-{% comment %}In some cases, data publishers may still be performing updates against an old API endpoint version, and may not have migrated their automated process. In those cases, we automatically migrate updates to a copy of the dataset of the latest endpoint version. In some cases, that process may fall behind, so in the API documentation for each dataset we display the "Sync Status" in the sidebar so you can check on it. {% include lb.html image='/img/version_sidebar.png' title='See this' %}{% endcomment %}
-
-In order to make sure you always have the latest version of the API available, we automatically migrate updates to a copy of the dataset of the latest endpoint version. In some cases, that process may fall behind, so in the API documentation for each dataset we display the "Sync Status" in the sidebar so you can check on it. {% include lb.html image='/img/version_sidebar.png' title='See this' %}
-
 ## Versioning HTTP headers
 
 The simplest way to tell the difference between a 2.0 API and a 2.1 API is via the `X-SODA2-Legacy-Types` header, which will be `true` if you're accessing a legacy 2.0 API.
@@ -89,5 +83,3 @@ The simplest way to tell the difference between a 2.0 API and a 2.1 API is via t
 ## When we will increment endpoint versions
 
 From time to time, we'll introduce new [SoQL functions](/docs/functions/) and [datatypes](/docs/datatypes/) to the latest version of the SODA API. Those changes will be non-breaking, and old queries and applications will continue to function unchanged. The SODA API is designed to make it easy to introduce new functionality over time without making breaking changes.
-
-When we introduce breaking changes, such as the deprecation of a function or datatype, we'll increment the SODA version and notify developers. Make sure you [sign up for our developer newsletter](/changelog/) so you can stay up to date!

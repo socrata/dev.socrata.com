@@ -1,55 +1,55 @@
 - code: 200
   name: OK
-  url: http://httpstatusdogs.com/200-ok
+  url: https://httpstatusdogs.com/200-ok
   description: Your request was successful
   class: good
   response: Record
 
 - code: 202
   name: Request Processing
-  url: http://httpstatusdogs.com/202-accepted
+  url: https://httpstatusdogs.com/202-accepted
   description: You can retry your request, and when it's complete, you'll get a `200` instead
   class: good
   response: null
 
 - code: 400
   name: Bad Request
-  url: http://httpstatusdogs.com/400-bad-request
+  url: https://httpstatusdogs.com/400-bad-request
   description: Probably your request was malformed. See the error message in the body for details
   class: bad
   response: Error
 
 - code: 401
   name: Unauthorized
-  url: http://httpstatusdogs.com/401-unauthorized
-  description: You attempted to authenticate but something went wrong. Make sure follow the instructions to [authenticate](/docs/authentication.html) properly
+  url: https://httpstatusdogs.com/401-unauthorized
+  description: You attempted to authenticate but something went wrong. Make sure you follow the instructions to [authenticate](/docs/authentication.html) properly
   class: bad
   response: Error
 
 - code: 403
   name: Forbidden
-  url: http://httpstatusdogs.com/403-forbidden
+  url: https://httpstatusdogs.com/403-forbidden
   description: You're not authorized to access this resource. Make sure you [authenticate](/docs/authentication.html) to access private datasets
   class: bad
   response: Error
 
 - code: 404
   name: Not Found
-  url: http://httpstatusdogs.com/404-not-found
+  url: https://httpstatusdogs.com/404-not-found
   description: The resource requested doesn't exist
   class: bad
   response: Error
 
 - code: 429
   name: Too Many Requests
-  url: http://httpstatusdogs.com/429-too-many-requests
+  url: https://httpstatusdogs.com/429-too-many-requests
   description: Your client is currently being rate limited. Make sure you're using an [app token](/docs/app-tokens.html)
   class: bad
   response: Error
 
 - code: 500
   name: Server Error
-  url: http://httpstatusdogs.com/
-  description: Our bad! Something has gone wrong with Socrta's platform. Please [let us know](/support.html) if you encounter a `500` error
+  url: https://httpstatusdogs.com/500-internal-server-error
+  description: Our bad! Something has gone wrong with Socrata's platform. Please [let us know](/support.html) if you encounter a `500` error
   class: ugly
   response: Error

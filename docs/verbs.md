@@ -17,7 +17,7 @@ Note that you do not need to authenticate in order to use the GET method, but yo
 
 Use the HTTP POST method to add new rows in a dataset. See the [SODA Producer API](/publishers/soda-producer/soda-producer-basics.html) section for more details on how to add data.
 
-Note that you will need to authenticate in order to make changes. See the [Authentication](/docs/authentication.html) sections for more information on how to do this.
+Note that you will need to authenticate in order to make changes. See the [Authentication](/docs/authentication.html) section for more information on how to do this.
 
 ### PUT
 
@@ -25,4 +25,4 @@ Use the HTTP PUT method to modify data. Like POST, you will need authentication.
 
 ### DELETE
 
-Use the HTTP DELETE method to remove data. Like POST and PUSH, you will need authentication. Again, see the [SODA Producer API](/publishers/soda-producer/soda-producer-basics.html) and [Authentication](/docs/authentication.html) sections for more information.
+Use the HTTP DELETE method to remove data. Like POST and PUT, you will need authentication. Again, see the [SODA Producer API](/publishers/soda-producer/soda-producer-basics.html) and [Authentication](/docs/authentication.html) sections for more information.

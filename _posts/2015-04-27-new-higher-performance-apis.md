@@ -35,7 +35,7 @@ The first step in migrating to the new API to identify your new API endpoint. Th
   </thead>
   <tbody>
     <tr>
-      <td><img src="/img/sidebar.gif" alt="Old Dataset Page" /></td>
+      <td><img src="/img/sidebar.png" alt="Old Dataset Page" /></td>
       <td><img src="/img/data_lens.png" alt="Data Lens" /></td>
     </tr>
   </tbody>

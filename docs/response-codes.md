@@ -17,7 +17,7 @@ The Socrata Open Data API responds with standard [HTTP Status Codes](https://htt
 
 ## Headers
 
-For [SODA 2.1](/docs/endpoints.html) API calls, we include a few headers that may be useful:
+For [SODA 2.1](/docs/endpoints.html) API calls, we include a few response headers that may be useful:
 
 | Header | Example | Description |
 | --- | --- | --- |
@@ -25,7 +25,7 @@ For [SODA 2.1](/docs/endpoints.html) API calls, we include a few headers that ma
 | `Access-Control-Allow-Origin` | `*` | Allows browsers to make [cross-origin requests](/docs/cors-and-jsonp.html) for data |
 | `X-SODA2-Fields` | `["business","category", ...]` (truncated) | An array of the field names that may be included in this response |
 | `X-SODA2-Types` | `["text","text",...]` (truncated) | An array of the [data types](/docs/datatypes/) for fields included in this response |
-| `Last-Modified` | `Tue, 24 Feb 2015 18:51:22 GMT` | When the dataset backing this request was updated, may be used for caching |
+| `Last-Modified` | `Tue, 24 Feb 2015 18:51:22 GMT` | When the dataset backing this request was updated; may be used for caching |
 | `ETag` | `"YWxwaGEuNTQzNV8...-gzip"` (truncated) | An [HTTP ETag](https://en.wikipedia.org/wiki/HTTP_ETag) which may be used for cache validation |
 
 There may be other headers included in responses, but they should not be relied upon and may change without notice.

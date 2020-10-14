@@ -35,11 +35,8 @@ In contrast, the [Chicago Crimes](https://data.cityofchicago.org/d/ijzp-q8t2) da
 
 <p class="alert alert-info">Setting a row identifier requires that you are either the owner of a dataset, or that you've been granted a role of Publisher or Administrator on a Socrata customer site. Basically, if you can't modify the dataset, you can't set a row identifier.</p>
 
-A publisher-specified row identifier can be established for any Socrata dataset. A common column to use as a row identifier is an 'ID' column with some kind of number or code that uniquely identifies that row of data. For example, the '*Inspection ID*' column of [Chicago's Food Inspections dataset](https://data.cityofchicago.org/Health-Human-Services/Food-Inspections/4ijn-s7e5) is a Publisher-specified row identifier.
+A publisher-specified row identifier can be established for any Socrata dataset. A common column to use as a row identifier is an 'ID' column with some kind of number or code that uniquely identifies that row of data. For example, the 'Inspection ID' column of [Chicago's Food Inspections dataset](https://data.cityofchicago.org/Health-Human-Services/Food-Inspections/4ijn-s7e5) is a Publisher-specified row identifier.
 
 ### How to Set a Row Identifier
 
-1. When viewing a dataset click the dark red "About" button in the upper right.
-2. In the side menu that appears, click "Edit metadata" (if you do not see this link, ensure you are logged in).
-3. Scroll to the "API Endpoint" subheader. Below that you can select the row identifier from the drop down menu that contains all the columns within the dataset.
-4. After selecting the appropriate column, click "Save" at the bottom.
+See [this helpful guide](https://support.socrata.com/hc/en-us/articles/360008065493) on how to set a row identifier in Socrata.

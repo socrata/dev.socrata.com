@@ -18,16 +18,16 @@ System fields are not included by default, and the method that you use to reques
 
 With version 2.1 APIs, accessing the system fields is as simple as including them in your [`$select`](/docs/queries/select.html) parameter, either explicitly or via a wildcard. You can either `$select=:id, :updated_at, name, address`, or you could be even more broad and simply select `:*, *` to retrieve both all of the hidden internal fields and the fields from the dataset itself. For example:
 
-{% include tryit.html domain='data.seattle.gov' path='/resource/pu5n-trf4.json' args="$select=:*, *" %}
+{% include tryit.html domain='data.seattle.gov' path='/resource/egc4-d24i.json' args="$select=:*, *" %}
 
 Since `:created_at` and `:updated_at` are [Fixed Timestamp](/docs/datatypes/timestamp.html), you can query them to get recent updates to a dataset using the `$where` [query parameter](/docs/queries/), like this example:
 
+{% include tryit.html domain='data.sfgov.org' path='/resource/tmnf-yvry.json' args="$where=:updated_at > '2020-01-20'" %}
+
 <div class="alert alert-info">
   <h4>A note on how datasets are updated</h4>
-  <p>Data providers use many different methods to update datasets. In some cases, they use tools like <a href="http://socrata.github.io/datasync/">DataSync</a> or the <a href="/publishers/soda-producer/soda-producer-basics.html">SODA Producer API</a> to update datasets, and we can tell which records within the dataset have actually been modified, and only update them accordingly. When data providers perform a full replace of the dataset using the <a href="/publishers/soda-producer/replace.html">SODA Producer Replace API</a>, all of its records will be updated within short period of time, in which case a query based on <code>:updated_at</code> will show that all of the records have changed.</p>
+  <p>Data providers use many different methods to update datasets. In some cases, they use tools like <a href="https://socrata.github.io/datasync/">DataSync</a> or the <a href="/publishers/soda-producer/soda-producer-basics.html">SODA Producer API</a> to update datasets, and we can tell which records within the dataset have actually been modified, and only update them accordingly. When data providers perform a full replace of the dataset using the <a href="/publishers/soda-producer/replace.html">SODA Producer Replace API</a>, all of its records will be updated within a short period of time, in which case a query based on <code>:updated_at</code> will show that all of the records have changed.</p>
 </div>
-
-{% include tryit.html domain='data.sfgov.org' path='/resource/tmnf-yvry.json' args="$where=:updated_at > '2014-10-20'" %}
 
 ## Version 2.0
 

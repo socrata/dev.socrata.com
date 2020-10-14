@@ -15,7 +15,7 @@ The Socrata Open Data API uses application tokens for two purposes:
 
 ## Throttling limits
 
-Without an application, we can only track usage and perform throttling based on a few simple criteria, mainly source IP address. As such, requests that aren't using an application token come from a shared pool via IP address. IP addresses that make too many requests during a given period may be subject to throttling.
+Without an application token, we can only track usage and perform throttling based on a few simple criteria, mainly source IP address. As such, requests that aren't using an application token come from a shared pool via IP address. IP addresses that make too many requests during a given period may be subject to throttling.
 
 When requests are made using an application token, we can actually attribute each request to a particular application and developer, granting each their own pool of API requests. Currently we do not throttle API requests that are using an application token, _unless those requests are determined to be abusive or malicious._
 
@@ -35,7 +35,7 @@ If we detect that your application is nearing the point where we may have to thr
 
 ## Obtaining an Application Token
 
-You can obtain an application token by [registering your application](/register) in your Socrata profile. After creating the application, click on **App Tokens** in the left-hand navigation bar. The application token will be visible.
+You can obtain an application token by [registering for one](https://support.socrata.com/hc/en-us/articles/210138558-Generating-an-App-Token) in your Socrata profile.
 
 ## Using your Application Token
 
@@ -63,6 +63,6 @@ The same application token could also be passed as a URL parameter:
 
 {% include tryit.html domain='data.seattle.gov' path='/resource/kzjm-xkqj.json' args='$$app_token=APP_TOKEN' %}
 
-## Using the Application Token as part of the authentication process
+## Using the Application Token as part of the OAuth 2.0 authentication process
 
-Application tokens can also be used for authentication, using OAuth2.0 or HTTP Basic Authentication. For more information, see the [authentication](/docs/authentication.html) section.
+Application tokens can also be used for authentication using OAuth 2.0. For more information, see the [authentication](/docs/authentication.html) section.
