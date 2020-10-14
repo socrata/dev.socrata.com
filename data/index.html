@@ -3,27 +3,26 @@ layout: default
 title: Finding Open Data
 ---
 
-<div class="container">
-  <div class="row">
-    <h1>Finding Open Data</h1>
+<div>
+  <h1>Finding Open Data</h1>
 
-    <p>Looking for open datasets for your project, but don't know where to start? That's why we created the <a href="http://www.opendatanetwork.com">Open Data Network</a>, a global search engine that allows you to search across tens of thousands of datasets from hundreds of open data catalogs. We also use machine learning to analyze datasets and consistently categorize them between catalogs.</p>
+  <p>Looking for open datasets for your project, but don't know where to start? That's why we created the <a href="http://www.opendatanetwork.com">Open Data Network</a>, a global search engine that allows you to search across tens of thousands of datasets from hundreds of open data catalogs. We also use machine learning to analyze datasets and consistently categorize them between catalogs.</p>
 
-    <p>You can go check things out at <a href="http://www.opendatanetwork.com">www.opendatanetwork.com</a> or start with the search box below.</p>
-    
-    <form action="http://www.opendatanetwork.com/search" method="GET">
-      <div class="odn-search">
-        <div class="input-group col-md-12">
-          <input name="q" type="text" class="search-query form-control" placeholder="Search the Open Data Network" />
-          <span class="input-group-btn">
-            <button class="btn btn-danger" type="button">
-              <span class=" glyphicon glyphicon-search"></span>
-            </button>
-          </span>
-        </div>
+  <p>You can go check things out at <a href="http://www.opendatanetwork.com">www.opendatanetwork.com</a> or start with the search box below.</p>
+
+  <form action="https://www.opendatanetwork.com/search" method="GET">
+    <div class="odn-search">
+      <div class="input-group col-md-12">
+        <input name="q" type="text" class="search-query form-control" placeholder="Search the Open Data Network" aria-label="Search terms" />
+        <span class="input-group-btn">
+          <button class="btn btn-danger" type="button">
+            <span class=" glyphicon glyphicon-search"></span>
+            <span class="sr-only">Search</span>
+          </button>
+        </span>
       </div>
-    </form>
+    </div>
+  </form>
 
-    <p>The same functionality is also available via the <a href="http://docs.socratadiscovery.apiary.io/">Discovery API</a>.</p>
-  </div>
+  <p>The same functionality is also available via the <a href="http://docs.socratadiscovery.apiary.io/">Discovery API</a>.</p>
 </div>
