@@ -13,7 +13,6 @@ datatypes:
 - checkbox
 - floating_timestamp
 - line
-- location
 - multiline
 - multipoint
 - multipolygon
