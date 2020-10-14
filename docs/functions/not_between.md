@@ -10,14 +10,10 @@ versions:
 - 2.1
 datatypes:
 - number
-- double
-- money
 - floating_timestamp
 params:
   $1:
   - number
-  - double
-  - money
   - floating_timestamp
   $low:
   - typeof($1)

@@ -17,11 +17,9 @@ definition:
   format: double
 ---
 
-{% include numeric_types.html %}
-
 Numbers are arbitrary precision, arbitrary scale numbers.  They can represent any number exactly, except for numbers whose digits repeat infinitely.
 
-Since Numbers can be either larger or more precise than what doubles allow, many formats, such as [JSON](/docs/formats/json.html), serialize them as strings. For example:
+Since Numbers can be either larger or more precise than what JSON parsers allow, many formats, such as [JSON](/docs/formats/json.html), serialize them as strings. For example:
 
 {% highlight javascript %}
 [ {
@@ -32,7 +30,7 @@ Since Numbers can be either larger or more precise than what doubles allow, many
 
 The following table describes the operators that can be used with Numbers.
 
-| Operation     | Description                                                    |
+| Operator     | Description                                                    |
 | ---           | ---                                                            |
 | `<`           | `TRUE` for numbers less than this one.                         |
 | `<=`          | `TRUE` for numbers that are less than or equal to this one.    |

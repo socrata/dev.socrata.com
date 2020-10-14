@@ -11,8 +11,6 @@ versions:
 datatypes:
 - text 
 - number
-- double
-- money
 - floating_timestamp
 params:
   $1:

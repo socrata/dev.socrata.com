@@ -51,7 +51,7 @@ POINT (-87.653274 41.936172)
 
 The following operators can be used on `Point` fields: 
 
-| Operation     | Description                            |
+| Operator     | Description                            |
 | ---           | ---                                    |
 | `IS NULL`     | `TRUE` for values that are `NULL`.     |
 | `IS NOT NULL` | `TRUE` for values that are not `NULL`. |

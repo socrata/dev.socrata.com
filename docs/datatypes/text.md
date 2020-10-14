@@ -38,9 +38,9 @@ To escape a single quote within a string, double it. For example:
 text_value='Bob''s string'
 {% endhighlight %}
 
-The following table shows what operations can be used on strings:
+The following table shows what operator can be used on strings:
 
-| Operation                 | Description                                                                 |
+| Operator                 | Description                                                                 |
 | ---                       | ---                                                                         |
 | `<`                       | `TRUE` for strings that are alphanumerically before this string             |
 | `<=`                      | `TRUE` for strings that are alphanumerically before or equal to this string |

@@ -30,11 +30,11 @@ Floating timestamps represent an instant in time with millisecond precision, wit
 } ]
 {% endhighlight %}
 
-Datasets will either specify what timezone they should be interpreted in, or you can usually assume they're in the timezone of the publisher. For example, a dataset published by the [City of Chicago](http://data.cityofchicago.org) will be published in Central Standard Time.
+Datasets will either specify what timezone they should be interpreted in, or you can usually assume they're in the timezone of the publisher. For example, a dataset published by the [City of Chicago](https://data.cityofchicago.org) will be published in Central Standard Time. While functionally a `floating_timestamp` is distinct from a `text` datatype, it may be helpful to think of the *value* of a `floating_timestamp` as simply a `text` string, with no inherent timezone information.
 
 The following operators can be used to compare and manipulate `floating_timestamp` fields: 
 
-| Operation     | Description                                                                       |
+| Operator     | Description                                                                       |
 | ---           | ---                                                                               |
 | `<`           | `TRUE` when the first date is earlier than the second date                        |
 | `<=`          | `TRUE` when the first date is earlier than or at the same time as the second date |

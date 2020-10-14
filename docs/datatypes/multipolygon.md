@@ -52,7 +52,7 @@ Some geometries may be polygons with "holes" in the center, or may be made up of
 
 The following operators can be used on `multipolygon` fields: 
 
-| Operation     | Description                            |
+| Operator     | Description                            |
 | ---           | ---                                    |
 | `IS NULL`     | `TRUE` for values that are `NULL`.     |
 | `IS NOT NULL` | `TRUE` for values that are not `NULL`. |

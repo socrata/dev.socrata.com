@@ -51,11 +51,11 @@ The `MultiLine` datatype represents a set of paths on the Earth as sequences of 
 
 The following operators can be used on `multiline` fields: 
 
-| Operation     | Description                            |
+| Operator     | Description                            |
 | ---           | ---                                    |
 | `IS NULL`     | `TRUE` for values that are `NULL`.     |
 | `IS NOT NULL` | `TRUE` for values that are not `NULL`. |
 
-The following table describes the functions that can be used with {% include dt.html dt="multiline" %}. 
+The following table describes the functions that can be used with {% include dt.html dt="multiline" %}.
 
 {% include function_listing.html datatype="multiline" %}

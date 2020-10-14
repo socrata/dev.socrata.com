@@ -11,11 +11,9 @@ versions:
 - 2.1
 datatypes:
 - checkbox
-- double
 - floating_timestamp
 - line
 - location
-- money
 - multiline
 - multipoint
 - multipolygon
@@ -23,6 +21,7 @@ datatypes:
 - point
 - polygon
 - text 
+- url
 params:
   $1:
   - any

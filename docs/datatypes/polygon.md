@@ -46,7 +46,7 @@ The `Polygon` datatype represents a shape on the Earth as a ring of WGS84 Latitu
 
 The following operators can be used on `polygon` fields: 
 
-| Operation     | Description                            |
+| Operator     | Description                            |
 | ---           | ---                                    |
 | `IS NULL`     | `TRUE` for values that are `NULL`.     |
 | `IS NOT NULL` | `TRUE` for values that are not `NULL`. |

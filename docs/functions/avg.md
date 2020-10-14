@@ -11,13 +11,9 @@ versions:
 - 2.1
 datatypes:
 - number
-- double
-- money
 params:
   $1:
     - number
-    - double
-    - money
 returns: number
 
 parent_paths: 
@@ -28,7 +24,7 @@ parents:
 
 {% include function_header.html %}
 
-The `avg(...)` function is most commonly used in `$select` aggregations to return the average of a set of numeric values ([Numbers](/docs/datatypes/number.html), [Doubles](/docs/datatypes/double.html), or [Moneys](/docs/datatypes/money.html)). For example, to fetch the average salary of all of the employees at the City of Chicago:
+The `avg(...)` function is most commonly used in `$select` aggregations to return the average of a set of numeric values ([Numbers](/docs/datatypes/number.html). For example, to fetch the average salary of all of the employees at the City of Chicago:
 
 {% include tryit.html domain='data.cityofchicago.org' path='/resource/tt4n-kn4t.json' args="$select=avg(annual_salary)" %}
 

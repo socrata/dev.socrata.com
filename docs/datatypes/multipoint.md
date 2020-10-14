@@ -46,7 +46,7 @@ The `MultiPoint` datatype is very similar to the [`Location`](/docs/datatypes/lo
 
 The following operators can be used on `multipoint` fields: 
 
-| Operation     | Description                            |
+| Operator     | Description                            |
 | ---           | ---                                    |
 | `IS NULL`     | `TRUE` for values that are `NULL`.     |
 | `IS NOT NULL` | `TRUE` for values that are not `NULL`. |
