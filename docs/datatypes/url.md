@@ -26,7 +26,7 @@ The `URL` datatype is a type that contains a `url` and a `description`. It may b
 - The `url` of the field. This can be directly accessed using dot notation: `fieldName.url`
 - The `description` of the field (may be null). This can be directly accessed using dot notation: `fieldName.description`
 
-The following table shows what operators can be used with `Url`s:
+The following operators can be used with `URL` fields:
 
 | Operator                 | Description                                                                 |
 | ---                       | ---                                                                         |
@@ -39,7 +39,7 @@ The following table shows what operators can be used with `Url`s:
 | `IS NULL`                 | `TRUE` for strings that are `NULL`.                                         |
 | `IS NOT NULL`             | `TRUE` for strings that are not `NULL`.                                     |
 
-The following table describes the functions that can be used with `url` datatypes.
+And the following functions can be used with them:
 
 {% include function_listing.html datatype="url" %}
 

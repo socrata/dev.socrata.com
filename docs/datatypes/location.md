@@ -34,7 +34,7 @@ Location is a type that contains latitude, longitude and address. Location is ac
   - `state` -- The state this address is in
   - `zip` -- The zip code for this address
 
-The following table describes the functions that can be used with {% include dt.html dt="locations" %}.
+The following functions can be used with {% include dt.html dt="location" %} fields:
 
 {% include function_listing.html datatype="location" %}
 

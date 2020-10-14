@@ -19,7 +19,7 @@ definition:
 
 Numbers are arbitrary precision, arbitrary scale numbers.  They can represent any number exactly, except for numbers whose digits repeat infinitely.
 
-Since Numbers can be either larger or more precise than what JSON parsers allow, many formats, such as [JSON](/docs/formats/json.html), serialize them as strings. For example:
+Since `Number`s can be either larger or more precise than what JSON parsers allow, many formats, such as [JSON](/docs/formats/json.html), serialize them as strings. For example:
 
 {% highlight javascript %}
 [ {
@@ -28,7 +28,7 @@ Since Numbers can be either larger or more precise than what JSON parsers allow,
 {% endhighlight %}
 
 
-The following table describes the operators that can be used with Numbers.
+The following table describes the operators that can be used with `Number`s.
 
 | Operator     | Description                                                    |
 | ---           | ---                                                            |
@@ -47,7 +47,7 @@ The following table describes the operators that can be used with Numbers.
 | `%`           | Returns the modulo of one number divided by another            |
 | `^`           | Returns the modulo of one number divided by another            |
 
-The following table describes the functions that can be used with Numbers.
+And the following functions can be used with them:
 
 {% include function_listing.html datatype="number" %}
 

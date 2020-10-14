@@ -38,7 +38,7 @@ To escape a single quote within a string, double it. For example:
 text_value='Bob''s string'
 {% endhighlight %}
 
-The following table shows what operator can be used on strings:
+The following operators can be used on `text` fields:
 
 | Operator                 | Description                                                                 |
 | ---                       | ---                                                                         |
@@ -52,7 +52,7 @@ The following table shows what operator can be used on strings:
 | `IS NOT NULL`             | `TRUE` for strings that are not `NULL`.                                     |
 | <code>&#124;&#124;</code> | Concatenate two strings together                                            |
 
-The following table describes the functions that can be used with `text` strings.
+And the following functions can be used with them:
 
 {% include function_listing.html datatype="text" %}
 

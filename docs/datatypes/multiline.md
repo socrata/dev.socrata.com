@@ -33,7 +33,7 @@ definition:
           maxItems: 2
 ---
 
-The `MultiLine` datatype represents a set of paths on the Earth as sequences of WGS84 Latitude and Longitude pairs. The location is encoded as a [GeoJSON "multilinestring"](http://geojson.org/geojson-spec.html#multilinestring). Example:
+The `MultiLine` datatype represents a set of paths on the Earth as sequences of WGS84 Latitude and Longitude pairs. The location is encoded as a [GeoJSON "multilinestring"](https://geojson.org/geojson-spec.html#multilinestring). Example:
 
 {% highlight javascript %}
 { 
@@ -46,16 +46,16 @@ The `MultiLine` datatype represents a set of paths on the Earth as sequences of 
 {% endhighlight %}
 
 <div class="alert alert-info">
-  <em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, GeoJSON orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordiate systems are encoded. Note that the SoQL <code>within_box</code> and <code>within_circle</code> functions use the more conventional ordering, however.
+  <em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, GeoJSON orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordinate systems are encoded. Note that the SoQL <code>within_box</code> and <code>within_circle</code> functions use the more conventional ordering, however.
 </div>
 
-The following operators can be used on `multiline` fields: 
+The following operators can be used with `multiline` fields: 
 
 | Operator     | Description                            |
 | ---           | ---                                    |
 | `IS NULL`     | `TRUE` for values that are `NULL`.     |
 | `IS NOT NULL` | `TRUE` for values that are not `NULL`. |
 
-The following table describes the functions that can be used with {% include dt.html dt="multiline" %}.
+And the following functions can be used with them:
 
 {% include function_listing.html datatype="multiline" %}

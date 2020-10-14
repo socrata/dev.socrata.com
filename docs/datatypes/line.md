@@ -41,16 +41,16 @@ The `Line` datatype represents a path on the Earth as a sequence of WGS84 Latitu
 {% endhighlight %}
 
 <div class="alert alert-info">
-  <em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, GeoJSON orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordiate systems are encoded. Note that the SoQL <code>within_box</code> and <code>within_circle</code> functions use the more conventional ordering, however.
+  <em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, GeoJSON orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordinate systems are encoded. Note that the SoQL <code>within_box</code> and <code>within_circle</code> functions use the more conventional ordering, however.
 </div>
 
-The following operators can be used on `line` fields:
+The following operators can be used with `line` fields:
 
 | Operator     | Description                            |
 | ---           | ---                                    |
 | `IS NULL`     | `TRUE` for values that are `NULL`.     |
 | `IS NOT NULL` | `TRUE` for values that are not `NULL`. |
 
-And the following table describes the functions that can be used with them:
+And the following functions can be used with them:
 
 {% include function_listing.html datatype="line" %}

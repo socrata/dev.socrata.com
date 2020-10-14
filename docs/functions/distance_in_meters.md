@@ -32,7 +32,7 @@ The `distance_in_meters(...)` function will return the distance, measured in met
     POINT (-87.637714 41.887275)
     
 <div class="alert alert-info">
-  <p><em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, Well-known text orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordiate systems are encoded.</p>
+  <p><em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, Well-known text orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordinate systems are encoded.</p>
 </div>
 
 For example, the below query will return the distance from the Seattle Central Library to the Socrata offices:

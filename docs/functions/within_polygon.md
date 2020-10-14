@@ -46,7 +46,7 @@ The `within_polygon(...)` function is used in the `$where` parameter filter for 
     MULTIPOLYGON ((-87.637714 41.887275, -87.613681 41.886892, -87.625526 41.871555, -87.637714 41.887275))
     
 <div class="alert alert-info">
-  <p><em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, Well-known text orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordiate systems are encoded.</p>
+  <p><em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, Well-known text orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordinate systems are encoded.</p>
 </div>
 
 For example, to query for all of the Chicago 311 service requests for vacant and abandoned buildings within that polygon:

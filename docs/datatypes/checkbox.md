@@ -22,7 +22,7 @@ Checkbox fields are boolean values that represent either `true` or `false`. If a
 } ]
 {% endhighlight %}
 
-The following operators can be used with `checkbox` datatypes:
+The following operators can be used with `checkbox` fields:
 
 | Operator | Description                                                                       |
 | ---       | ---                                                                               |
