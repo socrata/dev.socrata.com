@@ -22,12 +22,17 @@ Checkbox fields are boolean values that represent either `true` or `false`. If a
 } ]
 {% endhighlight %}
 
-The following operators can be used to compare and manipulate `floating_timestamp` fields: 
+The following operators can be used with `checkbox` fields:
 
-| Operation | Description                                                                       |
+| Operator | Description                                                                       |
 | ---       | ---                                                                               |
 | `!=`      | `TRUE` when two checkbox booleans have the same value|
 | `=`       | `TRUE` when two checkbox booleans do not have the same value|
+
+
+And the following functions can be used with them:
+
+{% include function_listing.html datatype="checkbox" %}
 
 For example, in combination with an [aggregation](/docs/queries/), to get the count of all of the crimes in Chicago that resulted in arrest:
 

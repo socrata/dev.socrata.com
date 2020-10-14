@@ -18,6 +18,8 @@ datatypes:
 - point
 - polygon
 - text
+- url
+- checkbox
 params:
   $1:
   - any

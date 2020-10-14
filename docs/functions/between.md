@@ -10,15 +10,11 @@ versions:
 - 2.1
 datatypes:
 - number
-- double
-- money
 - floating_timestamp
 - text
 params:
   $1:
   - number
-  - double
-  - money
   - floating_timestamp
   - text
   $low:

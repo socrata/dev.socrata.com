@@ -33,7 +33,7 @@ definition:
           maxItems: 2
 ---
 
-Some geometries may be polygons with "holes" in the center, or may be made up of multiple disconnected polygons. In that case, the [GeoJSON "multipolygon"](http://geojson.org/geojson-spec.html#multipolygon) is used. Example:
+Some geometries may be polygons with "holes" in the center, or may be made up of multiple disconnected polygons. In that case, the [GeoJSON "multipolygon"](https://geojson.org/geojson-spec.html#multipolygon) is used. Example:
 
 {% highlight javascript %}
 { 
@@ -47,17 +47,17 @@ Some geometries may be polygons with "holes" in the center, or may be made up of
 {% endhighlight %}
 
 <div class="alert alert-info">
-  <em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, GeoJSON orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordiate systems are encoded. Note that the SoQL <code>within_box</code> and <code>within_circle</code> functions use the more conventional ordering, however.
+  <em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, GeoJSON orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordinate systems are encoded. Note that the SoQL <code>within_box</code> and <code>within_circle</code> functions use the more conventional ordering, however.
 </div>
 
 The following operators can be used on `multipolygon` fields: 
 
-| Operation     | Description                            |
+| Operator     | Description                            |
 | ---           | ---                                    |
 | `IS NULL`     | `TRUE` for values that are `NULL`.     |
 | `IS NOT NULL` | `TRUE` for values that are not `NULL`. |
 
-The following table describes the functions that can be used with `multipolygon`. 
+And the following functions can be used with them:
 
 {% include function_listing.html datatype="multipolygon" %}
 

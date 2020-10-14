@@ -50,7 +50,7 @@ The `intersects(...)` function is most commonly used in the `$where` parameter o
     POINT (-87.637714 41.887275)
     
 <div class="alert alert-info">
-  <p><em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, Well-known text orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordiate systems are encoded.</p>
+  <p><em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, Well-known text orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordinate systems are encoded.</p>
 </div>
 
 The `intersects(...)` method is frequently used to identify what Polygon a given point is within. For example, the below query will identify what park a given point is within:

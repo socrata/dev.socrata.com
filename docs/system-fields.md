@@ -6,7 +6,7 @@ title: System Fields
 
 In addition to the fields provided by the dataset owner, Socrata also provides a number of useful system fields you can make use of. They're very useful for detecting when datasets have changed.
 
-| Operation     | Description                                                                                                          |
+| Operator     | Description                                                                                                          |
 | ---           | ---                                                                                                                  |
 | `:id`         | The internal Socrata identifier for this record.                                                                     |
 | `:created_at` | A [Fixed Timestamp](/docs/datatypes/timestamp.html) representing when this record was created.      |

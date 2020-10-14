@@ -10,18 +10,17 @@ versions:
   - 2.1
 datatypes:
   - checkbox
-  - double
   - floating_timestamp
   - line
   - multiline
   - location
-  - money
   - number
   - point
   - multipoint
   - polygon
   - multipolygon
   - text
+  - url
 params:
   $eval:
     - boolean

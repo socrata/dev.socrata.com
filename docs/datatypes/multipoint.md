@@ -31,7 +31,7 @@ definition:
         maxItems: 2
 ---
 
-The `MultiPoint` datatype is very similar to the [`Location`](/docs/datatypes/location.html) datatype. It represents one or more locations on the Earth as a WGS84 Latitude and Longitude. The location is encoded as a [GeoJSON "multipoint"](http://geojson.org/geojson-spec.html#multipoint). Example:
+The `MultiPoint` datatype is very similar to the [`Location`](/docs/datatypes/location.html) datatype. It represents one or more locations on the Earth as a WGS84 Latitude and Longitude. The location is encoded as a [GeoJSON "multipoint"](https://geojson.org/geojson-spec.html#multipoint). Example:
 
 {% highlight javascript %}
 {
@@ -41,16 +41,16 @@ The `MultiPoint` datatype is very similar to the [`Location`](/docs/datatypes/lo
 {% endhighlight %}
 
 <div class="alert alert-info">
-  <em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, the GeoJSON orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordiate systems are encoded. Note that the SoQL <code>within_box</code> and <code>within_circle</code> functions use the more conventional ordering, however.
+  <em>Heads up!</em> Contrary to the normal convention of "latitude, longitude" ordering in the <code>coordinates</code> property, the GeoJSON orders the coordinates as "longitude, latitude" (X coordinate, Y coordinate), as other GIS coordinate systems are encoded. Note that the SoQL <code>within_box</code> and <code>within_circle</code> functions use the more conventional ordering, however.
 </div>
 
 The following operators can be used on `multipoint` fields: 
 
-| Operation     | Description                            |
+| Operator     | Description                            |
 | ---           | ---                                    |
 | `IS NULL`     | `TRUE` for values that are `NULL`.     |
 | `IS NOT NULL` | `TRUE` for values that are not `NULL`. |
 
-The following table describes the functions that can be used with `multipoints`. 
+And the following functions can be used with them: 
 
 {% include function_listing.html datatype="multipoint" %}

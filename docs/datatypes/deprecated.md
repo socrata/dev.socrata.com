@@ -13,7 +13,7 @@ redirect_from:
   - /docs/datatypes/drop_down_list.html
   - /docs/datatypes/photo.html
   - /docs/datatypes/document.html
-  - /docs/datatypes/url.html
+  - /docs/datatypes/money.html
 ---
 
 The following datatypes are deprecated and migration or replacement plans will be announced soon:
@@ -25,4 +25,4 @@ The following datatypes are deprecated and migration or replacement plans will b
 - Drop Down List
 - Photo
 - Document
-- URL
+- Money
