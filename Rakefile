@@ -1,4 +1,5 @@
 require 'colorize'
+require 'fileutils'
 require 'httparty'
 require 'json'
 require 'erb'
@@ -6,6 +7,7 @@ require 'rspec'
 require 'rspec/core/rake_task'
 require 'open3'
 require 'timeout'
+require 'yaml'
 
 # Variables and setup
 SHA = `git rev-parse --short HEAD`.strip
@@ -212,4 +214,22 @@ namespace :assets do
   task :precompile do
     puts `bundle exec jekyll build`
   end
+end
+
+desc "generate function docs json for query editor"
+task "json_docs" do
+  puts "Converting SoQL function docs to JSON...".green
+  docs = Hash.new
+  Dir["docs/functions/*.md"].each do |file_name|
+    doc = YAML.load_file(file_name)
+    name = File.basename(file_name, ".md")
+    doc["name"] = name
+    doc["fullpath"] = doc["parent_paths"][0].chomp("/") + "/" + name
+    docs[name] = doc
+  end
+  FileUtils.mkdir_p "build"
+  File.open("build/function_docs.json", "w+") do |f|
+    f.write(JSON.pretty_generate(docs))
+  end
+  puts "Created build/function_docs.json".green
 end
