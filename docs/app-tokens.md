@@ -61,12 +61,8 @@ X-App-Token: [REDACTED]
 
 The same application token could also be passed as a URL parameter:
 
-<<<<<<< HEAD
-{% include tryit.html domain='data.seattle.gov' path='/resource/3k2p-39jp.json' args='$$app_token' %}
-=======
 {% include tryit.html domain='data.seattle.gov' path='/resource/kzjm-xkqj.json' args='$$app_token=APP_TOKEN' %}
->>>>>>> gh-pages
 
-## Using the Application Token as part of the authentication process
+## Using the Application Token as part of the OAuth 2.0 authentication process
 
-Application tokens can also be used for authentication, using OAuth2.0 or HTTP Basic Authentication. For more information, see the [authentication](/docs/authentication.html) section.
+Application tokens can also be used for authentication using OAuth 2.0. For more information, see the [authentication](/docs/authentication.html) section.

@@ -18,7 +18,7 @@ Requests can be authenticated using <a href="https://en.wikipedia.org/wiki/Basic
 
 Users may use their username and password or an API key and secret pair to authenticate using Basic Authentication. Documentation on how to create and manage API keys can be found <a href="https://socrataapikeys.docs.apiary.io">here</a>.
 
-API Keys provide the following benefits:
+We recommend using API keys! They provide the following benefits:
 
 * Access Socrata APIs without the risk of embedding your username and password in scripts or code
 * Users on domains that require SSO (and thus without passwords) can access Socrata APIs
@@ -41,15 +41,17 @@ X-App-Token: [REDACTED]
 } ]
 {% endhighlight %}
 
+Note that the `Authorization` header in this request will usually be generated via your HTTP library’s Basic Auth feature (as opposed to manually constructing the Base64 encoding of your credentials yourself). For example, if you're using Python's `requests` module, it [supports Basic Authentication](https://requests.readthedocs.io/en/master/user/authentication/#basic-authentication) out of the box. Similarly, an API tool like [Postman](https://learning.postman.com/docs/getting-started/introduction/) also [handles Basic Authentication](https://learning.postman.com/docs/sending-requests/authorization/#basic-auth).
+
 ## OAuth 2.0
 
-<div class="alert alert-info"><em>Note:</em> When developing applications that make use of OAuth, you must provide a web-accessible callback URL when registering your application token. This can make it difficult to develop on a machine that isn't directly exposed to the Internet. One great option is to use a tool like <a href="http://ngrok.com">ngrok</a> to create a secure tunnel to expose your web application in a secure manner.</div>
+<div class="alert alert-info"><em>Note:</em> When developing applications that make use of OAuth, you must provide a web-accessible callback URL when registering your application token. This can make it difficult to develop on a machine that isn't directly exposed to the Internet. One great option is to use a tool like <a href="https://ngrok.com">ngrok</a> to create a secure tunnel to expose your web application in a secure manner.</div>
 
 ### Workflow
 
-We support a subset of [OAuth 2.0](http://en.wikipedia.org/wiki/Oauth) -- the server-based flow with a callback URL -- which we believe is more secure than the other flows in the specification. This OAuth flow is used by several other popular API services on the web. We have made the authentication flow similar to [Google AuthSub](http://code.google.com/apis/gdata/docs/auth/authsub.html).
+We support a subset of [OAuth 2.0](https://en.wikipedia.org/wiki/Oauth) --- the server-based flow with a callback URL --- which we believe is more secure than the other flows in the specification. This OAuth flow is used by several other popular API services on the web. We have made the authentication flow similar to [Google AuthSub](https://code.google.com/apis/gdata/docs/auth/authsub.html).
 
-To authenticate with OAuth 2.0, you will first need to [register your application](http://opendata.socrata.com/profile/edit/developer_settings), which will create an app token and a secret token. When registering your application, you must preregister your server by filling out the `Callback Prefix` field), so that we can be sure that access through your application is secure even if both your tokens are stolen. The `Callback Prefix` is the beginning of the URL that you will use as your redirect URL. Generally, you'll want to provide as much of your callback URL as you can. For example, if your authentication callback is `http://my-website.com/socrata-app/auth/callback`, you might want to specify `http://my-website.com/socrata-app` as your callback URL.
+To authenticate with OAuth 2.0, you will first need to [register your application](https://support.socrata.com/hc/en-us/articles/210138558-Generating-an-App-Token), which will create an app token and a secret token. When registering your application, you must preregister your server by filling out the `Callback Prefix` field), so that we can be sure that access through your application is secure even if both your tokens are stolen. The `Callback Prefix` is the beginning of the URL that you will use as your redirect URL. Generally, you'll want to provide as much of your callback URL as you can. For example, if your authentication callback is `https://my-website.com/socrata-app/auth/callback`, you might want to specify `https://my-website.com/socrata-app` as your callback URL.
 
 Once you have an application and a secret token, you'll be able to authenticate with the SODA OAuth 2.0 endpoint. You'll first need to redirect the user to the Socrata-powered site you wish to access so that they may log in and approve your application. For example:
 
@@ -63,7 +65,7 @@ Should the user authorize your application, they will be redirected back to the 
 
 where CODE is an authorization code that you will use later.
 
-If your `redirect_uri` contain a querystring, it will be preserved, and the `code` parameter will be added onto the end of it. Likewise, if you provide the optional `state` parameter in the original redirect to `/authenticate`, it will be preserved and sent back to you.
+If your `redirect_uri` contains a querystring, it will be preserved, and the `code` parameter will be added onto the end of it. Likewise, if you provide the optional `state` parameter in the original redirect to `/authenticate`, it will be preserved and sent back to you.
 
 Now that the user has authorized your application, the next step is to retrieve an `access_token` so that you can perform operations on their behalf. You can do this by making the following `POST` request from your server:
 
