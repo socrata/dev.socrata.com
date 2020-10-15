@@ -2,7 +2,7 @@
 layout: with-sidebar
 sidebar: documentation
 type: format
-title: XML-RDF Format
+title: RDF-XML Format
 audience: documentation
 redirect_from:
   - /docs/formats/rdf
@@ -13,7 +13,7 @@ mime-type: application/rdf+xml; charset=utf-8
 format: RDF-XML
 ---
 
-The RDF ([Resource Description Framework](http://www.w3.org/TR/REC-rdf-syntax/)) format is a little different the other formats, because that dataset (or view) owners are able to map the output to different semantic web schemas through changing either the metadata on the dataset itself or metadata on the columns of the dataset.
+The RDF ([Resource Description Framework](https://www.w3.org/TR/REC-rdf-syntax/)) format is a little different than the other formats, because the dataset (or view) owners are able to map the output to different semantic web schemas through changing either the metadata on the dataset itself or metadata on the columns of the dataset.
 
 For example, the following URL
 
@@ -24,10 +24,10 @@ For example, the following URL
 yields:
 
 {% highlight xml %}
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:socrata="http://www.socrata.com/rdf/terms#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:ods="http://open-data-standards.github.com/2012/01/open-data-standards#" xmlns:dcterm="http://purl.org/dc/terms/" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dsbase="http://data.cityofchicago.org/resource/" xmlns:ds="http://data.cityofchicago.org/resource/xzkq-xp2w/">
-  <dsbase:xzkq-xp2w rdf:about="http://data.cityofchicago.org/resource/xzkq-xp2w/1">
+<rdf:RDF xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="https://www.w3.org/2000/01/rdf-schema#" xmlns:socrata="https://www.socrata.com/rdf/terms#" xmlns:dcat="https://www.w3.org/ns/dcat#" xmlns:ods="https://open-data-standards.github.com/2012/01/open-data-standards#" xmlns:dcterm="https://purl.org/dc/terms/" xmlns:geo="https://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="https://www.w3.org/2004/02/skos/core#" xmlns:foaf="https://xmlns.com/foaf/0.1/" xmlns:dsbase="https://data.cityofchicago.org/resource/" xmlns:ds="https://data.cityofchicago.org/resource/xzkq-xp2w/">
+  <dsbase:xzkq-xp2w rdf:about="https://data.cityofchicago.org/resource/xzkq-xp2w/1">
     <socrata:rowID>1</socrata:rowID>
-    <rdfs:member rdf:resource="http://data.cityofchicago.org/resource/xzkq-xp2w"/>
+    <rdfs:member rdf:resource="https://data.cityofchicago.org/resource/xzkq-xp2w"/>
     <ds:name>AARON,  ELVIA J</ds:name>
     <ds:job_titles>WATER RATE TAKER</ds:job_titles>
     <ds:department>WATER MGMNT</ds:department>
