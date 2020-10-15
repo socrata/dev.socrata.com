@@ -40,13 +40,13 @@ Neither type is better than the other - simply select the one that works best fo
 
 ## Extensions
 
-The simplest way to specify the response format is by appending an response type extension to the URL. This allows you to set the response format without requiring the ability to set headers in your HTTP client.
+The simplest way to specify the response format is by appending a response type extension to the URL. This allows you to set the response format without requiring the ability to set headers in your HTTP client.
 
 Simply add the extension to the endpoint. For example, if your resource endpoint is `/resource/644b-gaut`, and you wanted to get CSV output, your path would be `/resource/644b-gaut.csv`.
 
 ## HTTP Accept Headers
 
-[HTTP Accept](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html) headers allow applications to automatically negotiate content types with a web service. With SODA, this also means you can request content types using Accept headers without needing to provide an response type extension.
+[HTTP Accept](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html) headers allow applications to automatically negotiate content types with a web service. With SODA, this also means you can request content types using Accept headers without needing to provide a response type extension.
 
 Simply send an `Accept` header along with the desired [mimetype](http://en.wikipedia.org/wiki/Internet_media_type) for the desired response type. For example, to request [JSON](/docs/formats/json.html), you'd use a header of `Accept: application/json`.
 
