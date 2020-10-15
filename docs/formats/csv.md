@@ -29,6 +29,4 @@ Although the format is basically simple, there are a few rules you'll need to fo
 
 1. Strings containing embedded commas, newlines, or quotes will themselves be quoted. For example, `Inflatable Elephant, African` has quotes around it because it contains a comma.  Its description also is quoted, because it contains a newline.
 2.  Quotes within values are escaped by doubling them, so `"` becomes `""`. For example, the quotes in `A "largish" mouse` are doubled because they must be escaped.
-3. Empty fields are denoted by no value. Simply have nothing between the commas.
-4. Null values are denoted explicitly by the text "`null`", since CSV has no explicit way of describing a null value. For example, `replaces_product` is `null` for the Inflatable Elephant.
-
+3. Empty fields and null values are denoted by no value. Simply have nothing between the commas.
