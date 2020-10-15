@@ -138,9 +138,9 @@
 
 <p>Each column in <a href="{{display_url}}">the dataset</a> is represented by a single <code>field</code> in its SODA API. Using <a href="/docs/filtering.html">filters</a> and <a href="/docs/queries/">SoQL queries</a>, you can search for records, limit your results, and change the way the data is output. For example, you could filter this dataset by its <code>{{metadata.columns.0.fieldName}}</code> field using a query like the following:</p>
 
-{{#metadata.0.filter}}
-  <a class="tryit" href="{{full_url}}?{{columns.0.filter}}">{{display_url}}?{{metadata.columns.0.filter}}</a>
-{{/metadata.0.filter}}
+<div class="endpoint">
+  <a class="tryit" href="{{full_url}}?{{metadata.columns.0.fieldName}}={{metadata.columns.0.cachedContents.top.0.item}}">{{display_url}}?{{metadata.columns.0.fieldName}}={{metadata.columns.0.cachedContents.top.0.item}}</a>
+</div>
 
 <p>For richer filtering, you can combine filters together by stacking parameters on your URL or by using <a href="/docs/queries/">SoQL</a> queries. Learn more about about each of the fields in this dataset by clicking the headers below, or read more about the SODA API using the navigation at the top of the page.</p>
 
