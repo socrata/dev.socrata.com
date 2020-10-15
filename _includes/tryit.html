@@ -1,2 +1,6 @@
-{% capture full_url %}https://{{ include.domain }}{{ include.path }}?{{ include.args }}{% endcapture %}
+{% if include.args %}
+  {% capture full_url %}https://{{ include.domain }}{{ include.path }}?{{ include.args }}{% endcapture %}
+{% else %}
+  {% capture full_url %}https://{{ include.domain }}{{ include.path }}{% endcapture %}
+{% endif %}
 <a class="tryit" href="{{ full_url | uri_escape }}">{{ full_url | replace: "%", "%25" | replace: "'", "&#39;" | replace: "\"", "&quot;" }}</a>
