@@ -617,13 +617,9 @@ define(
     // For legacy API Foundry endpoints, they have customized resource names
     // Here we should fail if we can't find the dataset by resource name
     $.ajax({
-      url: query_base + "/api/views.json",
+      url: query_base + "/api/views/" + args.uid + ".json",
       method: "GET",
-      dataType: "json",
-      data: {
-        "method": "getByResourceName",
-        "name": args.uid
-      }
+      dataType: "json"
     }).success(function(viewMetadata) {
       if (!viewMetadata) {
         return false;
