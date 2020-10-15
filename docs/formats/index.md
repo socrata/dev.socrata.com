@@ -46,8 +46,8 @@ Simply add the extension to the endpoint. For example, if your resource endpoint
 
 ## HTTP Accept Headers
 
-[HTTP Accept](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html) headers allow applications to automatically negotiate content types with a web service. With SODA, this also means you can request content types using Accept headers without needing to provide a response type extension.
+[HTTP Accept](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html) headers allow applications to automatically negotiate content types with a web service. With SODA, this also means you can request content types using Accept headers without needing to provide a response type extension.
 
-Simply send an `Accept` header along with the desired [mimetype](http://en.wikipedia.org/wiki/Internet_media_type) for the desired response type. For example, to request [JSON](/docs/formats/json.html), you'd use a header of `Accept: application/json`.
+Simply send an `Accept` header along with the desired [mimetype](https://en.wikipedia.org/wiki/Internet_media_type) for the desired response type. For example, to request [JSON](/docs/formats/json.html), you'd use a header of `Accept: application/json`.
 
 The SODA API response will also include a `Content-type` header to specify the format of the data that it is returning.
