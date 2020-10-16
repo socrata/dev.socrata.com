@@ -25,7 +25,7 @@ Fixed timestamps represent an exact point on the time-line, limited to milliseco
 
 When writing data, accuracy to only the second is required, but the service will always return precision to the millisecond. Additionally, you can use offsets like `-0800` (or `-08:00`). Using this offset system, `America/Los_Angeles` is expressed as `UTC-08:00`, or `UTC-07:00` in the summer. The offset `-08:00` indicates that `America/Los_Angeles` time is obtained from UTC by adding `-08:00`, that is, by subtracting 8 hours. Accordingly, `2020-10-16T18:00:00.000Z` and `2020-10-16T10:00:00.000-0800` are two different but equally valid representations of the same `fixed_timestamp` value. 
 
-If you are a data publisher, please note that the [SODA Producer API](publishers/soda-producer/soda-producer-basics.html) converts values with non-UTC offsets into the equivalent UTC representation of the value, so if you write a value like `2020-10-16T10:00:00.000-0800` to a `fixed_timestamp` field, the [SODA Consumer API](consumers/getting-started.html) will return that value as `2020-10-16T18:00:00.000Z`.
+If you are a data publisher, please note that the [SODA Producer API](/publishers/soda-producer/soda-producer-basics.html) converts values with non-UTC offsets into the equivalent UTC representation of the value, so if you write a value like `2020-10-16T10:00:00.000-0800` to a `fixed_timestamp` field, the [SODA Consumer API](/consumers/getting-started.html) will return that value as `2020-10-16T18:00:00.000Z`.
 
 The following operators can be used to compare and manipulate `fixed_timestamp` fields:
 
