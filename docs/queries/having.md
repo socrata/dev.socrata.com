@@ -17,9 +17,9 @@ order: 5
 ---
 
 
-The `$having` parameter allows you to filter your results of an aggregation using boolean operators, similar to the `HAVING` clause in SQL. For example, to aggregate our earthquakes and get only the sources with more than 20,000 quakes:
+The `$having` parameter allows you to filter your results of an aggregation using boolean operators, similar to the `HAVING` clause in SQL. For example, to aggregate our earthquakes and get only the sources with more than 500 quakes:
 
-{% include tryit.html domain='soda.demo.socrata.com' path='/resource/4tka-6guv.json' args='$select=source, count(*) as count&$group=source&$having=count > 20000' %}
+{% include tryit.html domain='soda.demo.socrata.com' path='/resource/4tka-6guv.json' args='$select=source, count(*) as count&$group=source&$having=count > 500' %}
 
 Multiple boolean operators are available to combine filters:
 
