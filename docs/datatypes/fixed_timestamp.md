@@ -10,12 +10,6 @@ versions:
 - 2.0
 - 2.1
 datatype: floating_timestamp
-redirect_from:
-  - /docs/datatypes/timestamps.html
-  - /docs/datatypes/floating-timestamp.html
-  - /docs/datatypes/date.html
-  - /docs/datatypes/timestamp.html
-  - /docs/datatypes/calendar_date.html
 definition:
   type: string
   format: date-time
