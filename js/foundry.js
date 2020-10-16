@@ -625,6 +625,13 @@ define(
         return false;
       }
 
+      if (viewMetadata.viewType != "tabular" || viewMetadata.displayType == "data_lens" || viewMetadata.displayType == "form" || /^visualization/.test(viewMetadata.displayType)) {
+        short_url = query_base + '/d/' + args.uid;
+        message = 'This is not a tabular asset that can be queried using the Socrata Open Data API, but you can view it in Socrata by going to: <a href="' + short_url + '">' + short_url + '</a>';
+        $(args.target).append('<p class="alert alert-info">' + message + '</p>');
+        return false;
+      }
+
       render({
         uid: viewMetadata.id,
         target: args.target,
