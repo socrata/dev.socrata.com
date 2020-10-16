@@ -4,16 +4,13 @@ sidebar: documentation
 title: Data Transform Listing
 ---
 
-These are the transformation functions available in the data source ingress API.
+These are the transformation functions available in the [Dataset Management API](/publishers/dsmapi.html).
 These functions can be used to transform and validate your data before you publish
 your dataset for consumption.
 
-These functions apply in the "Data Transforms" editor in the ingress UI.
+These functions can be used in the "Data Transforms" editor of the the [Dataset Management Experience](https://support.socrata.com/hc/en-us/articles/115016067067-Using-the-Socrata-Data-Management-Experience) interface. Check out some of the examples on our Support Portal [here](https://support.socrata.com/hc/en-us/articles/360034530954-Data-Transformation-Examples)!
 
-See the [Apiary Page](http://socratapublishing.docs.apiary.io/) for the data source ingress
-API for how to use the transform functions as an API user.
-
-
+See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/) for more info on how to use the transform functions as an API user.
 
 | Function Name | Description |
 | ---- | ---- |
