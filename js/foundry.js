@@ -436,8 +436,13 @@ define(
         })
         .each(function(col) {
           if(col.dataTypeName == "calendar_date") {
-            // calendar_dates were replaced by floating_timestamps in NBE
+            // calendar_date was replaced by floating_timestamp in NBE
             col.dataTypeName = "floating_timestamp";
+          }
+
+          if(col.dataTypeName == "date") {
+            // date was replaced by fixed_timestamp in NBE
+            col.dataTypeName = "fixed_timestamp";
           }
 
           if(col.description) {

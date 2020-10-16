@@ -13,7 +13,6 @@ datatype: floating_timestamp
 redirect_from:
   - /docs/datatypes/timestamps.html
   - /docs/datatypes/floating-timestamp.html
-  - /docs/datatypes/fixed-timestamp.html
   - /docs/datatypes/date.html
   - /docs/datatypes/timestamp.html
   - /docs/datatypes/calendar_date.html

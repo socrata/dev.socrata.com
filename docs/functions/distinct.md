@@ -10,6 +10,7 @@ versions:
 - 2.1
 datatypes:
 - floating_timestamp
+- fixed_timestamp
 - line
 - multiline
 - multipoint
