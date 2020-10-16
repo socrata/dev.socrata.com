@@ -21,7 +21,7 @@ The `$where` parameter allows you to filter your results using boolean operators
 
 {% include tryit.html domain='soda.demo.socrata.com' path='/resource/4tka-6guv.json' args='$where=magnitude > 3.0' %}
 
-You can also combine multiple filters together using boolean operators to chain filters together. If we also only wanted only quakes from the `pr` source:
+You can also combine multiple filters together using boolean operators to chain filters together. If we also only wanted quakes from the `pr` source:
 
 {% include tryit.html domain='soda.demo.socrata.com' path='/resource/4tka-6guv.json' args='$where=magnitude > 3.0 AND source = \'pr\'' %}
 
