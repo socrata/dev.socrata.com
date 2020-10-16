@@ -11,10 +11,12 @@ versions:
 datatypes:
 - number
 - floating_timestamp
+- fixed_timestamp
 params:
   $1:
   - number
   - floating_timestamp
+  - fixed_timestamp
   $low:
   - typeof($1)
   $high:

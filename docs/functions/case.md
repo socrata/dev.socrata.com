@@ -11,6 +11,7 @@ versions:
 datatypes:
   - checkbox
   - floating_timestamp
+  - fixed_timestamp
   - line
   - multiline
   - location

@@ -10,11 +10,13 @@ versions:
 - 2.1
 datatypes:
 - floating_timestamp
+- fixed_timestamp
 - number
 - text
 params:
   $1:
   - floating_timestamp
+  - fixed_timestamp
   - number
   - text
 returns: typeof($1)

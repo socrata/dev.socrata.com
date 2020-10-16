@@ -9,8 +9,8 @@ In addition to the fields provided by the dataset owner, Socrata also provides a
 | Operator     | Description                                                                                                          |
 | ---           | ---                                                                                                                  |
 | `:id`         | The internal Socrata identifier for this record.                                                                     |
-| `:created_at` | A [Fixed Timestamp](/docs/datatypes/timestamp.html) representing when this record was created.      |
-| `:updated_at` | A [Fixed Timestamp](/docs/datatypes/timestamp.html) representing when this record was last updated. |
+| `:created_at` | A [Fixed Timestamp](/docs/datatypes/fixed_timestamp.html) representing when this record was created.      |
+| `:updated_at` | A [Fixed Timestamp](/docs/datatypes/fixed_timestamp.html) representing when this record was last updated. |
 
 System fields are not included by default, and the method that you use to request the inclusion of the hidden system fields depends on what version of the SODA API specification the API you are accessing complies with. To learn more about API versioning, see the [API Endpoint](/docs/endpoints.html) documentation.
 
@@ -20,7 +20,7 @@ With version 2.1 APIs, accessing the system fields is as simple as including the
 
 {% include tryit.html domain='data.seattle.gov' path='/resource/egc4-d24i.json' args="$select=:*, *" %}
 
-Since `:created_at` and `:updated_at` are [Fixed Timestamp](/docs/datatypes/timestamp.html), you can query them to get recent updates to a dataset using the `$where` [query parameter](/docs/queries/), like this example:
+Since `:created_at` and `:updated_at` are [Fixed Timestamp](/docs/datatypes/fixed_timestamp.html), you can query them to get recent updates to a dataset using the `$where` [query parameter](/docs/queries/), like this example:
 
 {% include tryit.html domain='data.sfgov.org' path='/resource/tmnf-yvry.json' args="$where=:updated_at > '2020-01-20'" %}
 

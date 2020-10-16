@@ -12,6 +12,7 @@ datatypes:
 - text 
 - number
 - floating_timestamp
+- fixed_timestamp
 params:
   $1:
   - any
