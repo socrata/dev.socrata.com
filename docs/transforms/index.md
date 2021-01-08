@@ -17,7 +17,6 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | Function Name | Description |
 | ---- | ---- |
 | [`+`](/docs/transforms/add.html) |   Keep a number's sign |
-| [`and`](/docs/transforms/and.html) |   Logical and of two boolean values |
 | [`||`](/docs/transforms/concatenate.html) |   concatenate two strings |
 | [`/`](/docs/transforms/divide.html) |   Divide a number by another |
 | [`=`](/docs/transforms/equal.html) |   Return true if the left side equals the right |
@@ -29,12 +28,11 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`<=`](/docs/transforms/less_than_equal.html) |   Return true if the value on the left is less than or equal to the value on the right |
 | [`%`](/docs/transforms/modulo.html) |   Find the remainder(modulus) of one number divided by another |
 | [`*`](/docs/transforms/multiply.html) |   Multiply two numbers together |
-| [`not`](/docs/transforms/not.html) |   Invert a boolean |
 | [`!=`](/docs/transforms/not_equal.html) |   Return true if the left side does not equal the right |
 | [`<>`](/docs/transforms/not_equal.html) |   Return true if the left side does not equal the right |
-| [`or`](/docs/transforms/or.html) |   Logical or of two boolean values |
 | [`-`](/docs/transforms/subtract.html) |   Subtract a number from another |
 | [`abs`](/docs/transforms/abs.html) |   Produce the absolute value of a number |
+| [`and`](/docs/transforms/and.html) |   Logical and of two boolean values |
 | [`between`](/docs/transforms/between.html) |   Return true if the left is within the range of the right values |
 | [`case`](/docs/transforms/case.html) |   Evaluate a series of true/false expressions (predicates) and return the next consequent. |
 | [`centroid`](/docs/transforms/centroid.html) |   returns the geometric centroid of a polygon or multipolygon. Please refer to |
@@ -94,9 +92,11 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`make_location`](/docs/transforms/make_location.html) |   This function has been deprecated. Please use the make_point function instead. |
 | [`make_point`](/docs/transforms/make_point.html) |   function to make a point out of a Y (latitude) and X (longitude) coordinate. |
 | [`make_url`](/docs/transforms/make_url.html) | No documentation is available. |
+| [`not`](/docs/transforms/not.html) |   Invert a boolean |
 | [`not_between`](/docs/transforms/not_between.html) |   Return true if the left is not within the range of the right values |
 | [`not_in`](/docs/transforms/not_in.html) |   Whether or not a value is absent from a set of other values |
 | [`not_like`](/docs/transforms/not_like.html) |   If a string is not like another string. |
+| [`or`](/docs/transforms/or.html) |   Logical or of two boolean values |
 | [`parse_address`](/docs/transforms/parse_address.html) |   Extract a street address from a full US address. |
 | [`parse_city`](/docs/transforms/parse_city.html) |   Extract a city from a full US address. |
 | [`parse_point`](/docs/transforms/parse_point.html) |   Extract the point from a full US address with point. |
