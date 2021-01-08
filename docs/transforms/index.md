@@ -12,6 +12,8 @@ These functions can be used in the "Data Transforms" editor of the the [Dataset 
 
 See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/) for more info on how to use the transform functions as an API user.
 
+
+
 | Function Name | Description |
 | ---- | ---- |
 | [`+`](/docs/transforms/add.html) |   Keep a number's sign |
@@ -26,8 +28,8 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`<=`](/docs/transforms/less_than_equal.html) |   Return true if the value on the left is less than or equal to the value on the right |
 | [`%`](/docs/transforms/modulo.html) |   Find the remainder(modulus) of one number divided by another |
 | [`*`](/docs/transforms/multiply.html) |   Multiply two numbers together |
-| [`<>`](/docs/transforms/not_equal.html) |   Return true if the left side does not equal the right |
 | [`!=`](/docs/transforms/not_equal.html) |   Return true if the left side does not equal the right |
+| [`<>`](/docs/transforms/not_equal.html) |   Return true if the left side does not equal the right |
 | [`-`](/docs/transforms/subtract.html) |   Subtract a number from another |
 | [`abs`](/docs/transforms/abs.html) |   Produce the absolute value of a number |
 | [`and`](/docs/transforms/and.html) |   Logical and of two boolean values |
@@ -60,11 +62,14 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`floating_timestamp_week_of_year`](/docs/transforms/floating_timestamp_week_of_year.html) |   Extract the week from a calendar date as an integer between 0 and 51. |
 | [`floating_timestamp_year`](/docs/transforms/floating_timestamp_year.html) |   Extract the year from a calendar date |
 | [`forgive`](/docs/transforms/forgive.html) |   forgive can take an optional default argument |
+| [`from_polyline`](/docs/transforms/from_polyline.html) |   convert a linestring encode in Google's polyline format with the given precision to a Line |
 | [`geocode`](/docs/transforms/geocode.html) |   geocode is a function which takes human readable addresses |
 | [`geocode_arcgis`](/docs/transforms/geocode_arcgis.html) | No documentation is available. |
 | [`geocode_esri`](/docs/transforms/geocode_esri.html) |   geocode_esri is a function which takes human readable addresses |
 | [`grapheme_length`](/docs/transforms/grapheme_length.html) |   the length of a piece of text in unicode grapheme clusters. |
+| [`greatest`](/docs/transforms/greatest.html) |   return the largest value among its arguments (ignoring null) |
 | [`hash`](/docs/transforms/hash.html) |   Construct a hash value from a string value using either the md5 or sha256 algorithm. |
+| [`haversine_distance`](/docs/transforms/haversine_distance.html) |   Return the distance of the line using haversine formula |
 | [`http_get`](/docs/transforms/http_get.html) |   Make an HTTP Get request to a URL. The response is returned. If the server |
 | [`in`](/docs/transforms/in.html) |   Whether or not a value is in a set of other values |
 | [`is_not_null`](/docs/transforms/is_not_null.html) |   Whether or not a value is not null |
@@ -73,6 +78,7 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`json_pluck_boolean`](/docs/transforms/json_pluck_boolean.html) |   Pluck a boolean value out of a JSON string. The returned value must be a boolean, otherwise |
 | [`json_pluck_number`](/docs/transforms/json_pluck_number.html) |   Pluck a number value out of a JSON string. The returned value must be a number, otherwise |
 | [`json_pluck_text`](/docs/transforms/json_pluck_text.html) |   Pluck a text value out of a JSON string. The returned value may be a primitive like a |
+| [`least`](/docs/transforms/least.html) |   return the smallest value among its arguments (ignoring null) |
 | [`left_pad`](/docs/transforms/left_pad.html) |   Pad `text` with the minimum number of copies of `pad` to reach `desired_length`. |
 | [`length`](/docs/transforms/length.html) |   the length of a piece of text in unicode code points.  This is usually, but not |
 | [`like`](/docs/transforms/like.html) |   If a string is like another string. |
@@ -91,6 +97,11 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`not_in`](/docs/transforms/not_in.html) |   Whether or not a value is absent from a set of other values |
 | [`not_like`](/docs/transforms/not_like.html) |   If a string is not like another string. |
 | [`or`](/docs/transforms/or.html) |   Logical or of two boolean values |
+| [`parse_address`](/docs/transforms/parse_address.html) |   Extract a street address from a full US address. |
+| [`parse_city`](/docs/transforms/parse_city.html) |   Extract a city from a full US address. |
+| [`parse_point`](/docs/transforms/parse_point.html) |   Extract the point from a full US address with point. |
+| [`parse_state`](/docs/transforms/parse_state.html) |   Extract a state from a full US address. |
+| [`parse_zip`](/docs/transforms/parse_zip.html) |   Extract a ZIP code from a full US address. |
 | [`point_latitude`](/docs/transforms/point_latitude.html) |   Extract the latitude from a point |
 | [`point_longitude`](/docs/transforms/point_longitude.html) |   Extract the longitude from a point |
 | [`polylabel`](/docs/transforms/polylabel.html) |   Returns a point that must exist within the polygon borders. It uses the recursive grid-based algorithm described here: https://github.com/mapbox/polylabel#how-the-algorithm-works.  When given a multipolygon, the point it returns is within the largest (by area) sub-polygon. |
@@ -117,8 +128,8 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`title_case`](/docs/transforms/title_case.html) |   Make string title case with the exception of small words as defined by NYT Style Guide: |
 | [`to_boolean`](/docs/transforms/to_boolean.html) |   cast a value to a true or false |
 | [`to_checkbox`](/docs/transforms/to_checkbox.html) | No documentation is available. |
-| [`to_fixed_timestamp`](/docs/transforms/to_fixed_timestamp.html) |   Turn a timestamp in some timezone into an absolute point in time, interpreting it |
-| [`to_floating_timestamp`](/docs/transforms/to_floating_timestamp.html) |   Turn an absolute point in time into a timestamp in the given time zone. |
+| [`to_fixed_timestamp`](/docs/transforms/to_fixed_timestamp.html) |   Turn a text value into a datetime with a fixed timezone. |
+| [`to_floating_timestamp`](/docs/transforms/to_floating_timestamp.html) |   Turn a text value into a floating datetime. "Floating" means the timezone |
 | [`to_line`](/docs/transforms/to_line.html) |   parse a WKT (text) representation of a line into a line value |
 | [`to_location`](/docs/transforms/to_location.html) |   This function has been deprecated. Please use the to_point function instead. |
 | [`to_multiline`](/docs/transforms/to_multiline.html) |   convert a line into a multiline |

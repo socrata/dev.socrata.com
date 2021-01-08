@@ -6,10 +6,6 @@ title: to_fixed_timestamp
 
 ##### Function: `to_fixed_timestamp`
 ```
-  Turn a timestamp in some timezone into an absolute point in time, interpreting it
-  as if it were in the given time zone.
-
-
   Turn a text value into a datetime with a fixed timezone.
   The formatting string can be constructed with the following tokens
 
@@ -97,9 +93,11 @@ title: to_fixed_timestamp
   %%    Literal percent sign.
 
 
+
+  Turn a timestamp in some timezone into an absolute point in time, interpreting it
+  as if it were in the given time zone.
+
 Examples:
-
-
 
   -- '%+' is shorthand for an ISO8601 compliant format
   to_fixed_timestamp('2017-12-13T00:24:53.436562Z', '%+')
@@ -112,11 +110,13 @@ Examples:
 
 
 
+
+
 ```
 
 ###### Signatures
-    calendar_date, text -> date
+    date -> date
     text, text -> date
     text -> date
-    date -> date
+    calendar_date, text -> date
 

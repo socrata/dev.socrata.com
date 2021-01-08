@@ -16,7 +16,7 @@ title: json_pluck_text
 
 Examples:
 
-  -- Get the true value out of a piece of JSON
+  -- Get the value out of a piece of JSON
   json_pluck_text('{"foo": {"bar": [1, {"baz": "hello"}, 3]}}', '.foo.bar.[1].baz')
   -- Result: "hello"
 
