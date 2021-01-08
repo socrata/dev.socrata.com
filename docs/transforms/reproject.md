@@ -34,6 +34,9 @@ Examples:
   reproject(set_projection(to_point('POINT (372728.3308536674 69825.24782297359)'), '+init=epsg:3627'), '+init=epsg:4326')
   -- Result: {"type":"Point","coordinates":[-73.13826,40.79224]}
 
+  reproject(set_projection(to_point('POINT(752235200 34768994)'), '+proj=aea +lat_1=34 +lat_2=47 +lat_0=43 +lon_0=-120 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs'), '+init=epsg:4326')
+  -- Result: {"type":"reprojection_error","english":"Failed to reproject that value, are the x and y out of range for that projection?","data":{"message":"Failed to reproject that value, are the x and y out of range for that projection?"}}
+
 
 
 

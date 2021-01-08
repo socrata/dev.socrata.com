@@ -12,5 +12,4 @@ No documentation is available.
 
 ###### Signatures
     text -> checkbox
-    number -> checkbox
 

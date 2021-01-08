@@ -13,10 +13,10 @@ Examples:
   to_boolean('true')
   -- Result: true
 
-  to_boolean(1)
+  to_boolean('1')
   -- Result: true
 
-  to_boolean(0)
+  to_boolean('0')
   -- Result: false
 
   to_boolean(text_boolean_column)
@@ -29,6 +29,5 @@ Examples:
 
 ###### Signatures
     text -> checkbox
-    number -> checkbox
     checkbox -> checkbox
 

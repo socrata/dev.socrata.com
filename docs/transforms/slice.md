@@ -19,6 +19,9 @@ Examples:
   slice('foobar', -10, 1300)
   -- Result: ""
 
+  slice('foobar', 0, -2)
+  -- Result: {"type":"invalid_length","english":"Invalid length -2. Slice length must be a nonnegative integer.","data":{"length":-2}}
+
 
 
 
