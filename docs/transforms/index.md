@@ -110,8 +110,6 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`regex_capture`](/docs/transforms/regex_capture.html) |   function to capture a piece of text based on a regular expression |
 | [`regex_named_capture`](/docs/transforms/regex_named_capture.html) |   capture a piece of text based on a regular expression |
 | [`regex_replace`](/docs/transforms/regex_replace.html) |   function to replace a piece of text based on a regular expression |
-| [`region_code`](/docs/transforms/region_code.html) |   Turn a point into the ID of a region, based on which region the point falls within. For example, if this dataset can produce |
-| [`region_code_label`](/docs/transforms/region_code_label.html) |   Identical to region_code, but returns a text value. |
 | [`repair_geometry`](/docs/transforms/repair_geometry.html) |   Attempt to repair the geometry. |
 | [`replace`](/docs/transforms/replace.html) |   replace text with another piece of text |
 | [`replace_first`](/docs/transforms/replace_first.html) |   replace the first occurrence of a piece of text with another piece of text |
