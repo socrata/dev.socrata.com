@@ -1,0 +1,197 @@
+current directory: /home/jordanpatrick/dev.socrata.com/vendor/bundle/ruby/2.7.0/gems/ferret-0.11.8.7/ext
+/usr/bin/ruby2.7 -I /usr/lib/ruby/2.7.0 -r ./siteconf20210304-364-eho43i.rb extconf.rb
+creating Makefile
+
+current directory: /home/jordanpatrick/dev.socrata.com/vendor/bundle/ruby/2.7.0/gems/ferret-0.11.8.7/ext
+make "DESTDIR=" clean
+
+current directory: /home/jordanpatrick/dev.socrata.com/vendor/bundle/ruby/2.7.0/gems/ferret-0.11.8.7/ext
+make "DESTDIR="
+compiling BZLIB_blocksort.c
+compiling BZLIB_bzlib.c
+compiling BZLIB_compress.c
+compiling BZLIB_crctable.c
+compiling BZLIB_decompress.c
+compiling BZLIB_huffman.c
+compiling BZLIB_randtable.c
+compiling STEMMER_api.c
+compiling STEMMER_libstemmer.c
+compiling STEMMER_stem_ISO_8859_1_danish.c
+compiling STEMMER_stem_ISO_8859_1_dutch.c
+compiling STEMMER_stem_ISO_8859_1_english.c
+compiling STEMMER_stem_ISO_8859_1_finnish.c
+compiling STEMMER_stem_ISO_8859_1_french.c
+compiling STEMMER_stem_ISO_8859_1_german.c
+compiling STEMMER_stem_ISO_8859_1_hungarian.c
+compiling STEMMER_stem_ISO_8859_1_italian.c
+compiling STEMMER_stem_ISO_8859_1_norwegian.c
+compiling STEMMER_stem_ISO_8859_1_porter.c
+compiling STEMMER_stem_ISO_8859_1_portuguese.c
+compiling STEMMER_stem_ISO_8859_1_spanish.c
+compiling STEMMER_stem_ISO_8859_1_swedish.c
+compiling STEMMER_stem_ISO_8859_2_romanian.c
+compiling STEMMER_stem_KOI8_R_russian.c
+compiling STEMMER_stem_UTF_8_danish.c
+compiling STEMMER_stem_UTF_8_dutch.c
+compiling STEMMER_stem_UTF_8_english.c
+compiling STEMMER_stem_UTF_8_finnish.c
+compiling STEMMER_stem_UTF_8_french.c
+compiling STEMMER_stem_UTF_8_german.c
+compiling STEMMER_stem_UTF_8_hungarian.c
+compiling STEMMER_stem_UTF_8_italian.c
+compiling STEMMER_stem_UTF_8_norwegian.c
+compiling STEMMER_stem_UTF_8_porter.c
+compiling STEMMER_stem_UTF_8_portuguese.c
+compiling STEMMER_stem_UTF_8_romanian.c
+compiling STEMMER_stem_UTF_8_russian.c
+compiling STEMMER_stem_UTF_8_spanish.c
+compiling STEMMER_stem_UTF_8_swedish.c
+compiling STEMMER_stem_UTF_8_turkish.c
+compiling STEMMER_utilities.c
+compiling analysis.c
+compiling array.c
+compiling bitvector.c
+compiling compound_io.c
+compiling document.c
+compiling except.c
+compiling ferret.c
+ferret.c: In function ‘frb_data_alloc’:
+ferret.c:104:5: warning: ‘rb_data_object_alloc’ is deprecated: by rb_data_object_wrap [-Wdeprecated-declarations]
+  104 |     return Frt_Make_Struct(klass);
+      |     ^~~~~~
+In file included from /usr/include/ruby-2.7.0/ruby.h:33,
+                 from lang.h:7,
+                 from global.h:10,
+                 from ferret.h:4,
+                 from ferret.c:2:
+/usr/include/ruby-2.7.0/ruby/ruby.h:1454:1: note: declared here
+ 1454 | rb_data_object_alloc(VALUE klass, void *data, RUBY_DATA_FUNC dmark, RUBY_DATA_FUNC dfree)
+      | ^~~~~~~~~~~~~~~~~~~~
+compiling field_index.c
+compiling filter.c
+compiling fs_store.c
+compiling global.c
+compiling hash.c
+compiling hashset.c
+compiling helper.c
+compiling index.c
+compiling lang.c
+compiling mempool.c
+compiling multimapper.c
+compiling posh.c
+compiling priorityqueue.c
+compiling q_boolean.c
+q_boolean.c: In function ‘bq_eq’:
+q_boolean.c:1531:33: warning: self-comparison always evaluates to false [-Wtautological-compare]
+ 1531 |         || (bq1->max_clause_cnt != bq1->max_clause_cnt)
+      |                                 ^~
+compiling q_const_score.c
+compiling q_filtered_query.c
+compiling q_fuzzy.c
+compiling q_match_all.c
+compiling q_multi_term.c
+compiling q_parser.c
+compiling q_phrase.c
+compiling q_prefix.c
+compiling q_range.c
+compiling q_span.c
+q_span.c: In function ‘frt_spanxq_new_nr’:
+q_span.c:2257:25: warning: self-comparison always evaluates to false [-Wtautological-compare]
+ 2257 |     if (SpQ(inc)->field != SpQ(inc)->field) {
+      |                         ^~
+compiling q_term.c
+compiling q_wildcard.c
+compiling r_analysis.c
+In file included from /usr/include/ruby-2.7.0/ruby/ruby.h:2148,
+                 from /usr/include/ruby-2.7.0/ruby.h:33,
+                 from lang.h:7,
+                 from r_analysis.c:1:
+r_analysis.c: In function ‘Init_Analysis’:
+/usr/include/ruby-2.7.0/ruby/intern.h:1218:137: warning: passing argument 3 of ‘rb_define_singleton_method0’ from incompatible pointer type [-Wincompatible-pointer-types]
+ 1218 | #define rb_define_singleton_method(klass, mid, func, arity) rb_define_singleton_method_choose_prototypem3((arity),(func))((klass),(mid),(func),(arity));
+      |                                                                                                                                         ^~~~~~
+      |                                                                                                                                         |
+      |                                                                                                                                         VALUE (*)(VALUE,  VALUE) {aka long unsigned int (*)(long unsigned int,  long unsigned int)}
+r_analysis.c:2566:5: note: in expansion of macro ‘rb_define_singleton_method’
+ 2566 |     rb_define_singleton_method(mFerret, "locale", frb_get_locale, 0);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/ruby-2.7.0/ruby/intern.h:1195:27: note: expected ‘VALUE (*)(VALUE)’ {aka ‘long unsigned int (*)(long unsigned int)’} but argument is of type ‘VALUE (*)(VALUE,  VALUE)’ {aka ‘long unsigned int (*)(long unsigned int,  long unsigned int)’}
+ 1195 | RB_METHOD_DEFINITION_DECL(rb_define_singleton_method, (2,3), (VALUE klass, const char *name), (klass, name))
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/ruby-2.7.0/ruby/intern.h:1042:82: note: in definition of macro ‘RB_METHOD_DEFINITION_DECL_C’
+ 1042 |     __attribute__((__unused__,__weakref__(#def),__nonnull__ nonnull))static void defname(RB_UNWRAP_MACRO decl,VALUE(*func)funcargs,int arity);
+      |                                                                                  ^~~~~~~
+/usr/include/ruby-2.7.0/ruby/intern.h:1074:1: note: in expansion of macro ‘RB_METHOD_DEFINITION_DECL_1’
+ 1074 | RB_METHOD_DEFINITION_DECL_1(def,nonnull,def##0 ,0 ,decl,vars,(VALUE)) \
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/ruby-2.7.0/ruby/intern.h:1195:1: note: in expansion of macro ‘RB_METHOD_DEFINITION_DECL’
+ 1195 | RB_METHOD_DEFINITION_DECL(rb_define_singleton_method, (2,3), (VALUE klass, const char *name), (klass, name))
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~
+compiling r_index.c
+compiling r_qparser.c
+r_qparser.c: In function ‘frb_get_fields’:
+r_qparser.c:69:41: warning: comparison between pointer and zero character constant [-Wpointer-compare]
+   69 |             while ((p = strchr(s, '|')) != '\0') {
+      |                                         ^~
+r_qparser.c:69:20: note: did you mean to dereference the pointer?
+   69 |             while ((p = strchr(s, '|')) != '\0') {
+      |                    ^
+compiling r_search.c
+In file included from /usr/include/ruby-2.7.0/ruby.h:33,
+                 from lang.h:7,
+                 from global.h:10,
+                 from ferret.h:4,
+                 from r_search.c:1:
+r_search.c: In function ‘Init_Searcher’:
+/usr/include/ruby-2.7.0/ruby/ruby.h:2799:117: warning: passing argument 3 of ‘rb_define_method0’ from incompatible pointer type [-Wincompatible-pointer-types]
+ 2799 | #define rb_define_method(klass, mid, func, arity) rb_define_method_choose_prototypem3((arity),(func))((klass),(mid),(func),(arity));
+      |                                                                                                                     ^~~~~~
+      |                                                                                                                     |
+      |                                                                                                                     VALUE (*)(VALUE,  VALUE) {aka long unsigned int (*)(long unsigned int,  long unsigned int)}
+r_search.c:4401:5: note: in expansion of macro ‘rb_define_method’
+ 4401 |     rb_define_method(cSearcher, "reader", frb_sea_get_reader, 0);
+      |     ^~~~~~~~~~~~~~~~
+In file included from /usr/include/ruby-2.7.0/ruby/ruby.h:2148,
+                 from /usr/include/ruby-2.7.0/ruby.h:33,
+                 from lang.h:7,
+                 from global.h:10,
+                 from ferret.h:4,
+                 from r_search.c:1:
+/usr/include/ruby-2.7.0/ruby/ruby.h:2775:27: note: expected ‘VALUE (*)(VALUE)’ {aka ‘long unsigned int (*)(long unsigned int)’} but argument is of type ‘VALUE (*)(VALUE,  VALUE)’ {aka ‘long unsigned int (*)(long unsigned int,  long unsigned int)’}
+ 2775 | RB_METHOD_DEFINITION_DECL(rb_define_method, (2,3), (VALUE klass, const char *name), (klass, name))
+      |                           ^~~~~~~~~~~~~~~~
+/usr/include/ruby-2.7.0/ruby/intern.h:1042:82: note: in definition of macro ‘RB_METHOD_DEFINITION_DECL_C’
+ 1042 |     __attribute__((__unused__,__weakref__(#def),__nonnull__ nonnull))static void defname(RB_UNWRAP_MACRO decl,VALUE(*func)funcargs,int arity);
+      |                                                                                  ^~~~~~~
+/usr/include/ruby-2.7.0/ruby/intern.h:1074:1: note: in expansion of macro ‘RB_METHOD_DEFINITION_DECL_1’
+ 1074 | RB_METHOD_DEFINITION_DECL_1(def,nonnull,def##0 ,0 ,decl,vars,(VALUE)) \
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/ruby-2.7.0/ruby/ruby.h:2775:1: note: in expansion of macro ‘RB_METHOD_DEFINITION_DECL’
+ 2775 | RB_METHOD_DEFINITION_DECL(rb_define_method, (2,3), (VALUE klass, const char *name), (klass, name))
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~
+compiling r_store.c
+compiling r_utils.c
+compiling ram_store.c
+compiling scanner.c
+src/scanner.rl: In function ‘frt_std_scan’:
+src/scanner.rl:39:9: warning: variable ‘stack’ set but not used [-Wunused-but-set-variable]
+compiling scanner_mb.c
+src/scanner_mb.rl: In function ‘frt_std_scan_mb’:
+src/scanner_mb.rl:154:9: warning: variable ‘stack’ set but not used [-Wunused-but-set-variable]
+src/scanner_mb.rl:128:57: warning: array subscript 16384 is outside array bounds of ‘unsigned int[4096]’ [-Warray-bounds]
+src/scanner_mb.rl:180:22: note: while referencing ‘out_wc’
+compiling scanner_utf8.c
+src/scanner_utf8.rl: In function ‘frt_std_scan_utf8’:
+src/scanner_utf8.rl:40:9: warning: variable ‘stack’ set but not used [-Wunused-but-set-variable]
+compiling search.c
+compiling similarity.c
+compiling sort.c
+compiling stopwords.c
+compiling store.c
+compiling symbol.c
+compiling term_vectors.c
+linking shared-object ferret_ext.so
+
+current directory: /home/jordanpatrick/dev.socrata.com/vendor/bundle/ruby/2.7.0/gems/ferret-0.11.8.7/ext
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 ferret_ext.so ./.gem.20210304-364-ui96pn

@@ -1,0 +1,24 @@
+current directory: /home/jordanpatrick/dev.socrata.com/vendor/bundle/ruby/2.7.0/gems/puma-4.3.5/ext/puma_http11
+/usr/bin/ruby2.7 -I /usr/lib/ruby/2.7.0 -r ./siteconf20210304-364-xktgdj.rb extconf.rb
+checking for BIO_read() in -lcrypto... no
+checking for BIO_read() in -llibeay32... no
+creating Makefile
+
+current directory: /home/jordanpatrick/dev.socrata.com/vendor/bundle/ruby/2.7.0/gems/puma-4.3.5/ext/puma_http11
+make "DESTDIR=" clean
+
+current directory: /home/jordanpatrick/dev.socrata.com/vendor/bundle/ruby/2.7.0/gems/puma-4.3.5/ext/puma_http11
+make "DESTDIR="
+compiling http11_parser.c
+compiling io_buffer.c
+compiling mini_ssl.c
+compiling puma_http11.c
+puma_http11.c: In function ‘http_field’:
+puma_http11.c:203:22: warning: implicit declaration of function ‘isspace’ [-Wimplicit-function-declaration]
+  203 |   while (vlen > 0 && isspace(value[vlen - 1])) vlen--;
+      |                      ^~~~~~~
+linking shared-object puma/puma_http11.so
+
+current directory: /home/jordanpatrick/dev.socrata.com/vendor/bundle/ruby/2.7.0/gems/puma-4.3.5/ext/puma_http11
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 puma_http11.so ./.gem.20210304-364-whgrq9/puma

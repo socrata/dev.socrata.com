@@ -25,9 +25,9 @@ parents:
 
 {% include function_header.html %}
 
-The `greatest(...)` function is used to find the largest among a collection of values. For example, find the later of the `date` and `updated_at` columns in [Chicago Crimes](http://data.cityofchicago.org/d/6zsd-86xi):
+The `greatest(...)` function is used to find the largest among a collection of values. For example, find the later of the `date` and `updated_on` columns in [Chicago Crimes](http://data.cityofchicago.org/d/6zsd-86xi):
 
-{% include tryit.html domain='data.cityofchicago.org' path='/resource/6zsd-86xi.json' args="$select=greatest(date,updated_at)" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/6zsd-86xi.json' args="$select=greatest(date,updated_on)" %}
 
 Note that to find the largest value in a set of rows grouped by a `GROUP BY` clause, use `max` instead.
 
