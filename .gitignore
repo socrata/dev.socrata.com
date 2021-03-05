@@ -5,4 +5,4 @@ tmp/*
 .bundle
 node_modules
 .jekyll-metadata
-vendor/*
+vendor/
