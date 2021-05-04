@@ -64,7 +64,6 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`forgive`](/docs/transforms/forgive.html) |   forgive can take an optional default argument |
 | [`from_polyline`](/docs/transforms/from_polyline.html) |   convert a linestring encode in Google's polyline format with the given precision to a Line |
 | [`geocode`](/docs/transforms/geocode.html) |   geocode is a function which takes human readable addresses |
-| [`geocode_arcgis`](/docs/transforms/geocode_arcgis.html) | No documentation is available. |
 | [`geocode_esri`](/docs/transforms/geocode_esri.html) |   geocode_esri is a function which takes human readable addresses |
 | [`grapheme_length`](/docs/transforms/grapheme_length.html) |   the length of a piece of text in unicode grapheme clusters. |
 | [`greatest`](/docs/transforms/greatest.html) |   return the largest value among its arguments (ignoring null) |
