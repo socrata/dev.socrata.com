@@ -40,3 +40,9 @@ parents:
 It can also be used on [Floating Timestamps](/docs/datatypes/floating_timestamp.html). For example, to get all of the crimes that occurred between noon and 2PM on January 10th, 2015 in Chicago:
 
 {% include tryit.html domain='data.cityofchicago.org' path='/resource/6zsd-86xi.json' args="$where=date between '2015-01-10T12:00:00' and '2015-01-10T14:00:00'" %}
+
+The first input value must be smaller than the second input value. This applies to negative numbers as well. For example, to get all of the crimes that happened between longitudes of -87 and -88 in Chicago:
+
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/6zsd-86xi.json' args="$where=longitude between '-88' and '-87'" %}
+
+Note that the opposite (`longtiude between '-87' and '-88'`) would return no results.
