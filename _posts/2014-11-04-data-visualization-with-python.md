@@ -38,16 +38,8 @@ First, we'll structure a query that uses [SoQL](/docs/queries/) to aggregate the
 - Aggregate by the truncated version of the `dispatch_date` field and get the count of noise violations per day
 - Order the results by our truncated date value
 
-<pre><code> https://data.lacity.org/resource/mgue-vbsx.json?
-  $group=date
-  &call_type_code=507P
-  &$select=date_trunc_ymd(dispatch_date) AS date, count(&#42;)
-  &$order=date
+<pre><code>https://data.lacity.org/resource/mgue-vbsx.json?$group=date&call_type_code=507P&$select=date_trunc_ymd(dispatch_date) AS date, count(&#42;)&$order=date
 </code></pre>
-
-<div class="alert alert-info">
-  <p><em>Note:</em> Unfortunately the LAPD has since taken this dataset down, but we've left the query here as an example.</p>
-</div>
 
 Pandas makes it super easy to read data from a JSON API, so we can just read our data directly using the `read_json` function:
 
