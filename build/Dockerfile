@@ -1,7 +1,8 @@
 FROM ubuntu:18.04
 
+
 RUN apt-get update -q && apt-get install -y \
- 	libfontconfig1 \
+  libfontconfig1 \
   pkg-config \
   libxml2-dev \
   libxslt-dev \
@@ -38,6 +39,7 @@ RUN asdf plugin-add ruby
 RUN asdf plugin-add nodejs
 COPY .tool-versions /ci/.tool-versions
 
+ENV RUBYOPT="-KU -E utf-8:utf-8"
 RUN asdf install
 
 COPY . /ci
