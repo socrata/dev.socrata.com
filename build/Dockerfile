@@ -49,3 +49,5 @@ RUN npm install -g phantomjs-prebuilt
 # Install bundler and gems
 RUN gem install bundler --force --version 1.17.3
 RUN bundle install
+
+ENTRYPOINT ["/bin/bash", "-c"]

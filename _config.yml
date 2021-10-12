@@ -1,6 +1,7 @@
 # Jekyll Config
 destination: public
 exclude:
+- build
 - public
 - Rakefile
 - Gemfile

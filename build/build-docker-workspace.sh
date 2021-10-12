@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 
 BUILD_TAG="${BUILD_TAG:-"$(uuidgen)"}"
 IMAGE_NAME="dev-socrata-build:$(echo "${BUILD_TAG}" | tr ' ' '-')"
