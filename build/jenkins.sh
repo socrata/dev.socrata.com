@@ -1,9 +1,6 @@
 #!/bin/bash
 set -ex
 
-# Get the git submodules
-git submodule update --init
-
 # Build image with necessary deps
 DOCKER_IMAGE_ID=`build/build-docker-workspace.sh`
 
