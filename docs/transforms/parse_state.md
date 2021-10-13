@@ -13,6 +13,9 @@ Examples:
   parse_state("123 Main St\nSometown, NY 12345")
   -- Result: "NY"
 
+  parse_state("Not an address")
+  -- Result: {"type":"address_parse_failed","english":"Unable to parse an address from \"Not an address\"","data":{"value":"Not an address"}}
+
 
 
 

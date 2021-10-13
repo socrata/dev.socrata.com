@@ -34,7 +34,7 @@ Examples:
 
   -- When using an object selector to select something from an array, an error is given
   json_pluck_text('[{"intptlat": "32"}, {"intptlat": "33"}]', '.[intptlat]')
-  -- Result: "Invalid selection, attempted to retrieve 'intptlat' from value '[{\"intptlat\":\"32\"},{\"intptlat\":\"33\"}]'"
+  -- Result: "Invalid selection from value '[{\"intptlat\":\"32\"},{\"intptlat\":\"33\"}]'"
 
 
 

@@ -16,6 +16,9 @@ Examples:
   parse_point('(47.610, -122.333)')
   -- Result: {"type":"Point","coordinates":[-122.333,47.61]}
 
+  parse_point("Not an address")
+  -- Result: {"type":"address_parse_failed","english":"Unable to parse an address from \"Not an address\"","data":{"value":"Not an address"}}
+
 
 
 

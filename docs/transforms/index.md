@@ -17,6 +17,7 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | Function Name | Description |
 | ---- | ---- |
 | [`+`](/docs/transforms/add.html) |   Keep a number's sign |
+| [`and`](/docs/transforms/and.html) |   Logical and of two boolean values |
 | [`||`](/docs/transforms/concatenate.html) |   concatenate two strings |
 | [`/`](/docs/transforms/divide.html) |   Divide a number by another |
 | [`=`](/docs/transforms/equal.html) |   Return true if the left side equals the right |
@@ -28,11 +29,12 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`<=`](/docs/transforms/less_than_equal.html) |   Return true if the value on the left is less than or equal to the value on the right |
 | [`%`](/docs/transforms/modulo.html) |   Find the remainder(modulus) of one number divided by another |
 | [`*`](/docs/transforms/multiply.html) |   Multiply two numbers together |
-| [`!=`](/docs/transforms/not_equal.html) |   Return true if the left side does not equal the right |
+| [`not`](/docs/transforms/not.html) |   Invert a boolean |
 | [`<>`](/docs/transforms/not_equal.html) |   Return true if the left side does not equal the right |
+| [`!=`](/docs/transforms/not_equal.html) |   Return true if the left side does not equal the right |
+| [`or`](/docs/transforms/or.html) |   Logical or of two boolean values |
 | [`-`](/docs/transforms/subtract.html) |   Subtract a number from another |
 | [`abs`](/docs/transforms/abs.html) |   Produce the absolute value of a number |
-| [`and`](/docs/transforms/and.html) |   Logical and of two boolean values |
 | [`between`](/docs/transforms/between.html) |   Return true if the left is within the range of the right values |
 | [`case`](/docs/transforms/case.html) |   Evaluate a series of true/false expressions (predicates) and return the next consequent. |
 | [`centroid`](/docs/transforms/centroid.html) |   returns the geometric centroid of a polygon or multipolygon. Please refer to |
@@ -50,7 +52,14 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`date_trunc_y`](/docs/transforms/date_trunc_y.html) |   Truncates a calendar date at the year threshold |
 | [`date_trunc_ym`](/docs/transforms/date_trunc_ym.html) |   Truncates a calendar date at the year/month threshold |
 | [`date_trunc_ymd`](/docs/transforms/date_trunc_ymd.html) |   Truncates a calendar date at the year/month/day threshold |
+| [`datetime_add_d`](/docs/transforms/datetime_add_d.html) | Adds or subtracts the specified number of days to the timestamp |
+| [`datetime_add_hh`](/docs/transforms/datetime_add_hh.html) | Adds or subtracts the specified number of hours to the timestamp |
+| [`datetime_add_mm`](/docs/transforms/datetime_add_mm.html) | Adds or subtracts the specified number of minutes to the timestamp |
+| [`datetime_add_ss`](/docs/transforms/datetime_add_ss.html) |   Adds or subtracts the specified number of seconds to the timestamp |
 | [`datetime_diff`](/docs/transforms/datetime_diff.html) |   Calculates the difference between two dates in seconds, minutes, hours, days, business days, weeks, calendar weeks, months, or years. |
+| [`domain_categories`](/docs/transforms/domain_categories.html) | Returns the categories currently configured on the domain. Useful primarily |
+| [`domain_licenses`](/docs/transforms/domain_licenses.html) | Returns the licenses currently configured on the domain. Useful primarily |
+| [`email_parse`](/docs/transforms/email_parse.html) |   Parse an email. This is best effort as most things are actually |
 | [`ensure_within`](/docs/transforms/ensure_within.html) |   ensure_within is a function which takes a point and a multipolygon |
 | [`error`](/docs/transforms/error.html) |   Make an error. This is useful in conjunction with a case function, |
 | [`floating_timestamp_day`](/docs/transforms/floating_timestamp_day.html) |   Extract the day from a calendar date |
@@ -71,9 +80,12 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`haversine_distance`](/docs/transforms/haversine_distance.html) |   Return the distance of the line using haversine formula |
 | [`http_get`](/docs/transforms/http_get.html) |   Make an HTTP Get request to a URL. The response is returned. If the server |
 | [`in`](/docs/transforms/in.html) |   Whether or not a value is in a set of other values |
+| [`is_empty`](/docs/transforms/is_empty.html) |   Returns whether or not the input is empty. Empty means null values, |
 | [`is_not_null`](/docs/transforms/is_not_null.html) |   Whether or not a value is not null |
 | [`is_null`](/docs/transforms/is_null.html) |   Whether or not a value is null |
 | [`is_within`](/docs/transforms/is_within.html) |   is_within is a function which takes a point and a multipolygon |
+| [`json_array_contains`](/docs/transforms/json_array_contains.html) |   Test if a json array contains an item. If the JSON passed to this function is not an array, |
+| [`json_pluck`](/docs/transforms/json_pluck.html) |   Pluck a value out of a JSON string. The returned value will be a SoQL Json value. |
 | [`json_pluck_boolean`](/docs/transforms/json_pluck_boolean.html) |   Pluck a boolean value out of a JSON string. The returned value must be a boolean, otherwise |
 | [`json_pluck_number`](/docs/transforms/json_pluck_number.html) |   Pluck a number value out of a JSON string. The returned value must be a number, otherwise |
 | [`json_pluck_text`](/docs/transforms/json_pluck_text.html) |   Pluck a text value out of a JSON string. The returned value may be a primitive like a |
@@ -91,11 +103,9 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`make_location`](/docs/transforms/make_location.html) |   This function has been deprecated. Please use the make_point function instead. |
 | [`make_point`](/docs/transforms/make_point.html) |   function to make a point out of a Y (latitude) and X (longitude) coordinate. |
 | [`make_url`](/docs/transforms/make_url.html) | No documentation is available. |
-| [`not`](/docs/transforms/not.html) |   Invert a boolean |
 | [`not_between`](/docs/transforms/not_between.html) |   Return true if the left is not within the range of the right values |
 | [`not_in`](/docs/transforms/not_in.html) |   Whether or not a value is absent from a set of other values |
 | [`not_like`](/docs/transforms/not_like.html) |   If a string is not like another string. |
-| [`or`](/docs/transforms/or.html) |   Logical or of two boolean values |
 | [`parse_address`](/docs/transforms/parse_address.html) |   Extract a street address from a full US address. |
 | [`parse_city`](/docs/transforms/parse_city.html) |   Extract a city from a full US address. |
 | [`parse_point`](/docs/transforms/parse_point.html) |   Extract the point from a full US address with point. |
@@ -109,6 +119,8 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`regex_capture`](/docs/transforms/regex_capture.html) |   function to capture a piece of text based on a regular expression |
 | [`regex_named_capture`](/docs/transforms/regex_named_capture.html) |   capture a piece of text based on a regular expression |
 | [`regex_replace`](/docs/transforms/regex_replace.html) |   function to replace a piece of text based on a regular expression |
+| [`region_code`](/docs/transforms/region_code.html) |   Turn a point into the ID of a region, based on which region the point falls within. For example, if this dataset can produce |
+| [`region_code_label`](/docs/transforms/region_code_label.html) |   Identical to region_code, but returns a text value. |
 | [`repair_geometry`](/docs/transforms/repair_geometry.html) |   Attempt to repair the geometry. |
 | [`replace`](/docs/transforms/replace.html) |   replace text with another piece of text |
 | [`replace_first`](/docs/transforms/replace_first.html) |   replace the first occurrence of a piece of text with another piece of text |
@@ -129,6 +141,7 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`to_checkbox`](/docs/transforms/to_checkbox.html) | No documentation is available. |
 | [`to_fixed_timestamp`](/docs/transforms/to_fixed_timestamp.html) |   Turn a text value into a datetime with a fixed timezone. |
 | [`to_floating_timestamp`](/docs/transforms/to_floating_timestamp.html) |   Turn a text value into a floating datetime. "Floating" means the timezone |
+| [`to_json`](/docs/transforms/to_json.html) |   cast a text value to json |
 | [`to_line`](/docs/transforms/to_line.html) |   parse a WKT (text) representation of a line into a line value |
 | [`to_location`](/docs/transforms/to_location.html) |   This function has been deprecated. Please use the to_point function instead. |
 | [`to_multiline`](/docs/transforms/to_multiline.html) |   convert a line into a multiline |
@@ -143,6 +156,7 @@ See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/)
 | [`trim_leading`](/docs/transforms/trim_leading.html) |   trim characters off the start of a string |
 | [`trim_trailing`](/docs/transforms/trim_trailing.html) |   trim characters off the end of a string |
 | [`upper`](/docs/transforms/upper.html) |   uppercase a string |
+| [`uri_parse`](/docs/transforms/uri_parse.html) |   Parse a URI. |
 | [`url_decode`](/docs/transforms/url_decode.html) |   URL Decode a value |
 | [`url_description`](/docs/transforms/url_description.html) |   Extract the description part of a link. |
 | [`url_encode`](/docs/transforms/url_encode.html) |   URL Encode a value. |
