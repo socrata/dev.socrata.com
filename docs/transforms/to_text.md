@@ -22,6 +22,7 @@ No documentation is available.
     date -> text
     calendar_date -> text
     checkbox -> text
+    json -> text
     number -> text
     text -> text
 
