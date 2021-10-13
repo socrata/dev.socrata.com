@@ -88,7 +88,7 @@
 <div class="getting-started">
   <h2>Getting Started</h2>
 
-  <p>All communication with the API is done through HTTPS, and errors are communicated through HTTP response codes. Available response types include <code>JSON</code>, <code>XML</code>, and <code>CSV</code>, which are selectable by the "extension" (<code>.json</code>, etc.) on the API endpoint or through content-negotiation with HTTP <code>Accepts</code> headers.</p>
+  <p>All communication with the API is done through HTTPS, and errors are communicated through HTTP response codes. Available response types include <code>JSON</code> (including <code>GeoJSON</code>), <code>XML</code>, and <code>CSV</code>, which are selectable by the "extension" (<code>.json</code>, etc.) on the API endpoint or through content-negotiation with HTTP <code>Accepts</code> headers.</p>
 
   <p>This documentation also includes inline, runable examples. Click on any link that contains a <code><i class="fa fa-fw fa-cog" style="color: #c7254e"></i> gear symbol</code> next to it to run that example live against the <code>{{metadata.name}}</code> API. If you just want to grab the API endpoint and go, you'll find it below.</p>
 

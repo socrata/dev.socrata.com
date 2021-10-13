@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.cin/socrata/dev.socrata.com.svg?branch=surge)](https://travis-ci.com/socrata/dev.socrata.com)
-
 This is the [Github Pages](http://pages.github.com/) source code for the [Socrata Developer Portal](http://dev.socrata.com) (currently deployed to <http://dev.socrata.com>.
 
 ## Contributing

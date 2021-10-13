@@ -9,7 +9,6 @@
   "dependencies": {
     "casperjs": "^1.1.0-beta5",
     "r.js": "^1.0.3",
-    "surge": "^0.17.7",
     "underscore": "^1.8.3"
   },
   "devDependencies": {},
