@@ -18,7 +18,7 @@ define STAMP
   "date" : #{DATE}
 }
 STAMP
-URL = "https://dev-socrata-com-#{ENV['TRAVIS_BUILD_NUMBER'] || SHA}.surge.sh"
+URL = "https://dev-socrata-com-#{ENV['BUILD_NUMBER'] || SHA}.surge.sh"
 
 # Borrowed from https://github.com/fedspendingtransparency/openbeta/blob/master/Rakefile
 def exec_and_manually_watch_for_errors(cmd)
