@@ -59,4 +59,4 @@ The `intersects(...)` method is frequently used to identify what Polygon a given
 
 It's also useful for intersecting polygons with other polygons. For example, the following will return all of the parks that intersect with an arbitrary triangle in Chicago:
 
-{% include tryit.html domain='data.seattle.gov' path='/resource/ejsh-fztr.json' args="$select=label,park,location,park_class&$where=intersects(the_geom, 'POLYGON((-87.6174045 41.8669236, -87.6300497 41.866433, -87.6552725 41.8787461, -87.6174045 41.8669236))')" %}
+{% include tryit.html domain='data.cityofchicago.org' path='/resource/ejsh-fztr.json' args="$select=label,park,location,park_class&$where=intersects(the_geom, 'POLYGON((-87.6174045 41.8669236, -87.6300497 41.866433, -87.6552725 41.8787461, -87.6174045 41.8669236))')" %}
