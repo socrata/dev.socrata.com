@@ -8,5 +8,4 @@ npm i -g surge
 bundle exec rake jekyll
 
 # Deploy
-# Surge will use the domain name specified in the CNAME file automatically
-surge --project ./public
+surge --project ./public --domain https://dev.socrata.com
