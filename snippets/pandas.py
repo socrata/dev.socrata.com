@@ -25,7 +25,7 @@ client = Socrata("%%domain%%", None)
 # Example authenticated client (needed for non-public datasets):
 # client = Socrata(%%domain%%,
 #                  MyAppToken,
-#                  userame="user@example.com",
+#                  username="user@example.com",
 #                  password="AFakePassword")
 
 # First 2000 results, returned as JSON from API / converted to Python list of
