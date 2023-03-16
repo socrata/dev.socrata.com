@@ -18,7 +18,7 @@ Each Vendor should submit all available data elements and
 specifically include all pipeline critical elements noted in the
 Pipeline Critical Elements section below. The submission is
 considered acceptable if no validation errors are triggered and
-the required data elements contai*n* a value suitable for its
+the required data elements contain a value suitable for its
 respective datatype. **Certification will occur by program per
 county.**
 
@@ -72,7 +72,6 @@ An example message might look like
         {
           "EntityId": "AOIC",
           "EntityType": "di-aoic-problem-solving-courts-individual-background",
-          "LinkEntity": true,
           "EntityData": {
               "name": "Dale Bell",
               "localid": 9152,
@@ -83,8 +82,6 @@ An example message might look like
               "pretrialbackgroundid": "2023-cook-asdf-tyl-9152",
               "county": "cook"
            },
-          "UpdateData": true,
-          "ValidateEntity": true
         }
       ],
       "EventType": "di-aoic-new-record-event"
@@ -97,10 +94,6 @@ Details for each attribute of the `Envelope` are:
 | field            | allowed_type | required | description                                                                                     |
 |------------------|--------------|----------|-------------------------------------------------------------------------------------------------|
 | Events           | array        | Y        | An array of events. For more details. [See next section](#events)                               |
-| PartnerID        | string       | Y        | Your partner ID                                                                                 |
-| ResolveMappings  | boolean      | N        |                                                                                                 |
-| TriggeredBy      | string       | Y        | The user triggering the event                                                                   |
-| ValidateEnvelope | boolean      | N        | Validate that the envelope is well formatted. Should be set to true unless instructed otherwise |
 
 #### Events
 Envelopes may consist of one or more `events`. Details for each attribute of the `Event` are:
@@ -119,9 +112,6 @@ Details for each attribute are as follows
 | EntityID       | string       | Y        | Always set to `AOIC`                                                                                                             |
 | EntityType     | string       | Y        | Maps to the specific program and data in the format `di-[Program Name]-[Dataset Name]`. See [below for more examples](#examples) |
 | EntityData     | object       | Y        | The record associated with this entity                                                                                           |
-| LinkEntity     | boolean      | N        | Links this entity to another. Can be ignored                                                                                     |
-| UpdateData     | boolean      | N        | Whether or not to update an existing message                                                                                     |
-| ValidateEntity | boolean      | N        | Validate that the entity and the data is well formatted. Should be set to true unless instructed otherwise                       |
 
 #### Entity Data
 Every entity data object must contain the elements, in the format required, listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D)
@@ -403,7 +393,7 @@ resolve your question as quickly and efficiently as possible:
   screenshots and specific steps taken
 
 ## Todos on this page
-[ ] Update the JSON objects in the examples section
+[x] Update the JSON objects in the examples section
 
 [x] Finalize the row id
 
