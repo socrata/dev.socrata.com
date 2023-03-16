@@ -1,6 +1,7 @@
 ---
 title: Overview
 noindex: true
+layout: chromeless
 ---
 # ![logo](https://www.tylertech.com/Portals/0/Logo-NavBar.jpg?ver=Js0wL8bzpXBsBHn_bv-Kjg%3d%3d) Tyler Data Pipeline Certification 
 These instructions and resources are intended to walk through
@@ -274,6 +275,7 @@ following elements must be included in every PSC record:
 * dateofbirth [1]
 * sexperceived [1]
 * pscbackgroundid [2]
+
 ##### Example
 ```json
 {
@@ -308,6 +310,7 @@ following elements must be included in every Courts record:
 * county
 * statusdate
 * casestatusrowid [1]
+
 ##### Example
 ```json
 {
