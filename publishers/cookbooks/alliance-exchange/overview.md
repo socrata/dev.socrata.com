@@ -58,7 +58,7 @@ Note: this command will provide a bearer token that is valid for 60 minutes.
 ```
 curl https://tyler-alliance-system-dev.auth.us-east-1.amazoncognito.com/oauth2/token -X POST -H "Content-Type: application/x-www-form-urlencoded" --user YOUR_CLIENT_ID:YOUR_CLIENT_SECRET -d "grant_type=client_credentials"
 ```
-Please refer to the [API documentation](http://aoic-api.s3-website-us-west-2.amazonaws.com/) for more information.
+Please refer to the [API documentation](api) for more information.
 
 ## Step 2: Submit Messages to the Pipeline API
 ### Build the message
@@ -319,7 +319,7 @@ following elements must be included in every Courts record:
 
 ## FAQ 
 1. Where can I find more information about the API?
-   2. Please refer to the [API documentation](http://aoic-api.s3-website-us-west-2.amazonaws.com/) for more information.
+   2. Please refer to the [API documentation](api) for more information.
 2. What happens if I get a SUCCESS response but receive an
 error message for data validation?
    * If there is an error in your submission, you’ll receive an
