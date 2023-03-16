@@ -390,17 +390,3 @@ resolve your question as quickly and efficiently as possible:
   * Describe your question or issue 
   * Share relevant context about the issue, including links,
   screenshots and specific steps taken
-
-## Todos on this page
-[ ] Update the JSON objects in the examples section
-
-[x] Finalize the row id
-
-[x] Look at the row id from a security model perspective. Can I as a vendor accidentially (or purposefully manipulate someone elses data?)? I think that the answer right now is "Yes!"
-
-[ ] Put it on dev.socrata.com (?)
-
-[ ] Finalize the county stuff
-
-[x] Remove information from the message that's not needed. 
-
