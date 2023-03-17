@@ -80,7 +80,7 @@ An example message might look like
               "offenderid": "4354",
               "dateofbirth": "11/12/1982",
               "sexperceived": "Male",
-              "pretrialbackgroundid": "2023-cook-asdf-tyl-9152",
+              "recordid": 2468,
               "county": "cook"
            }
         }
@@ -108,13 +108,56 @@ Envelopes may consist of one or more `events`. Details for each attribute of the
 Entities are the most important part of the message. This specifies the program, the record and the values associated with that record. 
 Details for each attribute are as follows
 
-| field          | allowed_type | required | description                                                                                                                      |
-|----------------|--------------|----------|----------------------------------------------------------------------------------------------------------------------------------|
-| EntityID       | string       | Y        | Always set to `AOIC`                                                                                                             |
-| EntityType     | string       | Y        | Maps to the specific program and data in the format `di-[Program Name]-[Dataset Name]`. See [below for more examples](#examples) |
-| EntityData     | object       | Y        | The record associated with this entity                                                                                           |
+| field          | allowed_type | required | description                                                                                                                         |
+|----------------|--------------|----------|-------------------------------------------------------------------------------------------------------------------------------------|
+| EntityID       | string       | Y        | Always set to `AOIC`                                                                                                                |
+| EntityType     | string       | Y        | Maps to the specific program and data in the format `di-[Program Name]-[Dataset Name]`. See [below for more examples](#entitytypes) |
+| EntityData     | object       | Y        | The record associated with this entity                                                                                              |
 
-#### Entity Data
+##### Entity Types
+Entity types map the record to a specific program and dataset. Valid EntityTypes are:
+```
+di-aoic-court-administration
+di-aoic-court-adr
+di-aoic-court-case-status
+di-aoic-court-documents
+di-aoic-court-financial
+di-aoic-court-hearings
+di-aoic-court-ja
+di-aoic-court-party
+di-aoic-court-party-hearing
+di-aoic-court-pretrial
+di-aoic-court-reviewing-courts
+di-aoic-problemsolvingcourts-active-status
+di-aoic-problemsolvingcourts-assessments
+di-aoic-problemsolvingcourts-drug-testing
+di-aoic-problemsolvingcourts-individual-background
+di-aoic-problemsolvingcourts-redeploy
+di-aoic-problemsolvingcourts-screening
+di-aoic-problemsolvingcourts-termination
+di-aoic-problemsolvingcourts-violations-and-sanctions
+di-aoic-pretrial-court-appearance-and-judicial-decisions
+di-aoic-pretrial-courts-and-charges
+di-aoic-pretrial-disposition-and-release
+di-aoic-pretrial-drug-screening
+di-aoic-pretrial-individual-background
+di-aoic-pretrial-intake-and-assessment
+di-aoic-pretrial-jail
+di-aoic-pretrial-violations
+di-aoic-probation-active-status
+di-aoic-probation-ancillary-assessment
+di-aoic-probation-drug-testing
+di-aoic-probation-individual-background
+di-aoic-probation-intake
+di-aoic-probation-offenses
+di-aoic-probation-programming-and-treatment
+di-aoic-probation-supervision-and-sentencing
+di-aoic-probation-termination
+di-aoic-probation-violations-and-sanctions
+```
+
+
+##### Entity Data
 Every entity data object must contain the elements, in the format required, listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D)
 
 These should be passed as attributes in the object. For example
@@ -295,7 +338,7 @@ following elements must be included in every PSC record:
 [1] RecordID: Submit a record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. It does not have to include additional variables. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 
-## Courts Program Pipeline Critical Elements
+### Courts Program Pipeline Critical Elements
 In addition to the Data Verification Prerequisites, the
 following elements must be included in every Courts record:
 * courtcircuitnciccode
