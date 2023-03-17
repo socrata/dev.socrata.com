@@ -38,10 +38,6 @@ program (Probation, Pretrial, PSC, and Courts)
 * Submission of the Court Mapping Tool to AOIC *(Courts
 Program only)
 
-Data Requirements
-
-* Access to data for each of the critical and optional elements listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D)
-
 ## Step 1: Get an Authorization (Bearer) Token
 The Certification Instance of the Pipeline is access-controlled
 such that each vendor has its own credential pair. A credential
@@ -214,29 +210,27 @@ Vendors must email their SUCCESS response and EnvelopeID. **Note: Separate email
 * Send to: [data-certification@tylertech.com](mailto:data-certification@tylertech.com)
 * Subject: Certification SUCCESS - [Program Area - County]
 
-Tyler will confirm receipt of the email within 1 business day
+Tyler will confirm receipt of the email within 1 business day.
 
-Upon successful validation Tyler will submit the vendor’s certification with the AOIC and notify the vendor that certification has been completed.
-
-Successful submissions will include all critical elements and correct formatting of all available data elements. 
-
-When a successful submission has been verified, Tyler will request that the vendor confirm that they will resolve issues noted during the certification process prior to being granted access to the staging pipeline.  
-
-When a submission has been confirmed as successful and the confirmation is completed by the vendor, Tyler will submit the vendor’s certification to the State and notify the vendor that certification has been completed.  
+Upon successful validation Tyler will submit the vendor’s certification with the AOIC and notify the vendor that certification has been completed. 
+* Successful submissions will include all critical elements and correct formatting of all available data elements. 
+* When a successful submission has been verified, Tyler will request that the vendor confirm that they will resolve issues noted during the certification process prior to being granted access to the staging pipeline.
+* When a submission has been confirmed as successful and the confirmation is completed by the vendor, Tyler will submit the vendor’s certification to the AOIC and notify the vendor that certification has been completed.  
 
 ## Examples
-The following section provides a series of data element examples for each program
+The following section provides a series of data element examples for each program.
 
 ### Pretrial Program Pipeline Critical Elements
-In addition to the Data Verification Prerequisites, the following elements must be included in every PSC record:
+In addition to the Data Verification Prerequisites, the following elements must be included in every pretrial record:
 
-* prosecutingcounty [1]
+* prosecutingcounty
 * instanceid
 * offenderid
 * name
 * localid
-* dateofbirth [1]
-* sexperceived [1]
+* dateofbirth
+* sexperceived
+* [recordid](#notes) 
 
 ##### Example
 ```json
@@ -261,7 +255,7 @@ In addition to the Data Verification Prerequisites, the following elements must 
 ```
 
 ##### Notes
-[1] RecordID: Submit a record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. It does not have to include additional variables. If you have concerns and would like to discuss alternative approaches, please contact us.
+`recordid` - A record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 
 
@@ -270,13 +264,14 @@ In addition to the Data Verification Prerequisites, the
 following elements must be included in every Probation
 record:
 
-* sentencingcounty [1]
+* sentencingcounty
 * instanceid
 * offenderid
 * name
 * localid
-* dateofbirth [1]
-* sexperceived [1]
+* dateofbirth
+* sexperceived
+* [recordid](#notes)
 
 ##### Example
 ```json
@@ -300,18 +295,19 @@ record:
 }
 ```
 ##### Notes
-[1] RecordID: Submit a record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. It does not have to include additional variables. If you have concerns and would like to discuss alternative approaches, please contact us.
+`recordid` - A record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 ### Problem Solving Courts Program Pipeline Critical Elements
 In addition to the Data Verification Prerequisites, the
 following elements must be included in every PSC record:
-* sentencingcounty [1]
+* sentencingcounty
 * instanceid
 * offenderid
 * name
 * localid
-* dateofbirth [1]
-* sexperceived [1]
+* dateofbirth
+* sexperceived
+* [recordid](#notes)
 
 ##### Example
 ```json
@@ -335,7 +331,7 @@ following elements must be included in every PSC record:
 }
 ```
 ##### Notes
-[1] RecordID: Submit a record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. It does not have to include additional variables. If you have concerns and would like to discuss alternative approaches, please contact us.
+`recordid` - A record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 
 ### Courts Program Pipeline Critical Elements
@@ -344,6 +340,7 @@ following elements must be included in every Courts record:
 * courtcircuitnciccode
 * casetype
 * casesequencenumber
+* [recordid](#notes)
 
 ##### Example
 ```json
@@ -362,13 +359,17 @@ following elements must be included in every Courts record:
     ]
 }
 ```
+##### Notes
+`recordid` - A record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. If you have concerns and would like to discuss alternative approaches, please contact us.
+
+
 
 ## Troubleshooting Errors
-When submitting records to the pipeline, you will receive a SUCCESS message that indicates that your envelope was successfully received. However, there may be errors in the submission. You will be notified of errors via email in approximately under a minute of submission. The email you receive will come from AWS Notifications with a subject containing Connected Communities Error:
+When submitting records to the pipeline, you will receive a SUCCESS message that indicates that your envelope was successfully received. However, there may be errors in the submission. You will be notified of errors via email in approximately under a minute of submission. The email you receive will come from AWS Notifications with a subject containing Connected Communities Error.
 
 The notification will indicate a single error that needs to be fixed, though there may be multiple errors in the submission. You will receive one email per submission with a single error until all errors are resolved. It is suggested that you correct the error on the element in question and investigate if that error may exist throughout your submission. For example, if you receive a required error, it’s suggested to resolve the error for that element and interrogate the rest of your submission to find other elements that cause that error before submitting again.
-After all errors are resolved, error emails will no longer be sent. At this time, you should proceed to send your SUCCESS message and EnvelopeId to TYLER’S EMAIL ADDRESS OR FORM URL
-Here are some of the most common errors you may encounter:
+After all errors are resolved, error emails will no longer be sent. At this time, you should proceed to send your SUCCESS message and EnvelopeId to [data-certification@tylertech.com](mailto:data-certification@tylertech.com)
+The following sections detail some of the most common errors you may encounter.
 ### Required Element
 The certification endpoint requires critical elements, if one of the critical elements is missing from the submission, you’ll receive an error.
 ```
@@ -427,7 +428,7 @@ error message for data validation?
    * See the notification email you received. Each error will
    have Error Details, which indicate the type of error
    encountered. Once fixed, please try to upload again. If you
-   have issues resolving your issue, please reach out directly
+   have issues, please reach out directly
    to the Tyler team at [data-certification@tylertech.com](mailto:data-certification@tylertech.com).
    After you correct an error and re-submit, you may receive
    another error message calling out another error in the
@@ -450,7 +451,7 @@ process?
    this process.
 
 5. Who can I contact for assistance?
-   * Please contact data-certification@tylertech.com for
+   * Please contact [data-certification@tylertech.com](mailto:data-certification@tylertech.com) for
    assistance, questions, or live support.
 
 6. What are the data elements necessary for certification of
@@ -474,8 +475,7 @@ or issues and we’ll be ready to help via screen-share.
 * 1:1 Meetings: In addition to Office Hours, our team is
 scheduling time with each vendor to walk through questions
 and/or through the process described above. If you would like
-to schedule time with us, please notify us at data-
-certification@tylertech.com. Otherwise, our team will reach
+to schedule time with us, please notify us at [data-certification@tylertech.com](mailto:data-certification@tylertech.com). Otherwise, our team will reach
 out to you starting the week of March 13th to schedule time
 proactively.
 
