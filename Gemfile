@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem 'github-pages', '192'
 
 gem 'jekyll-feed'
-gem 'ferret'
+# gem 'ferret'
 gem 'nokogiri', '>= 1.10.4'
 gem 'pry'
 gem 'mime-types'

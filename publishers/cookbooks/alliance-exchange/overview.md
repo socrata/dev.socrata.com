@@ -58,9 +58,9 @@ Please refer to the [API documentation](api) for more information.
 
 ## Step 2: Submit Messages to the Pipeline API
 ### Build the message
-Every message consists of an `envelope`. The `envelope` contains a series of `events`, as well as metadata to help route the message appropriately
+Every message consists of an `envelope`. The `envelope` contains a series of `events`, as well as metadata to help route the message appropriately.
 
-An example message might look like
+An example message might look like:
 ```json
 {
   "Events": [
@@ -102,7 +102,7 @@ Envelopes may consist of one or more `events`. Details for each attribute of the
 
 #### Entities
 Entities are the most important part of the message. This specifies the program, the record and the values associated with that record. 
-Details for each attribute are as follows
+Details for each attribute are as follows:
 
 | field          | allowed_type | required | description                                                                                                                         |
 |----------------|--------------|----------|-------------------------------------------------------------------------------------------------------------------------------------|
@@ -156,7 +156,7 @@ di-aoic-probation-violations-and-sanctions
 ##### Entity Data
 Every entity data object must contain the elements, in the format required, listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D)
 
-These should be passed as attributes in the object. For example
+These should be passed as attributes in the object. For example:
 ```json
 {
     "Entities": [
@@ -180,7 +180,7 @@ These should be passed as attributes in the object. For example
 
 ##### Notes on the entity data object
 There are a couple of critical items to watch out for when building the entityData object:
-* **Data Elements** - Each entity **must** include the required elements listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D), in the format specified. Failure to include these elements, or to format them in the right way could result in certification failure
+* **Data Elements** - Each entity **must** include the required elements listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D), in the format specified. Failure to include these elements, or to format them in the right way could result in certification failure.
 * **RecordID** - The RecordID is used to allow the vendor the maintain (modify, update, delete) the data after it's been submitted. This is a unique identifier for the object in the local source system. Each object **must** have a unique RecordID.  
 
 
@@ -206,7 +206,7 @@ additional record(s).
 with the envelopeID, this is needed for Step 3**
 
 ## Step 3: Complete Certification
-Vendors must email their SUCCESS response and EnvelopeID. **Note: Separate emails must be sent for each county program area**
+Vendors must email their SUCCESS response and EnvelopeID. **Note: Separate emails must be sent for each county program area**.
 * Send to: [data-certification@tylertech.com](mailto:data-certification@tylertech.com)
 * Subject: Certification SUCCESS - [Program Area - County]
 
@@ -214,14 +214,14 @@ Tyler will confirm receipt of the email within 1 business day.
 
 Upon successful validation Tyler will submit the vendor’s certification with the AOIC and notify the vendor that certification has been completed. 
 * Successful submissions will include all critical elements and correct formatting of all available data elements. 
-* When a successful submission has been verified, Tyler will request that the vendor confirm that they will resolve issues noted during the certification process prior to being granted access to the staging pipeline.
-* When a submission has been confirmed as successful and the confirmation is completed by the vendor, Tyler will submit the vendor’s certification to the AOIC and notify the vendor that certification has been completed.  
+* When a successful submission has been verified, Tyler will request that the vendor confirm that they will resolve data issues noted during the certification process prior to being granted access to the staging pipeline.
+* When a submission has been verified as successful and the confirmation is received by the vendor, Tyler will submit the vendor’s certification to the AOIC and notify the vendor that certification has been completed.  
 
 ## Examples
 The following section provides a series of data element examples for each program.
 
 ### Pretrial Program Pipeline Critical Elements
-In addition to the Data Verification Prerequisites, the following elements must be included in every pretrial record:
+In addition to the Data Verification Prerequisites, the following elements must be included in every Pretrial record:
 
 * prosecutingcounty
 * instanceid
@@ -230,7 +230,7 @@ In addition to the Data Verification Prerequisites, the following elements must 
 * localid
 * dateofbirth
 * sexperceived
-* [recordid](#notes) 
+* recordid (see note below)
 
 ##### Example
 ```json
@@ -271,7 +271,7 @@ record:
 * localid
 * dateofbirth
 * sexperceived
-* [recordid](#notes)
+* recordid (see note below)
 
 ##### Example
 ```json
@@ -307,7 +307,7 @@ following elements must be included in every PSC record:
 * localid
 * dateofbirth
 * sexperceived
-* [recordid](#notes)
+* recordid (see note below)
 
 ##### Example
 ```json
@@ -340,7 +340,7 @@ following elements must be included in every Courts record:
 * courtcircuitnciccode
 * casetype
 * casesequencenumber
-* [recordid](#notes)
+* recordid (see note below)
 
 ##### Example
 ```json
@@ -382,7 +382,7 @@ ErrorSchema: di-aoic-pretrial-individual-background
 ```
 **Fix:** Provide critical elements and resend message
 ### Keyword Pattern
-In certification, critical elements have pattern matching that test the contents of the element’s string value. The pipeline validates the data by checking for a pattern within the string against RegEx for the expected date format. If that pattern is not met then you will receive an error:
+In certification, critical elements have pattern matching that test the contents of the element’s string value. The pipeline validates the data by checking for a pattern within the string against RegEx for the expected date format. If that pattern is not met then you will receive an error
 ```
 keyword: pattern
 dataPath: .status_date
@@ -402,7 +402,7 @@ schemaPath: #/additionalProperties
 message: should NOT have additional properties
 Message: Contract Schema Failed Validation.
 ```
-**Fix:** Remove any elements from the submission that are not included in the data elements. The element in question may or may not be listed as the dataPath
+**Fix:** Remove any elements from the submission that are not included in the data elements. The element in question may or may not be listed as the dataPath.
 ### Type
 Non-critical elements must have correct json formatting to either be a number or string. If the data element should be a number, it should not be formatted as a string.
 ```
