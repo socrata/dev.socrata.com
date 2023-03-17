@@ -119,16 +119,24 @@ Every entity data object must contain the elements, in the format required, list
 
 These should be passed as attributes in the object. For example
 ```json
-"entityData": {
-     "name": "Dale Bell",
-     "localid": 9152,
-     "instanceid": "5008",
-     "offenderid": "4354",
-     "dateofbirth": "11/12/1982",
-     "sexperceived": "Male",
-     "pretrialbackgroundid": "2023-cook-asdf-tyl-9152",
-     "county": "cook"
-  }
+{
+    "Entities": [
+        {
+            "EntityType": "di-aoic-pretrial-violations",
+            "EntityId": "violations_record",
+            "EntityData": {
+                "name": "Dale Bell",
+                "localid": 9152,
+                "instanceid": "5008",
+                "offenderid": "4354",
+                "dateofbirth": "11/12/1982",
+                "sexperceived": "Male",
+                "pretrialbackgroundid": "2023-cook-ordinanceviolation-vendorname-9152",
+                "county": "cook"
+            }
+        }
+    ]
+}
 ```
 
 ##### Notes on the entity data object
@@ -165,8 +173,13 @@ Vendors must email their SUCCESS response and EnvelopeID. **Note: Separate email
 
 Tyler will confirm receipt of the email within 1 business day
 
-Upon successful validation Tyler will submit the vendor’s certification with the State and notify the vendor that certification has been completed
+Upon successful validation Tyler will submit the vendor’s certification with the AOIC and notify the vendor that certification has been completed.
 
+Successful submissions will include all critical elements and correct formatting of all available data elements. 
+
+When a successful submission has been verified, Tyler will request that the vendor confirm that they will resolve issues noted during the certification process prior to being granted access to the staging pipeline.  
+
+When a submission has been confirmed as successful and the confirmation is completed by the vendor, Tyler will submit the vendor’s certification to the State and notify the vendor that certification has been completed.  
 
 ## Examples
 The following section provides a series of data element examples for each program
@@ -174,14 +187,13 @@ The following section provides a series of data element examples for each progra
 ### Pretrial Program Pipeline Critical Elements
 In addition to the Data Verification Prerequisites, the following elements must be included in every PSC record:
 
-* county
+* prosecutingcounty*
 * instanceid
 * offenderid
 * name
 * localid
-* dateofbirth [1]
-* sexperceived [1]
-* pretrialbackground [2]
+* dateofbirth* [1]
+* sexperceived* [1]
 
 ##### Example
 ```json
@@ -197,8 +209,7 @@ In addition to the Data Verification Prerequisites, the following elements must 
                 "offenderid": "4354",
                 "dateofbirth": "11/12/1982",
                 "sexperceived": "Male",
-                "pretrialbackgroundid": "2023-cook-ordinanceviolation-vendorname-9152",
-                "county": "cook"
+                "prosecutingcounty": "cook"
             }
         }
     ]
@@ -208,7 +219,7 @@ In addition to the Data Verification Prerequisites, the following elements must 
 ##### Notes
 [1] Must be present for certification
 
-[2] RowID. [See this section](https://spaceballone.github.io/swagger-test/docs/overview#rowid) for the row ID format
+[2] RowID: Submit a record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. It does not have to include additional variables. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 
 
@@ -217,14 +228,13 @@ In addition to the Data Verification Prerequisites, the
 following elements must be included in every Probation
 record:
 
-* county
+* sentencingcounty*
 * instanceid
 * offenderid
 * name
 * localid
-* dateofbirth [1]
-* sexperceived [1]
-* probationbackgroundid [2]
+* dateofbirth* [1]
+* sexperceived* [1]
 
 ##### Example
 ```json
@@ -240,8 +250,7 @@ record:
                 "offenderid": "4535",
                 "dateofbirth": "03/14/1959",
                 "sexperceived": "Male",
-                "probationbackgroundid": "2019-kankakee-civillaw-vendorname-8701",
-                "county": "kankakee"
+                "sentencingcounty": "kankakee"
             }
         }
     ]
@@ -250,19 +259,18 @@ record:
 ##### Notes
 [1] Must be present for certification
 
-[2] RowID. [See this section](https://spaceballone.github.io/swagger-test/docs/overview#rowid) for the row ID format
+[2] RowID: Submit a record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. It does not have to include additional variables. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 ### Problem Solving Courts Program Pipeline Critical Elements
 In addition to the Data Verification Prerequisites, the
 following elements must be included in every PSC record:
-* county
+* sentencingcounty*
 * instanceid
 * offenderid
 * name
 * localid
-* dateofbirth [1]
-* sexperceived [1]
-* pscbackgroundid [2]
+* dateofbirth* [1]
+* sexperceived* [1]
 
 ##### Example
 ```json
@@ -278,8 +286,7 @@ following elements must be included in every PSC record:
                 "offenderid": "4575",
                 "dateofbirth": "12/21/1991",
                 "sexperceived": "Female",
-                "pscbackgroundid": "2017-sangamon-conservationviolation-vendorname-2468",
-                "county": "sangamon"
+                "sentencingcounty": "sangamon"
             }
         }
     ]
@@ -288,15 +295,15 @@ following elements must be included in every PSC record:
 ##### Notes
 [1] Must be present for certification
 
-[2] RowID. [See this section](https://spaceballone.github.io/swagger-test/docs/overview#rowid) for the row ID format
+[2] RowID: Submit a record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. It does not have to include additional variables. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 
 ## Courts Program Pipeline Critical Elements
 In addition to the Data Verification Prerequisites, the
 following elements must be included in every Courts record:
-* county
-* statusdate
-* casestatusrowid [1]
+* courtcircuitnciccode
+* casetype
+* casesequencenumber
 
 ##### Example
 ```json
@@ -306,9 +313,9 @@ following elements must be included in every Courts record:
             "EntityType": "di-aoic-courts-case-status",
             "EntityId": "case_status_record",
             "EntityData": {
-                "county": "dupage",
-                "statusdate": "02/20/2023",
-                "casestatusrowid": "2023-dupage-traffic-vendorname-5710"
+                "circuitcourtnciccode": "IL081025J-Rock Island 14th",
+                "casetype": "traffic",
+                "casesequencenumber": "18"
             }
         }
     ]
@@ -316,6 +323,49 @@ following elements must be included in every Courts record:
 ```
 ##### Notes
 [1] Must be present for certification
+
+### Error Handling
+When submitting records to the pipeline, you will receive a SUCCESS message that indicates that your envelope was successfully receive. However, there may be errors in the submission. You will be notified of errors via email in approximately under a minute of submission. The email you receive will come from AWS Notifications with a subject containing Connected Communities Error:
+
+The notification will indicate a single error that needs to be fixed, though there may be multiple errors in the submission. You will receive one email per submission with a single error until all errors are resolved. It is suggested that you correct the error on the element in question and investigate if that error may exist throughout your submission. For example, if you receive a required error, it’s suggested to resolve the error for that element and interrogate the rest of your submission to find other elements that cause that error before submitting again.
+After all errors are resolved, error emails will no longer be sent. At this time, you should proceed to send your SUCCESS message and EnvelopeId to TYLER’S EMAIL ADDRESS OR FORM URL
+Here are some of the most common errors you may encounter:
+#### Required Element:
+The certification endpoint requires critical elements, if one of the critical elements is missing from the submission, you’ll receive an error.
+Fix: The message contains an element that is expected, but not provided in the submission.
+keyword: required
+dataPath:
+schemaPath: #/required
+message: should have required property '.county'
+Message: Contract Schema Failed Validation.
+ErrorSchema: di-aoic-pretrial-individual-background
+#### Keyword Pattern:
+In certification, critical elements have pattern matching that test the contents of the element’s string value. This error is checking for a pattern within the string against RegEx for the expected date format.
+Fix: Check the contents of the dataPath element and confirm that your submission matches the expected contents. In the example below, it tests that contents match a date format similar to MM/DD/YYYY format.
+keyword: pattern
+dataPath: .status_date
+schemaPath: #/properties/status_date/pattern
+message: should match pattern "(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d"
+Message: Contract Schema Failed Validation.
+ErrorSchema: di-aoic-courts-case-status
+#### Additional Properties:
+There is an element in the submission that is not listed in the data elements.
+Fix: Remove any elements from the submission that are not included in the data elements. The element in question may or may not be listed as the dataPath
+keyword: additionalProperties
+dataPath:
+schemaPath: #/additionalProperties
+message: should NOT have additional properties
+Message: Contract Schema Failed Validation.
+#### Type:
+Non-critical elements must have correct json formatting to either be a number or string. If the data element should be a number, it should not be formatted as a string.
+Fix: Ensure the dataPath element’s submission includes a number and is not wrapped in quotes.
+keyword: type
+dataPath: .localid
+schemaPath: #/properties/localid/type
+message: should be number
+Message: Contract Schema Failed Validation.
+ErrorSchema: di-aoic-problem-solving-courts-individual-background
+
 
 ## FAQ 
 1. Where can I find more information about the API?
