@@ -19,7 +19,7 @@ Each Vendor should submit all available data elements and
 specifically include all pipeline critical elements noted in the
 Pipeline Critical Elements section below. The submission is
 considered acceptable if no validation errors are triggered and
-the required data elements contai*n* a value suitable for its
+the required data elements contain a value suitable for its
 respective datatype. **Certification will occur by program per
 county.**
 
@@ -320,52 +320,62 @@ following elements must be included in every Courts record:
 }
 ```
 
-### Troubleshooting Errors
+## Troubleshooting Errors
 When submitting records to the pipeline, you will receive a SUCCESS message that indicates that your envelope was successfully received. However, there may be errors in the submission. You will be notified of errors via email in approximately under a minute of submission. The email you receive will come from AWS Notifications with a subject containing Connected Communities Error:
 
 The notification will indicate a single error that needs to be fixed, though there may be multiple errors in the submission. You will receive one email per submission with a single error until all errors are resolved. It is suggested that you correct the error on the element in question and investigate if that error may exist throughout your submission. For example, if you receive a required error, it’s suggested to resolve the error for that element and interrogate the rest of your submission to find other elements that cause that error before submitting again.
 After all errors are resolved, error emails will no longer be sent. At this time, you should proceed to send your SUCCESS message and EnvelopeId to TYLER’S EMAIL ADDRESS OR FORM URL
 Here are some of the most common errors you may encounter:
-#### Required Element:
+### Required Element
 The certification endpoint requires critical elements, if one of the critical elements is missing from the submission, you’ll receive an error.
-Fix: The message contains an element that is expected, but not provided in the submission.
+```
 keyword: required
 dataPath:
 schemaPath: #/required
 message: should have required property '.county'
 Message: Contract Schema Failed Validation.
 ErrorSchema: di-aoic-pretrial-individual-background
-#### Keyword Pattern:
-In certification, critical elements have pattern matching that test the contents of the element’s string value. This error is checking for a pattern within the string against RegEx for the expected date format.
-Fix: Check the contents of the dataPath element and confirm that your submission matches the expected contents. In the example below, it tests that contents match a date format similar to MM/DD/YYYY format.
+```
+**Fix:** Provide critical elements and resend message
+### Keyword Pattern
+In certification, critical elements have pattern matching that test the contents of the element’s string value. The pipeline validates the data by checking for a pattern within the string against RegEx for the expected date format. If that pattern is not met then you will receive an error:
+```
 keyword: pattern
 dataPath: .status_date
 schemaPath: #/properties/status_date/pattern
 message: should match pattern "(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d"
 Message: Contract Schema Failed Validation.
 ErrorSchema: di-aoic-courts-case-status
-#### Additional Properties:
+```
+
+**Fix:** Check the contents of the dataPath element and confirm that your submission matches the expected contents. In the example below, it tests that contents match a date format similar to MM/DD/YYYY format.
+### Additional Properties
 There is an element in the submission that is not listed in the data elements.
-Fix: Remove any elements from the submission that are not included in the data elements. The element in question may or may not be listed as the dataPath
+```
 keyword: additionalProperties
 dataPath:
 schemaPath: #/additionalProperties
 message: should NOT have additional properties
 Message: Contract Schema Failed Validation.
-#### Type:
+```
+**Fix:** Remove any elements from the submission that are not included in the data elements. The element in question may or may not be listed as the dataPath
+### Type
 Non-critical elements must have correct json formatting to either be a number or string. If the data element should be a number, it should not be formatted as a string.
-Fix: Ensure the dataPath element’s submission includes a number and is not wrapped in quotes.
+```
 keyword: type
 dataPath: .localid
 schemaPath: #/properties/localid/type
 message: should be number
 Message: Contract Schema Failed Validation.
 ErrorSchema: di-aoic-problem-solving-courts-individual-background
+```
+**Fix:** Ensure the dataPath element’s submission includes a number and is not wrapped in quotes.
+
 
 
 ## FAQ 
-1. Where can I find more information about the API?
-   2. Please refer to the [API documentation](api) for more information.
+1. Where can I find more information about the API? 
+   * Please refer to the [API documentation](api) for more information.
 2. What happens if I get a SUCCESS response but receive an
 error message for data validation?
    * If there is an error in your submission, you’ll receive an
