@@ -131,7 +131,7 @@ These should be passed as attributes in the object. For example
                 "offenderid": "4354",
                 "dateofbirth": "11/12/1982",
                 "sexperceived": "Male",
-                "pretrialbackgroundid": "2023-cook-ordinanceviolation-vendorname-9152",
+                "recordid": 2468,
                 "county": "cook"
             }
         }
@@ -142,7 +142,7 @@ These should be passed as attributes in the object. For example
 ##### Notes on the entity data object
 There are a couple of critical items to watch out for when building the entityData object:
 * **Data Elements** - Each entity **must** include the required elements listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D), in the format specified. Failure to include these elements, or to format them in the right way could result in certification failure
-* **RowID** - The rowID is used to allow the vendor the maintain (modify, update, delete) the data after it's been submitted. This is a unique identifier for the object in the local source system. Each object **must** have a unique rowID.  
+* **RecordID** - The RecordID is used to allow the vendor the maintain (modify, update, delete) the data after it's been submitted. This is a unique identifier for the object in the local source system. Each object **must** have a unique RecordID.  
 
 
 ### Send the message
@@ -187,13 +187,13 @@ The following section provides a series of data element examples for each progra
 ### Pretrial Program Pipeline Critical Elements
 In addition to the Data Verification Prerequisites, the following elements must be included in every PSC record:
 
-* prosecutingcounty*
+* prosecutingcounty [1]
 * instanceid
 * offenderid
 * name
 * localid
-* dateofbirth* [1]
-* sexperceived* [1]
+* dateofbirth [1]
+* sexperceived [1]
 
 ##### Example
 ```json
@@ -209,7 +209,8 @@ In addition to the Data Verification Prerequisites, the following elements must 
                 "offenderid": "4354",
                 "dateofbirth": "11/12/1982",
                 "sexperceived": "Male",
-                "prosecutingcounty": "cook"
+                "prosecutingcounty": "cook",
+                "recordid": 3456
             }
         }
     ]
@@ -217,9 +218,7 @@ In addition to the Data Verification Prerequisites, the following elements must 
 ```
 
 ##### Notes
-[1] Must be present for certification
-
-[2] RowID: Submit a record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. It does not have to include additional variables. If you have concerns and would like to discuss alternative approaches, please contact us.
+[1] RecordID: Submit a record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. It does not have to include additional variables. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 
 
@@ -228,13 +227,13 @@ In addition to the Data Verification Prerequisites, the
 following elements must be included in every Probation
 record:
 
-* sentencingcounty*
+* sentencingcounty [1]
 * instanceid
 * offenderid
 * name
 * localid
-* dateofbirth* [1]
-* sexperceived* [1]
+* dateofbirth [1]
+* sexperceived [1]
 
 ##### Example
 ```json
@@ -250,27 +249,26 @@ record:
                 "offenderid": "4535",
                 "dateofbirth": "03/14/1959",
                 "sexperceived": "Male",
-                "sentencingcounty": "kankakee"
+                "sentencingcounty": "kankakee",
+                "recordid": 6789
             }
         }
     ]
 }
 ```
 ##### Notes
-[1] Must be present for certification
-
-[2] RowID: Submit a record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. It does not have to include additional variables. If you have concerns and would like to discuss alternative approaches, please contact us.
+[1] RecordID: Submit a record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. It does not have to include additional variables. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 ### Problem Solving Courts Program Pipeline Critical Elements
 In addition to the Data Verification Prerequisites, the
 following elements must be included in every PSC record:
-* sentencingcounty*
+* sentencingcounty [1]
 * instanceid
 * offenderid
 * name
 * localid
-* dateofbirth* [1]
-* sexperceived* [1]
+* dateofbirth [1]
+* sexperceived [1]
 
 ##### Example
 ```json
@@ -286,16 +284,15 @@ following elements must be included in every PSC record:
                 "offenderid": "4575",
                 "dateofbirth": "12/21/1991",
                 "sexperceived": "Female",
-                "sentencingcounty": "sangamon"
+                "sentencingcounty": "sangamon",
+                "recordid": 1234
             }
         }
     ]
 }
 ```
 ##### Notes
-[1] Must be present for certification
-
-[2] RowID: Submit a record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. It does not have to include additional variables. If you have concerns and would like to discuss alternative approaches, please contact us.
+[1] RecordID: Submit a record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. It does not have to include additional variables. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 
 ## Courts Program Pipeline Critical Elements
@@ -315,17 +312,16 @@ following elements must be included in every Courts record:
             "EntityData": {
                 "circuitcourtnciccode": "IL081025J-Rock Island 14th",
                 "casetype": "traffic",
-                "casesequencenumber": "18"
+                "casesequencenumber": "18",
+                "recordid": 2468
             }
         }
     ]
 }
 ```
-##### Notes
-[1] Must be present for certification
 
-### Error Handling
-When submitting records to the pipeline, you will receive a SUCCESS message that indicates that your envelope was successfully receive. However, there may be errors in the submission. You will be notified of errors via email in approximately under a minute of submission. The email you receive will come from AWS Notifications with a subject containing Connected Communities Error:
+### Troubleshooting Errors
+When submitting records to the pipeline, you will receive a SUCCESS message that indicates that your envelope was successfully received. However, there may be errors in the submission. You will be notified of errors via email in approximately under a minute of submission. The email you receive will come from AWS Notifications with a subject containing Connected Communities Error:
 
 The notification will indicate a single error that needs to be fixed, though there may be multiple errors in the submission. You will receive one email per submission with a single error until all errors are resolved. It is suggested that you correct the error on the element in question and investigate if that error may exist throughout your submission. For example, if you receive a required error, it’s suggested to resolve the error for that element and interrogate the rest of your submission to find other elements that cause that error before submitting again.
 After all errors are resolved, error emails will no longer be sent. At this time, you should proceed to send your SUCCESS message and EnvelopeId to TYLER’S EMAIL ADDRESS OR FORM URL
