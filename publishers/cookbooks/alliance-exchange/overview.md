@@ -206,9 +206,12 @@ additional record(s).
 with the envelopeID, this is needed for Step 3**
 
 ## Step 3: Complete Certification
-Vendors must email their SUCCESS response and EnvelopeID. **Note: Separate emails must be sent for each county program area**.
-* Send to: [data-certification@tylertech.com](mailto:data-certification@tylertech.com)
-* Subject: Certification SUCCESS - [Program Area - County]
+Vendors must submit their SUCCESS response via [Vendor Successful Submission form](https://forms.office.com/Pages/ResponsePage.aspx?id=-fDFfFvuBkGmLRufe-RhGIWjic7n3kZCuRa8Z_5piIZURURKTzRMNU9QMDRONFlMV1MyMVFMTlhUUS4u) (also see Troubleshooting Errors section above). Note: Separate forms must be submitted for each county program area.
+The form **must** include:
+* Vendor Name 
+* County 
+* Program 
+* EnvelopeID
 
 Tyler will confirm receipt of the email within 1 business day.
 
@@ -368,7 +371,7 @@ following elements must be included in every Courts record:
 When submitting records to the pipeline, you will receive a SUCCESS message that indicates that your envelope was successfully received. However, there may be errors in the submission. You will be notified of errors via email in approximately under a minute of submission. The email you receive will come from AWS Notifications with a subject containing Connected Communities Error.
 
 The notification will indicate a single error that needs to be fixed, though there may be multiple errors in the submission. You will receive one email per submission with a single error until all errors are resolved. It is suggested that you correct the error on the element in question and investigate if that error may exist throughout your submission. For example, if you receive a required error, it’s suggested to resolve the error for that element and interrogate the rest of your submission to find other elements that cause that error before submitting again.
-After all errors are resolved, error emails will no longer be sent. At this time, you should proceed to send your SUCCESS message and EnvelopeId to [data-certification@tylertech.com](mailto:data-certification@tylertech.com)
+After all errors are resolved, error emails will no longer be sent. At this time, you should submit your SUCCESS information into the [Vendor Successful Submission form](https://forms.office.com/Pages/ResponsePage.aspx?id=-fDFfFvuBkGmLRufe-RhGIWjic7n3kZCuRa8Z_5piIZURURKTzRMNU9QMDRONFlMV1MyMVFMTlhUUS4u)
 The following sections detail some of the most common errors you may encounter.
 ### Required Element
 The certification endpoint requires critical elements, if one of the critical elements is missing from the submission, you’ll receive an error.
