@@ -77,7 +77,7 @@ An example message might look like:
               "dateofbirth": "11/12/1982",
               "sexperceived": "Male",
               "recordid": 2468,
-              "county": "cook"
+              "sentencingcounty": "Cook"
            }
         }
       ],
@@ -171,7 +171,7 @@ These should be passed as attributes in the object. For example:
                 "dateofbirth": "11/12/1982",
                 "sexperceived": "Male",
                 "recordid": 2468,
-                "county": "cook"
+                "prosecutingcounty": "Cook"
             }
         }
     ]
@@ -179,7 +179,7 @@ These should be passed as attributes in the object. For example:
 ```
 
 ##### Notes on the entity data object
-There are a couple of critical items to watch out for when building the entityData object:
+There are a couple of critical items to watch out for when building the EntityData object:
 * **Data Elements** - Each entity **must** include the required elements listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D), in the format specified. Failure to include these elements, or to format them in the right way could result in certification failure.
 * **RecordID** - The RecordID is used to allow the vendor the maintain (modify, update, delete) the data after it's been submitted. This is a unique identifier for the object in the local source system. Each object **must** have a unique RecordID.  
 
@@ -249,7 +249,7 @@ In addition to the Data Verification Prerequisites, the following elements must 
                 "offenderid": "4354",
                 "dateofbirth": "11/12/1982",
                 "sexperceived": "Male",
-                "prosecutingcounty": "cook",
+                "prosecutingcounty": "Cook",
                 "recordid": 3456
             }
         }
@@ -290,7 +290,7 @@ record:
                 "offenderid": "4535",
                 "dateofbirth": "03/14/1959",
                 "sexperceived": "Male",
-                "sentencingcounty": "kankakee",
+                "sentencingcounty": "Kankakee",
                 "recordid": 6789
             }
         }
@@ -326,7 +326,7 @@ following elements must be included in every PSC record:
                 "offenderid": "4575",
                 "dateofbirth": "12/21/1991",
                 "sexperceived": "Female",
-                "sentencingcounty": "sangamon",
+                "sentencingcounty": "Sangamon",
                 "recordid": 1234
             }
         }
@@ -340,7 +340,7 @@ following elements must be included in every PSC record:
 ### Courts Program Pipeline Critical Elements
 In addition to the Data Verification Prerequisites, the
 following elements must be included in every Courts record:
-* courtcircuitnciccode
+* circuitcourtnciccode
 * casetype
 * casesequencenumber
 * recordid (see note below)
