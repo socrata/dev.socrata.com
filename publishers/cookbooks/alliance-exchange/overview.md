@@ -12,7 +12,7 @@ to the staging pipeline.
 Vendors will leverage their vendor specific authorization token
 and the Judicial Analytics Pipeline to upload and validate data. A
 connection will qualify for certification and verification if a
-`SUCCESS` response is received for at least 10 records per program, and there are no errors within the
+`SUCCESS` response is received for at least 1 record per program, and there are no errors within the
 Pipeline’s internal logs.
 
 Each Vendor should submit all available data elements and
@@ -32,7 +32,7 @@ certification can begin.**
 The following are required to begin the Certification
 Process:
 
-* A minimum of 10 records reflecting data requirements per
+* A minimum of 1 records reflecting data requirements per
 program (Probation, Pretrial, PSC, and Courts)
 * Vendor specific Credential Pair 
 * Submission of the Court Mapping Tool to AOIC *(Courts
@@ -71,12 +71,12 @@ An example message might look like:
           "EntityType": "di-aoic-problem-solving-courts-individual-background",
           "EntityData": {
               "name": "Dale Bell",
-              "localid": 9152,
+              "localid": "9152",
               "instanceid": "5008",
               "offenderid": "4354",
               "dateofbirth": "11/12/1982",
               "sexperceived": "Male",
-              "recordid": 2468,
+              "recordid": "2468",
               "sentencingcounty": "Cook"
            }
         }
@@ -107,11 +107,11 @@ Details for each attribute are as follows:
 | field          | allowed_type | required | description                                                                                                                         |
 |----------------|--------------|----------|-------------------------------------------------------------------------------------------------------------------------------------|
 | EntityID       | string       | Y        | Always set to `AOIC`                                                                                                                |
-| EntityType     | string       | Y        | Maps to the specific program and data in the format `di-[Program Name]-[Dataset Name]`. See [below for more examples](#entitytypes) |
-| EntityData     | object       | Y        | The record associated with this entity                                                                                              |
+| EntityType     | string       | Y        | Maps to the specific program and data in the format `di-[Program Name]-[Dataset Name]`. See [below for more examples](#entity-types) |
+| EntityData     | object       | Y        | The record associated with this Entity                                                                                              |
 
 ##### Entity Types
-Entity types map the record to a specific program and dataset. Valid EntityTypes are:
+EntityTypes map the record to a specific program and dataset. Valid EntityTypes are:
 ```
 di-aoic-court-administration
 di-aoic-court-adr
@@ -154,7 +154,7 @@ di-aoic-probation-violations-and-sanctions
 
 
 ##### Entity Data
-Every entity data object must contain the elements, in the format required, listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D)
+Every EntityData object must contain the elements, in the format required, listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D)
 
 These should be passed as attributes in the object. For example:
 ```json
@@ -165,12 +165,12 @@ These should be passed as attributes in the object. For example:
             "EntityId": "violations_record",
             "EntityData": {
                 "name": "Dale Bell",
-                "localid": 9152,
+                "localid": "9152",
                 "instanceid": "5008",
                 "offenderid": "4354",
                 "dateofbirth": "11/12/1982",
                 "sexperceived": "Male",
-                "recordid": 2468,
+                "recordid": "2468",
                 "prosecutingcounty": "Cook"
             }
         }
@@ -178,9 +178,9 @@ These should be passed as attributes in the object. For example:
 }
 ```
 
-##### Notes on the entity data object
+##### Notes on the EntityData object
 There are a couple of critical items to watch out for when building the EntityData object:
-* **Data Elements** - Each entity **must** include the required elements listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D), in the format specified. Failure to include these elements, or to format them in the right way could result in certification failure.
+* **Data Elements** - Each Entity **must** include the required elements listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D), in the format specified. Failure to include these elements, or to format them in the right way could result in certification failure.
 * **RecordID** - The RecordID is used to allow the vendor the maintain (modify, update, delete) the data after it's been submitted. This is a unique identifier for the object in the local source system. Each object **must** have a unique RecordID.  
 
 
@@ -218,13 +218,13 @@ Tyler will confirm receipt of the email within 1 business day.
 Upon successful validation Tyler will submit the vendor’s certification with the AOIC and notify the vendor that certification has been completed. 
 * Successful submissions will include all critical elements and correct formatting of all available data elements. 
 * When a successful submission has been verified, Tyler will request that the vendor confirm that they will resolve data issues noted during the certification process prior to being granted access to the staging pipeline.
-* When a submission has been verified as successful and the confirmation is received by the vendor, Tyler will submit the vendor’s certification to the AOIC and notify the vendor that certification has been completed.  
+* When a submission has been verified as successful and the confirmation is received from the vendor, Tyler will submit the vendor’s certification to the AOIC and notify the vendor that certification has been completed.  
 
 ## Examples
 The following section provides a series of data element examples for each program.
 
 ### Pretrial Program Pipeline Critical Elements
-In addition to the Data Verification Prerequisites, the following elements must be included in every Pretrial record:
+The following elements must be included in every Pretrial record:
 
 * prosecutingcounty
 * instanceid
@@ -244,13 +244,13 @@ In addition to the Data Verification Prerequisites, the following elements must 
             "EntityId": "violations_record",
             "EntityData": {
                 "name": "Dale Bell",
-                "localid": 9152,
+                "localid": "9152",
                 "instanceid": "5008",
                 "offenderid": "4354",
                 "dateofbirth": "11/12/1982",
                 "sexperceived": "Male",
                 "prosecutingcounty": "Cook",
-                "recordid": 3456
+                "recordid": "3456"
             }
         }
     ]
@@ -258,13 +258,12 @@ In addition to the Data Verification Prerequisites, the following elements must 
 ```
 
 ##### Notes
-`recordid` - A record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. If you have concerns and would like to discuss alternative approaches, please contact us.
+`recordid` - A record ID or primary key for the record. This value should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 
 
 ### Probation Program Pipeline Critical Elements
-In addition to the Data Verification Prerequisites, the
-following elements must be included in every Probation
+The following elements must be included in every Probation
 record:
 
 * sentencingcounty
@@ -285,24 +284,23 @@ record:
             "EntityId": "individual_background_record",
             "EntityData": {
                 "name": "John Smith",
-                "localid": 6726,
+                "localid": "6726",
                 "instanceid": "3005",
                 "offenderid": "4535",
                 "dateofbirth": "03/14/1959",
                 "sexperceived": "Male",
                 "sentencingcounty": "Kankakee",
-                "recordid": 6789
+                "recordid": "6789"
             }
         }
     ]
 }
 ```
 ##### Notes
-`recordid` - A record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. If you have concerns and would like to discuss alternative approaches, please contact us.
+`recordid` - A record ID or primary key for the record. This value should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 ### Problem Solving Courts Program Pipeline Critical Elements
-In addition to the Data Verification Prerequisites, the
-following elements must be included in every PSC record:
+The following elements must be included in every PSC record:
 * sentencingcounty
 * instanceid
 * offenderid
@@ -321,20 +319,20 @@ following elements must be included in every PSC record:
             "EntityId": "screening_record",
             "EntityData": {
                 "name": "Jane Doe",
-                "localid": 2667,
+                "localid": "2667",
                 "instanceid": "3423",
                 "offenderid": "4575",
                 "dateofbirth": "12/21/1991",
                 "sexperceived": "Female",
                 "sentencingcounty": "Sangamon",
-                "recordid": 1234
+                "recordid": "1234"
             }
         }
     ]
 }
 ```
 ##### Notes
-`recordid` - A record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. If you have concerns and would like to discuss alternative approaches, please contact us.
+`recordid` - A record ID or primary key for the record. This value should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 
 ### Courts Program Pipeline Critical Elements
@@ -356,14 +354,14 @@ following elements must be included in every Courts record:
                 "circuitcourtnciccode": "IL081025J-Rock Island 14th",
                 "casetype": "traffic",
                 "casesequencenumber": "18",
-                "recordid": 2468
+                "recordid": "2468"
             }
         }
     ]
 }
 ```
 ##### Notes
-`recordid` - A record ID or primary key for the record. This number should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. If you have concerns and would like to discuss alternative approaches, please contact us.
+`recordid` - A record ID or primary key for the record. This value should be unique. You are free to submit a string in any format as long as it uniquely identifies the record in your system. If you have concerns and would like to discuss alternative approaches, please contact us.
 
 
 
@@ -470,7 +468,7 @@ Our team is here to help! We are offering various options to
 support you throughout this process:
 
 * Office Hours: We are excited to offer Office Hours each
-Wednesday 12:00pm Central Daylight Time through April
+Wednesday at 12:00pm Central Daylight Time through April
 26th. Each vendor has already been added to this standing
 meeting and can join at any time. Simply bring your questions
 or issues and we’ll be ready to help via screen-share.
@@ -485,7 +483,7 @@ proactively.
 * Email Help: If you prefer, you can also reach out to us at
   [data-certification@tylertech.com](mailto:data-certification@tylertech.com). Our dedicated team of
 experts will respond as quickly as possible between 8am –
-8pm Central Daylight Time, within 1 business day, excluding
+6pm Central Daylight Time, within 1 business day, excluding
 weekends. When writing in, it is helpful if you consider the
 following guidelines to help ensure that we can respond and
 resolve your question as quickly and efficiently as possible:
