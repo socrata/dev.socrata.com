@@ -338,7 +338,7 @@ The following elements must be included in every PSC record:
 ### Courts Program Pipeline Critical Elements
 In addition to the Data Verification Prerequisites, the
 following elements must be included in every Courts record:
-* circuitcourtnciccode
+* circuitcourtncicnumber
 * casetype
 * casesequencenumber
 * recordid (see note below)
@@ -351,7 +351,7 @@ following elements must be included in every Courts record:
             "EntityType": "di-aoic-courts-case-status",
             "EntityId": "case_status_record",
             "EntityData": {
-                "circuitcourtnciccode": "IL081025J-Rock Island 14th",
+                "circuitcourtncicnumber": "IL081025J-Rock Island 14th",
                 "casetype": "traffic",
                 "casesequencenumber": "18",
                 "recordid": "2468"
