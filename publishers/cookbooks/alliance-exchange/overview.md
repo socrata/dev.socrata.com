@@ -32,7 +32,7 @@ certification can begin.**
 The following are required to begin the Certification
 Process:
 
-* A minimum of 1 records reflecting data requirements per
+* A minimum of 1 record reflecting data requirements per
 program (Probation, Pretrial, PSC, and Courts)
 * Vendor specific Credential Pair 
 * Submission of the Court Mapping Tool to AOIC *(Courts
