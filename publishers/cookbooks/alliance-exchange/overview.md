@@ -353,7 +353,7 @@ following elements must be included in every Courts record:
             "EntityData": {
                 "circuitcourtncicnumber": "IL081025J-Rock Island 14th",
                 "casetype": "traffic",
-                "casesequencenumber": "18",
+                "casesequencenumber": "12345678",
                 "recordid": "2468"
             }
         }
