@@ -348,7 +348,7 @@ following elements must be included in every Courts record:
 {
     "Entities": [
         {
-            "EntityType": "di-aoic-courts-case-status",
+            "EntityType": "di-aoic-court-case-status",
             "EntityId": "case_status_record",
             "EntityData": {
                 "circuitcourtnciccode": "IL081025J-Rock Island 14th",
@@ -390,7 +390,7 @@ dataPath: .status_date
 schemaPath: #/properties/status_date/pattern
 message: should match pattern "(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d"
 Message: Contract Schema Failed Validation.
-ErrorSchema: di-aoic-courts-case-status
+ErrorSchema: di-aoic-court-case-status
 ```
 
 **Fix:** Check the contents of the dataPath element and confirm that your submission matches the expected contents. In the example below, it tests that contents match a date format similar to MM/DD/YYYY format.
