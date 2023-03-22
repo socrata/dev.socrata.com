@@ -63,27 +63,30 @@ Every message consists of an `envelope`. The `envelope` contains a series of `ev
 An example message might look like:
 ```json
 {
-  "Events": [
-    {
-      "Entities": [
+    "ResolveMappings": true,
+    "ValidateEnvelope": true,
+    "Events": [
         {
-          "EntityId": "AOIC",
-          "EntityType": "di-aoic-problem-solving-courts-individual-background",
-          "EntityData": {
-              "name": "Dale Bell",
-              "localid": "9152",
-              "instanceid": "5008",
-              "offenderid": "4354",
-              "dateofbirth": "11/12/1982",
-              "sexperceived": "Male",
-              "recordid": "2468",
-              "sentencingcounty": "Cook"
-           }
+            "EventType": "di-aoic-new-record-event",
+            "Entities": [
+                {
+                    "EntityType": "di-aoic-problemsolvingcourts-screening",
+                    "EntityId": "screening_record",
+                    "LinkEntity": true,
+                    "EntityData": {
+                        "name": "Jane Doe",
+                        "localid": "2667",
+                        "instanceid": "3423",
+                        "offenderid": "4575",
+                        "dateofbirth": "12/21/1991",
+                        "sexperceived": "Female",
+                        "sentencingcounty": "Sangamon",
+                        "recordid": "1234"
+                    }
+                }
+            ]
         }
-      ],
-      "EventType": "di-aoic-new-record-event"
-    }
-  ]
+    ]
 }
 ```
 Details for each attribute of the `Envelope` are:
@@ -238,20 +241,28 @@ The following elements must be included in every Pretrial record:
 ##### Example
 ```json
 {
-    "Entities": [
+    "ResolveMappings": true,
+    "ValidateEnvelope": true,
+    "Events": [
         {
-            "EntityType": "di-aoic-pretrial-violations",
-            "EntityId": "violations_record",
-            "EntityData": {
-                "name": "Dale Bell",
-                "localid": "9152",
-                "instanceid": "5008",
-                "offenderid": "4354",
-                "dateofbirth": "11/12/1982",
-                "sexperceived": "Male",
-                "prosecutingcounty": "Cook",
-                "recordid": "3456"
-            }
+            "EventType": "di-aoic-new-record-event",
+            "Entities": [
+                {
+                    "EntityType": "di-aoic-pretrial-violations",
+                    "EntityId": "violations_record",
+                    "LinkEntity": true,
+                    "EntityData": {
+                        "name": "Dale Bell",
+                        "localid": "9152",
+                        "instanceid": "5008",
+                        "offenderid": "4354",
+                        "dateofbirth": "11/12/1982",
+                        "sexperceived": "Male",
+                        "prosecutingcounty": "Cook",
+                        "recordid": "3456"
+                    }
+                }
+            ]
         }
     ]
 }
@@ -271,27 +282,35 @@ record:
 * offenderid
 * name
 * localid
-* dateofbirth
-* sexperceived
+* dateofbirth (MM-DD-YYYY or MM/DD/YYYY)
+* sexperceived (Female, Male, or Other/Unknown)
 * recordid (see note below)
 
 ##### Example
 ```json
 {
-    "Entities": [
+    "ResolveMappings": true,
+    "ValidateEnvelope": true,
+    "Events": [
         {
-            "EntityType": "di-aoic-probation-individual-background",
-            "EntityId": "individual_background_record",
-            "EntityData": {
-                "name": "John Smith",
-                "localid": "6726",
-                "instanceid": "3005",
-                "offenderid": "4535",
-                "dateofbirth": "03/14/1959",
-                "sexperceived": "Male",
-                "sentencingcounty": "Kankakee",
-                "recordid": "6789"
-            }
+            "EventType": "di-aoic-new-record-event",
+            "Entities": [
+                {
+                    "EntityType": "di-aoic-probation-individual-background",
+                    "EntityId": "individual_background_record",
+                    "LinkEntity": true,
+                    "EntityData": {
+                        "name": "John Smith",
+                        "localid": "6726",
+                        "instanceid": "3005",
+                        "offenderid": "4535",
+                        "dateofbirth": "03/14/1959",
+                        "sexperceived": "Male",
+                        "sentencingcounty": "Kankakee",
+                        "recordid": "6789"
+                    }
+                }
+            ]
         }
     ]
 }
@@ -306,27 +325,35 @@ The following elements must be included in every PSC record:
 * offenderid
 * name
 * localid
-* dateofbirth
-* sexperceived
+* dateofbirth (MM-DD-YYYY or MM/DD/YYYY)
+* sexperceived (Female, Male, or Other/Unknown)
 * recordid (see note below)
 
 ##### Example
 ```json
 {
-    "Entities": [
+    "ResolveMappings": true,
+    "ValidateEnvelope": true,
+    "Events": [
         {
-            "EntityType": "di-aoic-problem-solving-courts-screening",
-            "EntityId": "screening_record",
-            "EntityData": {
-                "name": "Jane Doe",
-                "localid": "2667",
-                "instanceid": "3423",
-                "offenderid": "4575",
-                "dateofbirth": "12/21/1991",
-                "sexperceived": "Female",
-                "sentencingcounty": "Sangamon",
-                "recordid": "1234"
-            }
+            "EventType": "di-aoic-new-record-event",
+            "Entities": [
+                {
+                    "EntityType": "di-aoic-problemsolvingcourts-screening",
+                    "EntityId": "screening_record",
+                    "LinkEntity": true,
+                    "EntityData": {
+                        "name": "Jane Doe",
+                        "localid": "2667",
+                        "instanceid": "3423",
+                        "offenderid": "4575",
+                        "dateofbirth": "12/21/1991",
+                        "sexperceived": "Female",
+                        "sentencingcounty": "Sangamon",
+                        "recordid": "1234"
+                    }
+                }
+            ]
         }
     ]
 }
@@ -340,22 +367,30 @@ In addition to the Data Verification Prerequisites, the
 following elements must be included in every Courts record:
 * circuitcourtncicnumber
 * casetype
-* casesequencenumber
+* casesequencenumber (8 digits)
 * recordid (see note below)
 
 ##### Example
 ```json
 {
-    "Entities": [
+    "ResolveMappings": true,
+    "ValidateEnvelope": true,
+    "Events": [
         {
-            "EntityType": "di-aoic-court-case-status",
-            "EntityId": "case_status_record",
-            "EntityData": {
-                "circuitcourtncicnumber": "IL081025J-Rock Island 14th",
-                "casetype": "traffic",
-                "casesequencenumber": "18",
-                "recordid": "2468"
-            }
+            "EventType": "di-aoic-new-record-event",
+            "Entities": [
+                {
+                    "EntityType": "di-aoic-court-case-status",
+                    "EntityId": "case_status_record",
+                    "LinkEntity": true,
+                    "EntityData": {
+                        "circuitcourtncicnumber": "IL081025J-Rock Island 14th",
+                        "casetype": "traffic",
+                        "casesequencenumber": "12345678",
+                        "recordid": "2468"
+                    }
+                }
+            ]
         }
     ]
 }
@@ -412,7 +447,7 @@ dataPath: .localid
 schemaPath: #/properties/localid/type
 message: should be number
 Message: Contract Schema Failed Validation.
-ErrorSchema: di-aoic-problem-solving-courts-individual-background
+ErrorSchema: di-aoic-problemsolvingcourts-individual-background
 ```
 **Fix:** Ensure the dataPath element’s submission includes a number and is not wrapped in quotes.
 
