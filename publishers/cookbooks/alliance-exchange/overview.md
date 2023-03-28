@@ -470,27 +470,29 @@ error message for data validation?
    another error message calling out another error in the
    submission. Repeat the retry process until all errors are
    corrected. 
-2. I have multiple counties and program areas to submit.
+3. I have multiple counties and program areas to submit.
 Can I reuse my Token to repeat Step 2? 
    * Yes. The Token can be used to repeat Step 2 several times.
    However, the token is time-sensitive and will need to be
    recreated at 60 minutes.
 
-3. What does a response of "message":"Unauthorized" mean? 
+4. What does a response of "message":"Unauthorized" mean? 
    * It means there is an issue with your bearer token, a token
    is valid for 60 minutes, so you may need to recreate it.
+   Please also check which HTTP command you are using and make
+   sure it's a PUT, rather than a POST or a GET.
 
-4. How do I complete the certification reimbursement
+5. How do I complete the certification reimbursement
 process? 
    * Reach out to the AOIC with reimbursement specific
    questions. They are providing a FAQ for things related to
    this process.
 
-5. Who can I contact for assistance?
+6. Who can I contact for assistance?
    * Please contact [data-certification@tylertech.com](mailto:data-certification@tylertech.com) for
    assistance, questions, or live support.
 
-6. What are the data elements necessary for certification of
+7. What are the data elements necessary for certification of
 each Program?
    * See the Pipeline Critical Elements section above or review
    this SharePoint folder for .txt examples of each data
