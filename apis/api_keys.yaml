@@ -1,0 +1,358 @@
+openapi: 3.0.0
+info:
+  version: 1.0.4
+  title: API Key Management API
+  description: |-
+    API Keys are an alternative way to authenticate with Socrata APIs.
+
+    # Using API Keys
+
+    API Keys have two main components:
+      - `keyId`
+      - `keySecret`
+
+    After creating an API key, it can be used with [Basic authorization](https://en.wikipedia.org/wiki/Basic_access_authentication).
+    This is done by using the `keyId` as the username and the `keySecret` as the password.
+
+    For example, a header using an API key may look like:
+
+    ```
+    Authorization: Basic {keyId}:{keySecret}
+    ```
+
+    # Managing API Keys
+
+    API keys can be managed on the Socrata platform by logging in to any Socrata site and navigating to `/profile/edit/developer_settings`
+    (or, from your profile page, click "Edit Profile" and then "Developer Settings" in the sidebar).
+
+    API keys will keep track of when they were last used with the `lastUsedAtTimestamp`.
+    This value will update once a day. This means that if a key is used at 9am on Monday, its `lastUsedAtTimestamp` value will update again when it is used any time after 9am on Tuesday.
+
+    To disable an API key, you can delete it using the ["Delete an API Key"](#operation/deleteKey)
+    You will still be able to see the key if you provide the `includeDeleted` parameter in the ["List API Keys"](#operation/getKeys) call, but it cannot be used.
+
+    *Note: API Keys are not scoped to a specific Socrata domain.
+    An API Key that you create for your user will work on any Socrata domain.*
+
+    # Changelog
+
+    ## 1.0.4
+
+    Documentation updates.
+
+    ## 1.0.3
+
+    Renamed time-related fields in `ApiKey` schema:
+
+    - `createdAt` ➡ `createdAtTimestamp`
+    - `lastUsedAt` ➡ `lastUsedAtTimestamp`
+    - `deletedAt` ➡ `deletedAtTimeStamp`
+
+    There were duplicate keys for these in the JSON response; one would come back in seconds since epoch, and one would come back as an ISO 8601 timestamp.
+
+    _Note:_ The old field names are still returned in the response, but will be in seconds since epoch. The `*Timestamp` fields are preferred and as such are the ones documented here.
+
+    ## 1.0.2
+
+    Remove support for ES6 in `typescript-fetch` clients. This was breaking in Internet Explorer 11.
+
+    ## 1.0.1
+
+    Updates to parameter names and key deletion return type.
+
+    ## 1.0.0
+
+    Initial specification.
+tags:
+  - name: ApiKeys
+    x-displayName: API Key Management Api
+paths:
+  "/api/api_keys":
+    get:
+      summary: List API Keys
+      description: |-
+        Get metadata about API Keys.
+
+        *Note that only keys owned by the currently authenticated user will be listed.*
+      operationId: getKeys
+      tags:
+        - ApiKeys
+      parameters:
+        - name: limit
+          in: query
+          description: Number of keys to return. Default is 10, maximum is 100.
+          schema:
+            type: number
+        - name: sortBy
+          in: query
+          description: Sort column for returned keys
+          schema:
+            enum: [last_used_at, created_at, deleted_at, name]
+        - name: sortOrder
+          in: query
+          description: Sort order for returned keys
+          schema:
+            enum: [asc, desc]
+        - name: seek
+          in: query
+          description: Used for pagination. To get the next page of keys, pass in the keyId from the last key in the previous page.
+          schema:
+            type: string
+        - name: nameSearch
+          in: query
+          description: |-
+            Will return keys that include the given string in their name.
+
+            If given a full keyId, can also be used to find keys with a specific id.
+          schema:
+            type: string
+        - name: includeDeleted
+          in: query
+          description: Whether or not to include deleted keys in search results
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of keys
+          content:
+            application/json:
+              schema:
+                title: ListTokensSuccess
+                type: array
+                items:
+                  $ref: "#/components/schemas/ApiKey"
+    post:
+      summary: Create an API Key
+      description: |-
+        Create a new API key.
+
+        The response from this operation will include both the `keyId` and `keySecret` fields.
+
+        **This is the only time that the `keySecret` is disiplayed!**
+
+        Make sure to save it from the response.
+        If you use the ["View an API Key"](#operation/getKey) operation to view the key later, it will not include the secret.
+      operationId: createKey
+      tags:
+        - ApiKeys
+      requestBody:
+        description: "API Key to create."
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiKey"
+      responses:
+        "200":
+          description: The created key, with keyId and keySecret.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKey"
+        "400":
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/api/api_keys/{keyId}":
+    get:
+      summary: View an API Key
+      description: Get a single key for the current user.
+      operationId: getKey
+      tags:
+        - ApiKeys
+      parameters:
+        - $ref: "#/components/parameters/keyId"
+      responses:
+        "200":
+          description: "A single key is returned."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKey"
+        "404":
+          description: "Token not found."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseNotFound"
+    delete:
+      summary: Delete an API Key
+      description: |-
+        Deletes a specific API key.
+
+        When an API key is deleted, it can no longer be used to authenticate with the Socrata platform.
+
+        It will also only come back from the ["List API Keys"](#operation/getKeys) operation if the `includeDeleted` parameter is passed.
+
+        Deleted API keys will have the `deletedAtTimeStamp` field when they are deleted. Keys without this field are still active.
+      operationId: deleteKey
+      tags:
+        - ApiKeys
+      parameters:
+        - $ref: "#/components/parameters/keyId"
+      responses:
+        "200":
+          description: "The key was deleted."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKey"
+        "404":
+          description: "Token not found."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseNotFound"
+components:
+  parameters:
+    keyId:
+      name: keyId
+      in: path
+      required: true
+      description: The identifier of the key to delete.
+      schema:
+        type: string
+  schemas:
+    ApiKey:
+      type: object
+      required:
+        - keyName
+      properties:
+        keyName:
+          type: string
+          description: User-provided descriptive name for this key.
+        keyId:
+          type: string
+          description: The public identifier for this key. Can be passed in place of username in API calls.
+        keySecret:
+          type: string
+          description: |-
+            The secret access key for this key. Only returned upon initial key creation.
+
+            Can be passed in place of password for API calls.
+        createdAtTimestamp:
+          type: string
+          format: date-time
+          description: The time when this key was originally created.
+        lastUsedAtTimestamp:
+          type: string
+          format: date-time
+          description: The last time this key was used to access platform resources.
+        deletedAtTimestamp:
+          type: string
+          format: date-time
+          description: The time when this key was deleted. Not specified for keys that have not been deleted.
+        owner:
+          $ref: "#/components/schemas/KeyOwner"
+      example: {
+          "keyName": "Example API Key",
+          "keyId": "33a32ov2gl6eh6u6ziushg2uf", # these are not real keys!
+          "keySecret": "5xocip5a6p0i0zq6zki8kz1whhivywhvm6up1wd09huw818jmy",
+          "createdAtTimestamp": "2019-11-02T05:14:21.482Z",
+          "lastUsedAtTimestamp": "2019-11-02T06:14:21.482Z",
+          "owner":
+            {
+              "id": "cool-cats",
+              "displayName": "Example User",
+              "email": "user@example.com",
+            },
+        }
+    KeyOwner:
+      type: object
+      required:
+        - id
+        - displayName
+        - email
+      properties:
+        id:
+          type: string
+          description: UID (4x4) of the owner of this API key
+        displayName:
+          type: string
+          description: Name of the owner of this API key
+        email:
+          type: string
+          description: The email address of the owner of this API key
+      example:
+        {
+          "id": "cool-cats",
+          "displayName": "Example User",
+          "email": "user@example.com",
+        }
+    ErrorResponse:
+      discriminator:
+        propertyName: code
+        mapping:
+          API_KEY.INVALID_SECRET: "#/components/schemas/ErrorResponseInvalidSecret"
+          API_KEY.INSUFFICIENT_RIGHTS: "#/components/schemas/ErrorResponseInsufficientRights"
+          API_KEY.MISSING_FIELD: "#/components/schemas/ErrorResponseMissingField"
+          API_KEY.API_KEY.NAME_TAKEN: "#/components/schemas/ErrorResponseNameTaken"
+          API_KEY.NAME_TOO_LONG: "#/components/schemas/ErrorResponseNameTooLong"
+          API_KEY.NOT_FOUND: "#/components/schemas/ErrorResponseNotFound"
+          API_KEY.TOKEN_DELETED: "#/components/schemas/ErrorResponseDeleted"
+          API_KEY.TOKEN_LIMIT_REACHED: "#/components/schemas/ErrorResponseTokenLimitReached"
+          API_KEY.INVALID_PAGE_SIZE: "#/components/schemas/ErrorInvalidPageSize"
+          API_KEY.INVALID_SORT_COLUMN: "#/components/schemas/ErrorInvalidSortColumn"
+      properties:
+        error:
+          description: Always true
+          type: boolean
+        message:
+          description: Human readable error message
+          type: string
+        code:
+          description: Error code
+          type: string
+          enum:
+            - API_KEY.INVALID_SECRET
+            - API_KEY.INSUFFICIENT_RIGHTS
+            - API_KEY.MISSING_FIELD
+            - API_KEY.API_KEY.NAME_TAKEN
+            - API_KEY.NAME_TOO_LONG
+            - API_KEY.NOT_FOUND
+            - API_KEY.TOKEN_DELETED
+            - API_KEY.TOKEN_LIMIT_REACHED
+            - API_KEY.INVALID_PAGE_SIZE
+            - API_KEY.INVALID_SORT_COLUMN
+    ErrorResponseInvalidSecret:
+      description: Invalid secret was supplied for the given key
+      allOf:
+        - $ref: "#/components/schemas/ErrorResponse"
+    ErrorResponseInsufficientRights:
+      description: User has insufficient privileges to create an API key
+      allOf:
+        - $ref: "#/components/schemas/ErrorResponse"
+    ErrorResponseMissingField:
+      description: Given token is missing one or more fields
+      allOf:
+        - $ref: "#/components/schemas/ErrorResponse"
+    ErrorResponseNameTaken:
+      description: A key with the given name already exists
+      allOf:
+        - $ref: "#/components/schemas/ErrorResponse"
+    ErrorResponseNameTooLong:
+      description: Given key name is too long
+      allOf:
+        - $ref: "#/components/schemas/ErrorResponse"
+    ErrorResponseNotFound:
+      description: Key with the given ID not found
+      allOf:
+        - $ref: "#/components/schemas/ErrorResponse"
+    ErrorResponseDeleted:
+      description: Given key was deleted
+      allOf:
+        - $ref: "#/components/schemas/ErrorResponse"
+    ErrorResponseTokenLimitReached:
+      description: User has too many active API keys
+      allOf:
+        - $ref: "#/components/schemas/ErrorResponse"
+    ErrorInvalidPageSize:
+      description: Invalid page size (too large) given
+      allOf:
+        - $ref: "#/components/schemas/ErrorResponse"
+    ErrorInvalidSortColumn:
+      description: Invalid sort column given
+      allOf:
+        - $ref: "#/components/schemas/ErrorResponse"
