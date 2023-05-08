@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "casperjs": "^1.1.0-beta5",
+    "openapi-explorer": "^0.11.535",
     "r.js": "^1.0.3",
     "underscore": "^1.8.3"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

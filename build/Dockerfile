@@ -1,7 +1,7 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 
-RUN apt-get update -q && apt-get install -y \
+RUN apt-get update -q && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   libfontconfig1 \
   pkg-config \
   libxml2-dev \
@@ -18,7 +18,8 @@ RUN apt-get update -q && apt-get install -y \
   git \
   curl \
   dirmngr \
-  gnupg
+  gnupg \
+  ca-certificates
 
 # Setup a user account to run ruby and node later
 RUN adduser --shell /bin/bash --home /ci --disabled-password ci
@@ -50,13 +51,12 @@ COPY .tool-versions /ci/.tool-versions
 ENV RUBYOPT="-KU -E utf-8:utf-8"
 RUN asdf install
 
-COPY . /ci
+COPY --chown=ci:ci . /ci
 
 # Install node deps
 RUN npm install
 RUN npm install -g phantomjs-prebuilt
 
-# Install bundler and gems
 RUN gem install bundler --force --version 1.17.3
 RUN bundle install
 

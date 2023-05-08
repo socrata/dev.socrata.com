@@ -51,12 +51,30 @@ end
 
 desc "perform a full jekyll site build"
 task :jekyll do
+  Rake::Task['vendor'].invoke
+
   puts "Performing a full build...".green
   exec_and_manually_watch_for_errors 'bundle exec jekyll build'
 end
 
+desc "vendor js library"
+task :vendor do
+  unless Dir.exist?('node_modules')
+    puts "Running npm install...".green
+    exec_and_manually_watch_for_errors 'npm install'
+  end
+
+  puts "Vendoring files from node_modules into common/js/lib".green
+  { 'node_modules/openapi-explorer/dist/browser/openapi-explorer.min.js' => 'common/js/lib/openapi-explorer.min.js'
+  }.each do |src, tgt|
+    exec_and_manually_watch_for_errors "cp #{src} #{tgt}"
+  end
+end
+
 desc "automatically rebuild (incrementally), running a local server"
 task :serve do
+  Rake::Task['vendor'].invoke
+
   # Span a background fork for our incremental build
   jekyll_pid = fork do 
     puts "Performing an incremental build...".green
