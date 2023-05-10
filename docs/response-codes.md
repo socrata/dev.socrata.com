@@ -8,7 +8,7 @@ redirect_from:
 
 ## Response Codes
 
-The Socrata Open Data API responds with standard [HTTP Status Codes](https://httpstatusdogs.com/) for both successful requests and for errors. The table below lists the response codes you should expect to see. 
+The Socrata Open Data API responds with standard [HTTP Status Codes](https://http.dog/) for both successful requests and for errors. The table below lists the response codes you should expect to see. 
 
 | Code                          | Error          | Description         |
 | ---                           | ---            |
@@ -25,12 +25,12 @@ For [SODA 2.1](/docs/endpoints.html) API calls, we include a few response header
 | `Access-Control-Allow-Origin` | `*` | Allows browsers to make [cross-origin requests](/docs/cors-and-jsonp.html) for data |
 | `X-SODA2-Fields` | `["business","category", ...]` (truncated) | An array of the field names that may be included in this response |
 | `X-SODA2-Types` | `["text","text",...]` (truncated) | An array of the [data types](/docs/datatypes/) for fields included in this response |
-| `Last-Modified` | `Tue, 24 Feb 2015 18:51:22 GMT` | When the dataset backing this request was updated; may be used for caching |
+| `Last-Modified` | `Tue, 24 Feb 2015 18:51:22 GMT` | an [HTTP header](https://http.dev/last-modified) for when the dataset backing this request was updated; may be used for caching |
 | `ETag` | `"YWxwaGEuNTQzNV8...-gzip"` (truncated) | An [HTTP ETag](https://en.wikipedia.org/wiki/HTTP_ETag) which may be used for cache validation |
 
 There may be other headers included in responses, but they should not be relied upon and may change without notice.
 
-<p class="alert alert-info">HTTP Headers are limited by <a href="https://stackoverflow.com/questions/686217/maximum-on-http-header-values">practical constraints to a maximum size of 4K</a>. In order to keep our request header sizes below that limit, the <code>X-SODA2-Fields</code> and <code>X-SODA2-Types</code> headers may be omitted for datasets with a very large number of columns.</p>
+<p class="alert alert-info">[HTTP Headers](https://http.dev/headers) are limited by <a href="https://stackoverflow.com/questions/686217/maximum-on-http-header-values">practical constraints to a maximum size of 4K</a>. In order to keep our request header sizes below that limit, the <code>X-SODA2-Fields</code> and <code>X-SODA2-Types</code> headers may be omitted for datasets with a very large number of columns.</p>
 
 ## Error Messages
 
