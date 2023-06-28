@@ -42,7 +42,7 @@ The staging environment enforces additional validation on every submission. Impo
     - Please see the following section for how to fix categorical/enumeration errors: [4.2.5 Categorical Variable Enumeration](./staging-instructions#425-categorical-variable-enumeration)
 
 ## Other resources
-- [Staging pipeline instructions and FAQs](./staging_instructions)
-- [Staging definitions and guidance](./staging_definitions)
+- [Staging pipeline instructions and FAQs](./staging-instructions)
+- [Staging definitions and guidance](./staging-definitions)
 
 
