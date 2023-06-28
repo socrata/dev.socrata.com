@@ -9,6 +9,6 @@ the technical process of adding and updating data in the Tyler Judicial
 Analytics Pipeline. 
 
 To learn more, please visit the following pages
-- [Certification Overview](./certification.md)
-- [Staging Overview](./staging.md)
+- [Certification Overview](./certification)
+- [Staging Overview](./staging)
 - Production Overview

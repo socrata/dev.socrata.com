@@ -116,7 +116,7 @@ For these elements, please ensure that the values you provide for these elements
 ## 7. Accidentally Sent Incorrect Data. Now what?
 Accidents happen, and we want to help you resolve them. Even though this is a Staging Environment and not Production, we ask for your cooperation during this process in correcting erroneous records so as to reflect the practice of data validity that will be required in Production.
 
-We have two mechanisms for correcting data that you can leverage depending on the nature of the correction needed: Edits and Deletions. Please see [this link](./staging-definitions.md) for more detailed information about these processes
+We have two mechanisms for correcting data that you can leverage depending on the nature of the correction needed: Edits and Deletions. Please see [this link](./staging-definitions) for more detailed information about these processes
 
 # Guidance and Best Practices for *Data Modification* (Edits and Deletions)
 ## 1. Correcting/Augmenting Records (Edits)
@@ -261,7 +261,7 @@ Header: Please substitute `thisIsMyAuthToken` with the Security Token you receiv
 }
 ```
 
-Body: This will be the JSON contents containing your data submission. See here for an example: [Staging instructions](./staging-instructions.md#1-build-the-message)
+Body: This will be the JSON contents containing your data submission. See here for an example: [Staging instructions](./staging-instructions#1-build-the-message)
 
 ### Guidance and Best Practices for Pipeline Critical Elements
 The following section provides a series of data element examples for each program. Again, unlike the Required Fields denoted in the Data Elements, the Pipeline Critical Elements here must actually be included for a submission to be accepted by the pipeline.
