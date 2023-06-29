@@ -7,7 +7,7 @@ layout: chromeless
 
 ## About this Page
 The following definitions are meant to serve as a reference for concepts and terminology you will want to be familiar with during Staging. Please note that this is a living document and additional topics may be added here over the course of the Staging Process. As always, please let us know if there are additional concepts you want to see covered here.
-
+<br><br><br>
 ## Glossary of Commonly Used Terms and Definitions 
 - Types of Data used in the Tyler & AOIC Program:
     - *Mock Data*: fake data which is artificially inserted into the product. Typically used for early testing of a solution.
@@ -30,38 +30,47 @@ The following definitions are meant to serve as a reference for concepts and ter
         The Envelope ID is returned to you after you submit data to the pipeline. (Each “Envelope” is essentially a submission.) Although you do not need to generate the Envelope ID yourself, we ask that you retain it (as described below under the Best Practices section. The reason we ask you to retain the Envelope IDs after submissions is because the Envelope ID is how we look up messages on the backend in order to help you troubleshoot.
         
         Please see this section below for more info about Envelope IDs: [The envelope id](#the-envelope-id)
+<br><br><br>
 
-## Guidance and Best Practices for Data Submissions
-### 1. Important IDs to Track
+# Guidance and Best Practices for Data Submissions
+## 1. Important IDs to Track
 In the Staging Process, Datasets are not separated out by Vendor, and because Staging involves Live Data, the data’s validity is more important. Previously submitted records will sometimes need to be Edited or Deleted, as we will discuss in more depth below. Our Judicial Analytics System uses three pieces of information to uniquely identify a record: 1) the Record ID, 2) the County, and 3) the Vendor. We need your help with tracking two of these: the Record ID and County. (We also suggest that you track the Envelope ID for each submission, as described below.) You will need both of these in order to edit or delete records later on. Please see the following subsections for more information about what this means for you.
+<br><br>
 
-#### The Record ID
+### The Record ID
 Every `EntityType` (i.e. every dataset) has a Record ID column, denoted as `recordid`. As described above, this is an identifier for a record. It needs to be unique per County and per Vendor. *Please retain the Record ID after each submission.*
+<br><br>
 
-#### The County Elements
+### The County Elements
 There are multiple Data Elements that refer to counties: circuitcourtncicnumber, county, sentencingcountyname, prosecutingcountyname, and supervisingcounty. *Please retain these county elements after each submission.*
+<br><br>
 
-#### The Vendor
+### The Vendor
 *PLEASE NOTE*: This is actually tracked behind the scenes; you do not need to track a Vendor ID in your own data. It will be appended to your data on the backend as the Pipeline associates client credential pairs with vendors.
+<br><br>
 
-#### The Envelope ID
+### The Envelope ID
 *PLEASE NOTE*: The Envelope ID is not actually stored inside of a record itself. Rather, it is returned in response to a record. (Therefore, there is still a one-to-one correspondence between Envelopes and Records.)
+<br><br>
 
-#### The Timestamp
+### The Timestamp
 
 *Please make sure to retain the date and time of each submission*  you make to the pipeline.
 
 Nonetheless, we still ask that you please *retain Envelope IDs* for at least a short period of time after every submission, edit, and deletion, because they will help you and us in pinpointing and troubleshooting issues.
+<br><br><br>
 
 ## 2. Triggers for Sending Records
-There are certain events upon which a record should be submitted, either in the form of a new record or an update to an existing record. Both will use the `di-aoic-new-record-event`. However, the specific events that should trigger these submissions vary depending on the Data Element that is modified. Please consult [this spreadsheet for more information] (https://tylertech.sharepoint.com/:f:/s/Client/DI/AOIC/EiSA7hs7GsNAgzUMmloCaBABEeU9zckoJ2F6v2HLEuk8Vw?email=Patrick.Min%40tylertech.com&e=SJnE4f) Please see the “Dataset Overview” tab in each Dataset spreadsheet. When a new record is added, or the Key Date field within a given Dataset is modified, that serves as a trigger.
+There are certain events upon which a record should be submitted, either in the form of a new record or an update to an existing record. Both will use the `di-aoic-new-record-event`. However, the specific events that should trigger these submissions vary depending on the Data Element that is modified. Please consult [this spreadsheet for more information](https://tylertech.sharepoint.com/:f:/s/Client/DI/AOIC/EiSA7hs7GsNAgzUMmloCaBABEeU9zckoJ2F6v2HLEuk8Vw?email=Patrick.Min%40tylertech.com&e=SJnE4f) Please see the “Dataset Overview” tab in each Dataset spreadsheet. When a new record is added, or the Key Date field within a given Dataset is modified, that serves as a trigger.
 
 *Example*: In the Disposition and Release dataset for Pretrial, suppose there is an existing record. If that record’s Supervision End Date is changed, that should trigger a new event, because Supervision End Date is the Key Date for that dataset.
+<br><br><br>
 
 ## 3. Pipeline Critical Elements vs. Required Fields
 The Pipeline Critical Elements are necessary in order for data to be accepted by the pipeline. Please see the Pipeline Critical Elements section below for more information.
 
 Required Fields are elements that are necessary from a business perspective, but are not technically mandatory for data to be received. You can see which fields are Required in the [Data Elements spreadsheets](https://tylertech.sharepoint.com/:f:/s/Client/DI/AOIC/EiSA7hs7GsNAgzUMmloCaBABEeU9zckoJ2F6v2HLEuk8Vw?email=Patrick.Min%40tylertech.com&e=SJnE4f)
+<br><br><br>
 
 ## 4. Data Elements that Can Have Multiple Values
 The following list is an example of data elements that can have multiple values:
@@ -104,19 +113,23 @@ Defendant Alias Name
 
 Attorney(multiple attorneys may be representing the same litigant)
 ```
+<br><br><br>
 
 ## 5. Partial Caseloads
 Partial Caseloads will be allowed in Staging. We are mentioning it now because later, in Production, we will be establishing a particular starting date for which Caseloads should be included, and Caseloads prior to this date will need to be excluded.
+<br><br><br>
 
 ## 6. Spaces and Capitalization
 In the Staging Domain, the Data Elements that are categorical in nature have rigorous validation against finite, predefined sets of enumerated values. These are listed in the Data Elements for the applicable variables.
 
 For these elements, please ensure that the values you provide for these elements match one of the enumerated values precisely, with no differences in spacing and the same casing of letters.
+<br><br><br>
 
 ## 7. Accidentally Sent Incorrect Data. Now what?
 Accidents happen, and we want to help you resolve them. Even though this is a Staging Environment and not Production, we ask for your cooperation during this process in correcting erroneous records so as to reflect the practice of data validity that will be required in Production.
 
 We have two mechanisms for correcting data that you can leverage depending on the nature of the correction needed: Edits and Deletions. Please see [this link](./staging-definitions) for more detailed information about these processes
+<br><br><br>
 
 # Guidance and Best Practices for *Data Modification* (Edits and Deletions)
 ## 1. Correcting/Augmenting Records (Edits)
@@ -147,6 +160,8 @@ In *Summary*: The only field that changes after the following submission is the 
     ]
 }
 ```
+<br><br><br>
+
 ## 2. Removing Records Entirely (Deletions)
 In other situations, an entire record may be erroneous. If that’s the case, you can leverage the new `di-aoic-delete-record-event` EventType for deletion in order to remove an entire record. You specify the record which you want to delete by using the combination of the `recordid` and `sentencingcountyname` to refer to it.
 
@@ -172,8 +187,11 @@ Here’s an example. Note that we use the `di-aoic-delete-record-event` and refe
     ]
 }
 ```
+<br><br><br>
+
 ## 3. Delete an Entire Case, not just a Record
 There may be a time an entire case needs to be deleted. If you need to delete an entire case, use the EventType `di-aoic-delete-record-event` and include `recordid` and `sentencingcountyname`. If there are multiple records associated with the case, multiple requests must be made. In other words, please only delete one record per API call; if you need to delete multiple records, please perform each deletion in its own separate API call.
+<br><br><br>
 
 ## 4. Nullify a Field within a Record without Deleting the Entire Record
 To nullify a field in an existing record, you will use the` di-aoic-new-record-event` EventType and include the appropriate recordid and sentencingcountyname of the record. Then specify the field in `EntityData` whose values you want to nullify. To nullify a text or value field, send a blank string ("") or, in the case of a number field, send -1. The fields you specify in `EntityData` - and only those fields - will have their values updated. Other fields, and their values (if applicable), will not be affected.
@@ -202,6 +220,7 @@ In the example below, `DCN` (of type `string`) and `AOICCode` (of type `number`)
     ]
 }
 ```
+<br><br><br>
 
 ## 5. Modifying Data in a Field that Allows Multiple Values (Add or Delete)
 Whether you want to add value(s) or remove value(s) from a fields that allows multiple values, the steps are the same. You will need to use the `di-aoic-new-record-event` EventType and include the appropriate `recordid` and `sentencingcountyname` of the record. Then specify the field in EntityData whose values you want modify (add or delete) and include all values needed for the field. All of the previous data for that field will be reset and will now match the most recent value(s) submitted. For example: if `DCN L00000001` was already entered into the DCN field and an additional needs to be added, submit `DCN L00000001;L00000002` to append the field.
@@ -228,6 +247,7 @@ Whether you want to add value(s) or remove value(s) from a fields that allows mu
     ]
 }
 ```
+<br><br><br>
 
 # Guidance and Best Practices for API Documentation
 ## 1. Security Token
@@ -245,6 +265,7 @@ Header: Please substitute `thisIsMyClientId` and `thisIsMyClientSecret` with you
 }
 ```
 Body: `grant_type=client_credentials`
+<br><br><br>
 
 ## 2. Record Submission and Deletion
 Please note that a PUT call is used for both submissions and deletions. You distinguish between the two with the EventType, which can be either di-aoic-new-record-event or di-aoic-delete-record-event.
@@ -262,9 +283,11 @@ Header: Please substitute `thisIsMyAuthToken` with the Security Token you receiv
 ```
 
 Body: This will be the JSON contents containing your data submission. See here for an example: [Staging instructions](./staging-instructions#1-build-the-message)
+<br><br><br>
 
-### Guidance and Best Practices for Pipeline Critical Elements
+# Guidance and Best Practices for Pipeline Critical Elements
 The following section provides a series of data element examples for each program. Again, unlike the Required Fields denoted in the Data Elements, the Pipeline Critical Elements here must actually be included for a submission to be accepted by the pipeline.
+<br><br><br>
 
 ## 1. Pretrial Program Pipeline Critical Elements
 The following elements must be included in every Pretrial record:
@@ -295,6 +318,8 @@ The following elements must be included in every Pretrial record:
     ]
 }
 ```
+<br><br><br>
+
 ## 2. Probation Program Pipeline Critical Elements
 The following elements must be included in every Probation record:
 
@@ -324,6 +349,7 @@ The following elements must be included in every Probation record:
     ]
 }
 ```
+
 ## 3. Problem Solving Courts Program Pipeline Critical Elements
 The following elements must be included in every PSC record:
 
@@ -353,6 +379,8 @@ The following elements must be included in every PSC record:
     ]
 }
 ```
+<br><br><br>
+
 ## 4. Courts Program Pipeline Critical Elements
 The following elements must be included in every Courts record:
 
