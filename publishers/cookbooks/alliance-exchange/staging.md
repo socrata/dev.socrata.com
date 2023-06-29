@@ -5,16 +5,16 @@ layout: chromeless
 ---
 # ![logo](https://www.tylertech.com/Portals/0/Logo-NavBar.jpg?ver=Js0wL8bzpXBsBHn_bv-Kjg%3d%3d) Understanding the Staging Pipeline
 ## Overview
-Welcome to the Staging Environment and Pipeline! The Staging Process is an opportunity for you to harness the work you did in Certification, aligning your mock data with the Data Elements, and now apply it to live data in a production-like environment. The purpose of this documentation is to inform CMS Vendors on how to access, connect, and transmit live data from your source system through the Staging Pipeline and, ultimately, in to the Staging Environment. 
+Welcome to the Staging Environment and Pipeline! The Staging Process is an opportunity for you to harness the work you did in Certification, aligning your mock data with the Data Elements, and now apply it to live data in a production-like environment. The purpose of this documentation is to inform CMS Vendors on how to access, connect, and transmit live data from your source system through the Staging Pipeline and, ultimately, into the Staging Environment.<br><br><br>
 
 ## How this benefits you (a CMS vendor) and the AOIC
 
-The AOIC will be working diligently together with the Tyler Technologies team throughout the Staging Process to refine the Judicial Analytics Dashboard and its metrics to make it as valuable of a resource as possible for the state and for the Supreme, Appellate, and Circuit courts alike. Your assistance in sharing live data to feed this system on a large scale is extremely valuable in this effort. Please be reassured that this work in the near term will yield benefits for you in the future in terms of time savings and greater insights for your company and for the courts you serve.
+The AOIC will be working diligently together with the Tyler Technologies team throughout the Staging Process to refine the Judicial Analytics Dashboard and its metrics to make it as valuable of a resource as possible for the state and for the Supreme, Appellate, and Circuit courts alike. Your assistance in sharing live data to feed this system on a large scale is extremely valuable in this effort. Please be reassured that this work in the near term will yield benefits for you in the future in terms of time savings and greater insights for your company and for the courts you serve.<br><br><br>
 
 ## How is this different from the [certification process](./certification)?
 - Staging is long term.
     - The Staging Pipeline and Environment are accessible indefinitely. 
-    - The Staging Process provides an opportunity make necessary adjustments. 
+    - The Staging Process provides an opportunity to make necessary adjustments. 
     - The Staging Process and Environment allows CMS Vendors to refine the quality and quantity of their data to meet the acceptance threshold for Production. 
 - Staging requires Live Data instead of Mock Data.
     - Live Data is considered as: data sent directly from a Test or Production CMS to the Staging platform.
@@ -23,7 +23,7 @@ The AOIC will be working diligently together with the Tyler Technologies team th
 - The data you submit should be more complete and of higher quality than the mock data used during the Certification Process.
 - The ultimate goal of working in the Staging Environment is to achieve a Production standard of data quality and quantity.
 - There is more thorough validation than before. Examples of these validations are identified below and you will likely already be compliant with the vast majority of them. 
-- The process for notifyinag you of errors encountered in a submission will no longer be shared using workbooks. Rather, data submissions that fail the enhanced validation will be identified by the HTTP status/code you receive immediately after a submission to the API.
+- The process for notifying you of errors encountered in a submission will no longer be shared using workbooks. Rather, data submissions that fail the enhanced validation will be identified by the HTTP status/code you receive immediately after a submission to the API.<br><br><br>
 
 ## Enhanced validation in staging
 The staging environment enforces additional validation on every submission. Important items to note are:
@@ -39,7 +39,7 @@ The staging environment enforces additional validation on every submission. Impo
 - Categorical Data Elements only accept allowed values
     - Categorical Data Elements are oare of type list.  These are elements that have a finite set of possible values; you can think of them as multiple choice.
     - For example, county is a list type element.  There are 102 counties in Illinois, and the value of the county needs to be one of those; it can’t be Hillsborough, Dallas, or Palm Beach, as these are not counties in Illinois, for example.
-    - Please see the following section for how to fix categorical/enumeration errors: [4.2.5 Categorical Variable Enumeration](./staging-instructions#425-categorical-variable-enumeration)
+    - Please see the following section for how to fix categorical/enumeration errors: [4.2.5 Categorical Variable Enumeration](./staging-instructions#425-categorical-variable-enumeration)<br><br><br>
 
 ## Other resources
 - [Staging pipeline instructions and FAQs](./staging-instructions)
