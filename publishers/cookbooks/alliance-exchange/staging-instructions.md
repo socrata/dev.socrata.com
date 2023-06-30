@@ -9,7 +9,7 @@ layout: chromeless
 - You must have passed the Certification or have attested that you will provide them
 - You must have live production data in your CMS that is ready to send to the Staging Platform
 - A County-Specific Credential Pair (Client ID and Client Secret): 
-    - Please note this will be different than the one you used for Certification. Please see the API documentation for more info on Authentication and Authorization:[API Documentation](./api/index.html) 
+    - Please note this will be different than the one you used for Certification. Please see the API documentation for more info on Authentication and Authorization: [API Documentation](./api/index.html) 
     - *Credential Pairs must be sent to vendors via Kiteworks..*
     - Most vendors will have multiple sets of credentials to manage in Staging.
 - You have received the invitation email to enroll in Notification Emails from the Staging Pipeline. We highly recommend that as many members of your team be enrolled as possible. 
@@ -26,7 +26,7 @@ Note: this command will provide a bearer token that is valid for 60 minutes.
 curl https://tyler-alliance-system-demo.auth-fips.us-gov-west-1.amazoncognito.com/oauth2/token -X POST -H "Content-Type: application/x-www-form-urlencoded" --user YOUR_CLIENT_ID:YOUR_CLIENT_SECRET -d "grant_type=client_credentials"
 ```
 
-Please refer to the on the[Definitions and Guidance page](./staging-definitions) for more information.
+Please refer to the on the [Definitions and Guidance page](./staging-definitions) for more information.
 
 ### Step 2: Submit Messages to the Pipeline API
 #### 1. Build the message
@@ -136,7 +136,7 @@ di-aoic-trialcourt-ja
 
 #### Entity Data
 
-Every EntityData object must contain the elements, in the format required, listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D)
+Every EntityData object must contain the elements, in the format required, listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D&id=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FData%20Elements%20%2D%20Versions&viewid=0f3fbeb1%2Db9a9%2D4e2e%2D957e%2D9e4144f8f6f9)
 
 These should be passed as attributes in the object. For example:
 
@@ -302,7 +302,7 @@ ErrorSchema: di-aoic-probation-ancillary-assessment
 If you are still experiencing errors after troubleshooting at least three automated error emails and need additional assistance, you may request an Error Report Workbook by following the numbered steps below.  Please note that you will need to request additional credentials from us (at data-certification@tylertech.com) before you proceed to Step #1.
 
 1. Submit your entries to the “Prep-Staging” Pipeline.  The endpoint for this pipeline is: `https://api.tyleralliance.com/exchange/Messages`.  Please note this endpoint is DIFFERENT than the primary endpoint you will use for Staging.  The endpoint for that pipeline (and the one you will likely use much more frequently) is given in the following section linked here: [2. Record Submission and Deletion](./staging-definitions#2-record-submission-and-deletion) 
-2. After your submission, email the Tyler D&I Project Team at [data-certification@tylertech.com] 
+2. After your submission, email the Tyler D&I Project Team at [data-certification@tylertech.com](mailto:data-certification@tylertech.com) 
     - Email Subject: “Error Report Workbook Request for Vendor_Name / County / Program_Area”
     - Email message must include: your envelope IDs and the date and time of submission.
 3. On Thursday of each week, Tyler D&I Project Team will distribute all requested workbooks from the previous week. The Workbooks will include a listing of each error and ways to fix them.
@@ -310,7 +310,7 @@ If you are still experiencing errors after troubleshooting at least three automa
 ## 5. Frequently Asked Questions (FAQ’s)
 ### How long will the Staging Process last?
 
-The Staging Process will be iterative in nature and will continue until around the end of the year (2023).  Please see Step 3 above for more information.
+The Staging Process will be iterative in nature and will continue until around the end of the year (2023).  Please see [Step 3](#3-resolving-error-messages) above for more information.
 
 The Staging Environment will continue to remain live even after the Production Environment is launched.  It will be a place for continued testing to take place in a CJIS-compliant capacity.
 
@@ -345,5 +345,7 @@ Our team is here to help!  We are offering the following options to support you 
 
 - The Tyler Team will conduct Office Hours on a biweekly basis (every other week) for Vendors in the Staging Process. These sessions will focus on the current status report and provide an opportunity to discuss progress. Each vendor will be added to the meeting series and can join at any time. Attendance is optional. 
 
-- If you have questions or need additional assistance, the Tyler Team may be contacted at [data-certification@tylertech.com].  We will gladly assist you with technical and procedural inquiries alike.
+- If you have questions or need additional assistance, the Tyler Team may be contacted at [data-certification@tylertech.com](mailto:data-certification@tylertech.com).  We will gladly assist you with technical and procedural inquiries alike.
 
+- [Staging pipeline instructions and FAQs](./staging-instructions)
+- [Staging definitions and guidance](./staging-definitions)
