@@ -11,7 +11,7 @@ Welcome to the Staging Environment and Pipeline! The Staging Process is an oppor
 
 The AOIC will be working diligently together with the Tyler Technologies team throughout the Staging Process to refine the Judicial Analytics Dashboard and its metrics to make it as valuable of a resource as possible for the state and for the Supreme, Appellate, and Circuit courts alike. Your assistance in sharing live data to feed this system on a large scale is extremely valuable in this effort. Please be reassured that this work in the near term will yield benefits for you in the future in terms of time savings and greater insights for your company and for the courts you serve.
 
-## How is this different from the [certification process](./certification)?
+## How is this different from the [certification process](./certification.md)?
 - Staging is long term.
     - The Staging Pipeline and Environment are accessible indefinitely. 
     - The Staging Process provides an opportunity make necessary adjustments. 
@@ -42,7 +42,7 @@ The staging environment enforces additional validation on every submission. Impo
     - Please see the following section for how to fix categorical/enumeration errors: [4.2.5 Categorical Variable Enumeration](./staging-instructions#425-categorical-variable-enumeration)
 
 ## Other resources
-- [Staging pipeline instructions and FAQs](./staging-instructions)
-- [Staging definitions and guidance](./staging-definitions)
+- [Staging pipeline instructions and FAQs](./staging-instructions.md)
+- [Staging definitions and guidance](./staging-definitions.md)
 
 
