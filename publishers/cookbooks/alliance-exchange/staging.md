@@ -37,7 +37,7 @@ The staging environment enforces additional validation on every submission. Impo
 - Formatting pattern matching is enforced
     - Please see the following section for how to fix pattern-matching errors [4.2.2 Keyword Pattern](./staging-instructions#422-keyword-pattern) 
 - Categorical Data Elements only accept allowed values
-    - Categorical Data Elements are oare of type list.  These are elements that have a finite set of possible values; you can think of them as multiple choice.
+    - Categorical Data Elements are of type list.  These are elements that have a finite set of possible values; you can think of them as multiple choice.
     - For example, county is a list type element.  There are 102 counties in Illinois, and the value of the county needs to be one of those; it can’t be Hillsborough, Dallas, or Palm Beach, as these are not counties in Illinois, for example.
     - Please see the following section for how to fix categorical/enumeration errors: [4.2.5 Categorical Variable Enumeration](./staging-instructions#425-categorical-variable-enumeration)
 
