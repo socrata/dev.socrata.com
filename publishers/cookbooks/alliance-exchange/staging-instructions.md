@@ -26,7 +26,7 @@ Note: this command will provide a bearer token that is valid for 60 minutes.
 curl https://tyler-alliance-system-demo.auth-fips.us-gov-west-1.amazoncognito.com/oauth2/token -X POST -H "Content-Type: application/x-www-form-urlencoded" --user YOUR_CLIENT_ID:YOUR_CLIENT_SECRET -d "grant_type=client_credentials"
 ```
 
-Please refer to the on the [Definitions and Guidance page](./staging-definitions) for more information.
+Please refer to the on the [Definitions and Guidance page](./staging-definitions.md) for more information.
 
 ### Step 2: Submit Messages to the Pipeline API
 #### 1. Build the message
@@ -233,7 +233,7 @@ Here is an example of what this error might look like:
 ### 4.2 Parsing Out Common Errors
 The Notification Emails will be triggered when an error is encountered at Step 2, as described above. Only one error is included per Error Notification Email, but please note there may actually be multiple errors in the submission. You will receive one email per submission with a single error until all errors are resolved. It is suggested that you correct the error on the element in question and investigate if that error may exist in multiple places throughout your submission. For example, if you receive a required error, it’s suggested to resolve the error for that element and check the rest of your submission to find other elements that cause that error before submitting again. After all errors are resolved, error emails will no longer be sent.
 
-The following sections detail some of the most common errors you may encounter. Again, if you need additional troubleshooting help, please feel free to contact us at [data-certification@tylertech.com] and specify your Envelope ID(s) in the email.
+The following sections detail some of the most common errors you may encounter. Again, if you need additional troubleshooting help, please feel free to contact us at [data-certification@tylertech.com](mailto:data-certification@tylertech.com) and specify your Envelope ID(s) in the email.
 
 #### 4.2.1 Pipeline Critical Elements
 The Judicial Analytics System requires that all Pipeline Critical Elements be included. If one or more Pipeline Critical Elements is missing from the submission, you’ll receive an error.  Please note that an error that says “required” is actually referring to an error with Pipeline Critical Elements. Please see [Pipeline Critical Elements vs. Required Fields](./staging-definitions#3-pipeline-critical-elements-vs-required-fields) for more information.
@@ -347,5 +347,5 @@ Our team is here to help!  We are offering the following options to support you 
 
 - If you have questions or need additional assistance, the Tyler Team may be contacted at [data-certification@tylertech.com](mailto:data-certification@tylertech.com).  We will gladly assist you with technical and procedural inquiries alike.
 
-- [Staging pipeline instructions and FAQs](./staging-instructions)
-- [Staging definitions and guidance](./staging-definitions)
+- [Staging pipeline instructions and FAQs](./staging-instructions.md)
+- [Staging definitions and guidance](./staging-definitions.md)
