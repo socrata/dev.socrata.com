@@ -12,3 +12,4 @@ To learn more, please visit the following pages
 - [Certification Overview](/publishers/cookbooks/alliance-exchange/certification.md)
 - [Staging Overview](/publishers/cookbooks/alliance-exchange/staging.md)
 - Production Overview
+
