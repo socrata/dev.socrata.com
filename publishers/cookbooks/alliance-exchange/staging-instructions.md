@@ -9,7 +9,7 @@ layout: chromeless
 - You must have passed the Certification or have attested that you will provide them
 - You must have live production data in your CMS that is ready to send to the Staging Platform
 - A County-Specific Credential Pair (Client ID and Client Secret): 
-    - Please note this will be different than the one you used for Certification. Please see the API documentation for more info on Authentication and Authorization: [API Documentation](./api/index.html) 
+    - Please note this will be different than the one you used for Certification. Please see the API documentation for more info on Authentication and Authorization: [API Documentation](/publishers/cookbooks/alliance-exchange/api/index.html) 
     - *Credential Pairs must be sent to vendors via Kiteworks..*
     - Most vendors will have multiple sets of credentials to manage in Staging.
 - You have received the invitation email to enroll in Notification Emails from the Staging Pipeline. We highly recommend that as many members of your team be enrolled as possible. 
@@ -26,7 +26,7 @@ Note: this command will provide a bearer token that is valid for 60 minutes.
 curl https://tyler-alliance-system-demo.auth-fips.us-gov-west-1.amazoncognito.com/oauth2/token -X POST -H "Content-Type: application/x-www-form-urlencoded" --user YOUR_CLIENT_ID:YOUR_CLIENT_SECRET -d "grant_type=client_credentials"
 ```
 
-Please refer to the on the [Definitions and Guidance page](./staging-definitions.md) for more information.
+Please refer to the on the [Definitions and Guidance page](/publishers/cookbooks/alliance-exchange/staging-definitions.md) for more information.
 
 ### Step 2: Submit Messages to the Pipeline API
 #### 1. Build the message
@@ -63,7 +63,7 @@ Details for each attribute of the `Envelope` are:
 
 | field            | allowed_type | required | description                                                                                     |
 |------------------|--------------|----------|-------------------------------------------------------------------------------------------------|
-| Events           | array        | Y        | An array of events. For more details. [See next section](./staging-instructions#events)                               |
+| Events           | array        | Y        | An array of events. For more details. [See next section](/publishers/cookbooks/alliance-exchange/staging-instructions#events)                               |
 
 #### Events
 Envelopes may consist of one or more `events`. Details for each attribute of the `Event` are:
@@ -236,7 +236,7 @@ The Notification Emails will be triggered when an error is encountered at Step 2
 The following sections detail some of the most common errors you may encounter. Again, if you need additional troubleshooting help, please feel free to contact us at [data-certification@tylertech.com](mailto:data-certification@tylertech.com) and specify your Envelope ID(s) in the email.
 
 #### 4.2.1 Pipeline Critical Elements
-The Judicial Analytics System requires that all Pipeline Critical Elements be included. If one or more Pipeline Critical Elements is missing from the submission, you’ll receive an error.  Please note that an error that says “required” is actually referring to an error with Pipeline Critical Elements. Please see [Pipeline Critical Elements vs. Required Fields](./staging-definitions#3-pipeline-critical-elements-vs-required-fields) for more information.
+The Judicial Analytics System requires that all Pipeline Critical Elements be included. If one or more Pipeline Critical Elements is missing from the submission, you’ll receive an error.  Please note that an error that says “required” is actually referring to an error with Pipeline Critical Elements. Please see [Pipeline Critical Elements vs. Required Fields](/publishers/cookbooks/alliance-exchange/staging-definitions#3-pipeline-critical-elements-vs-required-fields) for more information.
 
 ```
 keyword: required
@@ -301,7 +301,7 @@ ErrorSchema: di-aoic-probation-ancillary-assessment
 ### 4.3 Excessive Error Handling Alternative
 If you are still experiencing errors after troubleshooting at least three automated error emails and need additional assistance, you may request an Error Report Workbook by following the numbered steps below.  Please note that you will need to request additional credentials from us (at data-certification@tylertech.com) before you proceed to Step #1.
 
-1. Submit your entries to the “Prep-Staging” Pipeline.  The endpoint for this pipeline is: `https://api.tyleralliance.com/exchange/Messages`.  Please note this endpoint is DIFFERENT than the primary endpoint you will use for Staging.  The endpoint for that pipeline (and the one you will likely use much more frequently) is given in the following section linked here: [2. Record Submission and Deletion](./staging-definitions#2-record-submission-and-deletion) 
+1. Submit your entries to the “Prep-Staging” Pipeline.  The endpoint for this pipeline is: `https://api.tyleralliance.com/exchange/Messages`.  Please note this endpoint is DIFFERENT than the primary endpoint you will use for Staging.  The endpoint for that pipeline (and the one you will likely use much more frequently) is given in the following section linked here: [2. Record Submission and Deletion](/publishers/cookbooks/alliance-exchange/staging-definitions#2-record-submission-and-deletion) 
 2. After your submission, email the Tyler D&I Project Team at [data-certification@tylertech.com](mailto:data-certification@tylertech.com) 
     - Email Subject: “Error Report Workbook Request for Vendor_Name / County / Program_Area”
     - Email message must include: your envelope IDs and the date and time of submission.
@@ -347,5 +347,5 @@ Our team is here to help!  We are offering the following options to support you 
 
 - If you have questions or need additional assistance, the Tyler Team may be contacted at [data-certification@tylertech.com](mailto:data-certification@tylertech.com).  We will gladly assist you with technical and procedural inquiries alike.
 
-- [Staging pipeline instructions and FAQs](./staging-instructions.md)
-- [Staging definitions and guidance](./staging-definitions.md)
+- [Staging pipeline instructions and FAQs](/publishers/cookbooks/alliance-exchange/staging-instructions.md)
+- [Staging definitions and guidance](/publishers/cookbooks/alliance-exchange/staging-definitions.md)
