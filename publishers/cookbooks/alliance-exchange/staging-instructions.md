@@ -26,7 +26,7 @@ Note: this command will provide a bearer token that is valid for 60 minutes.
 curl https://tyler-alliance-system-demo.auth-fips.us-gov-west-1.amazoncognito.com/oauth2/token -X POST -H "Content-Type: application/x-www-form-urlencoded" --user YOUR_CLIENT_ID:YOUR_CLIENT_SECRET -d "grant_type=client_credentials"
 ```
 
-Please refer to the on the [Definitions and Guidance page](/publishers/cookbooks/alliance-exchange/staging-definitions.md) for more information.
+Please refer to the on the [Definitions and Guidance page](/publishers/cookbooks/alliance-exchange/staging-definitions.html) for more information.
 
 ### Step 2: Submit Messages to the Pipeline API
 #### 1. Build the message
@@ -347,5 +347,5 @@ Our team is here to help!  We are offering the following options to support you 
 
 - If you have questions or need additional assistance, the Tyler Team may be contacted at [data-certification@tylertech.com](mailto:data-certification@tylertech.com).  We will gladly assist you with technical and procedural inquiries alike.
 
-- [Staging pipeline instructions and FAQs](/publishers/cookbooks/alliance-exchange/staging-instructions.md)
-- [Staging definitions and guidance](/publishers/cookbooks/alliance-exchange/staging-definitions.md)
+- [Staging pipeline instructions and FAQs](/publishers/cookbooks/alliance-exchange/staging-instructions.html)
+- [Staging definitions and guidance](/publishers/cookbooks/alliance-exchange/staging-definitions.html)
