@@ -9,7 +9,7 @@ layout: chromeless
 - You must have passed the Certification or have attested that you will provide them
 - You must have live production data in your CMS that is ready to send to the Staging Platform
 - A County-Specific Credential Pair (Client ID and Client Secret): 
-    - Please note this will be different than the one you used for Certification. Please see the API documentation for more info on Authentication and Authorization:[API Documentation](./api/index.html) 
+    - Please note this will be different than the one you used for Certification. Please see the API documentation for more info on Authentication and Authorization: [API Documentation](/publishers/cookbooks/alliance-exchange/api/index.html) 
     - *Credential Pairs must be sent to vendors via Kiteworks..*
     - Most vendors will have multiple sets of credentials to manage in Staging.
 - You have received the invitation email to enroll in Notification Emails from the Staging Pipeline. We highly recommend that as many members of your team be enrolled as possible. 
@@ -26,7 +26,7 @@ Note: this command will provide a bearer token that is valid for 60 minutes.
 curl https://tyler-alliance-system-demo.auth-fips.us-gov-west-1.amazoncognito.com/oauth2/token -X POST -H "Content-Type: application/x-www-form-urlencoded" --user YOUR_CLIENT_ID:YOUR_CLIENT_SECRET -d "grant_type=client_credentials"
 ```
 
-Please refer to the on the[Definitions and Guidance page](./staging-definitions) for more information.
+Please refer to the on the [Definitions and Guidance page](/publishers/cookbooks/alliance-exchange/staging-definitions.html) for more information.
 
 ### Step 2: Submit Messages to the Pipeline API
 #### 1. Build the message
@@ -63,7 +63,7 @@ Details for each attribute of the `Envelope` are:
 
 | field            | allowed_type | required | description                                                                                     |
 |------------------|--------------|----------|-------------------------------------------------------------------------------------------------|
-| Events           | array        | Y        | An array of events. For more details. [See next section](./staging-instructions#events)                               |
+| Events           | array        | Y        | An array of events. For more details. [See next section](/publishers/cookbooks/alliance-exchange/staging-instructions#events)                               |
 
 #### Events
 Envelopes may consist of one or more `events`. Details for each attribute of the `Event` are:
@@ -136,7 +136,7 @@ di-aoic-trialcourt-ja
 
 #### Entity Data
 
-Every EntityData object must contain the elements, in the format required, listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?RootFolder=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements%20%2D%20ALL&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D)
+Every EntityData object must contain the elements, in the format required, listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D&id=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FData%20Elements%20%2D%20Versions&viewid=0f3fbeb1%2Db9a9%2D4e2e%2D957e%2D9e4144f8f6f9)
 
 These should be passed as attributes in the object. For example:
 
@@ -233,10 +233,10 @@ Here is an example of what this error might look like:
 ### 4.2 Parsing Out Common Errors
 The Notification Emails will be triggered when an error is encountered at Step 2, as described above. Only one error is included per Error Notification Email, but please note there may actually be multiple errors in the submission. You will receive one email per submission with a single error until all errors are resolved. It is suggested that you correct the error on the element in question and investigate if that error may exist in multiple places throughout your submission. For example, if you receive a required error, it’s suggested to resolve the error for that element and check the rest of your submission to find other elements that cause that error before submitting again. After all errors are resolved, error emails will no longer be sent.
 
-The following sections detail some of the most common errors you may encounter. Again, if you need additional troubleshooting help, please feel free to contact us at [data-certification@tylertech.com] and specify your Envelope ID(s) in the email.
+The following sections detail some of the most common errors you may encounter. Again, if you need additional troubleshooting help, please feel free to contact us at [data-certification@tylertech.com](mailto:data-certification@tylertech.com) and specify your Envelope ID(s) in the email.
 
 #### 4.2.1 Pipeline Critical Elements
-The Judicial Analytics System requires that all Pipeline Critical Elements be included. If one or more Pipeline Critical Elements is missing from the submission, you’ll receive an error.  Please note that an error that says “required” is actually referring to an error with Pipeline Critical Elements. Please see [Pipeline Critical Elements vs. Required Fields](./staging-definitions#3-pipeline-critical-elements-vs-required-fields) for more information.
+The Judicial Analytics System requires that all Pipeline Critical Elements be included. If one or more Pipeline Critical Elements is missing from the submission, you’ll receive an error.  Please note that an error that says “required” is actually referring to an error with Pipeline Critical Elements. Please see [Pipeline Critical Elements vs. Required Fields](/publishers/cookbooks/alliance-exchange/staging-definitions#3-pipeline-critical-elements-vs-required-fields) for more information.
 
 ```
 keyword: required
@@ -301,8 +301,8 @@ ErrorSchema: di-aoic-probation-ancillary-assessment
 ### 4.3 Excessive Error Handling Alternative
 If you are still experiencing errors after troubleshooting at least three automated error emails and need additional assistance, you may request an Error Report Workbook by following the numbered steps below.  Please note that you will need to request additional credentials from us (at data-certification@tylertech.com) before you proceed to Step #1.
 
-1. Submit your entries to the “Prep-Staging” Pipeline.  The endpoint for this pipeline is: `https://api.tyleralliance.com/exchange/Messages`.  Please note this endpoint is DIFFERENT than the primary endpoint you will use for Staging.  The endpoint for that pipeline (and the one you will likely use much more frequently) is given in the following section linked here: [2. Record Submission and Deletion](./staging-definitions#2-record-submission-and-deletion) 
-2. After your submission, email the Tyler D&I Project Team at [data-certification@tylertech.com] 
+1. Submit your entries to the “Prep-Staging” Pipeline.  The endpoint for this pipeline is: `https://api.tyleralliance.com/exchange/Messages`.  Please note this endpoint is DIFFERENT than the primary endpoint you will use for Staging.  The endpoint for that pipeline (and the one you will likely use much more frequently) is given in the following section linked here: [2. Record Submission and Deletion](/publishers/cookbooks/alliance-exchange/staging-definitions#2-record-submission-and-deletion) 
+2. After your submission, email the Tyler D&I Project Team at [data-certification@tylertech.com](mailto:data-certification@tylertech.com) 
     - Email Subject: “Error Report Workbook Request for Vendor_Name / County / Program_Area”
     - Email message must include: your envelope IDs and the date and time of submission.
 3. On Thursday of each week, Tyler D&I Project Team will distribute all requested workbooks from the previous week. The Workbooks will include a listing of each error and ways to fix them.
@@ -310,7 +310,7 @@ If you are still experiencing errors after troubleshooting at least three automa
 ## 5. Frequently Asked Questions (FAQ’s)
 ### How long will the Staging Process last?
 
-The Staging Process will be iterative in nature and will continue until around the end of the year (2023).  Please see Step 3 above for more information.
+The Staging Process will be iterative in nature and will continue until around the end of the year (2023).  Please see [Step 3](#3-resolving-error-messages) above for more information.
 
 The Staging Environment will continue to remain live even after the Production Environment is launched.  It will be a place for continued testing to take place in a CJIS-compliant capacity.
 
@@ -345,5 +345,7 @@ Our team is here to help!  We are offering the following options to support you 
 
 - The Tyler Team will conduct Office Hours on a biweekly basis (every other week) for Vendors in the Staging Process. These sessions will focus on the current status report and provide an opportunity to discuss progress. Each vendor will be added to the meeting series and can join at any time. Attendance is optional. 
 
-- If you have questions or need additional assistance, the Tyler Team may be contacted at [data-certification@tylertech.com].  We will gladly assist you with technical and procedural inquiries alike.
+- If you have questions or need additional assistance, the Tyler Team may be contacted at [data-certification@tylertech.com](mailto:data-certification@tylertech.com).  We will gladly assist you with technical and procedural inquiries alike.
 
+- [Staging pipeline instructions and FAQs](/publishers/cookbooks/alliance-exchange/staging-instructions.html)
+- [Staging definitions and guidance](/publishers/cookbooks/alliance-exchange/staging-definitions.html)
