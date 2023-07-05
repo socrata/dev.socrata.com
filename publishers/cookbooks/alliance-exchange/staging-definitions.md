@@ -114,7 +114,7 @@ For these elements, please ensure that the values you provide for these elements
 ## 7. Accidentally Sent Incorrect Data. Now what?
 Accidents happen, and we want to help you resolve them. Even though this is a Staging Environment and not Production, we ask for your cooperation during this process in correcting erroneous records so as to reflect the practice of data validity that will be required in Production.
 
-We have two mechanisms for correcting data that you can leverage depending on the nature of the correction needed: Edits and Deletions. Please see [this link](/publishers/cookbooks/alliance-exchange/staging-definitions.html) for more detailed information about these processes
+We have two mechanisms for correcting data that you can leverage depending on the nature of the correction needed: Edits and Deletions. 
 
 # Guidance and Best Practices for *Data Modification* (Edits and Deletions)
 ## 1. Correcting/Augmenting Records (Edits)
@@ -382,5 +382,5 @@ The following elements must be included in every Courts record:
 ```
 
 ## Other resources
-- [Staging pipeline instructions and FAQs](/publishers/cookbooks/alliance-exchange/staging-instructions)
-- [Staging definitions and guidance](/publishers/cookbooks/alliance-exchange/staging-definitions)
+- [Staging pipeline instructions and FAQs](/publishers/cookbooks/alliance-exchange/staging-instructions.html)
+- [Staging definitions and guidance](/publishers/cookbooks/alliance-exchange/staging-definitions.html)
