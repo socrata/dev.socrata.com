@@ -9,10 +9,11 @@ layout: chromeless
 - You must have passed the Certification or have attested that you will provide them
 - You must have live production data in your CMS that is ready to send to the Staging Platform
 - A County-Specific Credential Pair (Client ID and Client Secret): 
-    - Please note this will be different than the one you used for Certification. Please see the API documentation for more info on Authentication and Authorization: [API Documentation](/publishers/cookbooks/alliance-exchange/api/index.html) 
-    - *Credential Pairs must be sent to vendors via Kiteworks..*
+    - Please note this will be different than the one you used for Certification. Please see the API documentation for more info on Authentication and Authorization: [API Documentation](/publishers/cookbooks/alliance-exchange/api/staging-index.html)
+    - Credential Pairs are provided to Vendors via Kiteworks.
     - Most vendors will have multiple sets of credentials to manage in Staging.
-- You have received the invitation email to enroll in Notification Emails from the Staging Pipeline. We highly recommend that as many members of your team be enrolled as possible. 
+    - The Staging Pipeline requires the use of county-specific credential pairs to transmit data. This requirement is necessary to ensure the compliance and isolation of each county’s data.
+- You have received the invitation email to enroll in Notification Emails from the Staging Pipeline. We highly recommend enrolling as many members of your team as possible.
  
 ## 2. Instructions for Transmitting Data on the Staging Pipeline 
 ### Step 1: Get an Authorization (Bearer) Token
@@ -26,11 +27,11 @@ Note: this command will provide a bearer token that is valid for 60 minutes.
 curl https://tyler-alliance-system-demo.auth-fips.us-gov-west-1.amazoncognito.com/oauth2/token -X POST -H "Content-Type: application/x-www-form-urlencoded" --user YOUR_CLIENT_ID:YOUR_CLIENT_SECRET -d "grant_type=client_credentials"
 ```
 
-Please refer to the on the [Definitions and Guidance page](/publishers/cookbooks/alliance-exchange/staging-definitions.html) for more information.
+Please refer to the [API Documentation](/publishers/cookbooks/alliance-exchange/api/staging-index.html) for more information.
 
 ### Step 2: Submit Messages to the Pipeline API
 #### 1. Build the message
-Every message consists of an envelope. The envelope contains a series of events, as well as metadata to help route the message appropriately.
+Every message consists of an Envelope. The Envelope contains a series of events, as well as metadata to help route the message appropriately.
 
 An example message might look like:
 
@@ -136,7 +137,7 @@ di-aoic-trialcourt-ja
 
 #### Entity Data
 
-Every EntityData object must contain the elements, in the format required, listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D&id=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FData%20Elements%20%2D%20Versions&viewid=0f3fbeb1%2Db9a9%2D4e2e%2D957e%2D9e4144f8f6f9)
+Every EntityData object must contain the elements, in the format required, listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?id=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements&viewid=0f3fbeb1%2Db9a9%2D4e2e%2D957e%2D9e4144f8f6f9)
 
 These should be passed as attributes in the object. For example:
 
@@ -165,12 +166,12 @@ There are a couple of critical items to watch out for when building the EntityDa
 
 - *Data Elements* - Each Entity must include the required elements listed in the vendor folder, in the format specified. The format must be consistent with the Regular Expression patterns specified in the Data Elements.
 
-- *RecordID* - The RecordID is used to allow the vendor to maintain (modify, update, delete) the data after it’s been submitted. This is a unique identifier for the object in the local source system. Each object must have a unique RecordID.
+- *Record ID* - The Record ID is used to allow the vendor to maintain (modify, update, delete) the data after it’s been submitted. This is a unique identifier for the object in the local source system. Each object must have a unique Record ID.
 
 ### 2. Send the message
-Using the Bearer Token received from the Step 1, and the message prepared in the previous section, send an API call to PUT the Message built in the previous section. Please make sure to do a PUT rather than a POST.
+Using the Bearer Token received from Step 1, and the message prepared in the previous section, send an API call to PUT the Message built in the previous section. Please make sure to do a PUT rather than a POST.
 
-Sample cURL and PowerShell commands can be found here to demonstrate minimal examples for each data element set.
+Sample cURL commands can be found [here](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?csf=1&web=1&e=XIcIAS&cid=a0eb1b19%2D1106%2D4d00%2D8323%2D8d93d5213bbc&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&id=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FStaging%20Directions&viewid=0f3fbeb1%2Db9a9%2D4e2e%2D957e%2D9e4144f8f6f9) to demonstrate minimal examples for each data element set.
 
 ##### Validate the response
 A successful response will look like:
@@ -299,13 +300,14 @@ ErrorSchema: di-aoic-probation-ancillary-assessment
 *Fix*: Please consult the Data Elements and make sure the value for this variable in the record is equal to one of the enumerated values.
 
 ### 4.3 Excessive Error Handling Alternative
-If you are still experiencing errors after troubleshooting at least three automated error emails and need additional assistance, you may request an Error Report Workbook by following the numbered steps below.  Please note that you will need to request additional credentials from us (at data-certification@tylertech.com) before you proceed to Step #1.
+If you are still experiencing errors after troubleshooting at least three automated error emails and need additional assistance, you may request an Error Report Workbook by following the numbered steps below.  Please note that you will need to request additional credentials from us (at [data-certification@tylertech.com](mailto:data-certification@tylertech.com)) before you proceed to Step #1.
 
-1. Submit your entries to the “Prep-Staging” Pipeline.  The endpoint for this pipeline is: `https://api.tyleralliance.com/exchange/Messages`.  Please note this endpoint is DIFFERENT than the primary endpoint you will use for Staging.  The endpoint for that pipeline (and the one you will likely use much more frequently) is given in the following section linked here: [2. Record Submission and Deletion](/publishers/cookbooks/alliance-exchange/staging-definitions#2-record-submission-and-deletion) 
+1. Submit your entries to the “Prep-Staging” Pipeline.
+   - Please note that this pipeline is used solely for the creation of Error Report Workbooks and is NOT the Staging Pipeline. 
 2. After your submission, email the Tyler D&I Project Team at [data-certification@tylertech.com](mailto:data-certification@tylertech.com) 
     - Email Subject: “Error Report Workbook Request for Vendor_Name / County / Program_Area”
-    - Email message must include: your envelope IDs and the date and time of submission.
-3. On Thursday of each week, Tyler D&I Project Team will distribute all requested workbooks from the previous week. The Workbooks will include a listing of each error and ways to fix them.
+    - Email message must include: your Envelope IDs and the date and time of submission.
+3. The Tyler D&I Project Team will distribute the requested workbooks that will include a listing of each error and ways to fix them.
 
 ## 5. Frequently Asked Questions (FAQ’s)
 ### How long will the Staging Process last?
