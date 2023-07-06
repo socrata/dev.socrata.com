@@ -13,7 +13,7 @@ layout: chromeless
     - Credential Pairs are provided to Vendors via Kiteworks.
     - Most vendors will have multiple sets of credentials to manage in Staging.
     - The Staging Pipeline requires the use of county-specific credential pairs to transmit data. This requirement is necessary to ensure the compliance and isolation of each county’s data.
-- You have received the invitation email to enroll in Notification Emails from the Staging Pipeline. We highly recommend enrolling as many members of your team as possible.
+- You have received the invitation email to enroll in Notification Emails from the Staging Pipeline. We highly recommend enrolling as many members of your team as possible.<br><br>
  
 ## 2. Instructions for Transmitting Data on the Staging Pipeline 
 ### Step 1: Get an Authorization (Bearer) Token
@@ -30,7 +30,7 @@ curl https://tyler-alliance-system-demo.auth-fips.us-gov-west-1.amazoncognito.co
 Please refer to the [API Documentation](/publishers/cookbooks/alliance-exchange/api/staging-index.html) for more information.
 
 ### Step 2: Submit Messages to the Pipeline API
-#### 1. Build the message
+#### Step 2.1. Build the message
 Every message consists of an Envelope. The Envelope contains a series of events, as well as metadata to help route the message appropriately.
 
 An example message might look like:
@@ -66,7 +66,7 @@ Details for each attribute of the `Envelope` are:
 |------------------|--------------|----------|-------------------------------------------------------------------------------------------------|
 | Events           | array        | Y        | An array of events. For more details. [See next section](/publishers/cookbooks/alliance-exchange/staging-instructions#events)                               |
 
-#### Events
+##### Events
 Envelopes may consist of one or more `events`. Details for each attribute of the `Event` are:
 
 | field            | allowed_type | required | description                                                         |
@@ -74,7 +74,7 @@ Envelopes may consist of one or more `events`. Details for each attribute of the
 | Entities          | array        | Y        | An array of events. For more details. [See next section](#entities) |
 | EventType         | string       | Y        | Always set to `di-aoic-new-record-event`                            |
 
-#### Entities
+##### Entities
 Entities are the most important part of the message. This specifies the program, the record and the values associated with that record. 
 Details for each attribute are as follows:
 
@@ -85,7 +85,7 @@ Details for each attribute are as follows:
 | EntityData     | object       | Y        | The record associated with this Entity                                                                                              |
 
 
-#### Entity Types
+##### Entity Types
 
 EntityTypes map the record to a specific program and dataset. Valid EntityTypes are:
 
@@ -135,7 +135,7 @@ di-aoic-trialcourt-hearings
 di-aoic-trialcourt-ja
 ```
 
-#### Entity Data
+##### Entity Data
 
 Every EntityData object must contain the elements, in the format required, listed in the [vendor folder](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?id=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements&viewid=0f3fbeb1%2Db9a9%2D4e2e%2D957e%2D9e4144f8f6f9)
 
@@ -160,7 +160,7 @@ These should be passed as attributes in the object. For example:
 }
 ```
 
-#### Notes on the EntityData object
+##### Notes on the EntityData object
 
 There are a couple of critical items to watch out for when building the EntityData object:
 
@@ -168,7 +168,7 @@ There are a couple of critical items to watch out for when building the EntityDa
 
 - *Record ID* - The Record ID is used to allow the vendor to maintain (modify, update, delete) the data after it’s been submitted. This is a unique identifier for the object in the local source system. Each object must have a unique Record ID.
 
-### 2. Send the message
+#### Step 2.2. Send the message
 Using the Bearer Token received from Step 1, and the message prepared in the previous section, send an API call to PUT the Message built in the previous section. Please make sure to do a PUT rather than a POST.
 
 Sample cURL commands can be found [here](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?csf=1&web=1&e=XIcIAS&cid=a0eb1b19%2D1106%2D4d00%2D8323%2D8d93d5213bbc&FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&id=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FStaging%20Directions&viewid=0f3fbeb1%2Db9a9%2D4e2e%2D957e%2D9e4144f8f6f9) to demonstrate minimal examples for each data element set.
@@ -194,7 +194,7 @@ Completion is gauged by the following criteria.  Please note that, because Stagi
 - Continue to submit live data to the Staging Environment until you have submitted all data elements for the respective program area.
 - Work cooperatively and responsively with the AOIC to make refinements and updates to the data upon request. 
 
-As you complete the milestones outlined above, please send updates to [data-certification@tylertech.com](mailto:data-certification@tylertech.com) as soon as possible.  We will document your team’s completion of these steps.
+As you complete the milestones outlined above, please send updates to [data-certification@tylertech.com](mailto:data-certification@tylertech.com) as soon as possible.  We will document your team’s completion of these steps.<br><br>
 
 ## 3. Resolving Error Messages 
 ### 3.1 Scenario: I Received an Error Notification Email. How Can I Make Sense of It?
@@ -224,6 +224,7 @@ Here is an example of what this error might look like:
   }
 ```
 *Fix*: Check your county-related variables:`circuitcourtncicnumber`, `sentencingcountyname`, `prosecutingcountyname`, `supervisingcounty`, and `county` to make sure they list a county over which you have jurisdiction.
+<br><br>
 
 ## 4. Troubleshooting Tips
 ### 4.1 General Reminders:
@@ -308,6 +309,7 @@ If you are still experiencing errors after troubleshooting at least three automa
     - Email Subject: “Error Report Workbook Request for Vendor_Name / County / Program_Area”
     - Email message must include: your Envelope IDs and the date and time of submission.
 3. The Tyler D&I Project Team will distribute the requested workbooks that will include a listing of each error and ways to fix them.
+<br><br>
 
 ## 5. Frequently Asked Questions (FAQ’s)
 ### How long will the Staging Process last?
@@ -340,7 +342,7 @@ Certain elements, such as `restitution_amount` or `pretrial_fee_paid`, expect do
 | $0.99       | 99       | 
 | $0.00       | 0       | 
 | $500000.03       | 50000003      | 
-
+<br><br>
 
 ## 6. Additional Resources 
 Our team is here to help!  We are offering the following options to support you throughout this process:
@@ -348,6 +350,8 @@ Our team is here to help!  We are offering the following options to support you 
 - The Tyler Team will conduct Office Hours on a biweekly basis (every other week) for Vendors in the Staging Process. These sessions will focus on the current status report and provide an opportunity to discuss progress. Each vendor will be added to the meeting series and can join at any time. Attendance is optional. 
 
 - If you have questions or need additional assistance, the Tyler Team may be contacted at [data-certification@tylertech.com](mailto:data-certification@tylertech.com).  We will gladly assist you with technical and procedural inquiries alike.
+<br><br>
 
-- [Staging pipeline instructions and FAQs](/publishers/cookbooks/alliance-exchange/staging-instructions.html)
-- [Staging definitions and guidance](/publishers/cookbooks/alliance-exchange/staging-definitions.html)
+## Related Documentation
+- [Staging Overview](/publishers/cookbooks/alliance-exchange/staging.html)
+- [Staging Definitions and Guidance](/publishers/cookbooks/alliance-exchange/staging-definitions.html)
