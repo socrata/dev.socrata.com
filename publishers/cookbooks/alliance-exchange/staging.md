@@ -41,8 +41,8 @@ The staging environment enforces additional validation on every submission. Impo
     - For example, county is a list type element.  There are 102 counties in Illinois, and the value of the county needs to be one of those; it can’t be Hillsborough, Dallas, or Palm Beach, as these are not counties in Illinois, for example.
     - Please see the following section for how to fix categorical/enumeration errors: [4.2.5 Categorical Variable Enumeration](/publishers/cookbooks/alliance-exchange/staging-instructions#425-categorical-variable-enumeration)
 
-## Other resources
-- [Staging pipeline instructions and FAQs](/publishers/cookbooks/alliance-exchange/staging-instructions.html)
-- [Staging definitions and guidance](/publishers/cookbooks/alliance-exchange/staging-definitions.html)
+## Other Resources
+- [Staging Pipeline Instructions and FAQs](/publishers/cookbooks/alliance-exchange/staging-instructions.html)
+- [Staging Definitions and Guidance](/publishers/cookbooks/alliance-exchange/staging-definitions.html)
 
 
