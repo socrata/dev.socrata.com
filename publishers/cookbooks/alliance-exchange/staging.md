@@ -9,7 +9,7 @@ Welcome to the Staging Environment and Pipeline! The Staging Process is an oppor
 
 ## How this benefits you (a CMS vendor) and the AOIC
 
-The AOIC will be working diligently together with the Tyler Technologies team throughout the Staging Process to refine the Judicial Analytics Dashboard and its metrics to make it as valuable of a resource as possible for the state and for the Supreme, Appellate, and Circuit courts alike. Your assistance in sharing live data to feed this system on a large scale is extremely valuable in this effort. Please be reassured that this work in the near term will yield benefits for you in the future in terms of time savings and greater insights for your company and for the courts you serve.
+The AOIC will be working diligently together with the Tyler Technologies team throughout the Staging Process to refine the Judicial Analytics Dashboard and its metrics to make it as valuable of a resource as possible for the state and for the Supreme, Appellate, and Circuit courts. Your assistance in sharing live data to feed the Staging Platform is critical. While this process will be iterative in nature, we kindly ask for your continued cooperation and flexibility as the AOIC identifies data element updates that will significantly improve the final Production Solution. Please be reassured that this work in the near term will yield benefits for you in the future in terms of time savings and greater insights for the courts you serve.
 
 ## How is this different from the [certification process](/publishers/cookbooks/alliance-exchange/certification.html)?
 - Staging is long term.
