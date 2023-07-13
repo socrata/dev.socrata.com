@@ -22,8 +22,8 @@ The AOIC will be working diligently together with the Tyler Technologies team th
     - Because data integrity is more important in this environment, the environment allows you to perform modifications of specific records when there is erroneous or unwanted data present.  Please see the following section on the Definitions and Guidance page that discusses how to perform Edits and Deletions: [Guidance and Best Practices for Data Modification](/publishers/cookbooks/alliance-exchange/staging-definitions#guidance-and-best-practices-for-data-modification-edits-and-deletions) 
 - The data you submit should be more complete and of higher quality than the mock data used during the Certification Process.
 - The ultimate goal of working in the Staging Environment is to achieve a Production standard of data quality and quantity.
-- There is more thorough validation than before. Examples of these validations are identified below and you will likely already be compliant with the vast majority of them. 
-- The process for notifyinag you of errors encountered in a submission will no longer be shared using workbooks. Rather, data submissions that fail the enhanced validation will be identified by the HTTP status/code you receive immediately after a submission to the API.
+- There is more thorough validation than before. Examples of these validations are identified below.
+- The process for notifying you of errors encountered in a submission will no longer be shared using workbooks. Rather, data submissions that fail the enhanced validation will be identified by the HTTP status/code you receive immediately after a submission to the API.
 
 ## Enhanced validation in staging
 The staging environment enforces additional validation on every submission. Important items to note are:
@@ -43,6 +43,6 @@ The staging environment enforces additional validation on every submission. Impo
 
 ## Other Resources
 - [Staging Pipeline Instructions and FAQs](/publishers/cookbooks/alliance-exchange/staging-instructions.html)
-- [Staging Definitions and Guidance](/publishers/cookbooks/alliance-exchange/staging-definitions.html)
+- [Staging Definitions and Best Practices](/publishers/cookbooks/alliance-exchange/staging-definitions.html)
 
 
