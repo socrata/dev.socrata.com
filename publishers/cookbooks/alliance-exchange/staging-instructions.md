@@ -301,7 +301,7 @@ ErrorSchema: di-aoic-probation-ancillary-assessment
 *Fix*: Please consult the Data Elements and make sure the value for this variable in the record is equal to one of the enumerated values.
 
 ### 4.3 Excessive Error Handling Alternative
-If you are still experiencing errors after troubleshooting at least three automated error emails and need additional assistance, you may request an Error Report Workbook by following the numbered steps below.  Please note that you will need to request additional credentials from us (at [data-certification@tylertech.com](mailto:data-certification@tylertech.com)) before you proceed to Step #1.
+If you are still experiencing errors after troubleshooting at least three automated error emails and need additional assistance, you may request an Error Report Workbook by following the numbered steps below.  Please note that you will need to request additional credentials from us at [data-certification@tylertech.com](mailto:data-certification@tylertech.com) before you proceed to Step #1.
 
 1. Submit your entries to the “Prep-Staging” Pipeline.
    - Please note that this pipeline is used solely for the creation of Error Report Workbooks and is NOT the Staging Pipeline. 
@@ -314,7 +314,7 @@ If you are still experiencing errors after troubleshooting at least three automa
 ## 5. Frequently Asked Questions (FAQ’s)
 ### How long will the Staging Process last?
 
-The Staging Process will be iterative in nature and will continue until around the end of the year (2023).  Please see [Step 3](#3-resolving-error-messages) above for more information.
+The Staging Process will be iterative in nature and will continue indefinitely.  Please see [Step 3](#3-resolving-error-messages) above for more information.
 
 The Staging Environment will continue to remain live even after the Production Environment is launched.  It will be a place for continued testing to take place in a CJIS-compliant capacity.
 
@@ -336,12 +336,14 @@ Certain elements, such as `restitution_amount` or `pretrial_fee_paid`, expect do
 
 | Actual Monetary/Currency Value          | Entered Value (submitted to the pipeline as) | 
 |----------------|--------------|
-| $5.99       | 599       | 
-| $150.00       | 15000       | 
+| $5.99          | 599          | 
+| $150.00        | 15000        | 
 | $2939.00       | 293900       | 
-| $0.99       | 99       | 
-| $0.00       | 0       | 
-| $500000.03       | 50000003      | 
+| $0.99          | 99           | 
+| $0.00          | 0            | 
+| $500000.03     | 50000003     | 
+
+
 <br><br>
 
 ## 6. Additional Resources 
@@ -354,4 +356,4 @@ Our team is here to help!  We are offering the following options to support you 
 
 ## Related Documentation
 - [Staging Overview](/publishers/cookbooks/alliance-exchange/staging.html)
-- [Staging Definitions and Guidance](/publishers/cookbooks/alliance-exchange/staging-definitions.html)
+- [Staging Definitions and Best Practices](/publishers/cookbooks/alliance-exchange/staging-definitions.html)
