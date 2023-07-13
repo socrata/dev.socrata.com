@@ -10,13 +10,13 @@ The following definitions are meant to serve as a reference for concepts and ter
 
 ## Glossary of Commonly Used Terms and Definitions 
 - Types of Data used in the Tyler & AOIC Program:
-    - *Mock Data*: fake data which is artificially inserted into the product. Typically used for early testing of a solution.
+    - *Mock Data*: fake data which is artificially inserted into the product. Typically used for early testing of a solution. Mock Data should not be submitted for staging.
     - *Live Data (aka. Real Data)*: data from a Vendor’s test or production system, or any other solution, that contains operational data. Live data is used in the Tyler AOIC Staging Environment.
     - *Production Data*: fully representational data that has passed the certification and staging processes. This data is information that is persistently stored and utilized to conduct business processes and analysis. Production Data is used in the Tyler AOIC Production Environment.<br><br>
 - Categories of Data Elements used in the Tyler & AOIC Program:
-    - *Critical Element*: a necessary data element that facilitates the operational functions allowing data to flow from a Vendor’s source system and be received into the final solution.
+    - *Critical Element*: A data element that facilitates the operational functions allowing data to flow from a Vendor’s source system and be received into the final solution and is mandatory to be sent with every transaction.
         - The Critical Elements for the Staging Pipeline are different than the Certification Pipeline.
-    - *Required Element*: A data element that is necessary from a business perspective, but is not technically mandatory for data to be received.<br><br>
+    - *Required Element*: A data element that is essential from a business perspective, but is not mandatory for data to be received and processed through the Pipeline.<br><br>
 - More Commonly Used Terms and Definitions:
     - *Record ID*: The Record ID is used to allow the vendor the maintain (modify, update, delete) the data after it’s been submitted. This is a unique identifier for the object in the local source system. Each object must have a unique Record ID.
 
@@ -105,7 +105,7 @@ Attorney(multiple attorneys may be representing the same litigant)
 ```
 
 ### 5. Partial Caseloads
-Partial Caseloads will be allowed in Staging. We are mentioning it now because later, in Production, we will be establishing a particular starting date for which Caseloads should be included, and Caseloads prior to this date will need to be excluded.
+Partial Caseloads will be allowed in Staging. We are mentioning it now because later, in Production, we will be establishing criteria for which Caseloads should be included, and Caseloads prior to this criteria being established will need to be excluded.
 
 ### 6. Spaces and Capitalization
 In the Staging Domain, the Data Elements that are categorical in nature have rigorous validation against finite, predefined sets of enumerated values. These are listed in the Data Elements for the applicable variables.
