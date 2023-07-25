@@ -194,17 +194,17 @@ Completion is gauged by the following criteria.  Please note that, because Stagi
 - Continue to submit live data to the Staging Environment until you have submitted all data elements for the respective program area.
 - Work cooperatively and responsively with the AOIC to make refinements and updates to the data upon request. 
 
-As you complete the milestones outlined above, please send updates to [data-certification@tylertech.com](mailto:data-certification@tylertech.com) as soon as possible.  We will document your team’s completion of these steps.<br><br>
+As you complete the milestones outlined above, please send updates to [4837dff8.tylertech.onmicrosoft.com@amer.teams.ms](mailto:4837dff8.tylertech.onmicrosoft.com@amer.teams.ms) as soon as possible.  We will document your team’s completion of these steps.<br><br>
 
 ## 3. Resolving Error Messages 
 ### 3.1 Scenario: I Received an Error Notification Email. How Can I Make Sense of It?
 - Please start by consulting the “Parsing Out Common Errors” section below. If you need additional help:
 
-    - Please copy and paste the Envelope ID into an email to [data-certification@tylertech.com](mailto:data-certification@tylertech.com).
+    - Please copy and paste the Envelope ID into an email to [4837dff8.tylertech.onmicrosoft.com@amer.teams.ms](mailto:4837dff8.tylertech.onmicrosoft.com@amer.teams.ms).
     - We will help you promptly to troubleshoot in more depth.
 
 ### 3.2 Scenario: I Receive an Error that Mentions “System_County_Association”
-This type of error means that you have tried to submit a record for a county or court over which your company does not have jurisdiction.  If you believe this is incorrect, please let us know at data-certification@tylertech.com.
+This type of error means that you have tried to submit a record for a county or court over which your company does not have jurisdiction.  If you believe this is incorrect, please let us know at [4837dff8.tylertech.onmicrosoft.com@amer.teams.ms](mailto:4837dff8.tylertech.onmicrosoft.com@amer.teams.ms).
 
 Here is an example of what this error might look like:
 
@@ -235,7 +235,7 @@ Here is an example of what this error might look like:
 ### 4.2 Parsing Out Common Errors
 The Notification Emails will be triggered when an error is encountered at Step 2, as described above. Only one error is included per Error Notification Email, but please note there may actually be multiple errors in the submission. You will receive one email per submission with a single error until all errors are resolved. It is suggested that you correct the error on the element in question and investigate if that error may exist in multiple places throughout your submission. For example, if you receive a required error, it’s suggested to resolve the error for that element and check the rest of your submission to find other elements that cause that error before submitting again. After all errors are resolved, error emails will no longer be sent.
 
-The following sections detail some of the most common errors you may encounter. Again, if you need additional troubleshooting help, please feel free to contact us at [data-certification@tylertech.com](mailto:data-certification@tylertech.com) and specify your Envelope ID(s) in the email.
+The following sections detail some of the most common errors you may encounter. Again, if you need additional troubleshooting help, please feel free to contact us at [4837dff8.tylertech.onmicrosoft.com@amer.teams.ms](mailto:4837dff8.tylertech.onmicrosoft.com@amer.teams.ms) and specify your Envelope ID(s) in the email.
 
 #### 4.2.1 Pipeline Critical Elements
 The Judicial Analytics System requires that all Pipeline Critical Elements be included. If one or more Pipeline Critical Elements is missing from the submission, you’ll receive an error.  Please note that an error that says “required” is actually referring to an error with Pipeline Critical Elements. Please see [Pipeline Critical Elements vs. Required Fields](/publishers/cookbooks/alliance-exchange/staging-definitions#3-pipeline-critical-elements-vs-required-fields) for more information.
@@ -301,11 +301,11 @@ ErrorSchema: di-aoic-probation-ancillary-assessment
 *Fix*: Please consult the Data Elements and make sure the value for this variable in the record is equal to one of the enumerated values.
 
 ### 4.3 Excessive Error Handling Alternative
-If you are still experiencing errors after troubleshooting at least three automated error emails and need additional assistance, you may request an Error Report Workbook by following the numbered steps below.  Please note that you will need to request additional credentials from us at [data-certification@tylertech.com](mailto:data-certification@tylertech.com) before you proceed to Step #1.
+If you are still experiencing errors after troubleshooting at least three automated error emails and need additional assistance, you may request an Error Report Workbook by following the numbered steps below.  Please note that you will need to request additional credentials from us at [4837dff8.tylertech.onmicrosoft.com@amer.teams.ms](mailto:4837dff8.tylertech.onmicrosoft.com@amer.teams.ms) before you proceed to Step #1.
 
 1. Submit your entries to the “Prep-Staging” Pipeline.
    - Please note that this pipeline is used solely for the creation of Error Report Workbooks and is NOT the Staging Pipeline. 
-2. After your submission, email the Tyler D&I Project Team at [data-certification@tylertech.com](mailto:data-certification@tylertech.com) 
+2. After your submission, email the Tyler D&I Project Team at [4837dff8.tylertech.onmicrosoft.com@amer.teams.ms](mailto:4837dff8.tylertech.onmicrosoft.com@amer.teams.ms)
     - Email Subject: “Error Report Workbook Request for Vendor_Name / County / Program_Area”
     - Email message must include: your Envelope IDs and the date and time of submission.
 3. The Tyler D&I Project Team will distribute the requested workbooks that will include a listing of each error and ways to fix them.
@@ -351,7 +351,7 @@ Our team is here to help!  We are offering the following options to support you 
 
 - The Tyler Team will conduct Office Hours on a biweekly basis (every other week) for Vendors in the Staging Process. These sessions will focus on the current status report and provide an opportunity to discuss progress. Each vendor will be added to the meeting series and can join at any time. Attendance is optional. 
 
-- If you have questions or need additional assistance, the Tyler Team may be contacted at [data-certification@tylertech.com](mailto:data-certification@tylertech.com).  We will gladly assist you with technical and procedural inquiries alike.
+- If you have questions or need additional assistance, the Tyler Team may be contacted at [4837dff8.tylertech.onmicrosoft.com@amer.teams.ms](mailto:4837dff8.tylertech.onmicrosoft.com@amer.teams.ms).  We will gladly assist you with technical and procedural inquiries alike.
 <br><br>
 
 ## Related Documentation
