@@ -6,7 +6,9 @@ layout: chromeless
 # ![logo](https://www.tylertech.com/Portals/0/Logo-NavBar.jpg?ver=Js0wL8bzpXBsBHn_bv-Kjg%3d%3d) Staging - Definitions and Best Practices
 
 ## About this Page
-The following definitions are meant to serve as a reference for concepts and terminology you will want to be familiar with during Staging. Please note that this is a living document and additional topics may be added here over the course of the Staging Process. As always, please let us know if there are additional concepts you want to see covered here.<br><br>
+The following definitions are meant to serve as a reference for concepts and terminology you will want to be familiar with during Staging. Please note that this is a living document and additional topics may be added here over the course of the Staging Process. As always, please let us know if there are additional concepts you want to see covered here.
+All questions concerning Staging should be submitted to [data-staging@tylertech.onmicrosoft.com](mailto:data-staging@tylertech.onmicrosoft.com).
+<br><br>
 
 ## Glossary of Commonly Used Terms and Definitions 
 - Types of Data used in the Tyler & AOIC Program:
