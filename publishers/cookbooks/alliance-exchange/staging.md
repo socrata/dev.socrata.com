@@ -15,7 +15,8 @@ The AOIC will be working diligently together with the Tyler Technologies team th
 - Staging is long term.
     - The Staging Pipeline and Environment are accessible indefinitely. 
     - The Staging Process provides an opportunity make necessary adjustments. 
-    - The Staging Process and Environment allows CMS Vendors to refine the quality and quantity of their data to meet the acceptance threshold for Production. 
+    - The Staging Process and Environment allows CMS Vendors to refine the quality and quantity of their data to meet the acceptance threshold for Production.
+    - All questions concerning Staging should be submitted to [data-staging@tylertech.onmicrosoft.com](mailto:data-staging@tylertech.onmicrosoft.com).
 - Staging requires Live Data instead of Mock Data.
     - Live Data is considered as: data sent directly from a Test or Production CMS to the Staging platform.
     - As a result, it is conducted in a CJIS-compliant environment that approximates the specifications of the production environment.
