@@ -7,6 +7,7 @@
     "doc": "docs"
   },
   "dependencies": {
+    "apib2swagger": "^1.16.1",
     "casperjs": "^1.1.0-beta5",
     "openapi-explorer": "^0.11.535",
     "r.js": "^1.0.3",
