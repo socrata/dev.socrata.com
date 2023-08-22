@@ -1,0 +1,1618 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Publishing",
+    "description": "This is the Socrata API for creating revisions on Socrata datasets, cleaning and transforming your data, uploading data, and making your dataset available for sharing and consumption.\n\nThe new experience for importing your data in Socrata through the web interface has a new and complementary\npublishing API. This API supports the new features and functionality you can use, most notably the ability to\ncreate transform and validation expressions on the fields in the data you import.\nThis Socrata publishing API for data publishers allows you to create revisions (drafts)\non Socrata datasets, upload new data or import from an external URL, clean and transform your\ndata, and make your dataset available for sharing and consumption.\n\n### When to use this API\nThere are a handful of ways to automate data publishing using Socrata APIs, so when might this API be the best one to use?\nIf you have created a dataset using the [new import experience](https://support.socrata.com/hc/en-us/articles/115016067067)\nand created at least one transform, this is the ideal API for updating your data going forward.\n\nThis API will allow you to continue to use the same input fields from your original data, and will run\nthe same transforms you initially set up for every update. For example, if your source file contains\na column with the street number and a column for the street name, and you set up a transform to combine\nthat into a single column in your Socrata dataset, you can use this API to continue importing files with\nthose two columns (street number and street name) and running the transform to combine into a single\ncolumn that uploads to your Socrata dataset.\n\nIf your input data has the exact same schema as the data that appears in Socrata\n(i.e. you did not create any custom transforms), you could use the normal upsert API or DataSync to run\nautomatic updates. This upsert API approach will be faster than using this API, but you will not be able\nto run data transformations before your data becomes available for consumption.\n\n### Authentication\nAuthentication through this API is the same as our other publishing API’s, which means all requests are required to be:\nPerformed over a secure HTTPS connection\nAuthenticated via HTTP Basic\n\nIf you need help, you can find instructions to help you authenticate via HTTP Basic on dev.socrata.com.\n\n## Examples\n\n### Create and update a dataset using a file\n\nOverview of this sample script:\n1. **POST** to the revision endpoint to create a new revision. This is where you will denote the name of your dataset and whether it will be public or private. This step will return a 4x4 and an endpoint at which you can attach a source.\n2. **POST** to create a source on your revision, indicating where your data will come from. In this case a file.\n3. **POST** to upload the file to your source.\n4. Make any changes to your schema, including adding, removing, and updating transforms for columns. The schema is returned as JSON from your response in Step 3. Then **POST** back to the input schema endpoint.\n5. **PUT** to the apply revision endpoint to apply your revision (in this case, publish your new dataset).\n6. To open a new revision on your dataset, **POST** to the revision endpoint, this time using the 4x4 of your dataset. Then follow steps 2-5 to create a source, attach a file, making changes, and the apply the revision.\n\n\n```sh\nimport requests\nimport os\nimport json\nfrom operator import itemgetter\ndomain_url = 'https://test.demo.socrata.com' # Set your domain\ncredentials = (os.environ['USERNAME'], os.environ['PASSWORD']) # Set username/password that you use to update data on your Socrata site\n```\n#### Step 1: Create new revision\nThis is the first step required in order to create a new asset.\n```sh\ndataset_name = 'cool_data'\nmetadata = { 'name': dataset_name } # Minimum required metadata\naction_type = 'update' # Options are Update, Replace, or Delete\npermission = 'private'\nrevision_json = json.dumps({\n        'metadata': metadata,\n        'action': {\n          'type': action_type,\n          'permission': permission\n        }\n      })\nheaders = { 'Content-Type': 'application/json' }\nrevision_url = f'{domain_url}/api/publishing/v1/revision'\nrevision_response = requests.post(revision_url, data=revision_json, headers=headers, auth=credentials)\nfourfour = revision_response.json()['resource']['fourfour'] # Creating a new revision will return the 4x4 for your new dataset\ncreate_source_uri = revision_response.json()['links']['create_source'] # It will also return the URL you need to create a source\ncreate_source_url = f'{domain_url}{create_source_uri}'\n```\nNote: If your revision is a delete revision, a reivision with action_type \"delete\" to delete rows from the dataset, then the dataset is required to have a column designated as the primary id.\n#### Step 2: Create new source\nIn this step you create a new source, to which you'll attach a file in step 3. Think of this as setting up the guidelines for where your data is going to come from and what it's going to look like.\n```sh\nrevision_source_type = 'upload' # Options are Upload (for uploading a new file) or View (for using the existing dataset as the source)\nparse_source = 'true' # Parsable file types are .csv, .tsv, .xls, .xlsx, .zip (shapefile), .json (GeoJSON), .geojson, .kml, .kmz. If uploading a blob file (ie: PDFs, pictures, etc.) parse_source will be false.\nfilename = 'cool_dataset.csv'\nsource_json = json.dumps({\n  'source_type': {\n    'type': revision_source_type,\n    'filename': filename\n  },\n  'parse_options': {\n    'parse_source': parse_source\n  }\n})\nsource_response = requests.post(create_source_url, data=source_json, headers=headers, auth=credentials)\n```\n#### Step 3: Upload File to source_type\nIn this step, you actually pass the file to the source that you created in Step 2. In this example, a file is being passed from a local directory.\n```sh\nwith open('/Users/user.name/test_data/sample.csv', \"rb\") as f:\n    bytes = f.read()\nf.closed\nupload_uri = source_response.json()['links']['bytes'] # Get the link for uploading bytes from your source response\nupload_url = f'{domain_url}{upload_uri}'\nupload_headers = { 'Content-Type': 'text/csv' }\nupload_response = requests.post(upload_url, data=bytes, headers=upload_headers, auth=credentials)\n```\n#### Step 4 (optional): Add new column to source before publishing (or modify existing column)\nThis is an optional step. If you wanted to add a column or modify a column with a transform before uploading it to Socrata, you would modify the output_schema in this step. This sample will show the steps for adding a new column.\nFor modifying a column, you would edit the transform on that column in your output colums. For full list of available transforms, see [this documentation](https://dev.socrata.com/docs/transforms)\n```sh\n# Get the input schema that was created when you attached your file to your source in Step 3\ninput_schemas = upload_response.json()['resource']['schemas']\nlatest_input_schema = max(input_schemas, key=itemgetter('id'))\n# From there you can get the latest output schema (which will contain an array of columns you can modify)\noutput_schemas = latest_input_schema['output_schemas']\nlatest_output_schema = max(output_schemas, key=itemgetter('id'))\n# Modify the output columns that you just retrieved\noutput_columns = latest_output_schema['output_columns']\nposition = len(output_columns) + 1 # If you're adding a new column, position is a required field that determines the column order\nnew_column = {\n  'field_name': 'new_field_name',\n  'display_name': 'New Display Name',\n  'discription': '',\n  'position': position,\n  'transform': {\n    'transform_expr': 'the text of your transform here'\n  }\n}\noutput_columns.append(new_column)\noutput_columns_json = json.dumps({\n'output_columns':\n  output_columns\n})\n# Get input schema url to post the data you've acquired and modified from your source response\ninput_schema_id = latest_input_schema['id']\ninput_schema_uri = source_response.json()['links']['input_schema_links']['transform'].format(input_schema_id=input_schema_id)\ninput_schema_url = f'{domain_url}{input_schema_uri}'\nupdate_columns_response = requests.post(input_schema_url, data=output_columns_json, headers=headers, auth=credentials)\n```\n#### Step 5: Apply revision (publish)\nThis is the final step in creating and publishing a new asset.\n```sh\napply_revision_uri = revision_response.json()['links']['apply']\napply_revision_url = f'{domain_url}{apply_revision_uri}'\nprint(f'APPLY URL {apply_revision_url}')\nrevision_number = revision_response.json()['resource']['revision_seq'] # This number will always be 0 for the first publication. Then it will increment up by one each time a new revision is created.\napply_revision_json = json.dumps({\n 'resource': {\n    'id': revision_number\n  }\n})\napply_revision_response = requests.put(apply_revision_url, data=apply_revision_json, headers=headers, auth=credentials)\n```\n#### Step 6 (optional): Update/Edit\nNow if you'd like to start editing your existing datasets, you would begin again by first creating a revision and then a source. The difference this time is that you pass in your 4x4 dataset id. After you create the revision and the source, simply follow steps 3-5 to attach/modify your data and the publish.\n```sh\n# First create the revision using the 4x4 of your dataset\nrevision_json = json.dumps({\n 'action': {\n    'type': action_type\n    }\n })\nupdate_revision_url = f'{revision_url}/{fourfour}'\nupdate_revision_response = requests.post(update_revision_url, data=revision_json, headers=headers, auth=credentials)\n# Then create the source using the revision that you just created.\nupdate_source_json = json.dumps({\n  'source_type': {\n    'type': revision_source_type,\n    'filename': filename\n  },\n  'parse_options': {\n    'parse_source': parse_source\n  }\n})\nsource_uri = update_revision_response.json()['links']['create_source']\nsource_url = f'{domain_url}{source_uri}'\nupdate_source_response = requests.post(source_url, data=update_source_json, headers=headers, auth=credentials)\n```\n### Metadata only update\nOverview of this sample script:\n1. **POST** to the revision endpoint of the dataset you'd like to update with the metadata you'd like to update in JSON format.\n2. **PUT** to the apply revision endpoint to apply the new revision.\n```sh\nimport requests\nimport os\nimport json\ndomain_url = 'https://test.demo.socrata.com' # Set your domain\ncredentials = (os.environ['USERNAME'], os.environ['PASSWORD'])\nfourfour = 'xxxx-xxxx'\n```\n#### Step 1: Create new revision\nIn this step you will want to put the metadata you'd like to update in JSON format along with the action you'd like to take (which will be 'update' in this case).\nThis sample shows the default public metadata fields, but you can also update custom and private metadata here.\n```sh\nheaders = { 'Content-Type': 'application/json' }\nrevision_url = f'{domain_url}/api/publishing/v1/revision'\naction_type = 'update'\nbody = json.dumps({\n'metadata': {\n    'tags': ['tag a', 'tab b'],\n    'privateMetadata': {},\n    'name': 'super cool dataset',\n    'metadata': {},\n    'licenseId': 'PUBLIC_DOMAIN',\n    'license': {\n        'name': 'Public Domain'\n    },\n    'description': 'this is a desription',\n    'category': 'Business',\n    'attributionLink': 'http://socrata.com',\n    'attribution': ''\n    },\n 'action': {\n    'type': action_type\n    }\n })\nupdate_revision_url = f'{revision_url}/{fourfour}'\nupdate_revision_response = requests.post(update_revision_url, data=body, headers=headers, auth=credentials)\n```\n#### Step 2: Apply revision\nHere you just apply your revision as you would if you were updating data.\n```sh\napply_revision_uri = update_revision_response.json()['links']['apply']\napply_revision_url = f'{domain_url}{apply_revision_uri}'\nrevision_number = update_revision_response.json()['resource']['revision_seq']\nbody = json.dumps({\n 'resource': {\n    'id': revision_number\n  }\n})\napply_revision_response = requests.put(apply_revision_url, data=body, headers=headers, auth=credentials)\n```\n### Column metadata update\nOverview of this sample script:\n1. **POST** to the revision endpoint of the dataset you'd like to update.\n2. **POST** to create a source on your revision, indicating where your data will come from. In this case, the dataset itself (the \"view\").\n3. **POST** to the transform schema endpoint with your updated column metadata.\n4. **PUT** to the apply revision endpoint.\n```sh\nimport itertools\nfrom operator import itemgetter\nimport os\nimport requests\ndomain_url = 'https://test.demo.socrata.com' # Set your domain\nfourfour = 'xxxx-xxxx'\ncredentials = (os.environ['USERNAME'], os.environ['PASSWORD'])\n```\n#### Step 1: Create replace revision\nCreate a new revision on the dataset you'd like to update; the update type will be 'replace'.\n```sh\nreplace_json = {\n    'action': {\n        'type': 'replace',\n    }\n}\nreplace_response = requests.post(f'{domain_url}/api/publishing/v1/revision/{fourfour}', json=replace_json, auth=credentials)\n```\n#### Step 2: Create source from dataset view\nCreate a source for the revision you just created, using the 'view' as the source type. This just means that the schema will be taken from the existing dataset, rather than being created from a file or url.\n```sh\n# Get link for creating source\ncreate_source_link = replace_response.json()['links']['create_source']\ncreate_source_json = {\n    'source_type': {\n        'type': 'view',\n        'fourfour': fourfour\n    }\n}\ncreate_source_response = requests.post(domain_url + create_source_link, json=create_source_json, auth=credentials)\n```\n#### Step 3: Get output schema and transform\nUsing the source response, modify the output schema with updated column metadata. Then post the updated schema using the transforms schema endpoint, which was returned in the source response.\n```sh\ninput_schemas = create_source_response.json()['resource']['schemas']\nlatest_input_schema = max(input_schemas, key=itemgetter('id'))\noutput_schemas = latest_input_schema['output_schemas']\nlatest_output_schema = max(output_schemas, key=itemgetter('id'))\n# Transform schema of specific row\nupdated_columns = latest_output_schema['output_columns']\nupdated_columns[0]['display_name'] = 'New Display Name'\nupdated_columns[0]['field_name'] = 'new_display_name'\nupdated_columns[0]['description'] = 'Sample column-level description'\nupdated_columns[0]['initial_output_column_id'] = updated_columns[0]['id'] # Get the column's unique id\nupdated_schema = {\n    'output_columns': updated_columns\n}\ninput_schema_id = latest_input_schema['id']\ntransform_schema_link = create_source_response.json()     ['links']['input_schema_links']['transform'].format(input_schema_id=input_schema_id)\ntransform_schema_response = requests.post(domain_url + transform_schema_link, json=updated_schema, auth=credentials)\n```\n#### Step 4: Apply revision\nOnce your schema is updated, apply the revision.\n```sh\napply_json = {'output_schema_id': transform_schema_response.json()['resource']['id']}\napply_link = replace_response.json()['links']['apply']\napply_response = requests.put(domain_url + apply_link, auth=credentials)\n```\n### Column formatting update\nThis mirrors the steps for updating column metadata. The only difference is how you modify each column's JSON.\nOverview of this sample script:\n1. **POST** to the revision endpoint of the dataset you'd like to update.\n2. **POST** to create a source on your revision, indicating where your data will come from. In this case, the dataset itself (the \"view\").\n3. **POST** to the transform schema endpoint with your updated column metadata.\n4. **PUT** to the apply revision endpoint.\n```import itertools\nfrom operator import itemgetter\nimport os\nimport requests\ndomain_url = 'https://test.demo.socrata.com' # Set your domain\nfourfour = 'xxxx-xxxx'\ncredentials = (os.environ['USERNAME'], os.environ['PASSWORD'])\n```\n#### Step 1: Create replace revision\nCreate a new revision on the dataset you'd like to update; the update type will be 'replace'.\n```\nreplace_json = {\n    'action': {\n        'type': 'replace',\n    }\n}\nreplace_response = requests.post(f'{domain_url}/api/publishing/v1/revision/{fourfour}', json=replace_json, auth=credentials)\n```\n#### Step 2: Create source from dataset view\nCreate a source for the revision you just created, using the 'view' as the source type. This just means that the schema will be taken from the existing dataset, rather than being created from a file or url.\n```\n# Get link for creating source\ncreate_source_link = replace_response.json()['links']['create_source']\ncreate_source_json = {\n    'source_type': {\n        'type': 'view',\n        'fourfour': fourfour\n    }\n}\ncreate_source_response = requests.post(domain_url + create_source_link, json=create_source_json, auth=credentials)\n```\n#### Step 3: Get output schema and transform\nUsing the source response, modify the output schema with updated column metadata. Then post the updated schema using the transforms schema endpoint, which was returned in the source response.\n```\ninput_schemas = create_source_response.json()['resource']['schemas']\nlatest_input_schema = max(input_schemas, key=itemgetter('id'))\noutput_schemas = latest_input_schema['output_schemas']\nlatest_output_schema = max(output_schemas, key=itemgetter('id'))\nprint(latest_output_schema)\n# Transform schema of specific row\nupdated_columns = latest_output_schema['output_columns']\n```\nThis is part that differs from updating column metadata!\n```\n# Add column formatting\nupdated_columns[1]['format'] = { 'view': 'date_dmy_time' }\nupdated_columns[1]['initial_output_column_id'] = updated_columns[1]['id'] # Get the column's unique id\nupdated_columns[4]['format'] = { 'noCommas': True }\nupdated_columns[4]['initial_output_column_id'] = updated_columns[4]['id'] # Get the column's unique id\nupdated_columns[5]['format'] = { 'decimalSeparator': ',' }\nupdated_columns[5]['initial_output_column_id'] = updated_columns[5]['id'] # Get the column's unique id\n```\n**Formatting Options for Number Columns:**\n`precision` -> `0`-`10`\n`precisionStyle` -> `standard`, `scientific`, `percentage`, `currency`, OR `financial`\n`currencyStyle`* -> the 3-digit code of the desired currency (ie: `EUR`, `CAD`, `AUD`, `USD`, etc.)\n`percentScale`**  -> `1` (multiply by 100) OR `0` (divide by 100)\n`noCommas` -> `True` OR `False`\n`decimalSeparator` -> many options here\n`align` -> `left`(default) OR `right` OR `center`\n**Formatting Options for Text or Bool Columns:**\n`displayStyle` -> `email` OR `url` (default is `null`)\n`align` -> `left`(default) OR `right` OR `center`\n*currencyStyle is only applicable if precisionStyle is set to 'currency'\n**percentScale is only applicable if precisionStyle is set to 'percentage'\n**Sample Options for Date/Time Columns:**\n`view` -> `date_dmy_time` (\"24/9/2007 12:51:31 AM\"), `date_monthdy_shorttime` (\"24 September 2007 12:51 AM\"), `date_shortmonthy` (\"Sept 2007\"), `date_y` (\"2007\"), `date_my` (\"09/2007\"), etc following this pattern\n```\nupdated_schema = {\n    'output_columns': updated_columns\n}\ninput_schema_id = latest_input_schema['id']\ntransform_schema_link = create_source_response.json()     ['links']['input_schema_links']['transform'].format(input_schema_id=input_schema_id)\ntransform_schema_response = requests.post(domain_url + transform_schema_link, json=updated_schema, auth=credentials)\n```\n#### Step 4: Apply revision\nOnce your schema is updated, apply the revision.\n```\napply_json = {'output_schema_id': transform_schema_response.json()['resource']['id']}\napply_link = replace_response.json()['links']['apply']\napply_response = requests.put(domain_url + apply_link, auth=credentials)\n```\n### Create a dataset from external dataset link (HREF)\nOverview of this sample script:\n1. **POST** to the revision endpoint with the external dataset link (HREF) information in JSON format.\n2. **PUT** to the apply revision endpoint to apply the new revision.\n```sh\nimport requests\nimport os\nimport json\ndomain_url = 'https://test.demo.socrata.com' # Set your domain\ncredentials = (os.environ['USERNAME'], os.environ['PASSWORD']) # Set username/password that you use to update data on your Socrata site\n```\n#### Step 1: Create new revision\nIn this step, create a new revision and send the external link (HREF) dataset infromation in json format in the body of the request.\nThis example shows one way of sending that information.\n```sh\nrevision_json = json.dumps({\n        'metadata': { 'name': 'cool data' },\n        'action': {\n          'type': 'update',\n          'permission': 'private'\n        },\n        'href' : [\n          {\n              'title' :  'Legacy search engines',\n              'description' : 'Why would you use any of these?',\n              'urls' : {\n                  'lycos' : 'http://www.lycos.com/',\n                  'altavista' : 'http://www.altavista.com/',\n                  'yahoo' : 'http://www.yahoo.com/'\n              }\n          },\n          {\n              'title' : 'More search engines',\n              'urls' : {\n                  'askjeeves' : 'https://www.ask.com/',\n                  'magellan' : 'https://dontknowthisone.com/',\n                  'ixquick' : 'http://whoknows.com/'\n              },\n              'data_dictionary' : 'https://en.wikipedia.org/wiki/Web_search_engine',\n              'data_dictionary_type' : 'wikipedia'\n          }\n        ]\n      })\nheaders = { 'Content-Type': 'application/json' }\nrevision_url = f'{domain_url}/api/publishing/v1/revision'\nrevision_response = requests.post(revision_url, data=revision_json, headers=headers, auth=credentials)\n```\n#### Step 2: Apply revision\nHere you just apply your revision as you would if you were updating data.\n```sh\napply_revision_uri = update_revision_response.json()['links']['apply']\napply_revision_url = f'{domain_url}{apply_revision_uri}'\nrevision_number = update_revision_response.json()['resource']['revision_seq']\nbody = json.dumps({\n 'resource': {\n    'id': revision_number\n  }\n})\napply_revision_response = requests.put(apply_revision_url, data=body, headers=headers, auth=credentials)\n```\n",
+    "version": ""
+  },
+  "paths": {
+    "/api/publishing/v1/config": {
+      "get": {
+        "summary": "List ImportConfigs",
+        "description": "Returns a list of all available ImportConfigs for this domain",
+        "operationId": "List ImportConfigs",
+        "tags": [
+          "Import Config"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/responses/ImportConfigResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new ImportConfig",
+        "description": "This creates a new import config. An import config specifies a recipe for interpreting\nfiles and applying revisions to datasets.",
+        "operationId": "Create a new ImportConfig",
+        "tags": [
+          "Import Config"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/ImportConfig"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/ImportConfigResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/config/:name": {
+      "get": {
+        "summary": "Show a specific ImportConfig",
+        "description": "Return the ImportConfig resource identified by name. Names are always unique.",
+        "operationId": "Show a specific ImportConfig",
+        "tags": [
+          "Import Config"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/ImportConfigResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update an ImportConfig",
+        "description": "Update the `parse_options`, `columns` or name of this config",
+        "operationId": "Update an ImportConfig",
+        "tags": [
+          "Import Config"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/ImportConfig"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/ImportConfigResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an ImportConfig",
+        "description": "Delete the ImportConfig identified by `name`",
+        "operationId": "Delete an ImportConfig",
+        "tags": [
+          "Import Config"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/ImportConfigResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/config/build_from/:output_schema_id": {
+      "post": {
+        "summary": "Build a new ImportConfig from an OutputSchema",
+        "description": "This creates a new import configuration, that, when used, will behave\nin the same way as the Source and OutputSchema that it is built from. Ie:\nthe file will be parsed in the same way, and the parsed results from the\nfile will be transformed in the same way.\n\nThis method returns the newly created import config.",
+        "operationId": "Build a new ImportConfig from an OutputSchema",
+        "tags": [
+          "Import Config"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/ImportConfigResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/revision": {
+      "post": {
+        "summary": "Create a Revision for a new Asset",
+        "operationId": "Create a Revision for a new Asset",
+        "tags": [
+          "Revision"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/RevisionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/revision/:fourfour": {
+      "get": {
+        "summary": "List Revisions on an existing Asset",
+        "description": "Get a list of revisions attached to a View's id, ordered with the most recent first.\nOptionally filter to just open or closed revisions using the \"open\" param.",
+        "operationId": "List Revisions on an existing Asset",
+        "tags": [
+          "Revision"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/responses/RevisionResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new Revision on an existing Asset",
+        "description": "This creates a new revision. It takes a fourfour in the URL\nand creates a revision, that when applied, will modify the\nview in question\n\nYou cannot set an output_schema_id or a blob_id on a revision\nat creation, since the source must already belong to the revision.",
+        "operationId": "Create a new Revision on an existing Asset",
+        "tags": [
+          "Revision"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/RevisionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/revision/:fourfour/:revision_seq": {
+      "get": {
+        "summary": "Show a Revision",
+        "description": "Get the revision identified by the View's id and revision sequence number",
+        "operationId": "Show a Revision",
+        "tags": [
+          "Revision"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/RevisionResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a Revision",
+        "description": "Update a revision with metadata or the output schema. The metadata will be applied to the target\nview when the revision is applied. The output schema will be applied to the target when the\nrevision is applied.",
+        "operationId": "Update a Revision",
+        "tags": [
+          "Revision"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "metadata": {
+                    "type": "object"
+                  },
+                  "output_schema_id": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/RevisionResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Revision",
+        "description": "Update a revision with metadata or the output schema. The metadata will be applied to the target\nview when the revision is applied. The output schema will be applied to the target when the\nrevision is applied.",
+        "operationId": "Update a Revision",
+        "tags": [
+          "Revision"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "metadata": {
+                    "type": "object"
+                  },
+                  "output_schema_id": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/RevisionResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Discard a Revision",
+        "description": "Close the revision without modifying the view that it applies to in any way.\nThis prevents the revision from being applied at any point in the future, though\nit will still be available to view.",
+        "operationId": "Discard a Revision",
+        "tags": [
+          "Revision"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/RevisionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/revision/:fourfour/:revision_seq/apply": {
+      "put": {
+        "summary": "Apply a Revision",
+        "description": "This starts applying the revision to the dataset referred to by the revision.",
+        "operationId": "Apply a Revision",
+        "tags": [
+          "Revision"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/TaskSetResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/revision/:fourfour/:revision_seq/apply/:id": {
+      "get": {
+        "summary": "Get a Revision Application job",
+        "operationId": "Get a Revision Application job",
+        "tags": [
+          "Revision"
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/TaskSetResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/revision/:fourfour/:revision_seq/source": {
+      "post": {
+        "summary": "Create a Source",
+        "description": "This creates a new source. Note that you don't\nactually POST the file to this endpoint; this creates an entry that you\n*will* POST the file to. This endpoint is used to specify details about\nyour source, such as the filename.\n\nIf you want to associate the new `Source` with a `Revision` you may include\nthe Revision's dataset id and sequence number\n\nThe valid source types are `upload`, `url` and `view`.\n\n#### Upload Sources\nThis is a regular upload. The `source_type` value in the payload might look\nsomething like\n```\n{\n  \"type\": \"upload\",\n  \"filename\": \"cool-dataset.csv\"\n}\n```\n\n#### URL Sources\nThis is a source that when created, will be downloaded from the provided URL,\nparsed and transformed. The value in the payload might look something like\n```\n{\n  \"type\": \"url\",\n  \"filename\": \"cool-dataset.csv\",\n  \"url\": \"https://some-website/cool-dataset.csv\"\n}\n```\n\n#### View Sources\nThis is a source that is based on a Socrata View. This means the metadata and schema\nis pulled from the Socrata view into the revision for editing. The data\nis lazily loaded, so if you change a transform in a column, the data\nwill be loaded and transformed.\n```\n{\n  \"type\": \"view\",\n  \"fourfour\": \"view-idnt\"\n}\n```\n\n#### Examples\n\n##### Updating column metadata\nFirst, create a revision [with this endpoint](https://socratapublishing.docs.apiary.io/#reference/0/revisions/create-a-new-revision)\n```\ncurl -X POST -u $SOCRATA_USER:$SOCRATA_PASSWORD -H \"Content-Type: application/json\" -d '{\"action\": {\"type\": \"replace\"}}' https://chris.demo.socrata.com/api/publishing/v1/revision/9dh9-jsib | jq .\n```\nWe're interested in the `apply` link returned in the `links` object, so save that for later.\nThen, use the `create_source` link given back in the `links` object to create a source like\n```\ncurl -X POST -u $SOCRATA_USER:$SOCRATA_PASSWORD -H \"Content-Type: application/json\" -d '{\"source_type\": {\"type\": \"view\", \"fourfour\": \"9dh9-jsib\"}}' https://chris.demo.socrata.com/api/publishing/v1/revision/9dh9-jsib/3/source | jq .\n```\nThis will return a payload with the input and output schemas based on your existing view. In the\n`links` object, within the `input_schema_links`, there is a link called `transform`. This is a parameterized\nlink, which requires we substitute the `input_schema_id` into the link to make a call. At that point, we'll\nbe doing a transformation, from your existing schema to the new one as described in more detail [here](https://socratapublishing.docs.apiary.io/#reference/0/inputschema)\n\n```\ncurl -X POST -u $SOCRATA_USER:$SOCRATA_PASSWORD -H \"Content-Type: application/json\" -d $data https://chris.demo.socrata.com/api/publishing/v1/source/15786/schema/15398 | jq .\n```\n\nwhere $data might look like\n```\n  {\n    \"output_columns\": [\n      {\n        \"field_name\": \"datetime\",\n        \"display_name\": \"Datetime\",\n        \"position\": 0,\n        \"description\": \"The date and time of the incident\",\n        \"transform\": {\n          \"transform_expr\": \"to_fixed_timestamp(year || \"/\" || month \"/\" || day \"T\" || time)\"\n        },\n        format: {}\n      },\n      {\n        \"field_name\": \"celsius\",\n        \"display_name\": \"Celsius\",\n        \"position\": 1,\n        \"description\": \"The temperature in celsius\",\n        \"transform\": {\n          \"transform_expr\": \"(to_number(fahrenheit) - 30) / 2\"\n        },\n        format: {}\n      }\n    ]\n  }\n```\nAt this point, the column metadata (display_name, description, format) can be updated.\n\nNow we can use the `apply` link we saved earlier to apply the revision. Note that this is a `PUT`\n```\ncurl -X PUT -u $SOCRATA_USER:$SOCRATA_PASSWORD -H \"Content-Type: application/json\" https://chris.demo.socrata.com/api/publishing/v1/revision/9dh9-jsib/4/apply | jq .\n```",
+        "operationId": "Create a Source",
+        "tags": [
+          "Sources"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SourceResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List the sources",
+        "description": "List all the sources on a revision",
+        "operationId": "List the sources",
+        "tags": [
+          "Sources"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SourceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/revision/:fourfour/:revision_seq/source/download": {
+      "get": {
+        "summary": "Download a Source",
+        "description": "You can only download a source when routing through a revision, to verify that you have permissions to access that source.\nYou can optionally specifiy the id of the source, but we will download to the \"active\" source on the revision if none is specified.",
+        "operationId": "Download a Source",
+        "tags": [
+          "Sources"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SourceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/revision/:fourfour/:revision_seq/source/download/:source_id": {
+      "get": {
+        "summary": "Download a Source",
+        "description": "You can only download a source when routing through a revision, to verify that you have permissions to access that source.\nYou can optionally specifiy the id of the source, but we will download to the \"active\" source on the revision if none is specified.",
+        "operationId": "Download a Source",
+        "tags": [
+          "Sources"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SourceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/source": {
+      "post": {
+        "summary": "Create a Source",
+        "description": "This creates a new source. Note that you don't\nactually POST the file to this endpoint; this creates an entry that you\n*will* POST the file to. This endpoint is used to specify details about\nyour source, such as the filename.\n\nIf you want to associate the new `Source` with a `Revision` you may include\nthe Revision's dataset id and sequence number\n\nThe valid source types are `upload` and `view`.\n\nNOTE: When using the `upload` source type `filename` must be\nprovided in the \"details\" section, this is not true of `view`.",
+        "operationId": "Create a Source",
+        "tags": [
+          "Sources"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "source_type": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "example": "upload"
+                      },
+                      "filename": {
+                        "type": "string",
+                        "example": "cool-dataset.csv"
+                      }
+                    }
+                  },
+                  "fourfour": {
+                    "type": "string",
+                    "example": "abba-cafe"
+                  },
+                  "revision_seq": {
+                    "type": "number",
+                    "example": 7
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SourceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/source/:source_id": {
+      "post": {
+        "summary": "Upload file contents",
+        "description": "Post your file to this endpoint. The bytes of your file will now\nbe associated with the source you created earlier.",
+        "operationId": "Upload file contents",
+        "tags": [
+          "Sources"
+        ],
+        "requestBody": {
+          "content": {
+            "application/octet-stream": {
+              "example": null
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SourceResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Show a source",
+        "description": "Show the source identified by id",
+        "operationId": "Show a source",
+        "tags": [
+          "Sources"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SourceResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Associate a source with a revision",
+        "description": "When dealing with multi layer sources, we may want to create a source\nwhich is not related to a single revision on a dataset, because each layer\nwill update a different dataset. We can use this endpoint to add the source\nto the revision if we didn't do it while creating the source initially.",
+        "operationId": "Associate a source with a revision",
+        "tags": [
+          "Sources"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fourfour": {
+                    "type": "string",
+                    "example": "abba-cafe"
+                  },
+                  "revision_seq": {
+                    "type": "number",
+                    "example": 7
+                  },
+                  "header_count": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "column_header": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SourceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/source/:source_id/initiate": {
+      "post": {
+        "summary": "Initiate a chunked upload",
+        "description": "To start a chunked upload to a source, POST to this message an object\ncontaining the content type of your upload.  It will return an object\nthat specifies the preferred chunk size and upload parallelism.  These\npreferences are maximums; you may go smaller, but not higher.  All chunks\nbut the last must be the same size.",
+        "operationId": "Initiate a chunked upload",
+        "tags": [
+          "Upload a chunk"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content_type": {
+                    "type": "string",
+                    "example": "text/csv"
+                  }
+                }
+              },
+              "example": {
+                "content_type": "text/csv"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "preferred_chunk_size": {
+                      "type": "number",
+                      "example": 10240
+                    },
+                    "preferred_upload_parallelism": {
+                      "type": "number",
+                      "example": 5
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/source/:source_id/chunk/:seq_num/:byte_offset": {
+      "post": {
+        "summary": "Send a chunk of data",
+        "description": "To send a chunk of data to the source, POST it to this endpoint.\nThe seq_num parameter is the chunk number, and the byte_offset\nparameter is the byte offset of the start of the chunk within the\nfile.  All chunks but the last must be the same size.",
+        "operationId": "Send a chunk of data",
+        "tags": [
+          "Upload a chunk"
+        ],
+        "requestBody": {
+          "content": {
+            "application/octet-stream": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                }
+              },
+              "example": null
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/source/:source_id/chunk/:seq_num/:byte_offset/commit": {
+      "post": {
+        "summary": "Commit a completed chunked upload",
+        "description": "POST to this endpoint to complete a chunked upload.  Here, the\n`seq_num` will be the number of the last chunk (that is, the same as\nthe corresponding seq_num from a chunk upload call) and the\n`byte_offset` will be the total size of the uploaded data.",
+        "operationId": "Commit a completed chunked upload",
+        "tags": [
+          "Upload a chunk"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                }
+              },
+              "example": null
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/source/:source_id/options": {
+      "post": {
+        "summary": "Update a Source parse options",
+        "description": "There is only one aspect of a Source that can be changed, which is the `parse_options`\nkey. Note that this does not mutate the source directly, it gives you back a new source\nwith the updated fields. The Id will be different.\n\n#### Change the number of header rows\nWhen working with certain files, often the first row is a description of the\nfile, while the next row is the header, and the next row is a description of\neach column, or some variation on this.\n\n`header_count` specifies how many rows should be considered a header. Defaults to 1.\n\n`column_header` will specify which row within the header block should be used to generate\nfield names. This is one based. Defaults to 1\n\n'parse_source' will specify whether the source should be parsed or not.\n\nNote that changing these will trigger a re-parsing of the entire dataset, as it could\nradically change the schema. This call will block until re-parsing the original file\nhas completely, but not necessarily until all the file has been validated.\n\nAs this is a PATCH request, do not include `take_header_rows` or `drop_header_rows`\nif you do not wish to change them.",
+        "operationId": "Update a Source parse options",
+        "tags": [
+          "Sources"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SourceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/source/:source_id/schema/:id": {
+      "post": {
+        "summary": "Create a new schema",
+        "description": "You have an input schema because you sourceed a file, now you'd like\nto modify it. When you `PUT` your desired output schema to this endpoint,\na new output schema will be created and transforms will be started\nto transform the input data into the data you want.\n\nConsider an input schema that came out of `sensors.csv`, which looked like\n\n```\nyear, month, day, time, fahrenheit\n2000, 1, 1, 12:00, 32\n2000, 1, 1, 13:00, 37\n2000, 1, 1, 14:00, 37\n```\nPerhaps we want to combine the time related columns to make a single datetime\ncolumn and convert the temperature to celsius.\n\nOur first column will be created by an expression which will\nconcatenate the year, month, day and time column all into one\ncolumn and then convert it to a datetime. Our strategy will be to concatenate the columns,\nand then call the `to_fixed_timestamp` function on the result.\n\nWe'd also like to convert the temperature column from `fahrenheit` to `celsius`.\nWe'll do a rough approximation using simple maths.\n\nThe sample request body provided will do that.\n\nParams:\n  - `increment_revision`\n    Set the `output_schema_id` on the revision to the newest `output_schema_id` (this one)\n    Defaults to `true`\n\n#### Transform expressions\nThe table below describes the valid transform expressions\n\n  ##### Function: `cast_to_date`\nNo documentation is available.\n\n###### Signatures\n  date -> date\n\n\n##### Function: `-`\nSubtract a number from another\n\nExamples\n\n  4 - 2 -- 2\n\n###### Signatures\n  number, number -> number\n\n\n##### Function: `==`\nReturn true if the left side equals the right\n\nExamples\n\n  1 == 1 -- true\n  1 == 2 -- false\n  'a' == 'b' -- false\n\n###### Signatures\n  a, a -> checkbox\n\n\n##### Function: `#IS_NOT_NULL`\nNo documentation is available.\n\n###### Signatures\n  a -> checkbox\n\n\n##### Function: `#BETWEEN`\nReturn true if the left is within the range of the right values\n\nExamples\n\n  1 BETWEEN 0 and 2 -- true\n  2 BETWEEN 0 and 1 -- false\n  'b' BETWEEN 'a' and 'c' -- true\n\n###### Signatures\n  a, a, a -> checkbox\n\n\n##### Function: `case`\nEvaluate a series of true/false expressions (predicates) and return the next consequent.\n\nThe case takes on the following form.\n\ncase(\n  predicateA, consequentA,\n  predicateB, consequentB\n  ...\n  predicateN, consequentN\n)\n\nIf predicateA evaluates to true, the result of the case is consequentA.\nIf predicateA evaluates to false, and predicateB evaluates to true, the result of the case is consequentB.\nIf no predicates evaluate to true, a null is returned\n\ncase can have any number of (predicate, consequent) pairs\n\nExamples\n\n  case(1 == 2, 'This will never be returned', true, 'This will always be returned') -- 'This will always be returned'\n\n  case(\n    `incident_type` == 0 OR\n    `incident_type` == 1 OR\n    `incident_type` == 2,\n    'incident_type was 0, 1 or 2',\n\n    `incident_type` == 3,\n    'incident_type was 3',\n\n    true,\n    error('incident_type was not 0, 1, 2 or 3, instead it was: ' || `incident_type`)\n  )\n\n###### Signatures\n  checkbox, a -> a\n\n\n##### Function: `>=`\nReturn true if the value on the left is greater than or equal to the value on the right\n\nExamples\n\n  3 >= 2 -- true\n  1 >= 1 -- true\n  'a' >= 'b' -- false\n\n###### Signatures\n  a, a -> checkbox\n\n\n##### Function: `state_boundary`\nreturns the boundary of the US state\nas a multipolygon. The state name is not case sensitive.\n\nExamples:\n\n  state_boundary('Washington')\n  state_boundary('WA')\n  state_boundary('new york')\n\n  ensure_within(\n    `my_point_column`,\n    state_boundary('NY')\n  )\n\n###### Signatures\n  text -> multipolygon\n\n\n##### Function: `starts_with`\ntell whether or a not a string is prefixed with another string\n\nExamples:\n\n  starts_with('foobar', 'foo') -- true\n\n  starts_with('foobar', 'bar') -- false\n\n###### Signatures\n  text, text -> checkbox\n\n\n##### Function: `split_select`\nfunction to split a piece of text on a token, and then select\nthe Nth element, 0 based.\n\nExamples:\n\n  split_select('42,55', ',', 0) -- '42'\n\n  split_select(`location`, ' ', 0)\n\n###### Signatures\n  text, text, number -> text\n\n\n##### Function: `to_number`\ncast a value to a number\n\nExamples:\n\n  to_number('42') -- 42\n\n  to_number(`number_text_column`)\n\n###### Signatures\n  text, text -> number\n  text -> number\n  checkbox -> number\n\n\n##### Function: `replace`\nreplace text with another piece of text\n\nExamples:\n\n  replace('some-text-literal' '-', '_') -- 'some_text_literal'\n\n  replace(`building_description`, 'colour', 'color')\n\n###### Signatures\n  text, text, text -> text\n\n\n##### Function: `!=`\nReturn true if the left side does not equal the right\n\nExamples\n\n  1 != 1 -- false\n  1 != 2 -- true\n  'a' != 'b' -- true\n\n###### Signatures\n  a, a -> checkbox\n\n\n##### Function: `cast_to_point`\nNo documentation is available.\n\n###### Signatures\n  text -> point\n  point -> point\n\n\n##### Function: `cast_to_multipoint`\nNo documentation is available.\n\n###### Signatures\n  text -> multipoint\n  multipoint -> multipoint\n\n\n##### Function: `contains`\ntell whether or not a string contains another string\n\nExamples:\n\n  starts_with('foobar', 'foo') -- true\n\n  starts_with('foobar', 'bar') -- true\n\n###### Signatures\n  text, text -> checkbox\n\n\n##### Function: `/`\nDivide a number by another\n\nExamples\n\n  20 / 5 -- 4\n  20 / 0 -- error\n\n###### Signatures\n  number, number -> number\n\n\n##### Function: `make_location`\nmake_location makes a location column from human readable\naddress columns and a point column. A Location column is the amalgamation\nof these two components.\n\nExamples:\n\n  make_location(\n    `my_address_column`,\n    'Seattle',\n    'WA',\n    '98118',\n    make_point(\n      to_number(`my_latitude_column`),\n      to_number(`my_longitude_column`)\n    )\n  )\n\n###### Signatures\n  text, text, text, text, point -> location\n  text, text, text, text -> location\n  point -> location\n\n\n##### Function: `regex_replace`\nfunction to replace a piece of text based on a regular expression\nwith another piece of text\n\nExamples\n\n  regex_replace('hello 42 world', '+', '') -- 'hello  world'\n\n###### Signatures\n  text, text, text -> text\n\n\n##### Function: `to_fixed_timestamp`\nTurn a text value into a datetime with a fixed timezone.\n\nThe formatting string can be constructed with the following tokens\n\n  Spec.   Example   Description\n\n-- Date Specifiers\n\n%Y  2001  The full proleptic Gregorian year, zero-padded to 4 digits. [1]\n%C  20  The proleptic Gregorian year divided by 100, zero-padded to 2 digits. [2]\n%y  01  The proleptic Gregorian year modulo 100, zero-padded to 2 digits. [2]\n\n%m  07  Month number (01--12), zero-padded to 2 digits.\n%b  Jul   Abbreviated month name. Always 3 letters.\n%B  July  Full month name. Also accepts corresponding abbreviation in parsing.\n%h  Jul   Same as %b.\n\n%d  08  Day number (01--31), zero-padded to 2 digits.\n%e  8   Same as %d but space-padded. Same as %_d.\n\n%a  Sun   Abbreviated weekday name. Always 3 letters.\n%A  Sunday  Full weekday name. Also accepts corresponding abbreviation in parsing.\n%w  0   Sunday = 0, Monday = 1, ..., Saturday = 6.\n%u  7   Monday = 1, Tuesday = 2, ..., Sunday = 7. (ISO 8601)\n\n%U  28  Week number starting with Sunday (00--53), zero-padded to 2 digits. [3]\n%W  27  Same as %U, but week 1 starts with the first Monday in that year instead.\n\n%G  2001  Same as %Y but uses the year number in ISO 8601 week date. [4]\n%g  01  Same as %y but uses the year number in ISO 8601 week date. [4]\n%V  27  Same as %U but uses the week number in ISO 8601 week date (01--53). [4]\n\n%j  189   Day of the year (001--366), zero-padded to 3 digits.\n\n%D  07/08/01  Month-day-year format. Same as %m/%d/%y.\n%x  07/08/01  Same as %D.\n%F  2001-07-08  Year-month-day format (ISO 8601). Same as %Y-%m-%d.\n%v  8-Jul-2001  Day-month-year format. Same as %e-%b-%Y.\n\n\n-- Time Specifiers\n\n%H  00  Hour number (00--23), zero-padded to 2 digits.\n%k  0   Same as %H but space-padded. Same as %_H.\n%I  12  Hour number in 12-hour clocks (01--12), zero-padded to 2 digits.\n%l  12  Same as %I but space-padded. Same as %_I.\n\n%P  am  am or pm in 12-hour clocks.\n%p  AM  AM or PM in 12-hour clocks.\n\n%M  34  Minute number (00--59), zero-padded to 2 digits.\n%S  60  Second number (00--60), zero-padded to 2 digits. [5]\n%f  026490000   The fractional seconds (in nanoseconds) since last whole second. [8]\n%.f   .026490   Similar to .%f but left-aligned. [8]\n%.3f  .026  Similar to .%f but left-aligned but fixed to a length of 3. [8]\n%.6f  .026490   Similar to .%f but left-aligned but fixed to a length of 6. [8]\n%.9f  .026490000  Similar to .%f but left-aligned but fixed to a length of 9. [8]\n\n%R  00:34   Hour-minute format. Same as %H:%M.\n%T  00:34:60  Hour-minute-second format. Same as %H:%M:%S.\n%X  00:34:60  Same as %T.\n%r  12:34:60 AM   Hour-minute-second format in 12-hour clocks. Same as %I:%M:%S %p.\n\n\n-- Time zone specifiers\n\n%Z  ACST  Formatting only: Local time zone name.\n%z  +0930   Offset from the local time to UTC (with UTC being +0000).\n%:z   +09:30  Same as %z but with a colon.\n\n\n-- Date and Time specifiers\n\n%c  Sun Jul 8 00:34:60 2001   ctime date & time format. Same as %a %b %e %T %Y sans\n.\n%+  2001-07-08T00:34:60.026490+09:30  ISO 8601 / RFC 3339 date & time format. [6]\n\n%s  994518299   UNIX timestamp, the number of seconds since 1970-01-01 00:00 UTC. [7]\n\n\n-- Special Specifiers\n\n%t    Literal tab.\n%n    Literal newline.\n%%    Literal percent sign.\n\n\nExamples:\n\n  to_floating_timestamp('2017-12-13T00:24:53.436562Z', '{ISO:Extended:Z}')\n\n###### Signatures\n  text, text -> date\n  text -> date\n\n\n##### Function: `<`\nReturn true if the value on the left is less than the value on the right\n\nExamples\n\n  1 < 2 -- true\n  1 < 1 -- false\n  'a' < 'b' -- true\n\n###### Signatures\n  a, a -> checkbox\n\n\n##### Function: `to_checkbox`\nNo documentation is available.\n\n###### Signatures\n  text -> checkbox\n  number -> checkbox\n\n\n##### Function: `cast_to_calendar_date`\nNo documentation is available.\n\n###### Signatures\n  calendar_date -> calendar_date\n\n\n##### Function: `to_polygon`\nparse a WKT (text) representation of a polygon into a polygon value\n\nExamples\n\n  to_polygon('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))') -- Polygon(...)\n\n  to_polygon(`my_wkt_polygon_column`)\n\n###### Signatures\n  text -> polygon\n\n\n##### Function: `reproject`\nreproject a geometry from one projection to another.\nIf the geometry came from a shapefile, it will have the projection information\nassociated with it.\nIf the geometry does not have projection information associated with it,\nyou will need to call `set_projection(geometry, projection)` on it to explicitly\ngive it a known projection.\nThe default projection assigned to geometries with no projection information is WGS84.\n\nNote that if you reproject into something other than WGS84, the map will not render\non the web.\n\nSee spatialreference.org to look up projection definitions.\n\nExamples:\n\n  reproject(\n    `my_wgs84_point_column`,\n    '+proj=aea +lat_1=34 +lat_2=47 +lat_0=43 +lon_0=-120 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs'\n  )\n\n###### Signatures\n  multipolygon, text -> multipolygon\n  polygon, text -> polygon\n  multiline, text -> multiline\n  line, text -> line\n  multipoint, text -> multipoint\n  point, text -> point\n\n\n##### Function: `to_floating_timestamp`\nNo documentation is available.\n\n###### Signatures\n  text, text -> calendar_date\n  text -> calendar_date\n\n\n##### Function: `make_point`\nfunction to make a point out of a Y (latitude) and X (longitude) coordinate.\n\nExamples:\n\n  make_point(47.123124, -123.325232)\n\n  make_point(to_number(`latitude`), to_number(`longitude`))\n\n###### Signatures\n  number, number -> point\n\n\n##### Function: `<=`\nReturn true if the value on the left is less than or equal to the value on the right\n\nExamples\n\n  1 <= 2 -- true\n  1 <= 1 -- true\n  'a' <= 'b' -- true\n\n###### Signatures\n  a, a -> checkbox\n\n\n##### Function: `to_multipolygon`\nparse a WKT (text) representation of a multiline into a multiline value\n\nExamples\n\n  to_multipolygon('MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)),\n    ((20 35, 10 30, 10 10, 30 5, 45 20, 20 35),\n    (30 20, 20 15, 20 25, 30 20)))'\n  ) -- Multipolygon(...)\n\n  to_multipolygon(`my_wkt_multipolygon_column`)\n\n###### Signatures\n  text -> multipolygon\n\n\n##### Function: `to_location`\nNo documentation is available.\n\n###### Signatures\n  text -> location\n\n\n##### Function: `location_to_point`\nTurn a location value into a point\n\nExamples:\n\n  make_point(make_location('3331 39th Ave, Vancouver, WA, 98818')) -- POINT(...)\n\n###### Signatures\n  location -> point\n\n\n##### Function: `>`\nReturn true if the value on the left is greater than the value on the right\n\nExamples\n\n  3 > 2 -- true\n  1 > 1 -- false\n  'a' > 'b' -- false\n\n###### Signatures\n  a, a -> checkbox\n\n\n##### Function: `geocode`\ngeocode is a function which takes human readable addresses\nand translates them into a latitude, longitude point. The\npoint can then be displayed on a map.\n\nThere are several versions of the geocode function:\n\n  geocode(address: text, city: text, state: text, zip: text)\n    This version defaults to geocoding within the United States\n\n  geocode(address: text, city: text, state: text, zip: text, country: text)\n    This version allows you to specify which country\n\nExamples:\n\n  geocode(`my_address_column`, 'Seattle', 'WA', `zipcode_column`)\n\n  geocode(`my_address_column`, 'Seattle', 'WA', `zipcode_column`, 'US')\n\n###### Signatures\n  location -> location\n  text, text, text, text -> point\n  text, text, text, text, text -> point\n\n\n##### Function: `||`\nNo documentation is available.\n\n###### Signatures\n  a, b -> text\n\n\n##### Function: `upper`\nuppercase a string\n\nExamples:\n\n  upper('some text')\n\n  upper(`a_text_column`)\n\n###### Signatures\n  text -> text\n\n\n##### Function: `cast_to_polygon`\nNo documentation is available.\n\n###### Signatures\n  text -> polygon\n  polygon -> polygon\n\n\n##### Function: `to_line`\nparse a WKT (text) representation of a line into a line value\n\nExamples\n\n  to_line('LINESTRING (30 10, 10 30, 40 40)') -- Line(...)\n\n  to_line(`my_wkt_line_column`)\n\n###### Signatures\n  text -> line\n\n\n##### Function: `#LIKE`\nNo documentation is available.\n\n###### Signatures\n  text, text -> checkbox\n\n\n##### Function: `=`\nReturn true if the left side equals the right\n\nExamples\n\n  1 = 1 -- true\n  1 = 2 -- false\n  'a' = 'b' -- false\n\n###### Signatures\n  a, a -> checkbox\n\n\n##### Function: `not`\nInvert a boolean\n\nExamples\n\n  not true -- false\n  not false -- true\n\n###### Signatures\n  checkbox -> checkbox\n\n\n##### Function: `cast_to_checkbox`\nNo documentation is available.\n\n###### Signatures\n  number -> checkbox\n  checkbox -> checkbox\n\n\n##### Function: `and`\nNo documentation is available.\n\n###### Signatures\n  checkbox, checkbox -> checkbox\n\n\n##### Function: `to_multipoint`\nparse a WKT (text) representation of a multipoint into a multipoint value\n\nExamples\n\n  to_multipoint('MULTIPOINT ((10 40), (40 30), (20 20), (30 10))') -- Multipoint(...)\n\n  to_multipoint(`my_wkt_multipoint_column`)\n\n###### Signatures\n  text -> multipoint\n\n\n##### Function: `#NOT_BETWEEN`\nReturn true if the left is not within the range of the right values\n\nExamples\n\n  2 NOT BETWEEN 0 and 1 -- true\n  'b' NOT BETWEEN 'a' and 'c' -- false\n\n###### Signatures\n  a, a, a -> checkbox\n\n\n##### Function: `#NOT_LIKE`\nNo documentation is available.\n\n###### Signatures\n  text, text -> checkbox\n\n\n##### Function: `to_multiline`\nparse a WKT (text) representation of a multiline into a multiline value\n\nExamples\n\n  to_multiline('MULTILINESTRING ((10 10, 20 20, 10 40),(40 40, 30 30, 40 20, 30 10))') -- Multiline(...)\n\n  to_multiline(`my_wkt_multiline_column`)\n\n###### Signatures\n  text -> multiline\n\n\n##### Function: `xml_pluck`\nPluck a value out of an XML string using XPath. The returned value will be a string.\nIf a non-text() value is selected, the document will be re-rendered from XML to a string.\n\nThe path used is XPath syntax.\nSee here: https://en.wikipedia.org/wiki/XPath\n\nExamples\n\n  -- Get the \"the contents!\" out of a piece of XML\n  xml_pluck(\n    '<foo>\n      <bar attr=\"cool beans\">\n        the contents!\n      </bar>\n    </foo>',\n    '/foo/bar/text()'\n\n  ) -- \"the contents!\"\n\n###### Signatures\n  text, text -> text\n\n\n##### Function: `regex_named_capture`\ncapture a piece of text based on a regular expression\nand extract the capture by name\n\nExamples\n\n  regex_named_capture('P Sherman 42 Wallaby Way, Sydney', '(?<house_number>+)', 'house_number') -- '42'\n\n###### Signatures\n  text, text, text -> text\n\n\n##### Function: `*`\nMultiply two numbers together\n\nExamples\n\n  2 * 2 -- 4\n  3 * 5 -- 15\n\n###### Signatures\n  number, number -> number\n\n\n##### Function: `cast_to_text`\nNo documentation is available.\n\n###### Signatures\n  multipolygon -> text\n  polygon -> text\n  multiline -> text\n  line -> text\n  multipoint -> text\n  point -> text\n  checkbox -> text\n  number -> text\n  text -> text\n\n\n##### Function: `ensure_within`\nensure_within is a function which takes a point and a multipolygon\nand, if the point is within the multipolygon, returns the point. If the\npoint is not within the polygon, it returns an error.\n\nThis can be used to validate that some geographic transformation (like geocoding\nor reprojection) has performed correctly\n\nExamples\n\n  ensure_within(`my_point_column`, state_boundary('Washington'))\n\n  ensure_within(\n    geocode(address, city, state, zip),\n    state_boundary('WA')\n  )\n\n###### Signatures\n  point, multipolygon -> point\n\n\n##### Function: `lower`\nlowercase a string\n\nExamples:\n\n  lower('SOME TEXT') -- 'some text'\n\n  lower(`a_text_column`)\n\n###### Signatures\n  text -> text\n\n\n##### Function: `#IN`\nNo documentation is available.\n\n###### Signatures\n  a -> checkbox\n\n\n##### Function: `http_get`\nMake an HTTP Get request to a URL. The response is returned. If the server\nreturns a non-200 response, times out, or returns a response larger than 1mb,\nan error is returned.\nThis call is subject to a rate limit of 2 requests per second. The result will\nbe cached.\n\nExamples\n\n  json_pluck(\n    http_get('https://some-service-returning/some-json.json'),\n    '.some.value'\n  )\n\n###### Signatures\n  text -> text\n\n\n##### Function: `set_projection`\nfunction to explicitly set the projection value on geometries which do not have projection\ninformation. If the geometry came from a non-shapefile format, it will not have projection\ninformation, and will default to WGS84. If you know that the projection is something\nother than WGS84, you may set the projection using this function, which will allow you\nto reproject using the reproject or reproject_to_wgs84 functions.\n\nExamples:\n\n  set_projection(\n    `my_stateplane_column`,\n    '+proj=aea +lat_1=34 +lat_2=47 +lat_0=43 +lon_0=-120 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs'\n  )\n\n###### Signatures\n  a, text -> a\n\n\n##### Function: `cast_to_multipolygon`\nNo documentation is available.\n\n###### Signatures\n  text -> multipolygon\n  multipolygon -> multipolygon\n\n\n##### Function: `regex_capture`\nfunction to capture a piece of text based on a regular expression\n\nExamples\n\n  regex_capture('hello 42 world', '(+)', 0) -- '42'\n\n###### Signatures\n  text, text, number -> text\n\n\n##### Function: `+`\nAdd two numbers together\n\nExamples\n\n  2 + 2 -- 4\n\n###### Signatures\n  number, number -> number\n\n\n##### Function: `cast_to_line`\nNo documentation is available.\n\n###### Signatures\n  text -> line\n  line -> line\n\n\n##### Function: `%`\nFind the remainder(modulus) of one number divided by another\n\nExamples\n\n  5 % 2 -- 1\n  4 % 2 -- 0\n\n###### Signatures\n  number, number -> number\n\n\n##### Function: `^`\nNo documentation is available.\n\n###### Signatures\n  number, number -> number\n\n\n##### Function: `cast_to_number`\nNo documentation is available.\n\n###### Signatures\n  checkbox -> number\n  text -> number\n  number -> number\n\n\n##### Function: `#NOT_IN`\nNo documentation is available.\n\n###### Signatures\n  a -> checkbox\n\n\n##### Function: `to_text`\ncast a value to text\n\nExamples:\n\n  to_text(42) -- '42'\n\n  to_text(`a_point_column`)\n\n###### Signatures\n  multipolygon -> text\n  polygon -> text\n  multiline -> text\n  line -> text\n  multipoint -> text\n  point -> text\n  calendar_date -> text\n  checkbox -> text\n  number -> text\n  text -> text\n\n\n##### Function: `#IS_NULL`\nNo documentation is available.\n\n###### Signatures\n  a -> checkbox\n\n\n##### Function: `to_boolean`\ncast a value to a true or false\n\nExamples:\n\n  to_boolean('true') -- true\n  to_boolean(1) -- true\n  to_boolean(0) -- false\n\n  to_boolean(`boolean_text_column`)\n\n###### Signatures\n  text -> checkbox\n  number -> checkbox\n\n\n##### Function: `cast_to_multiline`\nNo documentation is available.\n\n###### Signatures\n  text -> multiline\n  multiline -> multiline\n\n\n##### Function: `is_within`\nis_within is a function which takes a point and a multipolygon\nand returns a true value if the point is in the multipolygon, otherwise it returns\nfalse\n\nExamples\n\n  is_within(`my_point_column`, state_boundary('Washington'))\n\n  case\n    is_within(`my_point_column`, state_boundary('Washington')),\n    'The point is in the state of Washington!'\n    is_within(`my_point_column`, state_boundary('New York')),\n    'The point is in the state of New York!',\n    true,\n    'The point is not in either Washington or New York'\n  )\n\n###### Signatures\n  point, multipolygon -> checkbox\n\n\n##### Function: `coalesce`\nNo documentation is available.\n\n###### Signatures\n  a -> a\n\n\n##### Function: `cast_to_location`\nNo documentation is available.\n\n###### Signatures\n  location -> location\n\n\n##### Function: `<>`\nReturn true if the left side does not equal the right\n\nExamples\n\n  1 <> 1 -- false\n  1 <> 2 -- true\n  'a' <> 'b' -- true\n\n###### Signatures\n  a, a -> checkbox\n\n\n##### Function: `or`\nNo documentation is available.\n\n###### Signatures\n  checkbox, checkbox -> checkbox\n\n\n##### Function: `replace_first`\nreplace the first occurrence of a piece of text with another piece of text\n\nExamples:\n\n  replace_first('some-text-text' 'text', '') -- 'some--text'\n\n###### Signatures\n  text, text, text -> text\n\n\n##### Function: `error`\nMake an error. This is useful in conjunction with a case function,\nwhere you want to provide a specific message when it fails.\n\nExamples\n\n  error('The value was incorrect!') -- Error('The value was incorrect!')\n\n  case(\n    `incident_type` == 1 OR `incident_type` == 2,\n    `incident_type`,\n    true,\n    error('Expected incident_type to be 1 or 2, found that it was ' || `incident_type`)\n  ) -- this will ensure incident_type is 1 or 2, and if it's not, will generate an error explaining why\n\n###### Signatures\n  text -> a\n\n\n##### Function: `geocode_esri`\ngeocode_esri is a function which takes human readable addresses\nand translates them into a latitude, longitude point using an ESRI\nArcREST server which is publicly accessible on the internet.\n\nIt's highly recommended that you specify a rate limit to avoid DDOSing\nyour ESRI ArcREST server. The last argument to this function is a rate limit\nin requests per minute. It will default to 300, which means that no more than\n300 geocode requests will be made in 1 minute. If your ArcREST instance is having\ntrouble keeping up with the request rate, consider lowering this value.\n\nEach request to your ArcREST server contains a batch of 100 addresses, so if you have\na rate limit of 10 requests per minute, it will take about 1 minute to geocode 1000 addresses.\n\nThere are several versions of the geocode_esri function:\n\n  geocode_esri(address: text, city: text, state: text, zip: text, esri_url: text)\n    This version defaults to geocoding within the United States\n\n  geocode_esri(address: text, city: text, state: text, zip: text, esri_url: text, rate_limit: number)\n    This version defaults to geocoding within the United States and applies a rate limit\n\n  geocode_esri(address: text, city: text, state: text, zip: text, country: text, esri_url: text)\n    This version allows you to specify which country\n\n  geocode_esri(address: text, city: text, state: text, zip: text, country: text, esri_url: text, rate_limit: number)\n    This version allows you to specify which country and applies a rate limit\n\nExamples:\n\n  geocode_esri(`my_address_column`, 'Seattle', 'WA', `zipcode_column`, 'https://my-esri-arcrest-server.gov/arcgis/rest/services/Locators/name/GeocodeServer')\n\n  geocode_esri(`my_address_column`, 'Seattle', 'WA', `zipcode_column`, 'https://my-esri-arcrest-server.gov/arcgis/rest/services/Locators/name/GeocodeServer', 60)\n\n  geocode_esri(`my_address_column`, 'Seattle', 'WA', `zipcode_column`, 'US', 'https://my-esri-arcrest-server.gov/arcgis/rest/services/Locators/name/GeocodeServer')\n\n  geocode_esri(`my_address_column`, 'Seattle', 'WA', `zipcode_column`, 'US', 'https://my-esri-arcrest-server.gov/arcgis/rest/services/Locators/name/GeocodeServer', 20)\n\n###### Signatures\n  text, text, text, text, text -> point\n  text, text, text, text, text, number -> point\n  text, text, text, text, text, text -> point\n  text, text, text, text, text, text, number -> point\n\n\n##### Function: `to_point`\nparse a WKT (text) representation of a point into a point value\n\nExamples\n\n  to_point('POINT(47.123456 120.123456)') -- POINT(...)\n\n  to_point(`my_wkt_point_column`)\n\n###### Signatures\n  text -> point\n\n\n##### Function: `forgive`\nTurn an error into a null value. This is useful if you have a transformation\nwhere you don't care if it fails.\n\nExamples:\n\n  forgive(to_number('not a number')) -- null\n\n  forgive(to_number(`column_with_numbers_maybe`))\n\n###### Signatures\n  a -> a\n  a, a -> a\n\n\n##### Function: `reproject_to_wgs84`\nfunction to reproject a geometry to WGS84. This will allow the geometry\nto be rendered on a map.\n\nExamples:\n\n  reproject_to_wgs84(`the_geom`)\n\n  reproject_to_wgs84(\n    set_projection(\n      to_point(\n        'POINT(30, 10)'\n      ),\n      'EPSG:3865'\n    )\n  )\n\n###### Signatures\n  multipolygon -> multipolygon\n  polygon -> polygon\n  multiline -> multiline\n  line -> line\n  multipoint -> multipoint\n  point -> point\n\n\n##### Function: `json_pluck`\nPluck a value out of a JSON string. The returned value may be a primitive like a\nstring, number, or boolean. If you select a non-primitive value like an array or\nan object, it will be rendered back into a string and returned.\n\nThe path used consists of '.' to access identifiers and '[n]' to\naccess the n'th element of arrays.\nFor things that\n\nExamples\n\n  -- Get the \"qux\" value out of a piece of JSON\n  json_pluck('{\"foo\": {\"bar\": [1, {\"baz\": \"qux\"}, 3]}}', '.foo.bar.[1].baz') -- 'qux'\n\n  -- Get the x coordinate of a geojson point\n  json_pluck(`geojson_point`, '.geometry.coordinates.[0]')\n\n  -- Quote the identifier using brackets\n  json_pluck('{\"foo-bar\": {\"baz\": 1}}', '.[\"foo-bar\"].baz') -- 1\n\n  -- Quote the identifier using brackets\n  json_pluck('{\"foo-bar\": {\"baz\": 1}}', '.[\"foo-bar\"].baz') -- 1\n\n  -- Iterate over an array plucking out each value called \"bar\"\n  json_pluck('{\"foo\": [{\"bar\": 1}, {\"bar\": 2}]}', '.foo.[].bar') -- '[1, 2]'\n\n  -- Use an optional (?) selector to return null when the target is not an object\n  json_pluck('{\"foo\":[{\"bar\":1},{\"bar\":2},\"not-an-object\"]}', '.foo.[].bar?') -- '[1, 2, null]'\n\n###### Signatures\n  text, text -> text\n  text, text -> number\n  text, text -> checkbox",
+        "operationId": "Create a new schema",
+        "tags": [
+          "Input Schema"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "output_columns": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/OutputColumn"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/InputSchemaResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Show the input schema",
+        "description": "This shows the input schema, including all its columns and output schemas\nthat have been derived from it'",
+        "operationId": "Show the input schema",
+        "tags": [
+          "Input Schema"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/InputSchemaResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/source/:source_id/schema/:input_schema_id/output/:output_schema_id": {
+      "get": {
+        "summary": "Show the output schema",
+        "description": "Show a single output schema",
+        "operationId": "Show the output schema",
+        "tags": [
+          "Output Schema"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/OutputSchemaResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/source/:source_id/schema/:input_schema_id/output/latest": {
+      "get": {
+        "summary": "Get the most recent output schema",
+        "description": "Show the most recent output schema, which is derived from the input schema\nwhich came out of an source",
+        "operationId": "Get the most recent output schema",
+        "tags": [
+          "Output Schema"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/OutputSchemaResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publishing/v1/source/:source_id/transform/:id": {
+      "get": {
+        "summary": "Show a single transform",
+        "operationId": "Show a single transform",
+        "tags": [
+          "Transform"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/TransformResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "requestBodies": {
+      "ImportConfig": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "parse_options": {
+            "$ref": "#/components/schemas/ParseOptions"
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "display_name": {
+                  "type": "string"
+                },
+                "field_name": {
+                  "type": "string"
+                },
+                "transform_expr": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "name": "my import config",
+          "parse_options": {
+            "encoding": "utf8",
+            "header_count": 1,
+            "column_header": 1,
+            "quote_char": "\\",
+            "column_separator": ","
+          },
+          "columns": [
+            {
+              "display_name": "Crime Date",
+              "field_name": "crime_date",
+              "transform_expr": "to_datetime(`crime_date`)"
+            },
+            {
+              "display_name": "Zip Code",
+              "field_name": "zip_code",
+              "transform_expr": "to_number(`zip_code`)"
+            }
+          ]
+        }
+      }
+    },
+    "responses": {
+      "ImportConfigResponse": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/ImportConfig"
+          },
+          "links": {
+            "type": "object",
+            "properties": {
+              "create_revision": {
+                "type": "string",
+                "format": "url"
+              },
+              "list": {
+                "type": "string",
+                "format": "url"
+              },
+              "show": {
+                "type": "string",
+                "format": "url"
+              },
+              "update": {
+                "type": "string",
+                "format": "url"
+              },
+              "delete": {
+                "type": "string",
+                "format": "url"
+              }
+            }
+          }
+        }
+      },
+      "RevisionResponse": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/Revision"
+          },
+          "links": {
+            "type": "object"
+          }
+        }
+      },
+      "TaskSetResponse": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/TaskSet"
+          },
+          "links": {
+            "type": "object"
+          }
+        }
+      },
+      "SourceResponse": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/Source"
+          },
+          "links": {
+            "type": "object"
+          }
+        }
+      },
+      "InputSchemaResponse": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/InputSchema"
+          },
+          "links": {
+            "type": "object"
+          }
+        }
+      },
+      "OutputSchemaResponse": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/OutputSchema"
+          },
+          "links": {
+            "type": "object"
+          }
+        }
+      },
+      "TransformResponse": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/Transform"
+          },
+          "links": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "schemas": {
+      "ParseOptions": {
+        "type": "object",
+        "properties": {
+          "encoding": {
+            "type": "string",
+            "description": "The file encoding for this dataset (eg. utf8)",
+            "example": "utf8"
+          },
+          "header_count": {
+            "type": "number",
+            "description": "The number of headers in this file",
+            "example": 1
+          },
+          "column_header": {
+            "type": "number",
+            "example": 1,
+            "description": "The row number (one indexed) of the header that will be used to generate column names"
+          },
+          "column_separator": {
+            "type": "string",
+            "description": "The character between columns",
+            "example": ","
+          },
+          "quote_char": {
+            "type": "string",
+            "example": "\\",
+            "description": "The character that lets you ignore things like the column_separator"
+          },
+          "parse_source": {
+            "type": "boolean",
+            "description": "Whether or not the source should be parsed into a schema, or treated as a static upload."
+          },
+          "trim_whitespace": {
+            "type": "boolean",
+            "description": "Whether values should have leading and trailing whitespace removed from them"
+          },
+          "remove_empty_rows": {
+            "type": "boolean",
+            "description": "Whether rows consisting entirely of empty cells should be removed"
+          }
+        }
+      },
+      "ImportConfig": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "my import config",
+            "description": "The name of this configuration, this will be the identifier and must be unique"
+          },
+          "data_action": {
+            "type": "string",
+            "description": "Whether to replace or append to/update this dataset",
+            "example": "update"
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "display_name": {
+                  "type": "string",
+                  "description": "The human readable name for this column"
+                },
+                "transform_expr": {
+                  "type": "string",
+                  "description": "The transform to apply to the incoming data"
+                },
+                "field_name": {
+                  "type": "string",
+                  "description": "The machine readable name for this column"
+                },
+                "format": {
+                  "type": "object",
+                  "properties": {
+                  }
+                }
+              }
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When this configuration was created"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When this configuration was last updated"
+          },
+          "parse_options": {
+            "$ref": "#/components/schemas/ParseOptions"
+          }
+        }
+      },
+      "Creator": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "description": "User identifier"
+          },
+          "display_name": {
+            "type": "string",
+            "description": "Display name of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email"
+          }
+        }
+      },
+      "RevisionMetadata": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name to apply to the dataset"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description to apply to the dataset"
+          },
+          "category": {
+            "type": "string",
+            "description": "The category to put the dataset in"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Metadata blob"
+          },
+          "privateMetadata": {
+            "type": "object",
+            "description": "Blob for private metadata"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "licenseId": {
+            "type": "string",
+            "description": "Identifier for what license applies to the dataset"
+          },
+          "license": {
+            "type": "object",
+            "description": "Details for the dataset license"
+          },
+          "attribution": {
+            "type": "string",
+            "description": "Attribution for the dataset"
+          },
+          "attributionLink": {
+            "type": "string",
+            "description": "Attribution link for the dataset"
+          },
+          "isParent": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Revision": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "The primary key"
+          },
+          "fourfour": {
+            "type": "string",
+            "description": "The id of the target dataset that this revision will apply to"
+          },
+          "revision_seq": {
+            "type": "number",
+            "description": "The sequence number of the revision, increased by 1 on each new revision"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/RevisionMetadata"
+          },
+          "task_sets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskSet"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When this revision was created"
+          },
+          "created_by": {
+            "type": "object",
+            "properties": {
+            }
+          },
+          "closed_at": {
+            "type": "string",
+            "description": "When this revision was applied to the target dataset, if ever"
+          },
+          "action": {
+            "type": "object",
+            "properties": {
+              "metadata": {
+                "type": "object",
+                "description": "The changes to the metadata"
+              },
+              "type": {
+                "type": "string",
+                "description": "The type of change to be applied, one of [\"replace\", \"update\"]"
+              },
+              "permission": {
+                "type": "string",
+                "description": "The permission for the resultant dataset (public or private)"
+              }
+            }
+          },
+          "output_schema_id": {
+            "type": "number",
+            "description": "The id of the OutputSchema to be applied when this revision is applied"
+          },
+          "blob_id": {
+            "type": "number",
+            "description": "The id of the active Source, set when that source is flagged with parse_source: false"
+          },
+          "href": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "The title of the link-set"
+              },
+              "description": {
+                "type": "string",
+                "description": "A description for the link-set"
+              },
+              "urls": {
+                "type": "object",
+                "description": "A map from types to URLs for the link-set"
+              },
+              "data_dictionary": {
+                "type": "string",
+                "description": "A URL pointing at a data dictionary for the link-set"
+              },
+              "data_dictionary_type": {
+                "type": "string",
+                "description": "The type of the data dictionary"
+              }
+            }
+          },
+          "attachments": {
+            "type": "object",
+            "properties": {
+              "filename": {
+                "type": "string",
+                "description": "The attachment name"
+              },
+              "asset_id": {
+                "type": "string",
+                "description": "The ID of the attachment"
+              },
+              "name": {
+                "type": "string",
+                "description": "The name to display"
+              }
+            }
+          }
+        }
+      },
+      "TaskSet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Unique identifier of the job"
+          },
+          "status": {
+            "type": "string",
+            "description": "The job's status, one of initializing,creating_columns,upserting,finishing,successful,failure"
+          },
+          "log": {
+            "type": "object",
+            "properties": {
+              "stage": {
+                "type": "string",
+                "description": "The type of this log entry"
+              },
+              "time": {
+                "type": "string",
+                "description": "When this log entry happened"
+              },
+              "details": {
+                "type": "object",
+                "description": "Details about the entry; such as number of rows complete"
+              }
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the job was started"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the job's log was last updated"
+          },
+          "finished_at": {
+            "type": "string",
+            "description": "When the job finished, if ever"
+          },
+          "created_by": {
+            "$ref": "#/components/schemas/Creator"
+          },
+          "job_uuid": {
+            "type": "string",
+            "description": "The activity id, used by the import status service"
+          },
+          "output_schema_id": {
+            "type": "number",
+            "description": "DEPRECATED: this now lives on the Revision"
+          },
+          "request_id": {
+            "type": "string",
+            "description": "The request_id of the http request that started this job"
+          }
+        }
+      },
+      "InputColumn": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Id of input column"
+          },
+          "soql_type": {
+            "type": "string",
+            "description": "Datatype of column's data"
+          },
+          "input_schema_id": {
+            "type": "number",
+            "description": "Id of input schema to which this column belongs"
+          },
+          "field_name": {
+            "type": "string",
+            "description": "Name to refer to this column by"
+          },
+          "position": {
+            "type": "number",
+            "description": "Position of the column in the schema"
+          },
+          "semantic_type": {
+            "type": "string",
+            "description": "Semantic type of this column"
+          }
+        }
+      },
+      "OutputColumn": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Unique Id"
+          },
+          "display_name": {
+            "type": "string",
+            "description": "Name of the column as displayed on the dataset's webpage"
+          },
+          "field_name": {
+            "type": "string",
+            "description": "Name of the column to be used via API"
+          },
+          "position": {
+            "type": "number",
+            "description": "position"
+          },
+          "transform": {
+            "type": "Transform",
+            "description": "Transform that creates data in this output column"
+          },
+          "description": {
+            "type": "string",
+            "description": "Column description"
+          },
+          "format": {
+            "type": "object",
+            "description": "Column format"
+          },
+          "initial_output_column_id": {
+            "type": "number",
+            "description": "The column id that was initially created from a view"
+          }
+        }
+      },
+      "OutputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Unique identifier for this output schema"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When this was created"
+          },
+          "total_rows": {
+            "type": "number",
+            "description": "Number of rows in this schema"
+          },
+          "error_count": {
+            "type": "number",
+            "description": "Number of errors in this schema"
+          },
+          "input_schema_id": {
+            "type": "number",
+            "description": "Which input schema this output schema was derived from"
+          },
+          "created_by": {
+            "$ref": "#/components/schemas/Creator"
+          },
+          "output_columns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OutputColumn"
+            }
+          },
+          "finished_at": {
+            "type": "string",
+            "description": "When this schema finished processing"
+          }
+        }
+      },
+      "InputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "The input schema primary key"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the schema"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When this was created"
+          },
+          "created_by": {
+            "$ref": "#/components/schemas/Creator"
+          },
+          "total_rows": {
+            "type": "number",
+            "description": "The total count of rows in this schema. It will be null if the file is still sourceing"
+          },
+          "input_columns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InputColumn"
+            }
+          },
+          "output_schemas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OutputSchema"
+            }
+          },
+          "num_row_errors": {
+            "type": "number",
+            "description": "The total count of rows which contained either too many or too few columns to fit in the schema"
+          }
+        }
+      },
+      "Upload": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string",
+            "description": "The name of this upload"
+          }
+        }
+      },
+      "View": {
+        "type": "object",
+        "properties": {
+          "fourfour": {
+            "type": "string",
+            "description": "The uid of the source view"
+          },
+          "loaded": {
+            "type": "string",
+            "description": "Whether the dataset's preexisting data has been loaded into the dataset management engine"
+          }
+        }
+      },
+      "SourceType": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Upload"
+          },
+          {
+            "$ref": "#/components/schemas/View"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "uplaod": "#/components/schemas/Upload",
+            "view": "#/components/schemas/View"
+          }
+        }
+      },
+      "Source": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "The primary key"
+          },
+          "schemas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InputSchema"
+            }
+          },
+          "source_type": {
+            "$ref": "#/components/schemas/SourceType"
+          },
+          "content_type": {
+            "type": "string",
+            "description": "The type of the source"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When this source was created, not necessarily sourceed"
+          },
+          "finished_at": {
+            "type": "string",
+            "description": "When bytes stopped flowing into the source"
+          },
+          "created_by": {
+            "$ref": "#/components/schemas/Creator"
+          },
+          "failed_at": {
+            "type": "string",
+            "description": "When this source failed, if ever"
+          },
+          "failure_details": {
+            "type": "object",
+            "description": "Why this source failed, if at all"
+          },
+          "parse_options": {
+            "$ref": "#/components/schemas/ParseOptions"
+          },
+          "filesize": {
+            "type": "number",
+            "description": "The size of the associated file in bytes"
+          },
+          "export_filename": {
+            "type": "string",
+            "description": "The name that this source will export as, if downloaded."
+          },
+          "blob": {
+            "type": "string",
+            "description": "The identity of the data behind this source"
+          },
+          "locale": {
+            "type": "string",
+            "description": "The locale that this source will use for parsing"
+          }
+        }
+      },
+      "TransformInputColumn": {
+        "type": "object",
+        "properties": {
+          "input_column_id": {
+            "type": "number",
+            "description": "The input column"
+          }
+        }
+      },
+      "Transform": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Transform id"
+          },
+          "transform_expr": {
+            "type": "string",
+            "description": "SoQL expression which will be applied to input columns"
+          },
+          "output_soql_type": {
+            "type": "string",
+            "description": "Inferred type of the transform's result data"
+          },
+          "finished_at": {
+            "type": "string",
+            "description": "When this transform finished running, if ever"
+          },
+          "failed_at": {
+            "type": "string",
+            "description": "When this transform failed to run, if ever"
+          },
+          "attempts": {
+            "type": "number",
+            "description": "How many attempts have been made to re-run this transform due to failure"
+          },
+          "transform_input_columns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransformInputColumn"
+            }
+          },
+          "parsed_expr": {
+            "type": "string",
+            "description": "The parse tree of the expression"
+          },
+          "error_count": {
+            "type": "number",
+            "description": "The final count of transform errors, nil if not yet complete"
+          },
+          "failure_details": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "description": "The reason this transform failed"
+              },
+              "type": {
+                "type": "string",
+                "description": "The type of failure"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
