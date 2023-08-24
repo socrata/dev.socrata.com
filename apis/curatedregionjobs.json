@@ -1,0 +1,293 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Curated Region Job (CRJ) Service API",
+        "version": "1.0.0",
+        "description": "The Curated Region Job (CRJ) Service API encapsulates most of the complexity involved with adding a computed region column to a dataset.\n\nYou can interact with the API in four ways:\n\n* Enqueuing a new region coding job\n\n* Querying the status of an existing region coding job\n\n* Querying the status of all jobs that are queued or in processing"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:2030/"
+        }
+    ],
+    "paths": {
+        "/v1/dataset/{4x4}/enqueue": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "jobId": {
+                                            "type": "string",
+                                            "description": "Id for the task that has been queued."
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "jobId": "e52e7323-144e-46df-9a9f-a824e3c2f99a"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Enqueue a region coding job",
+                "operationId": "Enqueue a region coding job",
+                "description": "Enqueues a region coding job that can be handled by the curated-region-job-worker service.\n\nOnce the job is enqueued, it will be picked up by a region coding worker. Based on the provided source dataset and curated region, the worker will create a working copy of the source dataset, do all the data crunching required to create and populate a computed column, then publish the working copy.\n\nIf a job fails anytime after the working copy is created, the worker takes care of rolling back the working copy, returning the dataset to its original state.",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "4x4",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "example": "abcd-2345",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "type": "add_region_columns",
+                                "columnInfos": [
+                                    {
+                                        "sourceColumn": "location_as_point",
+                                        "curatedRegionId": 18
+                                    }
+                                ]
+                            },
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "description": "name of type of job to enqueue, in this case it is a region coding job."
+                                    },
+                                    "sourceColumn": {
+                                        "type": "string",
+                                        "description": "fieldName of the point column that you want to region code against."
+                                    },
+                                    "curatedRegionId": {
+                                        "type": "number",
+                                        "description": "ID of the curated region you want to region code on. The id is found from accessing '<domain>/api/curated_regions' and finding the curated region entry in the list."
+                                    }
+                                },
+                                "required": [
+                                    "type",
+                                    "sourceColumn",
+                                    "curatedRegionId"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/dataset/{4x4}/log/{jobId}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Query job logs",
+                "operationId": "Query job logs",
+                "description": "Get the complete log of a region coding task found in time order.",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "4x4",
+                        "in": "path",
+                        "description": "4x4 of the dataset to which the computed region column should be added.",
+                        "required": true,
+                        "example": "abcd-2345",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "description": "the job id returned when enqueuing a region coding task.",
+                        "required": true,
+                        "example": "a3a492da-a6c8-4315-ad2e-615254aebe37",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/region_coder/v1/dataset/{4x4}/status/{jobId}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Type of job associated with the job id."
+                                        },
+                                        "progress": {
+                                            "type": "object",
+                                            "properties": {},
+                                            "description": "Frontend related details that includes state of task."
+                                        },
+                                        "status": {
+                                            "type": "number",
+                                            "description": "Actual state of current task. 1 is in a state of processing, -1 is a failure state, and 0 is a successfully completed state."
+                                        },
+                                        "english": {
+                                            "type": "string",
+                                            "description": "Brief description of the current state of the task"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Query job status",
+                "operationId": "Query job status",
+                "description": "Get the current state of processing for a given region coding job. The state should always be the most recent of the job, in addition the status also contains information to be used for the frontend about the status of region coding.",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "4x4",
+                        "in": "path",
+                        "description": "4x4 of the dataset to which the computed region column should be added.",
+                        "required": true,
+                        "example": "abcd-2345",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "description": "the job id returned when enqueuing a region coding task.",
+                        "required": true,
+                        "example": "a3a492da-a6c8-4315-ad2e-615254aebe37",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/v1/queue/jobType={jobType}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "username": {
+                                            "type": "string",
+                                            "description": "User who created job."
+                                        },
+                                        "requestId": {
+                                            "type": "string",
+                                            "description": "Request id of current request, it is not the actual job id."
+                                        },
+                                        "domain": {
+                                            "type": "string",
+                                            "description": "Domain where job was enqueued."
+                                        },
+                                        "classifier": {
+                                            "type": "string",
+                                            "description": "The 4x4 of the dataset being manipulated either for a region coding job or a prepare curated region job."
+                                        },
+                                        "internalId": {
+                                            "type": "string",
+                                            "description": "974d-40f5-b2d1-b56aee9c1496} - Job id of the enqueue job."
+                                        },
+                                        "dataset": {
+                                            "type": "string",
+                                            "description": "The 4x4 of the dataset beibg manipulated"
+                                        },
+                                        "jobParameters": {
+                                            "type": "string",
+                                            "description": "Shows parameters passed when the job was enqueued.\n\n\\"
+                                        }
+                                    }
+                                },
+                                "example": [
+                                    {
+                                        "common": {
+                                            "username": "happy.giraffe@socrata.com",
+                                            "requestId": "ec1b4e87f7157d9e945e21a84ec718e6",
+                                            "domain": "data.happygiraffes.gov",
+                                            "classifier": "ww64-eenh",
+                                            "internalId": "1a7bbe97-974d-40f5-b2d1-b56aee9c1496",
+                                            "externalId": "1a7bbe97-974d-40f5-b2d1-b56aee9c1496"
+                                        },
+                                        "dataset": "ww64-eenh",
+                                        "jobParameters": {
+                                            "enabledFlag": true,
+                                            "defaultFlag": true,
+                                            "type": "prepare_curated_region"
+                                        }
+                                    },
+                                    {
+                                        "common": {
+                                            "username": "happy.giraffe@socrata.com",
+                                            "requestId": "7290805407db4a95a9b7ac98a766d883",
+                                            "domain": "data.happygiraffes.gov",
+                                            "classifier": "ww64-eenh",
+                                            "internalId": "e0b50346-0bb4-4eb8-8f62-946e8d8d9944",
+                                            "externalId": "e0b50346-0bb4-4eb8-8f62-946e8d8d9944"
+                                        },
+                                        "dataset": "ww64-eenh",
+                                        "jobParameters": {
+                                            "enabledFlag": true,
+                                            "defaultFlag": true,
+                                            "type": "prepare_curated_region"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "summary": "Query jobs in process",
+                "operationId": "Query jobs in process",
+                "description": "Returns a list of jobs that are queued or processing, optionally filtered by job type. This endpoint is only available to users with admin privileges. \nThe returned json contains a lot of information that is used by frontend.",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "jobType",
+                        "in": "path",
+                        "description": "the job type specified during the enqueue process",
+                        "example": "prepare_curated_region",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {}
+    },
+    "tags": []
+}

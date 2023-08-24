@@ -1,0 +1,306 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Metadata API",
+        "version": "1.0.0",
+        "description": "Every Socrata asset is composed of two main parts: data (rows, columns, shapes, lines, files, etc)\nand metadata (information *about* the data, including the description, tags, categories, and more).\nWhile sometimes underappreciated by data publishers, robust asset metadata yields substantial benefits for government staff\nand data consumers alike. High-quality and complete metadata:\n\n* Improves discovery of data for internal and external consumers\n\n* Facilitates interoperability between external data applications and tools\n\n* Increases data reuse and sharing among technical and non-technical consumers\n\n* and much more!\n\nTo support the above, the **Socrata Metadata API is a standardized way of retrieving and modifying asset-level metadata on Socrata assets**.\nIt allows data users to *READ* and *UPDATE* asset-level metadata programmatically, given proper authentication and parameters. All asset metadata accessed via this API\nis represented by an array of key:value pairs. Assets may contain default and custom metadata which differ in their visibility and validation requirements.\n\n## When to use this API\n\nThis Metadata API specializes in allowing properly-authenticated users to UPDATE asset-level metadata on Socrata. While it also supports  _READ_ operations, it does so\nprimarily to make UPDATE operations easier to plan and execute. Thus, the Metadata API is _best-suited for Socrata customers and data publishers_,\nwho have the appropriate privileges to modify their metadata.\n\nIf you intend only to READ and review asset metadata hosted on Socrata, we encourage you to utilize our\nbroader [Discovery API](http://docs.socratadiscovery.apiary.io/#) instead (as this API supports reading of asset metadata on specified sites and across the\nglobal corpus of Socrata-hosted government data).\n\n## What \"metadata\" is accessible?\n\nThis API allows READ and UPDATE access to asset-level metadata for Socrata assets, including asset titles, descriptions, tags, categories, and more (see \"Available Metadata\" below for the comprehensive\ntable of accessible fields). It supports programmatic access to public and private\n[default](https://support.socrata.com/hc/en-us/articles/115008368427) and [custom](https://support.socrata.com/hc/en-us/articles/115012758487-Creating-Custom-Metadata) asset-level metadata.\n\nThis API, however, does NOT support access to datasets' *column-level* metadata, i.e. column names and descriptions. Programmatic access\nto column-level metadata is provided by the [Publishing API](https://socratapublishing.docs.apiary.io/#introduction/examples/column-metadata-update).\n\n## Use cases\n\nThis API could be used to achieve the following:\n\n* A government data management team could UPDATE assets' categories, tags, or descriptions at scale to ensure their assets are easy for consumers\nto discover\n\n* An individual data publisher could UPDATE her assets' `contactPoint` field (required for [Project Open Data Metadata](https://project-open-data.cio.gov/v1.1/schema/)) to ensure it is properly denoted in the Data.gov catalog\n\n* An open data auditor could create a \"Metadata Quality Dashboard\" which READs site-wide asset metadata to evaluate overall quality\nand completeness, as a way to encourage publishers to better describe their assets\n\n* An engaged citizen could automatically detect changes in published assets' metadata to stay on top of upcoming data changes\n\n## Endpoints\n\nAsset metadata is accessible on every Socrata domain at `https://domainname.gov/api/views/metadata/v1/view-uuid`.\nThe `view-uuid` is an eight-character hyphenated identifier (i.e. the asset's \"four-by-four\") uniquely associated with an asset. For example, the view UUID of\n`https://evergreen.data.socrata.com/Public-Safety/-The-Counted-Database-2015-2016/6udu-fhnu` is `6udu-fhnu`; thus, to GET the metadata for that dataset,\nyou would access: <a href=\"http://evergreen.data.socrata.com/api/views/metadata/v1/6udu-fhnu\">http://evergreen.data.socrata.com/api/views/metadata/v1/6udu-fhnu</a>\n\nThere are four main endpoints that are currently supported, documented in more detail below in the Reference section.\n\n* get metadata for a single asset\n  * `/api/views/metadata/v1/view-uuid`\n  * Method: `GET`\n\n* update metadata for a single asset\n  * `/api/views/metadata/v1/view-uuid`\n  * Method: `PATCH`\n  * Data: `JSON` format, eg. `{\"name\": \"My Great Dataset\"}`\n\n* help\n  * `/api/views/metadata/v1?method=help`\n  * Method: `GET`\n\n* list all metadata for all public assets on a domain\n  * `/api/views/metadata/v1`\n  * Method: `GET`\n\n## Authentication\n\nAuthentication is NOT required to use this API for *read-only* access to publicly-visible metadata on public assets.\nHowever, if you wish to:\n\n- request metadata on *private assets*\n\n- request *private metadata* fields\n\n- *update* existing metadata\n\nyou must authenticate and have the appropriate level of user rights (see details on Socrata's roles/rights\nframework [here](https://support.socrata.com/hc/en-us/articles/202950278-Understanding-user-roles).\n\nTo authenticate, you must:\n\n- Use one of the methods discussed on [dev.socrata.com](https://dev.socrata.com/docs/authentication.html), and\n\n- Provide the `X-Socrata-Host` host header with the domain hosting the metadata in question.\n  For example, if you sought to access metadata from https://data.ny.gov, you would specify `X-Socrata-Host:data.ny.gov`. We refer to this as the `authenticating domain`.\n\n>NOTE: when seeking private metadata, the domain you use for authentication *must* match the domain you are attempting to retrieve\nmetadata from.\n\nThis API restricts access to metadata to the site which you are authenticating from. Therefore, if you wish to READ/UPDATE\nasset metadata on a *different* site than the one you are currently authenticating from, you must authenticate separately for that site.\n\n## What you can do as an authenticated user\n\nProperly authenticating allows you to perform a variety of operations on asset-level metadata. When viewing, retrieving,\nor updating assets one-by-one, you can:\n\n- View/retrieve:\n    - Public metadata from publicly-visible assets\n    - Public AND private metadata from any assets you own, have been shared to you, or you can edit\n    - Public metadata from public AND private assets, assuming your user role permits you to view all of a site's assets\n\n- Update\n    - Public AND private metadata of any assets you own, have been shared to you, or you can edit\n\n## Available Metadata\n\nThis API allows for access to a select set of metadata for any Socrata asset. Detailed explanations are provided\nfor starred datatypes (*) following the table.\n\n### All available fields\n\nThe following metadata fields are currently available via this API:\n\n| Field             | Read-Only | Datatype               | Nullable | Description                                                                                                                                               |\n|-------------------|-----------|------------------------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|\n| id                | yes       | String                 | no       | The unique identifier for the asset (xxxx-xxxx)                                                                                                                       |\n| domain            | yes       | String                 | no       | The site the asset belongs to                                                                                                                              |\n| dataUri           | yes       | String                 | no       | The full URI to the /resource/ endpoint, a.k.a the SODA API endpoint (see [here](https://dev.socrata.com/consumers/getting-started.html) for more information)                                                      |\n| webUri            | yes       | String                 | no       | The URI to the human-readable representation of this asset                                                                                                |\n| createdAt         | yes       | String, ISO-8601*      | no       | The timestamp at which the asset was created                                                                                                              |\n| updatedAt         | yes       | String, ISO-8601*      | no       | The timestamp at which the asset's data or metadata was last updated                                                                                                         |\n| dataUpdatedAt     | yes       | String, ISO-8601*      | no       | The timestamp at which the asset's data was last updated                                                                                   |\n| metadataUpdatedAt | yes       | String, ISO-8601*      | no       | The timestamp at which the asset's metadata was last updated                                                                                   |\n| provenance        | yes       | String, Provenance*    | no       | The provenance of the asset, i.e. \"OFFICIAL\" or \"COMMUNITY\" (indicating whether this asset is owned by a member of the publishing organization, or a member of the community)\n| hideFromCatalog   | yes       | Boolean*               | no       | Whether this asset is explicitly omitted from the domain's public catalog                                                                                 |\n| hideFromDataJson  | yes       | Boolean*               | no       | Whether this asset is explicitly omitted from the domain's /data.json file (which lists a site's public assets according to the [Project Open Data Metadata schema](https://project-open-data.cio.gov/v1.1/schema/), for federation into Data.gov                        |\n| name              | no        | String                 | no       | The title of the asset                                                                                                                                    |\n| description       | no        | String                 | yes      | The description for the asset, if one has been provided                                                                                                   |\n| category          | no        | String                 | yes      | The asset's category classification                                                                                                                  |\n| tags              | no        | Array[String]*         | yes      | An array of tags given to the asset                                                                                                                       |\n| license           | no        | String, License*       | yes      | The license that is used for this asset ([available options](https://support.socrata.com/hc/en-us/articles/202950218-Which-licensing-option-should-I-use-))                                                                                                                   |\n| attribution       | no        | String                 | yes      | The attribution of the asset, if one has been provided                                                                                                    |\n| attributionLink   | no        | String, URL*           | yes      | The source or attribution URL for this asset                                                                                                              |\n| externalId        | no        | String                 | yes      | The identifier of the external asset, if this asset is an 'External Dataset' which links to an asset hosted elsewhere                                              |\n| customFields      | no        | String, Custom Fields* | yes      | An additional set of _custom fields_ configured by the publishing organization (discussed below)                                                                                                                 |\n\n#### ISO-8601\n\n[ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) is a specification for representing timestamps.\nTimestamps in this API are of the format `yyyy-MM-dd'T'HH:mm:ssZ`.\nSee [here](https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html) for an explanation\nof each of the characters.\n\n#### Provenance\n\nProvenance indicates the ownership of the asset by the publishing organization. Can only ever be \"OFFICIAL\" or \"COMMUNITY\".\n\n#### Array[String]\n\nThis is of the form:\n\n```\n[\"tag1\", \"tag2\"]\n```\n\n#### License\n\nThe full list of allowed licenses is kept updated [here](https://support.socrata.com/hc/en-us/articles/202950218-Which-licensing-option-should-I-use-).\nFor example, to set your license to the \"Open Data Commons\", you would put\n\n```\n{\"license\": \"Open Data Commons\"}\n```\n\n#### hideFromCatalog, hideFromDataJson\n\nThese fields determine whether or not an asset appears in a site's public data catalog (site.gov/browse) and data.JSON file (site.gov/data.json), respectively.\nIn most cases these values are marked 'false' for an asset; only in rare cases are they marked 'true' to selectively hide assets from these resources. The current\nversion of this API includes these fields for comprehensiveness but does not allow them to be modified.\n\n>NOTE: Currently, these fields can only be modified by Socrata employees. If you would like to change the visibility of an asset\nin your public catalog or data.json file, please contact our Support team via support@socrata.com. In the future, we are considering making them modifiable by permissioned\nusers.\n\n#### Custom Fields\n\nPublishing organizations have the ability to configure custom metadata on assets beyond Socrata’s default metadata.\nThis custom metadata differs for each Socrata site, but within a particular site, such metadata can be required or optional\nfor all assets. In general, custom metadata is a named set of key-value pairs. For example, site A could\nhave a set named \"Publication Metadata\" and have keys \"Publication Date\" and \"Publication Cycle\". Meanwhile, site B\ncould have a set named \"Agency Ownership\", with key \"Department\".\n\nThe _customFields_ object would then resemble\n\n```\n    {\n        \"customFields\": {\n            \"Publication Metadata\": {\n                \"Publication Date\": \"2016-03-21\",\n                \"Publication Cycle\": \"Weekly\"\n            }\n        }\n    }\n```\n\nfor site A, and\n\n```\n    {\n        \"customFields\": {\n            \"Agency Ownership\": {\n                \"Department\": \"Fisheries\"\n            }\n        }\n    }\n```\n\nfor site B.\n\nWe refer to the set, e.g. \"Publication Metadata\" or \"Agency Ownership\", as the `fieldset`.\nWithin the fieldset, we refer to a key, e.g. \"Publication Cycle\" or \"Department\", as the `fieldname`.\nThe key's value, e.g. \"Weekly\" or \"Fisheries\", is known as the `fieldvalue`.\n\n### Nullifying and removing custom fields\n\nWhen posting updates to metadata, it is important to understand the implications\nof nullifying custom fields and any content within.\n\n**CAUTION**: If nullifying custom fields with a request body containing\n`customFields: null`, *all* fieldsets, field names, and field values will\nbe removed from this asset's metadata. Proceed at your own risk.\n\n**CAUTION**: If nullifying a fieldset with a request body containing,\n`customFields: { \"Agency Ownership\": null }`, all of the field names and field values\nof the given fieldset, \"Agency Ownership\", will be removed.\n\n**CAUTION**: If nullifying a field value with a request body containing,\n`customFields: { \"Agency Ownership\": {\"Department\": null }}`, only the field value\nof the given field name within the given fieldset will be cleared.\n\n### Additional Characteristics of Metadata\n\n- Metadata returned from this API includes 4 timestamps, which will always be in ISO 8601 format:\n  `YYYY-MM-DDTHH:MM:SS±hh:mm`. See the section above titled *ISO-8601* for more details.\n  CustomFields may also include timestamps, but formatting for these\n  is the choice of the publishing organization.\n\n- Blank fields are included as null instead of being omitted.\n\n- The following fields will *always* be read-only: `id`, `domain`, `dataUri`, `webUri`, `createdAt`,\n  `updatedAt`, `dataUpdatedAt`, `metadataUpdatedAt`. These are generated by the Socrata platform and cannot\n  be modified directly.\n\n- The following fields are currently read-only, but may be updatable in future versions of this API:\n    `provenance`, `hideFromCatalog`, `hideFromDataJson`."
+    },
+    "servers": [
+        {
+            "url": "evergreen.data.socrata.com/api/views/"
+        }
+    ],
+    "paths": {
+        "/metadata/v1?help": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Example: Getting help",
+                "operationId": "Example: Getting help",
+                "description": "",
+                "tags": [],
+                "parameters": []
+            }
+        },
+        "/metadata/v1": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Example: Paging through metadata",
+                "operationId": "Example: Paging through metadata",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit the number of results that come back on each page.\nIf unspecified, will return all results at once.",
+                        "example": "10",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "The page number of the resultset. 1-indexed.\nIf unspecified, will return page 1.",
+                        "example": "1",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ]
+            }
+        },
+        "/metadata/v1/{uuid}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Example: Retrieving metadata",
+                "operationId": "Example: Retrieving metadata",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "The eight-character unique ID of the dataset.\nThis API returns this identifier under the `id` field.",
+                        "required": true,
+                        "example": "gg65-p75q",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            },
+            "patch": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Example: Strict validation without applying changes",
+                "operationId": "Example: Strict validation without applying changes",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "The eight-character unique ID of the dataset.\nThis API returns this identifier under the `id` field.",
+                        "required": true,
+                        "example": "gg65-p75q",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "strict",
+                        "in": "query",
+                        "description": "Whether to perform strict validation on the input. If `validateOnly` is also\nspecified as true, will return a list of errors **and warnings** about the proposed\nupdate. If not, this is a real `PATCH` request, and it will fail\nif any of the stricter checks fail.",
+                        "example": "true",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "validateOnly",
+                        "in": "query",
+                        "description": "Whether to simply perform validation on the input, and not change\nthe underlying asset. The metadata as it _would have been changed_ is returned,\nalong with a list of errors and warnings. Errors would cause the update\nto fail in all circumstances. Warnings would cause the update to fail\nif the `strict` parameter were also used.",
+                        "example": "true",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "name": "null",
+                                "license": "None",
+                                "category": "Nonexistent Category"
+                            },
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "license": {
+                                        "type": "string"
+                                    },
+                                    "category": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/metadata/v1/{uuid} ": {
+            "patch": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Examples: Updating metadata",
+                "operationId": "Examples: Updating metadata",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "The eight-character unique ID of the dataset.\nThis API returns this identifier under the `id` field.",
+                        "required": true,
+                        "example": "gg65-p75q",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "examples": {
+                                "example1": {
+                                    "value": {
+                                        "name": "Housing Construction - 2014",
+                                        "license": "Public Domain",
+                                        "customFields": {
+                                            "Publication Metadata": {
+                                                "Publication Cycle": "Monthly"
+                                            }
+                                        }
+                                    }
+                                },
+                                "example2": {
+                                    "value": {
+                                        "id": "test-test"
+                                    }
+                                }
+                            },
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "license": {
+                                        "type": "string"
+                                    },
+                                    "customFields": {
+                                        "type": "object",
+                                        "properties": {
+                                            "Publication Metadata": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "Publication Cycle": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Retrieving metadata for all public assets on a domainModel": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "attribution": {
+                        "nullable": true
+                    },
+                    "attributionLink": {
+                        "nullable": true
+                    },
+                    "category": {
+                        "nullable": true
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "dataUpdatedAt": {
+                        "type": "string"
+                    },
+                    "dataUri": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "domain": {
+                        "type": "string"
+                    },
+                    "externalId": {
+                        "nullable": true
+                    },
+                    "hideFromCatalog": {
+                        "type": "boolean"
+                    },
+                    "hideFromDataJson": {
+                        "type": "boolean"
+                    },
+                    "license": {
+                        "nullable": true
+                    },
+                    "metadataUpdatedAt": {
+                        "type": "string"
+                    },
+                    "provenance": {
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "type": "string"
+                    },
+                    "webUri": {
+                        "type": "string"
+                    },
+                    "customFields": {
+                        "nullable": true
+                    },
+                    "tags": {
+                        "nullable": true
+                    }
+                }
+            }
+        }
+    },
+    "tags": []
+}

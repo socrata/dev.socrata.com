@@ -1,0 +1,78 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Socrata OData V2 Service",
+        "version": "1.0.0",
+        "description": "Provides an OData V2 Endpoint for New Backend Datasets. This service \nimplements the OData Spec through the use of the [Olingo](http://olingo.apache.org/)"
+    },
+    "servers": [
+        {
+            "url": "http://odata-v2-service.elasticbeanstalk.com/"
+        }
+    ],
+    "paths": {
+        "/{domain}/{4x4}/OData.svc": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/xml": {
+                                "example": "<service xmlns=\"http://www.w3.org/2007/app\" xmlns:atom=\"http://www.w3.org/2005/Atom\" xml:base=\"http://odata-v2-service.elasticbeanstalk.com/dataspace.demo.socrata.com/6c2i-88yu/OData.svc/\">\n    <workspace>\n        <atom:title>Default</atom:title>\n        <collection href=\"Data\">\n            <atom:title>Data</atom:title>\n        </collection>\n    </workspace>\n</service>\n"
+                            }
+                        }
+                    }
+                },
+                "summary": "Entry Point",
+                "operationId": "Entry Point",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "domain",
+                        "in": "path",
+                        "description": "The question",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "4x4",
+                        "in": "path",
+                        "description": "A collection of choices.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/{domain}/{4x4}/OData.svc/$metadata": {
+            "get": {
+                "responses": {},
+                "summary": "Metadata",
+                "operationId": "Metadata",
+                "description": "",
+                "tags": [],
+                "parameters": []
+            }
+        },
+        "/{domain}/{4x4}/OData.svc/Data": {
+            "get": {
+                "responses": {},
+                "summary": "Data",
+                "operationId": "Data",
+                "description": "",
+                "tags": [],
+                "parameters": []
+            }
+        }
+    },
+    "components": {
+        "schemas": {}
+    },
+    "tags": []
+}
