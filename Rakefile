@@ -225,6 +225,41 @@ task :redate do
   end
 end
 
+OPENAPI_TEMPLATE = <<TMPL
+---
+layout: openapi-explorer
+custom_deps:
+- /common/js/lib/openapi-explorer.min.js
+custom_css:
+- /common/css/openapi-customization.css
+spec_url: /<%= spec_url %>
+---
+TMPL
+desc "generate openapi-explorer files"
+task :openapi do
+  existing_apis = `git ls-files apis`
+    .split($/)
+    .select { |filename| File.extname(filename).match?(/json|ya?ml/) }
+
+  created = existing_apis.map do |spec_url|
+    md_filename = File.join(
+      'docs', 'other',
+      File.basename(spec_url).sub(File.extname(spec_url), '.md')
+    )
+    if File.exist? md_filename
+      puts "#{md_filename} already exists. Skipping."
+      next
+    end
+
+    puts "Creating #{md_filename}."
+    ERB.new(OPENAPI_TEMPLATE)
+      .result_with_hash({ spec_url: spec_url })
+      .yield_self { |contents| File.write(md_filename, contents) }
+  end.compact
+
+  puts "Don't forget to commit!" if created.any?
+end
+
 # Pre-compile task for Heroku
 namespace :assets do
   task :precompile do
