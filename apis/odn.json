@@ -1,0 +1,1291 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "ODN API",
+        "version": "1.0.0",
+        "description": "The Socrata OpenDataNetwork (ODN) REST API exposes public data, often continuosly updated and enhanced, from many thousands of public\ngovernment and non profit agencies.\n\nMuch of this data originating from independent sources is fused together to create new, and often\npowerful, entity level data. The API, in addition to search and autosuggest capabilities for finding datasets,\nenables data based comparisons across geographical regions such as states, counties, metropolitan areas,\ncities and zip codes using highly vetted data providers such as US Census, BEA, HUD and others. Comparison data\nis preformatted for easy and efficient display on a chart, graph or interactive map.\n\nThe API also exposes data organized by narrative style questions a human might ask. The questions can\nbe rapidly found using an autosuggest style index, and then used to directly access all data needed to\nthoroughly and authoritatively answer the question. Retrieved data includes time series (temporally aligned),\ntabular, map heavy (includes spatial boundaries), and auto generated unstructured descriptive text.\n\nThe ODN API does not duplicate API endpoints or services provided by public sector agencies, but rather,\nreturns context relevant pre-populated REST URLs, when appropriate, so the caller can access data\ndirectly from the source.\n\nThe [open source](http://github.com/socrata/odn-backend) API powers [OpenDataNetwork.com](http://OpenDataNetwork.com), an [open source](http://github.com/socrata/opendatanetwork.com)\nsite; the site highlights myriad uses and provides API badges with contextually relevant API example\nREST endpoints and documentation pointers.\n\nFinally, we continuously add new dat sources which appear automatically in the API, so if your favorite data\nsource is not available, check back soon. You can also join us [HERE](http://www.opendatanetwork.com/join-open-data-network)\nand receive updates or let us know which data sources you are most interested in.\n\n## App Tokens\n\nRegistering for and including a [Socrata application token](https://dev.socrata.com/docs/app-tokens.html)\nis _required_ for the ODN API. They can be passed either using the `app_token` parameter\nor the `X-App-Token` HTTP header."
+    },
+    "servers": [
+        {
+            "url": "http://api.opendatanetwork.com/"
+        }
+    ],
+    "paths": {
+        "/suggest/v1/{type}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "options": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "id",
+                                                    "name",
+                                                    "type"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "options": [
+                                        {
+                                            "id": "310M200US42660",
+                                            "name": "Seattle Metro Area (WA)",
+                                            "type": "regions.msa"
+                                        },
+                                        {
+                                            "id": "1600000US5363000",
+                                            "name": "Seattle, WA",
+                                            "type": "regions.place"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get suggestions",
+                "operationId": "Get suggestions",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "Type of the object to find.",
+                        "required": true,
+                        "example": "entity",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "entity",
+                                "category",
+                                "publisher",
+                                "dataset",
+                                "question"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Query to match.",
+                        "required": true,
+                        "example": "seattl",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Maximum number of results to return.\nMust be an integer from 0 to 100.",
+                        "schema": {
+                            "type": "number",
+                            "default": 5
+                        }
+                    },
+                    {
+                        "name": "variable_id",
+                        "in": "query",
+                        "description": "This parameter is only available when suggesting entities with `type=entity`.\nIf it is provided, suggestions will be filtered to include\nonly entities that have data for the given variable.\n\nIf the variable provided is invalid, no entities will be returned.\n\nNote that this filtering will increase response time significantly,\nso it should only be used when necessary.",
+                        "example": "demographics.population.count",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "app_token",
+                        "in": "query",
+                        "description": "The [Socrata App Token](https://dev.socrata.com/docs/app-tokens.html) to be\nused with your request. The `app_token` parameter is required if an app token is not passed via the `X-App-Token` HTTP header. Clients must [register for their own app tokens](https://dev.socrata.com/docs/app-tokens.html).",
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-App-Token",
+                        "in": "header",
+                        "description": "e.g. cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0"
+                    }
+                ]
+            }
+        },
+        "/search/v1/dataset": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "datasets": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": {
+                                                        "type": "string"
+                                                    },
+                                                    "attribution": {
+                                                        "type": "string"
+                                                    },
+                                                    "domain": {
+                                                        "type": "string"
+                                                    },
+                                                    "domain_url": {
+                                                        "type": "string"
+                                                    },
+                                                    "dataset_url": {
+                                                        "type": "string"
+                                                    },
+                                                    "dev_docs_url": {
+                                                        "type": "string"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string"
+                                                    },
+                                                    "categories": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "required": [
+                                                    "name",
+                                                    "description",
+                                                    "attribution",
+                                                    "domain",
+                                                    "domain_url",
+                                                    "dataset_url",
+                                                    "dev_docs_url",
+                                                    "updated_at",
+                                                    "created_at",
+                                                    "categories"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "datasets": [
+                                        {
+                                            "name": "Big Cities Health Data Inventory",
+                                            "description": "This dataset illustrates health status of 26 of the nation’s largest and most urban cities as captured by 34 health (and six demographics-related) indicators. These indicators represent some of the leading causes of morbidity and mortality in the United States and leading priorities of national, state, and local health agencies. Public health data were captured in nine overarching categories: HIV/AIDS, cancer, nutrition/physical activity/obesity, food safety, infectious disease, maternal and child health, tobacco, injury/violence, and behavioral health/substance abuse.",
+                                            "attribution": "The Big Cities Health Coalition",
+                                            "domain": "bchi.bigcitieshealth.org",
+                                            "domain_url": "http://bchi.bigcitieshealth.org",
+                                            "dataset_url": "https://bchi.bigcitieshealth.org/d/rwyf-6cby",
+                                            "dev_docs_url": "https://dev.socrata.com/foundry/bchi.bigcitieshealth.org/ffnx-yiyc",
+                                            "updated_at": "2016-06-27T19:10:04.000Z",
+                                            "created_at": "2015-09-01T19:23:15.000Z",
+                                            "categories": [
+                                                "education",
+                                                "health"
+                                            ]
+                                        },
+                                        {
+                                            "name": "King County Health Reform Indicators",
+                                            "description": "Health reporting area (HRA) and zip code-level indicators for monitoring the impact of the Affordable Care Act in King County, WA. Topic areas range from access to care to population health. Imported to Socrata to allow data to be pulled as JSON from SODA to feed into Leaflet.js-based maps on an external site.",
+                                            "attribution": "Public Health - Seattle & King County",
+                                            "domain": "data.kingcounty.gov",
+                                            "domain_url": "http://data.kingcounty.gov",
+                                            "dataset_url": "https://data.kingcounty.gov/d/ajpg-dges",
+                                            "dev_docs_url": "https://dev.socrata.com/foundry/data.kingcounty.gov/t34p-gkbv",
+                                            "updated_at": "2014-12-17T00:09:12.000Z",
+                                            "created_at": "2014-03-06T23:17:51.000Z",
+                                            "categories": [
+                                                "health"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get datasets",
+                "operationId": "Get datasets",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "entity_id",
+                        "in": "query",
+                        "description": "Entities to use in formulating the query.",
+                        "example": "0100000US",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "dataset_id",
+                        "in": "query",
+                        "description": "If included, the search terms of the dataset\nwill be used in the query.",
+                        "example": "demographics.population",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Maximum number of results to return.\nMust be an integer from 0 to 50000.",
+                        "schema": {
+                            "type": "number",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Number of results to skip.\nUsed for pagination.",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "app_token",
+                        "in": "query",
+                        "description": "The [Socrata App Token](https://dev.socrata.com/docs/app-tokens.html) to be\nused with your request. The `app_token` parameter is required if an app token is not passed via the `X-App-Token` HTTP header. Clients must [register for their own app tokens](https://dev.socrata.com/docs/app-tokens.html).",
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-App-Token",
+                        "in": "header",
+                        "description": "e.g. cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0"
+                    }
+                ]
+            }
+        },
+        "/search/v1/question": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "questions": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "entity": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string"
+                                                            },
+                                                            "name": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    },
+                                                    "vector": {
+                                                        "type": "string"
+                                                    },
+                                                    "metric": {
+                                                        "type": "string"
+                                                    },
+                                                    "variable_name": {
+                                                        "type": "string"
+                                                    },
+                                                    "text": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "entity",
+                                                    "vector",
+                                                    "metric",
+                                                    "variable_name",
+                                                    "text"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "questions": [
+                                        {
+                                            "entity": {
+                                                "id": "310M200US42660",
+                                                "name": "Seattle Metro Area (WA)"
+                                            },
+                                            "vector": "population",
+                                            "metric": "population",
+                                            "variable_name": "population count",
+                                            "text": "What is the population count of Seattle Metro Area (WA)?"
+                                        },
+                                        {
+                                            "entity": {
+                                                "id": "310M200US42660",
+                                                "name": "Seattle Metro Area (WA)"
+                                            },
+                                            "vector": "occupations",
+                                            "metric": "business_and_finance",
+                                            "variable_name": "business and finance employment rate",
+                                            "text": "What is the business and finance employment rate of Seattle Metro Area (WA)?"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get questions",
+                "operationId": "Get questions",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "String to search against.",
+                        "required": true,
+                        "example": "seattle",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Maximum number of results to return.\nMust be an integer from 0 to 50000.",
+                        "schema": {
+                            "type": "number",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Number of results to skip.\nUsed for pagination.",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "app_token",
+                        "in": "query",
+                        "description": "The [Socrata App Token](https://dev.socrata.com/docs/app-tokens.html) to be\nused with your request. The `app_token` parameter is required if an app token is not passed via the `X-App-Token` HTTP header. Clients must [register for their own app tokens](https://dev.socrata.com/docs/app-tokens.html).",
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-App-Token",
+                        "in": "header",
+                        "description": "e.g. cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0"
+                    }
+                ]
+            }
+        },
+        "/entity/v1": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entities": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "entities": [
+                                        {
+                                            "id": "0400000US53",
+                                            "name": "Washington",
+                                            "type": "region.state"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get Entities",
+                "operationId": "Get Entities",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "entity_id",
+                        "in": "query",
+                        "description": "ID of the entity.",
+                        "example": "0400000US53",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "entity_name",
+                        "in": "query",
+                        "description": "Name of the entity.",
+                        "example": "washington",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "entity_type",
+                        "in": "query",
+                        "description": "Type of the entity.",
+                        "example": "region.state",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "app_token",
+                        "in": "query",
+                        "description": "The [Socrata App Token](https://dev.socrata.com/docs/app-tokens.html) to be\nused with your request. The `app_token` parameter is required if an app token is not passed via the `X-App-Token` HTTP header. Clients must [register for their own app tokens](https://dev.socrata.com/docs/app-tokens.html).",
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-App-Token",
+                        "in": "header",
+                        "description": "e.g. cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0"
+                    }
+                ]
+            }
+        },
+        "/entity/v1/{relation}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "relatives": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string"
+                                                    },
+                                                    "entities": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "string"
+                                                                },
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "type": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "relatives": [
+                                        {
+                                            "type": "region.division",
+                                            "entities": [
+                                                {
+                                                    "id": "0300000US9",
+                                                    "name": "Pacific Division",
+                                                    "type": "region.division"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Find the relatives of an entity",
+                "operationId": "Find the relatives of an entity",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "relation",
+                        "in": "path",
+                        "description": "The type of relation to find.",
+                        "required": true,
+                        "example": "parent",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "parent",
+                                "child",
+                                "sibling",
+                                "peer"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "entity_id",
+                        "in": "query",
+                        "description": "ID of the target entity.",
+                        "required": true,
+                        "example": "0400000US53",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "variable_id",
+                        "in": "query",
+                        "description": "If this parameter is included, only entities with data for the given\nvariable will be returned. Note that this may cause the number of\nentities returned to be less than the specified `limit`.",
+                        "example": "demographics.population.seattle",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Maximum number of entities in each group.\nMust be an integer from 1 to 1000.",
+                        "schema": {
+                            "type": "number",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "app_token",
+                        "in": "query",
+                        "description": "The [Socrata App Token](https://dev.socrata.com/docs/app-tokens.html) to be\nused with your request. The `app_token` parameter is required if an app token is not passed via the `X-App-Token` HTTP header. Clients must [register for their own app tokens](https://dev.socrata.com/docs/app-tokens.html).",
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-App-Token",
+                        "in": "header",
+                        "description": "e.g. cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0"
+                    }
+                ]
+            }
+        },
+        "/data/v1/availability/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "topics": {
+                                            "type": "object",
+                                            "properties": {
+                                                "demographics": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string"
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "datasets": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "population": {
+                                                                    "type": "object",
+                                                                    "properties": {
+                                                                        "fxf": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "constraints": {
+                                                                            "type": "array",
+                                                                            "items": {
+                                                                                "type": "string"
+                                                                            }
+                                                                        },
+                                                                        "searchTerms": {
+                                                                            "type": "array",
+                                                                            "items": {
+                                                                                "type": "string"
+                                                                            }
+                                                                        },
+                                                                        "sources": {
+                                                                            "type": "array",
+                                                                            "items": {
+                                                                                "type": "object",
+                                                                                "properties": {
+                                                                                    "name": {
+                                                                                        "type": "string"
+                                                                                    },
+                                                                                    "url": {
+                                                                                        "type": "string"
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        "id": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "domain": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "description": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "url": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "name": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "variables": {
+                                                                            "type": "object",
+                                                                            "properties": {
+                                                                                "change": {
+                                                                                    "type": "object",
+                                                                                    "properties": {
+                                                                                        "name": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "description": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "id": {
+                                                                                            "type": "string"
+                                                                                        }
+                                                                                    }
+                                                                                },
+                                                                                "count": {
+                                                                                    "type": "object",
+                                                                                    "properties": {
+                                                                                        "name": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "id": {
+                                                                                            "type": "string"
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "topics": {
+                                        "demographics": {
+                                            "id": "demographics",
+                                            "name": "Demographics",
+                                            "datasets": {
+                                                "population": {
+                                                    "fxf": "9jg8-ki9x",
+                                                    "constraints": [
+                                                        "year"
+                                                    ],
+                                                    "searchTerms": [
+                                                        "population",
+                                                        "household",
+                                                        "demographics",
+                                                        "ethnicity",
+                                                        "minority"
+                                                    ],
+                                                    "sources": [
+                                                        {
+                                                            "name": "U.S. Census American Community Survey",
+                                                            "url": "https://www.census.gov/programs-surveys/acs/"
+                                                        }
+                                                    ],
+                                                    "id": "demographics.population",
+                                                    "domain": "odn.data.socrata.com",
+                                                    "description": "",
+                                                    "url": "https://odn.data.socrata.com/resource/9jg8-ki9x.json",
+                                                    "name": "Population",
+                                                    "variables": {
+                                                        "change": {
+                                                            "name": "Population Change",
+                                                            "description": "Percent change from the previous year",
+                                                            "id": "demographics.population.change"
+                                                        },
+                                                        "count": {
+                                                            "name": "Population Count",
+                                                            "id": "demographics.population.count"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Find all available data for some entities",
+                "operationId": "Find all available data for some entities",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "entity_id",
+                        "in": "query",
+                        "description": "Comma separated list of entity IDs.",
+                        "required": true,
+                        "example": "0100000US,0400000US53",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "app_token",
+                        "in": "query",
+                        "description": "The [Socrata App Token](https://dev.socrata.com/docs/app-tokens.html) to be\nused with your request. The `app_token` parameter is required if an app token is not passed via the `X-App-Token` HTTP header. Clients must [register for their own app tokens](https://dev.socrata.com/docs/app-tokens.html).",
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-App-Token",
+                        "in": "header",
+                        "description": "e.g. cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0"
+                    }
+                ]
+            }
+        },
+        "/data/v1/constraint/{variable}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "permutations": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "constraint_value": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "constraint_value"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "permutations": [
+                                        {
+                                            "constraint_value": "2009"
+                                        },
+                                        {
+                                            "constraint_value": "2010"
+                                        },
+                                        {
+                                            "constraint_value": "2011"
+                                        },
+                                        {
+                                            "constraint_value": "2012"
+                                        },
+                                        {
+                                            "constraint_value": "2013"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get constraint permutations for entities",
+                "operationId": "Get constraint permutations for entities",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "variable",
+                        "in": "path",
+                        "description": "Full ID of the variable to retrieve.",
+                        "required": true,
+                        "example": "demographics.population.count",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "entity_id",
+                        "in": "query",
+                        "description": "Comma separated list of entity IDs.",
+                        "required": true,
+                        "example": "0100000US,0400000US53",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "constraint",
+                        "in": "query",
+                        "description": "Constraint to use.",
+                        "required": true,
+                        "example": "year",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "app_token",
+                        "in": "query",
+                        "description": "The [Socrata App Token](https://dev.socrata.com/docs/app-tokens.html) to be\nused with your request. The `app_token` parameter is required if an app token is not passed via the `X-App-Token` HTTP header. Clients must [register for their own app tokens](https://dev.socrata.com/docs/app-tokens.html).",
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-App-Token",
+                        "in": "header",
+                        "description": "e.g. cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0"
+                    }
+                ]
+            }
+        },
+        "/data/v1/values": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "array",
+                                                "items": {}
+                                            }
+                                        },
+                                        "forecast_info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "algorithm_name": {
+                                                    "type": "string"
+                                                },
+                                                "algorithm_url": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "data": [
+                                        [
+                                            "year",
+                                            "0100000US",
+                                            "forecast",
+                                            "0400000US53",
+                                            "forecast"
+                                        ],
+                                        [
+                                            2009,
+                                            301461533,
+                                            false,
+                                            6465755,
+                                            false
+                                        ],
+                                        [
+                                            2010,
+                                            303965272,
+                                            false,
+                                            6561297,
+                                            false
+                                        ],
+                                        [
+                                            2011,
+                                            306603772,
+                                            false,
+                                            6652845,
+                                            false
+                                        ],
+                                        [
+                                            2012,
+                                            309138711,
+                                            false,
+                                            6738714,
+                                            false
+                                        ],
+                                        [
+                                            2013,
+                                            311536594,
+                                            false,
+                                            6819579,
+                                            false
+                                        ],
+                                        [
+                                            2014,
+                                            314055359.25,
+                                            true,
+                                            6908035,
+                                            true
+                                        ],
+                                        [
+                                            2015,
+                                            316574124.5,
+                                            true,
+                                            6996491,
+                                            true
+                                        ],
+                                        [
+                                            2016,
+                                            319092889.75,
+                                            true,
+                                            7084947,
+                                            true
+                                        ]
+                                    ],
+                                    "forecast_info": {
+                                        "algorithm_name": "linear",
+                                        "algorithm_url": "https://en.wikipedia.org/wiki/Extrapolation#Linear_extrapolation"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get values for variables",
+                "operationId": "Get values for variables",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "variable",
+                        "in": "query",
+                        "description": "Comma separated list of variable IDs.\nDefaults to retrieving all variables.\nIt is also possible to pass in a topic such as\n`demographics`, or a dataset such as `demographics.population`,\nwhich would both be equivalent to specifying\n`demographics.population.count` and `demographics.population.change`.\nNote that only variables in the same dataset are allowed.",
+                        "required": true,
+                        "example": "demographics.population.count",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "entity_id",
+                        "in": "query",
+                        "description": "Comma separated list of entity IDs.\nDefaults to retrieving all entities.\nNote that since there is currently no results pagination,\nretrieving values for all entities may produce incomplete results.",
+                        "example": "0100000US,0400000US53",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "forecast",
+                        "in": "query",
+                        "description": "Number of steps to forecast.\nMust be an integer between 0 and 20.\nForecasts are produced using linear extrapolation\non the data. They are only available when retrieving\ndata for a single variable across many numerical\nconstraint options.\n\n+ Default `0`",
+                        "example": "3",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "describe",
+                        "in": "query",
+                        "description": "Whether or not to produce a description of the data.\nSet to `true` to produce a description.\nDescriptions are not available if no entities are specified.\n\n+ Default `false`",
+                        "example": "false",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "format",
+                        "in": "query",
+                        "description": "If format is set to `google`, the data frame will be formatted\nas a [Google Visualizations data table](https://developers.google.com/chart/interactive/docs/reference#datatable-class).\nIf the format is not provided or invalid, then the frame\nwill be formatted normally.",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "google"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "app_token",
+                        "in": "query",
+                        "description": "The [Socrata App Token](https://dev.socrata.com/docs/app-tokens.html) to be\nused with your request. The `app_token` parameter is required if an app token is not passed via the `X-App-Token` HTTP header. Clients must [register for their own app tokens](https://dev.socrata.com/docs/app-tokens.html).",
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-App-Token",
+                        "in": "header",
+                        "description": "e.g. cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0"
+                    }
+                ]
+            }
+        },
+        "/data/v1/map/new": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "session_id": {
+                                            "type": "string"
+                                        },
+                                        "summary_statistics": {
+                                            "type": "object",
+                                            "properties": {
+                                                "names": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "values": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "number"
+                                                    }
+                                                },
+                                                "values_formatted": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "bounds": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "array",
+                                                "items": {}
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "session_id": "rhzpyxdvq56cc9cbg3ssb57b9",
+                                    "summary_statistics": {
+                                        "names": [
+                                            "minimum",
+                                            "average",
+                                            "maximum"
+                                        ],
+                                        "values": [
+                                            570134,
+                                            6061914.615384615,
+                                            37659181
+                                        ],
+                                        "values_formatted": [
+                                            "570,134",
+                                            "6,061,914",
+                                            "37,659,181"
+                                        ]
+                                    },
+                                    "bounds": [
+                                        [
+                                            40.712,
+                                            -74.227
+                                        ],
+                                        [
+                                            40.774,
+                                            -74.125
+                                        ]
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a map",
+                "operationId": "Create a map",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "variable",
+                        "in": "query",
+                        "description": "A single variable ID.",
+                        "required": true,
+                        "example": "demographics.population.count",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "entity_id",
+                        "in": "query",
+                        "description": "A comma separated list of entity IDs.\nEntities must have the same type and represent geographical regions.",
+                        "required": true,
+                        "example": "0400000US53,0400000US08",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "constraint",
+                        "in": "query",
+                        "description": "Values must be specified for each constraint in the dataset.\nFor example, to generate map data for `demographics.population.count`,\nyou must specify a value for `year` by passing `year=2013`.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "app_token",
+                        "in": "query",
+                        "description": "The [Socrata App Token](https://dev.socrata.com/docs/app-tokens.html) to be\nused with your request. The `app_token` parameter is required if an app token is not passed via the `X-App-Token` HTTP header. Clients must [register for their own app tokens](https://dev.socrata.com/docs/app-tokens.html).",
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "X-App-Token",
+                        "in": "header",
+                        "description": "e.g. cQovpGcdUT1CSzgYk0KPYdAI0",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "cQovpGcdUT1CSzgYk0KPYdAI0"
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {}
+    },
+    "tags": []
+}

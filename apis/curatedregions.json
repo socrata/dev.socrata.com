@@ -1,0 +1,244 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Curated Regions API",
+    "description": "A Core Server API for configuring and retrieving curated regions.\n",
+    "version": ""
+  },
+  "paths": {
+    "/curated_regions": {
+      "post": {
+        "summary": "Add a curated region",
+        "operationId": "Add a curated region",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/CuratedRegion"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List all curated regions in a domain",
+        "operationId": "List all curated regions in a domain",
+        "parameters": [
+          {
+            "in": "query",
+            "description": "If set to true, only returns regions that are set as default regions for the domain. Defaults to `false` if unspecified.",
+            "schema": {
+              "type": "boolean"
+            },
+            "name": "defaultOnly"
+          },
+          {
+            "in": "query",
+            "description": "If set to true, only returns regions that are enabled. Defaults to `true` if unspecified.",
+            "schema": {
+              "type": "boolean"
+            },
+            "name": "enabledOnly"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CuratedRegion"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/curated_regions/:id": {
+      "put": {
+        "summary": "Update a curated region",
+        "description": "Only `name`, `enabledFlag` and `defaultFlag` may be updated.",
+        "operationId": "Update a curated region",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "defaultFlag": {
+                    "type": "boolean"
+                  },
+                  "enabledFlag": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CuratedRegion"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get curated region by id",
+        "description": "A single curated region object with all its details by numeric id.",
+        "operationId": "Get curated region by id",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CuratedRegion"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "schema": {
+            "type": "number"
+          },
+          "description": "Numeric `id` of the curated region to perform action with (not a 4x4).",
+          "name": "id"
+        }
+      ]
+    },
+    "/curated_regions?method=getByViewUid": {
+      "get": {
+        "summary": "Get curated region by 4x4",
+        "description": "A single curated region object with all its details by 4x4.",
+        "operationId": "Get curated region by 4x4",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CuratedRegion"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "Numeric `id` of the curated region to perform action with (not a 4x4).",
+          "name": "viewUid"
+        }
+      ]
+    }
+  },
+  "components": {
+    "requestBodies": {
+      "CuratedRegion": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "example": "msw3-ds23",
+            "description": "4x4 of the view that is to be designated as a curated region."
+          },
+          "name": {
+            "type": "string",
+            "example": "USA States",
+            "description": "Short human-readable description of the region dataset that can be used to override the name on the view."
+          },
+          "geometryLabel": {
+            "type": "string",
+            "example": "state_full_name",
+            "description": "SoQL name of the column that contains the entity name. For example, if your States dataset contains a column called state_abbrev that contains the values 'WA', 'OR', 'CA', etc., and that's how you want each shape to be labeled when you hover over a choropleth, that's the column you should specify here."
+          },
+          "featurePk": {
+            "type": "string",
+            "example": "state_id",
+            "description": "SoQL name of the column that contains the stable primary key of the dataset. By stable, we mean \"unchanged between versions of the dataset\". An example of something NOT to use as a stable ID is shapefile feature IDs. "
+          },
+          "enabledFlag": {
+            "type": "boolean",
+            "description": "Indicates whether the region should be shown or hidden in the region dropdown list when adding a new choropleth card in Spatial Lens."
+          },
+          "defaultFlag": {
+            "type": "boolean",
+            "description": "Indicates whether a computed column for this region should be automatically generated for every dataset ingressed into the domain."
+          }
+        }
+      }
+    },
+    "schemas": {
+      "CuratedRegion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "ID of this curated region"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of this curated region"
+          },
+          "name": {
+            "type": "string",
+            "description": "Short human-readable description of the region dataset that can be used to override the name on the view."
+          },
+          "createdAt": {
+            "type": "number"
+          },
+          "defaultFlag": {
+            "type": "boolean",
+            "description": "Indicates whether a computed column for this region should be automatically generated for every dataset ingressed into the domain."
+          },
+          "enabledFlag": {
+            "type": "boolean",
+            "description": "Indicates whether the region should be shown or hidden in the region dropdown list when adding a new choropleth card in Spatial Lens."
+          },
+          "featurePk": {
+            "type": "string",
+            "description": "SoQL name of the column that contains the stable primary key of the dataset. By stable, we mean \"unchanged between versions of the dataset\". An example of something NOT to use as a stable ID is shapefile feature IDs. "
+          },
+          "geometryLabel": {
+            "type": "string",
+            "description": "SoQL name of the column that contains the entity name. For example, if your States dataset contains a column called state_abbrev that contains the values 'WA', 'OR', 'CA', etc., and that's how you want each shape to be labeled when you hover over a choropleth, that's the column you should specify here."
+          },
+          "view": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

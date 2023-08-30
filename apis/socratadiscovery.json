@@ -1,0 +1,193 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Discovery API",
+        "version": "1.0.0",
+        "description": "The Socrata data platform hosts tens of thousands of government datasets. Governments large and small publish data on\ncrime, permits, finance, healthcare, research, performance, and more for citizens to use. While this large corpus of\ngovernment data is already accessible via opendatanetwork.com, this API opens up the Socrata corpus of government data\nfor automated searching, research, and exploration. Datasets can be found by keywords, high-level categorizations, tags,\nand much more. This API, then, is a **powerful way to access and explore all public metadata published on the Socrata\nplatform.**\n\nAll successful calls return a nested JSON object described by the tables below.\nAt the root level, there are three fields:\n\n| Field         | Description                                                            |\n|---------------|------------------------------------------------------------------------|\n|results        | an array of _result objects_                                           |\n|resultSetSize  | the total number of results that could be returned were they not paged |\n|timings        | timing information regarding how long the request took to fulfill      |\n\nThe _results objects_ each contain the following fields:\n\n| Field         | Description                                                              |\n|---------------|--------------------------------------------------------------------------|\n|resource       | a _resource object_ representing a dataset, visualization or other asset |\n|classification | a _classification object_ describing the asset's classification by categories and tags|\n|metadata       | an _additional metadata object_ containing metadata about the asset      |\n|permalink      | the permanent link of the asset                                          |\n|link           | the prettier, but non-permanent, link of the asset                       |\n|preview\\_image\\_url | the link to the preview image of the asset, if one is available     |\n|owner          | a _user object_ containing information about the asset's owner           |\n|published_copy | if applicable, a nested object containing a _permalink_ back to the published copy of this unpublished asset, along with its _uid_ |\n\nThe _resource object_ contains the following fields:\n\n| Field              | Description                                                        |\n|--------------------|--------------------------------------------------------------------|\n|name                | the title of the asset                                             |\n|id                  | the unique identifier for the asset                                |\n|description         | the description for the asset, if one has been provided            |\n|attribution         | the attribution of the asset, if one has been provided             |\n|type                | the type of the asset (eg. dataset)                                |\n|updatedAt           | the timestamp at which the asset was last updated                  |\n|createdAt           | the timestamp at which the asset was created                       |\n|metadata_updated_at | the timestamp at which the asset metadata was last updated         |\n|data_updated_at     | the timestamp at which the asset data was last updated             |\n|page_views          | an object containing the number of views this asset has had over the last week, month and over all time |\n|columns\\_field\\_name| an array of the field names - which serve as identifiers - of the columns in this asset; this array is guaranteed to have the same length as the other columns fields |\n|columns_name        | an array of the display names for the columns in this asset; this array is guaranteed to have the same length as the other columns fields |\n|columns_description | an array of descriptions for the columns in this asset; this array is guaranteed to have the same length as the other columns fields |\n|columns_dataytpe    | an array of the column datatypes for this asset such as \"Text\" and \"Number\"; this array is guaranteed to have the same length as the other columns fields |\n|columns_format      | an array of the column format objects - simple key/value maps with the format key and value - for this asset; this array is guaranteed to have the same length as the other columns fields |\n|parent_fxf          | an array of dataset IDs that this asset is based on                |\n|provenance          | a string - either 'official' or 'community' - indicating whether the asset was created by a community user or a roled user    |\n|download_count      | the number of times this asset has been downloaded                 |\n|lens_view_type      | the 'viewType' classification (only populated for `type`='document'). may be one of the following strings: 'tabular', 'blobby', 'href', 'geo', 'story', 'measure', 'gateway_plugin'. |\n|blob_mime_type      | the mimeType for the blob that this resource may represent         |\n|hide_from_data_json | boolean, whether this document has been marked to (not) appear in the data.json output |\n\nThe _classification object_ object contains 5 fields:\n\n| Field          | Description                                                         |\n|----------------|---------------------------------------------------------------------|\n|categories      | an array of categories that have been algorithmically assigned |\n|tags            | an array of tags that have been algorithmically assigned |\n|domain_category | the singular category given to the asset by the owning domain       |\n|domain_tags     | an array of tags given to the asset by the owning domain            |\n|domain_metadata | an array of _domain metadata objects_ for public custom metadata    |\n|domain\\_private\\_metadata | if you are authenticated to view it, an array of _domain metadata objects_ for private custom metadata |\n\nThe _additional metadata object_ contains 2 fields:\n\n| Field    | Description                                                 |\n|----------|-------------------------------------------------------------|\n|domain_id | the id of the domain the asset belongs to                   |\n|license   | optionally, the license under which the asset is published  |\n\nThe _user object_ contains 2 fields:\n\n| Field      | Description                                    |\n|------------|------------------------------------------------|\n|id          | the id of the asset's owner                    |\n|displayName | the display name the asset's owner has chosen  |\n\nThe _domain metadata object_ contains 2 fields:\n\n| Field | Description         |\n|-------|---------------------|\n|key    | the metadata key as would be used by this API to search (see the \"Find by domain metadata\" resource for more info ) |\n|value  | the metadata value  |\n\nAny unsuccessful calls return a JSON object containing a single key:\n\n| Field         | Description                                                            |\n|---------------|------------------------------------------------------------------------|\n| error         | an error message regarding the failure, e.g. \"No user was provided to search for shared assets\" |\n\nThe production API endpoints for the public version of this API are at _https://api.us.socrata.com/api/catalog/v1_\nfor domains in North America and _https://api.eu.socrata.com/api/catalog/v1_ for all other domains.\nFor example, to query for datasets categorized as 'Public Safety', you could use the following query:\n\n<a class=\"tryit\" href=\"http://api.us.socrata.com/api/catalog/v1?categories=public%20safety\">http://api.us.socrata.com/api/catalog/v1?categories=public%20safety</a>\n\n* Please note that we assume all calls include a valid Socrata app token via the X-App-Token header.\nThis is assumed and not documented in the API spec below. Please refer to our main\n[Developer site](https://dev.socrata.com/docs/app-tokens.html) for information on using an app token.*\n\n<a name=\"asset-visibility\"></a>\n\n## Asset Visibility\n\nThere are four key factors which control whether or not a Socrata asset can be viewed anonymously by an unauthenticated\nuser on the platform. An asset must meet criteria for all factors which apply to the domain itself\n(this varies domain-by-domain, as not all domains employ relevant features or modules which utilize these).\n\nThese factors are:\n\n- the asset's audience\n\n- the asset's publication status\n\n- the approval status of the asset\n\n- whether the asset is hidden\n\nIn order to get visibility information back on assets, see the [Getting visibility information](#get-visibility) section.\n\n## Authentication\n\nAuthentication is not required to use this API for read-only access to Socrata’s corpus of anonymously-viewable\n(i.e. published, public, approved, and not hidden) assets. However, if you wish to search for private,\nunpublished, unapproved or hidden data, you must authenticate yourself and ensure that you have adequate permissions\nto view the data in question.\n\nTo authenticate, you must:\n\n- Use one of the methods discussed [here](https://dev.socrata.com/docs/authentication.html) and\n\n- Provide the 'X-Socrata-Host' host header with the domain that has granted you access to view its assets.\n  For example 'X-Socrata-Host:data.ny.gov'. We refer to this as the _authenticating domain_.\n\nWhen properly authenticated, you will be able to search over:\n\n- All data that is anonymously-viewable.\n\n- Any data that you own or that has been shared to you.\n\n- Private, unpublished, unapproved, and hidden assets from domains that have granted you a right to view such assets.\n\n## Additional API facts\n\n1. Search without any parameters returns the set of data you are authorized to see. Any parameter\n   usage serves to filter (or sort) this set of data - i.e. no parameters allow you to see\n   more data than a search without parameters. This is important to know when considering parameters\n   that let you search for assets not found in the public catalog. If you are unauthorized to see such things,\n   your results will be empty.\n\n2. Multiple repetitive parameters are treated differently from multiple unique parameters. Unique parameters,\n   for example\n\n   _?tags=fire&provenance=official_\n\n   filters to the _intersection_ of the values. In this example, the search is for official assets with the tag 'fire'.\n   Repetitive parameters filter to the _union_ of values. For example\n\n   _?tags=fire&tags=commission_\n\n   searches for assets tagged as either 'fire' or 'commission'.\n   The combination of both repetitive and unique parameters follow the same rules. Thus the query\n\n   _?tags=fire&tags=commission&provenance=official_\n\n    would search for official assets tagged as either 'fire' or 'commission'.\n\n3. Most parameters support repetitive usage, using either the syntax above or the alternate syntax using brackets,\n   e.g. _?tags[]=fire&tags[]=commission_. In the reference below you can assume this is supported\n   unless directly called out otherwise.\n\n4. Because this API supports custom metadata search and because custom metadata keys are arbitrary,\n   any unrecognized params are assumed to be custom metadata. Thus, if you misname a parameter, for example\n   _?domain=data.ny.gov_ (the parameter should be 'domains'), the results will be empty unless there are\n   assets with the custom metadata key 'domain' and value 'data.ny.gov'."
+    },
+    "servers": [
+        {
+            "url": "api.us.socrata.com/api"
+        }
+    ],
+    "paths": {
+        "/catalog/v1": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Show visibility information",
+                "operationId": "Show visibility information",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "show_visibility",
+                        "in": "query",
+                        "description": "Whether to return visibility information",
+                        "example": "true",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ]
+            }
+        },
+        "/catalog/v1/autocomplete": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Autocomplete asset names",
+                "operationId": "Autocomplete asset names",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "The query string to autocomplete",
+                        "required": true,
+                        "example": "Fleet",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "deduplicate",
+                        "in": "query",
+                        "description": "Whether to return unique asset titles using `true` or to return all asset titles with their ids using `false`.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/catalog/v1/tags/autocomplete": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Autocomplete tags",
+                "operationId": "Autocomplete tags",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "The query string to autocomplete",
+                        "required": true,
+                        "example": "fin",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "domains",
+                        "in": "query",
+                        "description": "The domain name",
+                        "required": true,
+                        "example": "data.seattle.gov",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/catalog/v1/domains": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Count by domain",
+                "operationId": "Count by domain",
+                "description": "",
+                "tags": [],
+                "parameters": []
+            }
+        },
+        "/catalog/v1/domain_tags": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Count by tag",
+                "operationId": "Count by tag",
+                "description": "",
+                "tags": [],
+                "parameters": []
+            }
+        },
+        "/catalog/v1/domain_categories": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Count by category",
+                "operationId": "Count by category",
+                "description": "",
+                "tags": [],
+                "parameters": []
+            }
+        },
+        "/catalog/v1/domains/{domain}/facets": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {}
+                    }
+                },
+                "summary": "Count by facets",
+                "operationId": "Count by facets",
+                "description": "",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "domain",
+                        "in": "path",
+                        "description": "The domain name",
+                        "required": true,
+                        "example": "data.seattle.gov",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {}
+    },
+    "tags": []
+}

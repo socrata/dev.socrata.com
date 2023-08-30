@@ -1,0 +1,244 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Teams Search API",
+    "description": "Recently, the Socrata platform introduced the concept of Teams. Teams provide platform users a\nsimple and intuitive mechanism for grouping users. The Teams Search API provides full-text search,\nfiltering, and autocomplete functionality across all teams within the platform.\n\n## Authentication\n\nAuthentication is required to access this API. You can authenticate by\n- using either of the methods discussed [here](https://dev.socrata.com/docs/authentication.html)\n  and\n- providing the `X-Socrata-Host` host header with the domain that has granted you access to view\n  its users.\n\nFor example, `X-Socrata-Host:data.ny.gov`. We refer to this as the `authenticating domain`.\n\nWhen properly authenticated, users who have been granted a\n[role](https://support.socrata.com/hc/en-us/articles/202950278-Understanding-user-roles) on a\nSocrata domain may look up other users on their domain and administrators may look up any\nuser. Unauthenticated users will receive an error response code (403).\n\n## App Tokens\n\nAll programmatic usage of Socrata APIs should include an\n[app token](https://dev.socrata.com/docs/app-tokens.html), either via the `X-App-Token` header or\nthe `$$app_token parameters` set to a valid token. This is assumed and not documented in the API\nspecs below.\n\n## Response\n### Response Codes\n\nThe Teams Search API returns Socrata's standard\n[response codes](https://dev.socrata.com/docs/response-codes.html).\n\nSuccessful responses will contain a JSON object containing three fields:\n\n- `results` An array of team JSON objects. Details about these objects are found below in \"Team\n  Results\" section\n- `resultSetSize` The total number of results that matched the constraints of the search request\n- `timings` Timing information regarding how long the request took to fulfill\n\nIf an error occurs, the response will be a JSON object containing a single `error` key. For\nexample:\n\n```\n{\"error\":\"No user was provided to search teams\"}\n```\n\n### Paging\n\nPaging is enabled in [the same manner](https://dev.socrata.com/docs/paging.html) as other Socrata\nDiscovery APIs via the `limit` and `offset` parameters. An example of using these to page through\nteams is given below.\n\n### Results\n\nSuccessful team searches return team objects with the following fields:\n\n| Field                   | Description                                          | \n|-------------------------|------------------------------------------------------|\n|id                       | The unique identifier for the team, e.g. 'epi9-4k9x' |\n|domain_id                | The ID of the host domain on which the team was created |\n|screen_name              | The screen name associated with the team             |\n|description              | A description of the team                            |\n|members                  | An array of member objects consisting of two fields: `id` and `screen_name` |\n|member_count             | The number of users (including the owners) on the team |\n|owners                   | An array of owner objects consisting of two fields: `id` and `screen_name` |\n\nNote that owners are considered members of a team for the purpose of determining the member count,\nbut owner information is tracked separately from non-owner users listed in the `members` field.\n\n## Request Parameters\n\nThe production API endpoint for searching teams is\n`https://api.us.socrata.com/api/catalog/v1/teams`.  When no parameters are passed, the initial set\nof teams available to search will vary based on your role.\n\n# Search Endpoint [/catalog/v1/teams]\n\n```\n{\n    \"results\": [\n        {\n            \"id\": \"team-work\",\n            \"domain_id\": 1234,\n            \"screen_name\": \"Dream Team\",\n            \"description\": \"A team of dedicated employees who work hard every day\",\n            \"members\": [{\"id\": \"abcd-1234\", \"screen_name\": \"ABC 1234\"}, {\"id\": \"foob-arba\", \"screen_name\": \"Foo Bar Ba\"}],\n            \"member_count\": 3,\n            \"owners\": [{\"id\": \"jane-admn\", \"screen_name\": \"Jane Administrator\"}]\n        }\n      ],\n      \"resultSetSize\": 1\n}\n```\n",
+    "version": ""
+  },
+  "paths": {
+    "/catalog/v1/teams": {
+      "get": {
+        "summary": "Find teams",
+        "description": "To lookup one or more teams by their ID, use the `ids` param. Multiple teams may be found by\nrepeated use of the `ids` param, for example `?ids=team-uid1&ids=team-uid2`\n\nTo search for teams by name, use the `screen_names` parameter. Multiple names may be searched by\nrepeated use of the `screen_names` parameter, for example\n`?screen_names=Dream%20Team&screen_names=Data%20Lab`. Don't forget to URL encode the screen\nname.\n\nTo lookup one or more teams by the IDs of their owners, use the `owner_ids` param. Multiple owners\ncan be specified by repeated use of the `owner_ids` param, for example\n`?owner_ids=user-uid1&owner_ids=user-uid2`\n\nTo lookup one or more teams by the IDs of their members, use the `member_ids` param. Multiple\nmembers can be specified by repeated use of the `member_ids` param, for example\n`?member_ids=user-uid1&member_ids=user-uid2`\n\nTo search for all teams on a domain, use the domain parameter. The domain parameter corresponds to\na domain's primary cname (eg. \"data.seattle.gov\").\n\nSearch for teams by keyword can be accomplished using the `q` parameter. There are a few important\npoints to keep in mind when executing keyword searches. Firstly, if the query string consists of\nmultiple words, each of those serve as a separate query term. Secondly, in addition to\ntokenization, query terms are stemmed, allowing for matches even when there may be slight\ndiscrepancies between the query terms and the team data. Finally, the `q` parameter searches across\nmultiple fields including the team screen name, the team description, and team owners' screen\nnames, and member screen names. Thus, certain query terms may return more results than you might\nexpect. By default, the ordering of the results is based on the strength of the match.",
+        "operationId": "Find teams",
+        "parameters": [
+          {
+            "in": "query",
+            "description": "The Socrata team IDs",
+            "schema": "#<OpenAPI::Schema::Array:0x0000000108397ed0>",
+            "example": [
+              "team-uid1",
+              "team-uid2"
+            ],
+            "name": "ids"
+          },
+          {
+            "in": "query",
+            "description": "A team screen name",
+            "schema": "#<OpenAPI::Schema::Array:0x0000000108397d68>",
+            "example": [
+              "Team%20Name"
+            ],
+            "name": "screen_names"
+          },
+          {
+            "in": "query",
+            "description": "Socrata user IDs corresponding to team owners",
+            "schema": "#<OpenAPI::Schema::Array:0x0000000108397c78>",
+            "example": [
+              "user-uid1",
+              "user-uid2"
+            ],
+            "name": "owner_ids"
+          },
+          {
+            "in": "query",
+            "description": "Socrata user IDs for team members",
+            "schema": "#<OpenAPI::Schema::Array:0x0000000108397b60>",
+            "example": [
+              "user-uid1",
+              "user-uid2"
+            ],
+            "name": "member_ids"
+          },
+          {
+            "in": "query",
+            "description": "The primary cname for a Socrata domain",
+            "schema": {
+              "type": "string"
+            },
+            "example": "data.ny.gov",
+            "name": "domain"
+          },
+          {
+            "in": "query",
+            "description": "A string for text search.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "research and development",
+            "name": "q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SearchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/catalog/v1/teams/autocomplete": {
+      "get": {
+        "summary": "Autocomplete",
+        "description": "With the teams autocomplete endpoint, you can provide incremental team search suggestions. This API\nsupports all the same filtering parameters as the basic team search endpoint. Moreover, the\nresponse body has the same top-level shape as the team search API, containing `resultSetSize`,\n`results`, and `timings` fields at the root of the response object. The `results` field consists of\nan array of objects, with each object containing `matches` and `team` fields. The `matches` field\nis an array of objects indicating the name of the fields in the team object that were the basis for\nthe match and the corresponding character offsets of the matches in that field. The `team` field\ncontains the matching team object (as described in the [Results][] section above).",
+        "operationId": "Autocomplete",
+        "parameters": [
+          {
+            "in": "query",
+            "description": "A string corresponding to a team screen name",
+            "schema": {
+              "type": "string"
+            },
+            "name": "q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Autocomplete"
+                      }
+                    },
+                    "timings": {
+                      "type": "object",
+                      "properties": {
+                      }
+                    },
+                    "resultSetSize": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "SearchResponse": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Team"
+            }
+          },
+          "resultSetSize": {
+            "type": "number"
+          },
+          "timings": {
+            "type": "object",
+            "properties": {
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": "string"
+          }
+        }
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "abcd-1234"
+          },
+          "screen_name": {
+            "type": "string",
+            "example": "ABC 1234"
+          }
+        }
+      },
+      "Team": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier for the team, e.g. 'epi9-4k9x'",
+            "example": "epi9-4k9x"
+          },
+          "domain_id": {
+            "type": "number",
+            "example": 1234,
+            "description": "The ID of the host domain on which the team was created"
+          },
+          "owners": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "screen_name": {
+            "type": "string",
+            "example": "Dream Team"
+          },
+          "description": {
+            "type": "string",
+            "example": "A team of dedicated employees who work hard every day"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "Autocomplete": {
+        "type": "object",
+        "properties": {
+          "matches": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string"
+                },
+                "offsets": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "start": {
+                        "type": "number"
+                      },
+                      "length": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "team": {
+            "$ref": "#/components/schemas/Team"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,386 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "User Search API",
+    "description": "The Socrata data platform hosts thousands of Socrata users who help publish/curate data,\nmaintain open data services, and use open data to create new content and apps. Users may sign up\nfor a Socrata account on any domain maintained by Socrata, and if the domain's administrator grants\nthat user a [role](https://support.socrata.com/hc/en-us/articles/202950278-Understanding-user-roles),\nthey may use this API to search for Socrata users. Users can be found by keywords,\nemail, screen name, role and more.\n\n## Authentication\n\nAuthentication is required to use this API. You can authenticate by\n- using either of the methods discussed [here](https://dev.socrata.com/docs/authentication.html) and\n- providing the `X-Socrata-Host` host header with the domain that has granted you access to view its users.\nFor example `X-Socrata-Host:data.ny.gov`. We refer to this as the `authenticating domain`.\n\nWhen properly authenticated, users who have been granted a\n[role](https://support.socrata.com/hc/en-us/articles/202950278-Understanding-user-roles) on a Socrata domain may look up other\nusers on their domain and users with the `manage_users` right may look up any user.\nUnauthenticated users will receive an error response code.\n\n## App Tokens\n\nAll programmatic usage of Socrata APIs should include an\n[app token](https://dev.socrata.com/docs/app-tokens.html), either via the `X-App-Token` header or the\n`$$app_token parameters` set to a valid token. This is assumed and not documented in the API specs below.\n\n## Response\n### Response Codes\n\nThe Discovery APIs return Socrata's standard [response codes](https://dev.socrata.com/docs/response-codes.html).\n\nSuccessful responses will contain a JSON object containing three fields:\n\n- `results` An array of user json objects. Details about these objects are found below in \"User Results\"\n- `resultSetSize` The total number of results that could be returned were they not paged\n- `timings` Timing information regarding how long the request took to fulfill\n\nIf an error occurs, the response will be a JSON object containing a single `error` key. For example:\n\n```\n{\"error\":\"No user was provided to search users\"}\n```\n\n### Paging\n\nPaging is enabled in [the same manner](https://dev.socrata.com/docs/paging.html) as other Socrata APIs via\nthe `limit` and `offset` parameters. An example of using these to page through users is given below.\n\n### Results\n\nSuccessful user searches return user `results` with the following fields:\n\n\n| Field                   | Description                                          |\n|-------------------------|------------------------------------------------------|\n|id                       | The unique identifier for the user, e.g. 'epi9-4k9x' |\n|email                    | The user's email address. This is unique since no two accounts may share an email address. |\n|screen_name              | The screen name the user has chosen, e.g. 'Robin Hood'. |\n|role_name                | The user's role, e.g. 'publisher' (See Note on domain specific fields). |\n|role_id                  | The ID of the role, e.g. `2`. (See Note on domain specific fields). |\n|last_authenticated_at    | The seconds-since-epoch timestamp of when the user last logged in on the authenticating domain. (See Note on domain specific fields).|\n|teams_owned              | An array of team objects owned by this user, described below. (See Note on domain specific fields). |\n|teams_id                 | An array of team objects this user is a member of, described below. (See Note on domain specific fields). |\n|teams_count              | The count of all teams the user owns or belongs to on the given domain. (See Note on domain specific fields). |\n|profile_image_url_large  | The route to the large copy of the user's profile image; only present if the user has chosen a profile picture |\n|profile_image_url_medium | The route to the medium copy of the user's profile image; only present if the user has chosen a profile picture |\n|profile_image_url_small  | The route to the small copy of the user's profile image; only present if the user has chosen a profile picture |\n|flags                    | The flags that come back on the user. Most of these are represented via other fields |\n|disabled_at              | If disabled, the time at which the user was disabled on this domain |\n|disabled_on_organization_at | If disabled on the organization, the time at which the user was disabled on the origanization |\n|site_member              | Whether the user is a site member of this domain |\n|community_member         | Whether the user is a community member of this domain |\n|future_account           | True if the user has been invited to this domain, but has not yet signed in, else False |\n\nTeam information, if returned, will be a list of objects with the following fields:\n\n| Field      | Description                                                |\n|------------|------------------------------------------------------------|\n|domain_id   | The integer id of the domain the team belongs to, e.g. 84. |\n|team_id     | The string team id, e.g. 'tu93-ng2t'.                      |\n|role_name   | The role that the calling user has on this team, e.g. 'owner' for teams owned and 'member' otherwise. |\n\n#### Note on domain specific fields\n\nThe domain specific fields\n`role_name`, `role_id`, `last_authenticated_at`, `teams_owned`, `teams_member_of` and `team_count`\nwill only be returned if two conditions are met:\n1. a domain was provided in the search.\n2. the domain provided matches your authenticating domain\n\nUsers may have roles and teams on multiple domains, so these conditions are needed to select the\ncorrect role and teams and ensure you have access to view this information.\n\n## Request Parameters\n\nThe production API endpoint for searching users is `https://api.us.socrata.com/api/catalog/v1/users`.\nWhen no parameters are passed, the initial set of users available to search will vary based on your role.\nAdministrators may search across *all* users. Other roled users may only search across users having a role\non the authenticating domain. This essentially enforces a rule that non-administrators may only search\nfor their colleagues.  Any and all of the parameters discussed below can be used to limit the intial set\nof users.\n\n# Search Endpoint [/catalog/v1/users]\n\n+ Model (application/json)\n\n```\n{\n    \"results\": [\n        {\n            \"id\" : \"uniq-uid1\",\n            \"email\" : \"someone@somewhere.com\",\n            \"screen_name\" : \"Screen Name\",\n            \"role_name\" : \"publisher\",\n            \"role_id\" : 5,\n            \"last_authenticated_at\": 1504753177,\n            \"disabled_at\": 1523584987,\n            \"teams_owned\": [\n                \"domain_id\": 1,\n                \"team_id\": \"re9y-q4rw\",\n                \"role_name\": \"owner\"\n            ],\n            \"teams_member_of\": [\n                \"domain_id\": 1,\n                \"team_id\": \"k7f3-pp2a\",\n                \"role_name\": \"member\"\n            ],\n            \"team_count\": 2,\n            \"profile_image_url_large\": \"/api/users/uniq-uid1/profile_images/LARGE\",\n            \"profile_image_url_medium\": \"/api/users/uniq-uid1/profile_images/THUMB\",\n            \"profile_image_url_small\": \"/api/users/uniq-uid1/profile_images/TINY\"\n           },\n           \"flags\" : [\n               \"siteMember\"\n           ],\n           \"site_member\" : true,\n           \"community_member\" : false,\n           \"future_account\" : false,\n           \"flags\": [\"siteMember\"]\n      ],\n      \"resultSetSize\": 1\n}\n```\n",
+    "version": ""
+  },
+  "paths": {
+    "/catalog/v1/users": {
+      "get": {
+        "summary": "Find teams",
+        "description": "### Find users by ID [/catalog/v1/users{?ids}]\n\nTo lookup a unique user by their ID, use the `ids` param. Multiple users may be\nfound by repeated use of the `ids` param, for example `?ids=uniq-uid1&ids=uniq-uid2`\n\n### Find users by email [/catalog/v1/users{?emails}]\n\nTo look up a unique user by their email, use the `emails` param. Multiple users may be\nfound by repeated use of the `emails` param, for example\n`?emails=someone@somewhere.com&emails=someone@somewhere.else.com`\n\n### Find users by screen name [/catalog/v1/users{?screen_names}]\n\nTo search for users with a particular screen name, use the `screen_names` param.\nMultiple screen names may be searched by repeated use of the `screen_names` param, for example\n`?screen_names=Screen%20Name&screen_names=Pumpkin%20Jack`. Don't forget to URL encode the\nscreen name.\n\n### Find users by role [/catalog/v1/users{?roles,domain}]\n\nTo search users with a particular role, use the `roles` and `domain` param.\nThe `roles` are the name of any role on the given domain. The `domain` must be your authenticating\ndomain, per the discussion above in the \"Note on domain specific fields\" section.\nMultiple roles may be searched by repeated use of the `roles` param, for example\n`?roles=publisher&roles=administrator&domain=data.ny.gov`.\n\n### Find users by role ID [/catalog/v1/users{?role_ids,domain}]\nTo search users with a particular role, use the `role_ids` and `domain` param.\nThe `role_ids` are the integer id of any role on the given domain.\nThe `domain` must be your authenticating domain, per the discussion above in the\n\"Note on domain specific fields\" section.\nMultiple role IDs may be searched by repeated use of the `role_ids` param, for example\n`?role_ids=3&role_ids=4&domain=data.ny.gov`.\n\n### Find users by team ID [/catalog/v1/users{?team_ids,domain}]\nTo search users belonging to a particular team, use the `team_ids` and `domain` param.\nThe `team_ids` are the string ids of teams you have access to on the given domain. Accessible\nteams include those you belong to and if you have the `manage_teams` right, any teams on the domain.\nThe `domain` must be your authenticating domain, per the discussion above in the\n\"Note on domain specific fields\" section.\nMultiple team IDs may be searched by repeated use of the `team_ids` param, for example\n`?team_ids=mchi-7jrh&team_ids=yeh4-nrgn&domain=data.ny.gov`.\n\n### Find users by domain [/catalog/v1/users{?domain}]\n\nTo search for all users on your authenticating domain, first understand that users are only\nlinked to a domain if they have been given a role on the domain. Thus, this search will find\nall users who have a role on the domain.  Please note that no user is able\nto explicitly search for users on a domain that they are not authenticated with, so\nthis param must be the name of the authenticating domain, else an error will be returned.\n\n### Find users by query term [/catalog/v1/users{?q}]\n\nUsers matching a given query term can be found using the `q` paramater. Matches are determined by\nwhether any of the tokens of the search query match any of the tokens of the user's email and/or\nscreen name. For example if a user Jack has email jack.o.latern@pumpkin.patch.com and screen name\n\"Pumpkin Jack\", the tokens produced will be\n\"jack.o.latern\", \"jack\", \"latern\", \"pumkin.patch.com\", \"pumpkin\" and \"patch\".\nThus a query using any of those terms will find our user Jack.\n\n### Restrict search to certain user types [/catalog/v1/users{?only}]\n\nThere are three types of users you can filter your search to.\n- `owners` - users who own assets on the domain\n- `site_members` - users with elevated rights on the domain\n- `community_members` - users who have an account on the domain, but have not been assigned a role\n\nYou may specify as many as you like by repeating the `only` key, and all options will be joined\nwith an `OR` clause. For example, `only=owners&only=community_members` will return users\nthat either own assets on the specified domain or are community members (or both).\n\nAs elsewhere in this API, when `only` is combined with other parameters, they are joined with an `AND`\nclause, meaning that the query `only=owners&ids=qsd8=9dy3&ids=73kj-5ujs` will only return the two users\nspecified if they also own assets on the domain specified.\n\nA `domain` parameter is always required to perform an `only` search.\n\n### Restrict search to only disabled or non-disabled users [/catalog/v1/users{?disabled}]\n\nDomain users can be disabled, meaning they are no longer members of the domain. Disabled users\nmay still have their historical role on the domain, but they no longer have the benefits of that\nrole if they attempt to log in to the domain.\n\nA `domain` parameter is always required to perform a `disabled` search.\n\n### Restrict search to only future accounts (invited, but not yet signed in users) or non-future accounts [/catalog/v1/users{?future}]\n\nIf a user is invited to create an account on a domain, but has not signed in yet, that user is considered a \"future\naccount\" on this domain. This user has a role, and is considered a site member.\n\nA `domain` parameter is always required to perform a `future` search.\n\n### Sort order [/catalog/v1{?order}]\n\nThe results of all the above filters can be sorted by a number of fields. If not specified, the\nresults are sorted by relevance. If a sort field is specified that the search service does not\nrecognize, the query will fail. For all accepted sort values, either `ASC` or `DESC` can optionally\nbe specified, eg. `email DESC`. If `ASC` or `DESC` is not specified, the default is `ASC`, or\nascending. Note that spaces must be URL-escaped with `+` or `%20`.\n\nIt is possible for search results to have missing values for some of these sort fields (such as\n`last_authenticated_at`, for example). Any assets missing a value altogether for the field being sorted\non will show up at the end of the results list.\n\n**Accepted Values:**\n- `relevance` (default)\n- `email`\n- `screen_name`\n- `role_name` (also requires the `domain` param, per the \"Note on domain specific fields\" section above)\n- `last_authenticated_at` (also requires the `domain` param, per the \"Note on domain specific fields\" section above)\n\n### Page through users [/catalog/v1/users{?offset,limit}]\n\nUsers can be paged with use of the `limit` and `offset` params.\nBy default the search will return 100 results, starting from 0.",
+        "operationId": "Find teams",
+        "parameters": [
+          {
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "uniq-uid1",
+            "description": "The users unique Socrata ID.",
+            "name": "ids"
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "someone@somewhere.com",
+            "description": "The users email address.",
+            "name": "emails"
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Screen%20Name",
+            "description": "A screen name.",
+            "name": "screen_names"
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "publisher",
+            "description": "Any Socrata [role](https://support.socrata.com/hc/en-us/articles/202950278-Understanding-user-roles).",
+            "name": "roles"
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "example": 5,
+            "description": "A role ID.",
+            "name": "role_ids"
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "yeh4-nrgn",
+            "description": "A team ID.",
+            "name": "team_ids"
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "data.ny.gov",
+            "description": "Your authenticating domain.",
+            "name": "domain"
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "pumpkin",
+            "description": "A string for text search.",
+            "name": "q"
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "owners",
+            "description": "A type of user to search for (eg. `owners`).",
+            "name": "only"
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "example": false,
+            "description": "Whether or not to search for disabled users.",
+            "name": "disabled"
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "example": false,
+            "description": "Whether or not to search for future accounts",
+            "name": "future"
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "email",
+            "description": "The sort order of the results",
+            "name": "order"
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "example": 23,
+            "description": "Initial starting point for paging (0 by default).",
+            "name": "offset"
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "example": 47,
+            "description": "Number of results to return (10000 max/100 default).",
+            "name": "limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SearchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/catalog/v1/users/autocomplete": {
+      "get": {
+        "summary": "Autocomplete",
+        "description": "With the user autocomplete endpoint, you can provide incremental user search suggestions. This API\nsupports all the same filtering parameters as the basic user search endpoint. Moreover, the\nresponse body has the same top-level shape as the user search API, containing `resultSetSize`,\n`results`, and `timings` fields at the root of the response object. The `results` field consists of\nan array of objects, with each object containing `matches` and `user` fields. The `match_data`\nfield is an array of objects indicating the name of the fields in the user object that were the\nbasis for the match and the corresponding the character offsets of the matches in that field. The\n`user` field contains the matching user object (as described in the \"Results\" section above).\n\n### User and Team autocomplete\n\nThe autocomplete endpoint can optionally include teams in the suggestion results by way of the\n`include_teams` flag. When this flag is provided, and there are teams that match the query, each\nresult will either include a `user` field (as demonstrated in the previous example), or a `team`\nfield. See the [Teams API documentation](https://teamsearchapi.docs.apiary.io/) for more detail on\nthe expected shape of a `team` object.",
+        "operationId": "Autocomplete",
+        "parameters": [
+          {
+            "in": "query",
+            "description": "A string corresponding to a user screen name or email address",
+            "schema": {
+              "type": "string"
+            },
+            "name": "q"
+          },
+          {
+            "in": "query",
+            "description": "A boolean indicating whether matching teams should be included in the results",
+            "name": "include_teams"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Autocomplete"
+                      }
+                    },
+                    "timings": {
+                      "type": "object",
+                      "properties": {
+                      }
+                    },
+                    "resultSetSize": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "SearchResponse": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DomainUser"
+            }
+          },
+          "resultSetSize": {
+            "type": "number"
+          },
+          "timings": {
+            "type": "object",
+            "properties": {
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": "string"
+          }
+        }
+      }
+    },
+    "schemas": {
+      "DomainUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "uniq-uid1",
+            "description": "The unique identifier for the user, e.g. 'epi9-4k9x'"
+          },
+          "email": {
+            "type": "string",
+            "example": "someone@somewhere.com",
+            "description": "The user's email address. This is unique since no two accounts may share an email address."
+          },
+          "screen_name": {
+            "type": "string",
+            "example": "Screen Name",
+            "description": "The screen name the user has chosen, e.g. 'Robin Hood'."
+          },
+          "role_name": {
+            "type": "string",
+            "example": "publisher",
+            "description": "The user's role, e.g. 'publisher' (See Note on domain specific fields)."
+          },
+          "role_id": {
+            "type": "string",
+            "example": 5,
+            "description": "The ID of the role, e.g. `2`. (See Note on domain specific fields)."
+          },
+          "last_authenticated_at": {
+            "type": "number",
+            "example": 1504753177,
+            "description": "The seconds-since-epoch timestamp of when the user last logged in on the authenticating domain. (See Note on domain specific fields)"
+          },
+          "disabled_at": {
+            "type": "number",
+            "example": 1523584987,
+            "description": "If disabled, the time at which the user was disabled on this domain"
+          },
+          "teams_owned": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "domain_id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "team_id": {
+                  "type": "string",
+                  "example": "re9y-q4rw"
+                },
+                "role_name": {
+                  "type": "string",
+                  "example": "owner"
+                }
+              }
+            }
+          },
+          "teams_member_of": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "domain_id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "team_id": {
+                  "type": "string",
+                  "example": "k7f3-pp2a"
+                },
+                "role_name": {
+                  "type": "string",
+                  "example": "member"
+                }
+              }
+            }
+          },
+          "teams_count": {
+            "type": "number",
+            "example": 2,
+            "description": "The count of all teams the user owns or belongs to on the given domain. (See Note on domain specific fields)."
+          },
+          "profile_image_url_large": {
+            "type": "string",
+            "example": "/api/users/uniq-uid1/profile_images/LARGE",
+            "description": "The route to the large copy of the user's profile image; only present if the user has chosen a profile picture"
+          },
+          "profile_image_url_medium": {
+            "type": "string",
+            "example": "/api/users/uniq-uid1/profile_images/THUMB",
+            "description": "The route to the medium copy of the user's profile image; only present if the user has chosen a profile picture"
+          },
+          "profile_image_url_small": {
+            "type": "string",
+            "example": "/api/users/uniq-uid1/profile_images/TINY",
+            "description": "The route to the small copy of the user's profile image; only present if the user has chosen a profile picture"
+          },
+          "flags": {
+            "type": "array",
+            "items": "string"
+          },
+          "site_member": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether the user is a site member of this domain"
+          },
+          "community_member": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the user is a community member of this domain"
+          },
+          "future_account": {
+            "type": "boolean",
+            "example": false,
+            "description": "True if the user has been invited to this domain, but has not yet signed in, else False"
+          }
+        }
+      },
+      "Autocomplete": {
+        "type": "object",
+        "properties": {
+          "matches": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string"
+                },
+                "offsets": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "start": {
+                        "type": "number"
+                      },
+                      "length": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "team": {
+            "$ref": "#/components/schemas/DomainUser"
+          }
+        }
+      }
+    }
+  }
+}

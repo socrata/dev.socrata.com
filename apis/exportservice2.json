@@ -1,0 +1,426 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Export Service",
+        "version": "1.0.0",
+        "description": "Polls is a simple API allowing consumers to view polls and vote in them."
+    },
+    "servers": [
+        {
+            "url": "http://polls.apiblueprint.org/"
+        }
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "questions_url": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "questions_url": "/questions"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Retrieve the Entry Point",
+                "operationId": "Retrieve the Entry Point",
+                "description": "",
+                "tags": [],
+                "parameters": []
+            }
+        },
+        "/questions/{question_id}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "question": {
+                                            "type": "string"
+                                        },
+                                        "published_at": {
+                                            "type": "string"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "choices": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "choice": {
+                                                        "type": "string"
+                                                    },
+                                                    "url": {
+                                                        "type": "string"
+                                                    },
+                                                    "votes": {
+                                                        "type": "number"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "choice",
+                                                    "url",
+                                                    "votes"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "question": "Favourite programming language?",
+                                    "published_at": "2014-11-11T08:40:51.620Z",
+                                    "url": "/questions/1",
+                                    "choices": [
+                                        {
+                                            "choice": "Swift",
+                                            "url": "/questions/1/choices/1",
+                                            "votes": 2048
+                                        },
+                                        {
+                                            "choice": "Python",
+                                            "url": "/questions/1/choices/2",
+                                            "votes": 1024
+                                        },
+                                        {
+                                            "choice": "Objective-C",
+                                            "url": "/questions/1/choices/3",
+                                            "votes": 512
+                                        },
+                                        {
+                                            "choice": "Ruby",
+                                            "url": "/questions/1/choices/4",
+                                            "votes": 256
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "View a Questions Detail",
+                "operationId": "View a Questions Detail",
+                "description": "",
+                "tags": [
+                    "Question"
+                ],
+                "parameters": [
+                    {
+                        "name": "question_id",
+                        "in": "path",
+                        "description": "ID of the Question in form of an integer",
+                        "required": true,
+                        "example": "1",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ]
+            }
+        },
+        "/questions/{question_id}/choices/{choice_id}": {
+            "post": {
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "headers": {
+                            "Location": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "content": {}
+                    }
+                },
+                "summary": "Vote on a Choice",
+                "operationId": "Vote on a Choice",
+                "description": "This action allows you to vote on a question's choice.",
+                "tags": [
+                    "Question"
+                ],
+                "parameters": [
+                    {
+                        "name": "question_id",
+                        "in": "path",
+                        "description": "ID of the Question in form of an integer",
+                        "required": true,
+                        "example": "1",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "choice_id",
+                        "in": "path",
+                        "description": "ID of the Choice in form of an integer",
+                        "required": true,
+                        "example": "1",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ]
+            }
+        },
+        "/questions": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "Link": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "question": {
+                                                "type": "string"
+                                            },
+                                            "published_at": {
+                                                "type": "string"
+                                            },
+                                            "url": {
+                                                "type": "string"
+                                            },
+                                            "choices": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "choice": {
+                                                            "type": "string"
+                                                        },
+                                                        "url": {
+                                                            "type": "string"
+                                                        },
+                                                        "votes": {
+                                                            "type": "number"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "choice",
+                                                        "url",
+                                                        "votes"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": [
+                                    {
+                                        "question": "Favourite programming language?",
+                                        "published_at": "2014-11-11T08:40:51.620Z",
+                                        "url": "/questions/1",
+                                        "choices": [
+                                            {
+                                                "choice": "Swift",
+                                                "url": "/questions/1/choices/1",
+                                                "votes": 2048
+                                            },
+                                            {
+                                                "choice": "Python",
+                                                "url": "/questions/1/choices/2",
+                                                "votes": 1024
+                                            },
+                                            {
+                                                "choice": "Objective-C",
+                                                "url": "/questions/1/choices/3",
+                                                "votes": 512
+                                            },
+                                            {
+                                                "choice": "Ruby",
+                                                "url": "/questions/1/choices/4",
+                                                "votes": 256
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "summary": "List All Questions",
+                "operationId": "List All Questions",
+                "description": "",
+                "tags": [
+                    "Question"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "The page of questions to return",
+                        "example": "1",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ]
+            },
+            "post": {
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "headers": {
+                            "Location": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "question": {
+                                            "type": "string"
+                                        },
+                                        "published_at": {
+                                            "type": "string"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "choices": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "choice": {
+                                                        "type": "string"
+                                                    },
+                                                    "url": {
+                                                        "type": "string"
+                                                    },
+                                                    "votes": {
+                                                        "type": "number"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "choice",
+                                                    "url",
+                                                    "votes"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "question": "Favourite programming language?",
+                                    "published_at": "2014-11-11T08:40:51.620Z",
+                                    "url": "/questions/2",
+                                    "choices": [
+                                        {
+                                            "choice": "Swift",
+                                            "url": "/questions/2/choices/1",
+                                            "votes": 0
+                                        },
+                                        {
+                                            "choice": "Python",
+                                            "url": "/questions/2/choices/2",
+                                            "votes": 0
+                                        },
+                                        {
+                                            "choice": "Objective-C",
+                                            "url": "/questions/2/choices/3",
+                                            "votes": 0
+                                        },
+                                        {
+                                            "choice": "Ruby",
+                                            "url": "/questions/2/choices/4",
+                                            "votes": 0
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a New Question",
+                "operationId": "Create a New Question",
+                "description": "You may create your own question using this action. It takes a JSON\nobject containing a question and a collection of answers in the\nform of choices.\n\n+ question (string) - The question\n\n+ choices (array[string]) - A collection of choices.",
+                "tags": [
+                    "Question"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "The page of questions to return",
+                        "example": "1",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "question": "Favourite programming language?",
+                                "choices": [
+                                    "Swift",
+                                    "Python",
+                                    "Objective-C",
+                                    "Ruby"
+                                ]
+                            },
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "question": {
+                                        "type": "string"
+                                    },
+                                    "choices": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {}
+    },
+    "tags": [
+        {
+            "name": "Question",
+            "description": "Resources related to questions in the API."
+        }
+    ]
+}

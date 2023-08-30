@@ -1,0 +1,359 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Socrata Permissions API",
+        "version": "1.0.0",
+        "description": "The permissions API can be used to inspect and update permissions.\n\nIn general, the usage pattern for the API is:\n\n- `GET` the permissions JSON object for an asset\n\n- Change the permissions JSON object\n\n- `PUT` the JSON object back\n\n## The permissions JSON object\n\nThe permissions JSON object includes all of the info about an asset's permissions.\n\n----\n\n### `scope` string\n\nThis is the current visibility level of the asset.\n\nPossible `scope` values are:\n\n- `private` scope: This means that the asset can only be seen by its owner, and any users inside of the `users` array.\n\n- `public` scope: This means that the asset can be seen by any user who is able to access the site.\n**NOTE:** Changing an asset to public may result in the asset going into the approvals queue.\n\n- `site` scope, a.k.a. \"internal\" scope: This means that all site members are able to see the asset. This is only relevant for Socrata Connected Government Cloud sites.\n\n----\n\n### Root `accessLevels` array\n\n**!!! `accessLevels` is *NOT* required when doing a `PUT` !!!**\n\nThe `accessLevels` array is the list of **available** access levels that can be set for `users` using the permissions API on the current domain.\n\n`accessLevels` is intended mainly for guidance about what permissions can be set.\n\n#### `accessLevels`\n\nFor an SCGC internal site, `accessLevels` will be:\n\n- `{ \"name\": \"viewer\", \"version\": \"published\" }`\n    - a.k.a. \"published viewer\": users with this access level can only see the published version of an asset and cannot change the asset at all (unless their site role allows them to).\n\n- `{ \"name\": \"owner\", \"version\": \"all\" }`\n    - a.k.a. \"contributor\" (in SCGC) and \"co-owner\" (non-SCGC): users with this access level can do *anything* to the asset except delete it and transfer ownership of it.\n\nFor an Open Data site, `accessLevels` will be:\n\n- `{ \"name\": \"viewer\", \"version\": \"all\" }`\n    - a.k.a. \"legacy viewer\": users with this access level can see both the published *and* the draft versions of an asset\n\n- `{ \"name\": \"contributor\", \"version\": \"all\" }`\n    - a.k.a. \"legacy contributor\": users with this access level can see both the published *and* the draft versions of an asset; they can also add/remove data but cannot change schema.\n\n- `{ \"name\": \"owner\", \"version\": \"all\" }`\n    - a.k.a. \"contributor\" (in SCGC) and \"co-owner\" (non-SCGC): users with this access level can do *anything* to the asset except delete it and transfer ownership of it.\n\n----\n\n### `users` array\n\nThis array lists every user/team that has been explicitly given access to the asset.\n\n#### Identifying a user/team\n\nThere are two ways of granting access to users, by `id` and by `email`.\n\nIf a user with the given `id` does not exist, you will get back a 404 error. The `email` key takes precedence over the `id` key.\n\nTeams are allowed in the `users` array as well but *only* have an `id` and *never* have an `email`\n\n##### Email shares to users who don't have accounts yet\n\nIt is possible, in some situations, to share to a user via their email address even if they don't have an account. These users will come back from the API\n**without** an `id` field but with an `email` field. This scenario is only possible for Open Data sites that are open to community users.\n\n#### `accessLevels` array\n\nWhile this is an array, **currently only 1 access level per user is supported**.\n\nThe object in this array *must* match one of the `accessLevels` that was returned in the root `accessLevels` array, or can be the `current_owner` access level.\n\nIn the `users` array, there **must** be **one and only one** user who has an `accessLevel` with the `name` of `current_owner` and the `version` of `all`. That user **can not** be a team.\nChanging the `id` of the user who has the `current_owner` access level will transfer ownership to the new user.\nThe `current_owner` *must* be a user who has a Socrata account (not an email share to a user who doesn't have an acocunt yet).\n\n#### `displayName`, `type`, and other fields\n\n**!!!** Any fields other than `id`, `email`, and `accessLevels` are solely for informational purposes and are ignored by the API when doing a `PUT` **!!!**"
+    },
+    "servers": [
+        {
+            "url": "https://opendata.socrata.com"
+        }
+    ],
+    "paths": {
+        "/api/views/{assetId}/permissions": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "scope": {
+                                            "type": "string"
+                                        },
+                                        "accessLevels": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "version": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "name",
+                                                    "version"
+                                                ]
+                                            }
+                                        },
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "displayName": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": {
+                                                        "type": "string"
+                                                    },
+                                                    "accessLevels": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "version": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "required": [
+                                                                "name",
+                                                                "version"
+                                                            ]
+                                                        }
+                                                    }
+                                                },
+                                                "required": [
+                                                    "email",
+                                                    "type",
+                                                    "accessLevels"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "scope": "private",
+                                    "accessLevels": [
+                                        {
+                                            "name": "viewer",
+                                            "version": "published"
+                                        },
+                                        {
+                                            "name": "owner",
+                                            "version": "all"
+                                        }
+                                    ],
+                                    "users": [
+                                        {
+                                            "id": "rxtd-9beu",
+                                            "displayName": "Fakey McFakerson",
+                                            "email": "fakey@fake.com",
+                                            "type": "interactive",
+                                            "accessLevels": [
+                                                {
+                                                    "name": "current_owner",
+                                                    "version": "all"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "email": "unregistered_user@example.com",
+                                            "type": "interactive",
+                                            "accessLevels": [
+                                                {
+                                                    "name": "contributor",
+                                                    "version": "all"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get permissions JSON object for an asset",
+                "operationId": "Get permissions JSON object for an asset",
+                "description": "This will simply return the permissions JSON object, as described above.",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "assetId",
+                        "in": "path",
+                        "description": "The identifier of the asset to get permissions for.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "scope": {
+                                            "type": "string"
+                                        },
+                                        "accessLevels": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "version": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "name",
+                                                    "version"
+                                                ]
+                                            }
+                                        },
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "displayName": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": {
+                                                        "type": "string"
+                                                    },
+                                                    "accessLevels": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "version": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "required": [
+                                                                "name",
+                                                                "version"
+                                                            ]
+                                                        }
+                                                    }
+                                                },
+                                                "required": [
+                                                    "email",
+                                                    "type",
+                                                    "accessLevels"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "scope": "private",
+                                    "accessLevels": [
+                                        {
+                                            "name": "viewer",
+                                            "version": "published"
+                                        },
+                                        {
+                                            "name": "owner",
+                                            "version": "all"
+                                        }
+                                    ],
+                                    "users": [
+                                        {
+                                            "id": "rxtd-9beu",
+                                            "displayName": "Fakey McFakerson",
+                                            "email": "fakey@fake.com",
+                                            "type": "interactive",
+                                            "accessLevels": [
+                                                {
+                                                    "name": "current_owner",
+                                                    "version": "all"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "email": "unregistered_user@example.com",
+                                            "type": "interactive",
+                                            "accessLevels": [
+                                                {
+                                                    "name": "contributor",
+                                                    "version": "all"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Update all permissions for an asset",
+                "operationId": "Update all permissions for an asset",
+                "description": "#### Removing a user\n\nSimply omitting a user from the `users` array will remove their access to the asset.\n\n#### Only updating scope/users\n\nIf you omit the `users` array, only the `scope` will be updated.\n\nIf you omit the `scope` string, only the `users` will be updated.",
+                "tags": [],
+                "parameters": [
+                    {
+                        "name": "assetId",
+                        "in": "path",
+                        "description": "The identifier of the asset to update permissions for.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "scope": "private",
+                                "users": [
+                                    {
+                                        "id": "rxtd-9beu",
+                                        "accessLevels": [
+                                            {
+                                                "name": "current_owner",
+                                                "version": "all"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "email": "unregistered_user@example.com",
+                                        "accessLevels": [
+                                            {
+                                                "name": "contributor",
+                                                "version": "all"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "scope": {
+                                        "type": "string"
+                                    },
+                                    "users": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "accessLevels": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "version": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "name",
+                                                            "version"
+                                                        ]
+                                                    }
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "accessLevels"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {}
+    },
+    "tags": []
+}
