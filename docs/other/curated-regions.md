@@ -4,5 +4,5 @@ custom_deps:
 - /common/js/lib/openapi-explorer.min.js
 custom_css:
 - /common/css/openapi-customization.css
-spec_url: /apis/socrataapprovals.yaml
+spec_url: /apis/curated_regions.json
 ---
