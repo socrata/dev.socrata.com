@@ -12,6 +12,7 @@ Capybara.register_driver :poltergeist do |app|
       '--web-security=no',
       '--ssl-protocol=tlsv1.2'
     ],
+    js_errors: false,
     # phantomjs_logger: STDERR
   })
 end

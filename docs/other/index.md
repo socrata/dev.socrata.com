@@ -1,20 +1,20 @@
 ---
 layout: default
 pages:
-- api_keys
-- curatedregionjobs
-- curatedregions
-- exportservice2
+- api-keys
+- approvals
+- curated-region-jobs
+- curated-regions
+- discovery
+- export
+- metadata
+- odata-v2
 - odn
+- permissions
 - publishing
-- socrataapprovals
-- socratadiscovery
-- socratametadataapi
-- socrataodatav2service
-- socratapublicpermissionsapi
-- suggest
-- teamsearchapi
-- usersearchapi
+- search-suggestion
+- team-search
+- user-search
 ---
 
 This is a temporary index page to make these APIs navigable while they aren't linked to from the main navigation options.
