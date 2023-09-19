@@ -242,10 +242,11 @@ task :openapi do
     .select { |filename| File.extname(filename).match?(/json|ya?ml/) }
 
   created = existing_apis.map do |spec_url|
-    md_filename = File.join(
-      'docs', 'other',
-      File.basename(spec_url).sub(File.extname(spec_url), '.md')
-    )
+    md_filename = File.basename(spec_url)
+      .gsub('_', '-')
+      .sub(File.extname(spec_url), '.md')
+      .yield_self { |basename| File.join('docs', 'other', basename) }
+
     if File.exist? md_filename
       puts "#{md_filename} already exists. Skipping."
       next
