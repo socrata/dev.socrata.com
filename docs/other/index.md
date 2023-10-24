@@ -3,12 +3,12 @@ layout: default
 ---
 
 <style>
-  .other-apis .section-list {
+  .section-list {
     display: flex;
     justify-content: space-between;
   }
 
-  .other-apis .section {
+  .section {
     flex-grow: 1;
 
     border: 1px solid #ddd;
@@ -19,12 +19,12 @@ layout: default
     padding: 14px;
   }
 
-  .other-apis .section-header {
+  .section-header {
     font-size: 1.2em;
     margin-bottom: 7px;
   }
 
-  .other-apis .section ul {
+  .section ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -49,7 +49,7 @@ layout: default
 <div class="section-header">Search and Discovery</div>
 <ul>
   <li><a href="/docs/other/discovery.html">Discovery</a></li>
-  <li><a href="/docs/other/search Suggestion.html">Search Suggestion</a></li>
+  <li><a href="/docs/other/search-suggestion.html">Search Suggestion</a></li>
   <li><a href="/docs/other/team-search.html">Team Search</a></li>
   <li><a href="/docs/other/user-search.html">User Search</a></li>
 </ul>
