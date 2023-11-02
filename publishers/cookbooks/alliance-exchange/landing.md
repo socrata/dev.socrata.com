@@ -9,7 +9,7 @@ the technical process of adding and updating data in the Tyler Judicial
 Analytics Pipeline. 
 
 To learn more, please visit the following pages
-- [Certification Overview](/publishers/cookbooks/alliance-exchange/certification.html)
+- Certification Overview (Certification closed. Select Staging)
 - [Staging Overview](/publishers/cookbooks/alliance-exchange/staging.html)
 - Production Overview
 
