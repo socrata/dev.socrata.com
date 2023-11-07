@@ -300,17 +300,6 @@ ErrorSchema: di-aoic-probation-ancillary-assessment
 ```
 *Fix*: Please consult the Data Elements and make sure the value for this variable in the record is equal to one of the enumerated values.
 
-### 4.3 Excessive Error Handling Alternative
-If you are still experiencing errors after troubleshooting at least three automated error emails and need additional assistance, you may request an Error Report Workbook by following the numbered steps below.  Please note that you will need to request additional credentials from us at [data-staging@tylertech.onmicrosoft.com](mailto:data-staging@tylertech.onmicrosoft.com) before you proceed to Step #1.
-
-1. Submit your entries to the “Prep-Staging” Pipeline.
-   - Please note that this pipeline is used solely for the creation of Error Report Workbooks and is NOT the Staging Pipeline. 
-2. After your submission, email the Tyler D&I Project Team at [data-staging@tylertech.onmicrosoft.com](mailto:data-staging@tylertech.onmicrosoft.com)
-    - Email Subject: “Error Report Workbook Request for Vendor_Name / County / Program_Area”
-    - Email message must include: your Envelope IDs and the date and time of submission.
-3. The Tyler D&I Project Team will distribute the requested workbooks that will include a listing of each error and ways to fix them.
-<br><br>
-
 ## 5. Frequently Asked Questions (FAQ’s)
 ### How long will the Staging Process last?
 
