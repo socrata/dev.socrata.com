@@ -26,5 +26,5 @@ For example, if your source file contains a column with the street number and a 
 
 <ul class="well">
   <li>Check out <a href="https://github.com/socrata/socrata-py">socrata-py</a>&comma; the official Python SDK for the Dataset Management API</li>
-  <li>Find more detailed documentation for this API on <a href="https://socratapublishing.docs.apiary.io/#">its Apiary page</a></li>
+  <li>Find more detailed documentation for this API on <a href="/docs/other/publishing.html">its OpenAPI page</a></li>
 </ul>

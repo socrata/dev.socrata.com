@@ -16,7 +16,7 @@ There are two methods available for authentication: HTTP Basic and OAuth 2.0. Fo
 
 Requests can be authenticated using <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic Authentication</a>. You can use your HTTP library’s Basic Auth feature to pass your credentials. All HTTP-basic-authenticated requests must be performed over a secure (https) connection. Authenticated requests made over an insecure connection will be denied.
 
-Users may use their username and password or an API key and secret pair to authenticate using Basic Authentication. Documentation on how to create and manage API keys can be found <a href="https://socrataapikeys.docs.apiary.io">here</a>.
+Users may use their username and password or an API key and secret pair to authenticate using Basic Authentication. Documentation on how to create and manage API keys can be found <a href="/docs/other/api-keys.html">here</a>.
 
 We recommend using API keys! They provide the following benefits:
 
