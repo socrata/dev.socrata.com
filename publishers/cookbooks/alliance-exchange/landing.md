@@ -10,6 +10,6 @@ Analytics Pipeline.
 
 To learn more, please visit the following pages
 - Certification Overview (Certification closed. Select Staging)
-- [Staging Overview](/publishers/cookbooks/alliance-exchange/staging.md)
+- [Staging Overview](/publishers/cookbooks/alliance-exchange/staging.html)
 - Production Overview
 
