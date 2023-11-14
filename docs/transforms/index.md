@@ -10,7 +10,7 @@ your dataset for consumption.
 
 These functions can be used in the "Data Transforms" editor of the the [Dataset Management Experience](https://support.socrata.com/hc/en-us/articles/115016067067-Using-the-Socrata-Data-Management-Experience) interface. Check out some of the examples on our Support Portal [here](https://support.socrata.com/hc/en-us/articles/360034530954-Data-Transformation-Examples)!
 
-See the [Dataset Management API docs](https://socratapublishing.docs.apiary.io/) for more info on how to use the transform functions as an API user.
+See the [Dataset Management API docs](/docs/other/publishing.html) for more info on how to use the transform functions as an API user.
 
 
 
