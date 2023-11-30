@@ -62,7 +62,7 @@ There are certain events upon which a record should be submitted, either in the 
 ### 3. Pipeline Critical Elements vs. Required Fields
 The Pipeline Critical Elements are necessary in order for data to be accepted by the pipeline. Please see the Pipeline Critical Elements section below for more information.
 
-Required Fields are elements that are necessary from a business perspective, but are not technically mandatory for data to be received. You can see which fields are Required in the Data Elements spreadsheets: [Data Elements](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D&id=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements&viewid=0f3fbeb1%2Db9a9%2D4e2e%2D957e%2D9e4144f8f6f9)
+Required Fields are elements that are necessary from a business perspective, but are not mandatory for data to be transmitted successfully. Please be aware, all JSON fields associated with a given dataset must be identified in the submission to pass validation, even if the value of the field is left blank. You can see which fields are Required in the Data Elements spreadsheets: [Data Elements](https://tylertech.sharepoint.com/sites/Client/DI/AOIC/Program%201%20%203%20Prepare%20Solution/Forms/AllItems.aspx?FolderCTID=0x012000E4E5E251D4298743B4D89B00DBBF4D85&View=%7B0F3FBEB1%2DB9A9%2D4E2E%2D957E%2D9E4144F8F6F9%7D&id=%2Fsites%2FClient%2FDI%2FAOIC%2FProgram%201%20%203%20Prepare%20Solution%2FVendor%20docs%2FData%20Elements&viewid=0f3fbeb1%2Db9a9%2D4e2e%2D957e%2D9e4144f8f6f9)
 
 ### 4. Data Elements that Can Have Multiple Values
 The following list is an example of data elements that can have multiple values:
@@ -273,7 +273,7 @@ The following elements must be included in every Pretrial record:
 
 - `recordid`
 - `prosecutingcountyname`
-- `vendorname`
+- `name`
 
 *Example*
 ```
@@ -288,6 +288,7 @@ The following elements must be included in every Pretrial record:
                     "EntityType": "di-aoic-pretrial-violations",
                     "LinkEntity": true,
                     "EntityData": {
+                        "name": "Vendor Name",
                         "prosecutingcountyname": "Cook",
                         "recordid": "3456"
                     }
@@ -302,7 +303,7 @@ The following elements must be included in every Probation record:
 
 - `recordid`
 - `sentencingcountyname`
-- `vendorname`
+- `name`
 
 *Example*
 ```
@@ -317,6 +318,7 @@ The following elements must be included in every Probation record:
                     "EntityType": "di-aoic-probation-individual-background",
                     "LinkEntity": true,
                     "EntityData": {
+                        "name": "Vendor Name",
                         "sentencingcountyname": "Kankakee",
                         "recordid": "6789"
                     }
@@ -326,36 +328,8 @@ The following elements must be included in every Probation record:
     ]
 }
 ```
-### 3. Problem Solving Courts Program Pipeline Critical Elements
-The following elements must be included in every PSC record:
 
-- `recordid`
-- `sentencingcountyname`
-- `vendorname`
-
-*Example*
-```
-{
-    "ResolveMappings": true,
-    "ValidateEnvelope": true,
-    "Events": [
-        {
-            "EventType": "di-aoic-new-record-event",
-            "Entities": [
-                {
-                    "EntityType": "di-aoic-problemsolvingcourts-screening",
-                    "LinkEntity": true,
-                    "EntityData": {
-                        "sentencingcountyname": "Sangamon",
-                        "recordid": "1234"
-                    }
-                }
-            ]
-        }
-    ]
-}
-```
-### 4. Courts Program Pipeline Critical Elements
+### 3. Courts Program Pipeline Critical Elements
 The following elements must be included in every Courts record:
 
 - `county` (Unless the dataset is `Administration` or `Reviewing Courts` in which case it's `circuitcourtncicnumber`)
@@ -375,6 +349,7 @@ The following elements must be included in every Courts record:
                     "EntityType": "di-aoic-court-case-status",
                     "LinkEntity": true,
                     "EntityData": {
+                        "vendorname": "Vendor Name",
                         "circuitcourtncicnumber": "IL081025J-Rock Island 14th",
                         "recordid": "2468"
                     }
