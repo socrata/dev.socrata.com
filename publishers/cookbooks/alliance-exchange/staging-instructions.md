@@ -309,7 +309,7 @@ The Staging Environment will continue to remain live even after the Production E
 
 ### Do the "required" fields need to be entered for the entire data record to be accepted?
 
-Please note that, when it comes to required fields, there are fields that are denoted as required in the Data Elements, and there are fields that are Critical Elements from the Pipeline’s perspective.  Only the Pipeline Critical Elements are truly required for a data record to be accepted.  Please see Pipeline Critical Elements vs. Required Fields for more information.
+Please note that, when it comes to required fields, there are fields that are denoted as required in the Data Elements, and there are fields that are Critical Elements from the Pipeline’s perspective.  Only the Pipeline Critical Elements are truly required for a data record to be accepted. This means that all fields that are part of the data set must be submitted to pass validation, but non critical elements can be left blank. Please see Pipeline Critical Elements vs. Required Fields for more information.
 
 ### Before I submit Live Data, how do I know that the Judicial Analytics System is secure?
 
