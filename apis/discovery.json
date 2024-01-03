@@ -59,7 +59,10 @@
           {
             "in": "query",
             "schema": {
-              "type": "#<OpenAPI::Schema::Array:0x000000010cdde8b8>"
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             },
             "example": "datasets",
             "description": "One of the types listed in the description",
