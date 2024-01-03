@@ -15,7 +15,12 @@
           {
             "in": "query",
             "description": "The Socrata team IDs",
-            "schema": "#<OpenAPI::Schema::Array:0x0000000108397ed0>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
             "example": [
               "team-uid1",
               "team-uid2"
@@ -25,7 +30,12 @@
           {
             "in": "query",
             "description": "A team screen name",
-            "schema": "#<OpenAPI::Schema::Array:0x0000000108397d68>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
             "example": [
               "Team%20Name"
             ],
@@ -34,7 +44,12 @@
           {
             "in": "query",
             "description": "Socrata user IDs corresponding to team owners",
-            "schema": "#<OpenAPI::Schema::Array:0x0000000108397c78>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
             "example": [
               "user-uid1",
               "user-uid2"
@@ -44,7 +59,12 @@
           {
             "in": "query",
             "description": "Socrata user IDs for team members",
-            "schema": "#<OpenAPI::Schema::Array:0x0000000108397b60>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
             "example": [
               "user-uid1",
               "user-uid2"
@@ -149,7 +169,9 @@
           },
           "warnings": {
             "type": "array",
-            "items": "string"
+            "items": {
+              "type": "string"
+            }
           }
         }
       }
