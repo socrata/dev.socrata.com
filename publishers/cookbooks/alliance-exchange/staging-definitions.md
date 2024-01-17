@@ -91,8 +91,6 @@ Civil Case Closure Reason
 
 Modification Type
 
-Disposition code (DE 67)
-
 Accommodation Granted
 
 Continuance/postponement reason
@@ -102,8 +100,6 @@ Conditional assessment type
 Modification type
 
 Defendant Alias Name
-
-Attorney(multiple attorneys may be representing the same litigant)
 ```
 
 ### 5. Partial Caseloads
