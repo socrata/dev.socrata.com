@@ -7,11 +7,11 @@
     },
     "servers": [
         {
-            "url": "evergreen.data.socrata.com/api/views/"
+            "url": "evergreen.data.socrata.com"
         }
     ],
     "paths": {
-        "/metadata/v1?help": {
+        "/api/views/metadata/v1?help": {
             "get": {
                 "responses": {
                     "200": {
@@ -27,7 +27,7 @@
                 "parameters": []
             }
         },
-        "/metadata/v1": {
+        "/api/views/metadata/v1": {
             "get": {
                 "responses": {
                     "200": {
@@ -62,7 +62,7 @@
                 ]
             }
         },
-        "/metadata/v1/{uuid}": {
+        "/api/views/metadata/v1/{uuid}": {
             "get": {
                 "responses": {
                     "200": {
@@ -157,7 +157,7 @@
                 }
             }
         },
-        "/metadata/v1/{uuid} ": {
+        "/api/views/metadata/v1/{uuid} ": {
             "patch": {
                 "responses": {
                     "200": {
