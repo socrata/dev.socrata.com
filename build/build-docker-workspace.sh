@@ -7,8 +7,7 @@ DOCKERFILE="build/Dockerfile"
 
 docker build \
   --build-arg BUILD_NUMBER=$BUILD_NUMBER \
-  --build-arg SURGE_LOGIN=$SURGE_LOGIN \
-  --build-arg SURGE_TOKEN=$SURGE_TOKEN \
+  --build-arg NETLIFY_AUTH_TOKEN=$NETLIFY_AUTH_TOKEN \
   --tag "${IMAGE_NAME}" \
   --file "${DOCKERFILE}" \
   . 1>&2
