@@ -1,11 +1,11 @@
 #!/bin/bash
 set -ex
 
-# Install surge
-npm i -g surge
+# Install netlify
+npm i -g netlify-cli
 
 # Build the site
 bundle exec rake jekyll
 
 # Deploy
-surge --project ./public --domain https://dev.socrata.com
+netlify deploy --prod --dir=public

@@ -4,8 +4,8 @@ set -ex
 # Run tests
 bundle exec rake test
 
-# Get surge for staging
-npm i -g surge
+# Get netlify-cli
+npm i -g netlify-cli
 
 # Stage
-bundle exec rake stage
+netlify deploy --dir=public
