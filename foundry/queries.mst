@@ -10,7 +10,7 @@
 
 <h4>Query Options</h4>
 
-<p>You can also use <a href="/docs/queries.html">SoQL queries</a> with this column. Since it is a <code>{{datatype}}</code> column, <a href="/docs/datatypes/{{datatype}}.html">many different query functions</a> are available.</p>
+<p>You can also use <a href="/docs/queries/index.html">SoQL queries</a> with this column. Since it is a <code>{{datatype}}</code> column, <a href="/docs/datatypes/{{datatype}}.html">many different query functions</a> are available.</p>
 
 {{#suggestions.query}}
   <p>For example:</p>

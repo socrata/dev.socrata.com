@@ -1139,7 +1139,7 @@ Socrata, Inc.</p>
 <p>The <a href="http://labs.socrata.com/docs/search.html">Catalog Search API</a> - The catalog search API allows you to query the entire Socrata open data catalog, across all of the public datasets hosted on all of our customers public data portals. In addition, we're applying machine learning techniques to improve how datasets are categorized and to allow for consistent categories across data catalogs.</p>
 </li>
 	<li>
-<p>Our new <a href="http://labs.socrata.com/docs/export.html">Export API</a> - Beyond providing much faster, cached export functionality, the new export service also allows you to filter exports using<a href="http://dev.socrata.com/docs/queries.html">SoQL queries</a> to retrieve only the data you were looking for.</p>
+  <p>Our new <a href="http://labs.socrata.com/docs/export.html">Export API</a> - Beyond providing much faster, cached export functionality, the new export service also allows you to filter exports using<a href="http://dev.socrata.com/docs/queries/index.html">SoQL queries</a> to retrieve only the data you were looking for.</p>
 </li>
 </ul>
 <p>As these are prerelease APIs, they may change to reflect feedback from the community, but we wanted to get them in front of all of you as early as possible to see what you'll be able to build with them!</p>

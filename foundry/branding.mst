@@ -4,7 +4,7 @@
   {{/logo_href}}
   <h4 class="welcome">Welcome to this <a href="{{ org_homepage }}" target="_blank">{{ org_name }}</a> API, powered by <a href="http://dev.socrata.com/">Socrata</a></h4>
 
-  <p class="more-info">For more information on how to access this asset via the <a href="/">Socrata Open Data API</a>, read on. Additional information on <a href="/docs/queries.html">query functionality</a>, <a href="/consumers/examples/">code samples</a>, and <a href="/libraries">libraries</a> can be accessed using the navigation above.</p>
+  <p class="more-info">For more information on how to access this asset via the <a href="/">Socrata Open Data API</a>, read on. Additional information on <a href="/docs/queries/index.html">query functionality</a>, <a href="/consumers/examples/">code samples</a>, and <a href="/libraries">libraries</a> can be accessed using the navigation above.</p>
 
   <hr />
 </div>

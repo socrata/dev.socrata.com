@@ -13,7 +13,7 @@ All resources are accessed through a common base path of `/resource/` along with
 
 {% include tryit.html domain='data.cityofchicago.org' path='/resource/ydr8-5enu.json' %}
 
-Once you've got your API endpoint, you can add on [filtering](/docs/filtering.html) and [SoQL](/docs/queries.html) parameters to filter and manipulate your dataset.
+Once you've got your API endpoint, you can add on [filtering](/docs/filtering.html) and [SoQL](/docs/queries/index.html) parameters to filter and manipulate your dataset.
 
 ## Locating the API endpoint for a dataset
 
