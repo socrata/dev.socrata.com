@@ -1,4 +1,4 @@
 [[redirects]]
-from = "/*"
+from = "/foundry/*"
 to = "/200.html"
 status = 200
