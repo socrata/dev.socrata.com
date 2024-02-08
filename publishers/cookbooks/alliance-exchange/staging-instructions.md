@@ -9,7 +9,7 @@ layout: chromeless
 - You must have passed the Certification or have attested that you will provide them
 - You must have live production data in your CMS that is ready to send to the Staging Platform
 - A County-Specific Credential Pair (Client ID and Client Secret): 
-    - Please note this will be different than the one you used for Certification. Please see the API documentation for more info on Authentication and Authorization: [API Documentation](/publishers/cookbooks/alliance-exchange/api/staging-index.html)
+    - Please note this will be different than the one you used for Certification.
     - Credential Pairs are provided to Vendors via Kiteworks.
     - Most vendors will have multiple sets of credentials to manage in Staging.
     - The Staging Pipeline requires the use of county-specific credential pairs to transmit data. This requirement is necessary to ensure the compliance and isolation of each county’s data.
@@ -27,7 +27,6 @@ Note: this command will provide a bearer token that is valid for 60 minutes.
 curl https://tyler-alliance-system-demo.auth-fips.us-gov-west-1.amazoncognito.com/oauth2/token -X POST -H "Content-Type: application/x-www-form-urlencoded" --user YOUR_CLIENT_ID:YOUR_CLIENT_SECRET -d "grant_type=client_credentials"
 ```
 
-Please refer to the [API Documentation](/publishers/cookbooks/alliance-exchange/api/staging-index.html) for more information.
 
 ### Step 2: Submit Messages to the Pipeline API
 #### Step 2.1. Build the message
