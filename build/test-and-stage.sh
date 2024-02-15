@@ -8,4 +8,4 @@ bundle exec rake test
 npm i -g netlify-cli
 
 # Stage
-netlify deploy --dir=public
+netlify deploy --dir=public --message $BUILD_TAG
