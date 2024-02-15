@@ -8,4 +8,4 @@ npm i -g netlify-cli
 bundle exec rake jekyll
 
 # Deploy
-netlify deploy --prod --dir=public
+netlify deploy --prod --dir=public --message $BUILD_TAG
