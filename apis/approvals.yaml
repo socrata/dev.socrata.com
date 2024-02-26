@@ -1,18 +1,18 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   version: '1.0'
   title: "Approvals API"
   description: >
     #### Purpose
     
-    The Socrata platform understands the risks of making data public and offers an approval workflow to
-    gate assets and changes to assets from reaching the public until approved. This workflow supports both
-    automatic approval and manual approval and these options can be set independently for official data
-    and community-created content. Privileged users can view the configuration page at 
-    /admin/approvals/settings. Regardless of the configuration, if an asset attempts to become public, it
-    will enter the approval queue. If automatic approvals are in use, it will automatically be approved; if
-    manual approvals are in use, the asset will remain pending in the queue until either approved or rejected.
-    This documentation covers how to answer various questions about approvals and how to interact with the queue.
+    The Socrata platform understands the risks of making data public or sharing data site-wide and offers an approval
+    workflow to gate assets and changes to assets from reaching those audiences until approved. This workflow supports
+    both automatic approval and manual approval and these options can be set independently for official data and 
+    community-created content. Privileged users can view the configuration page at /admin/approvals/settings. Regardless
+    of the configuration, if an asset attempts to broaden the audience to either public or internal, it will enter the
+    approval queue. If automatic approvals are in use, it will automatically be approved; if manual approvals are in
+    use, the asset will remain pending in the queue until either approved or rejected. This documentation covers how to
+    answer various questions about approvals and how to interact with the queue.
     
     #### Authentication
     
@@ -23,62 +23,19 @@ info:
         For example 'X-Socrata-Host:data.ny.gov'.
 
     When properly authenticated, you will be able to use the:
-     - 'Get Guidance' endpoint if you can view the asset being queried.
-     - 'Submit Asset' endpoint if you own or collaborate on the asset being submitted.
-     - 'Withdraw Asset' endpoint if you own or collaborate on the asset being withdrawn.
-     - 'Approve or Reject Asset' endpoint if you have the 'review_approvals' right. Note that
-       by default all admininstrators have this right. 
-host: evergreen.data.socrata.com
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
-parameters:
-  fourByFour:
-    in: path
-    name: fourByFour
-    required: true
-    type: string
-    description: The four-by-four of an asset.
-    x-example: b5gk-7v6a
-  assetId:
-    in: query
-    name: assetId
-    required: false
-    type: string
-    description: 
-      The [unique identifier of an asset](https://socratadiscovery.docs.apiary.io/#reference/0/find-by-id). 
-      This is only necessary for drafts which cannot be identified with only a four-by-four.
-    x-example: '2z5v-ecg8:7'
-  submissionId:
-    in: path
-    name: submissionId
-    required: true
-    type: integer
-    description: 
-      As an asset is submitted to the approval queue, its submission is given an ID. This ID is necessary
-      to withdraw the asset from the queue. We recommend you consult guidance first. Guidance will tell
-      whether this asset can be withdrawn and additionally will build up the 'withdrawlUrl' with the appropriate
-      submissionId.
-    x-example: 4398574
-  recordId:
-    in: path
-    name: recordId
-    required: true
-    type: integer
-    description: 
-      After an asset is submitted to the approval queue, several records are created to track its state in the 
-      queue, each with its own ID. These record IDs are needed to approve and reject assets. We recommend you 
-      consult guidance first. Guidance will tell whether this asset can be reviewed and additionally will build
-      up the 'updatelUrl' with the appropriate recordId.
-    x-example: 1062658    
+     - [Get Guidance](#?route=get-/views/-fourByFour-/approvals-method-guidance_v2-assetId--assetId-)
+       endpoint if you can view the asset being queried.
+     - [Submit Asset](#?route=post-/views/-fourByFour-/approvals-method-startWorkflowSubmission) 
+       endpoint if you own or collaborate on the asset being submitted.
+     - [Withdraw Asset](?route=delete-/views/-fourByFour-/approvals/-submissionId--method-cancelWorkflowSubmission)
+      endpoint if you own or collaborate on the asset being withdrawn.
+     - [Review Asset](#?route=put-/views/-fourByFour-/approvals/-recordId-)
+       endpoint if you have the matching 'review_public_approvals' or 'review_internal_approvals' right.
+       Note that by default all administrators have this right.
+servers:
+  - url: evergreen.data.socrata.com
 paths:
-  '/views/{fourByFour}/approvals?method=guidance':
-    parameters:
-      - $ref: '#/parameters/fourByFour'
-      - $ref: '#/parameters/assetId'
+  '/views/{fourByFour}/approvals?method=guidance_v2&assetId={assetId}':
     get:
       summary: Get Guidance
       description: >
@@ -94,208 +51,287 @@ paths:
           - How do I withdraw an asset from the queue?
           - How do I approve/reject a pending asset?
         
-        
         This endpoint provides answers to all of these questions, by detailing the asset's
         current state and providing guidance on future possible actions.
+      parameters:
+        - $ref: '#/components/parameters/fourByFour'
+        - $ref: '#/components/parameters/assetId'
       responses:
-        200:
-          description: OK Response
-          schema:
-            $ref: '#/definitions/Guidance'
-        400:
+        "200":
+          description: Guidance about the state of the asset with respect to approvals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidanceSummary'
+        "400":
           description: Error Response
-          schema:
-            $ref: '#/definitions/CoreError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoreError'
   '/views/{fourByFour}/approvals?method=startWorkflowSubmission':
-    parameters:
-      - $ref: '#/parameters/fourByFour'
     post:
       summary: Submit Asset
       description:
-        This endpoint is used to submit an asset to the approval queue. We recommend first consulting the 
-        guidance endpoint before using this one. Guidance will return whether the asset is submittable, 
-        unsubmittable or already submitted. If the asset is submittable, guidance will provide this endpoint 
+        This endpoint is used to submit an asset to the approval queue. We recommend first consulting the
+        guidance endpoint before using this one. Guidance will return whether the asset is submittable,
+        unsubmittable or already submitted. If the asset is submittable, guidance will provide this endpoint
         along with the appropriate POST body.
       parameters:
-        - name: body
-          required: true
-          in: body
-          schema:
-            $ref: '#/definitions/SubmissionObject'
+        - $ref: '#/components/parameters/fourByFour'
+      requestBody:
+        description: Details for the submission
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmissionObject'
       responses:
         200:
           description: Successful Response
         400:
           description: Error Response
-          schema:
-            $ref: '#/definitions/CoreError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoreError'
   '/views/{fourByFour}/approvals/{submissionId}?method=cancelWorkflowSubmission':
     parameters:
-      - $ref: '#/parameters/fourByFour'
-      - $ref: '#/parameters/submissionId'
+      - $ref: '#/components/parameters/fourByFour'
+      - $ref: '#/components/parameters/submissionId'
     delete:
       summary: Withdraw Asset
       description:
-        This endpoint is used to withdraw an asset from the approval queue. We recommend first consulting the 
+        This endpoint is used to withdraw an asset from the approval queue. We recommend first consulting the
         guidance endpoint, before using this one. Guidance will return whether the asset is in the queue or not
         and if it is, guidance will provide this endpoint with the appropriate submissionId.
       responses:
-        200:
+        "200":
           description: Successful Response
-        400:
+        "400":
           description: Error Response
-          schema:
-            $ref: '#/definitions/CoreError'  
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoreError'
   '/views/{fourByFour}/approvals/{recordId}':
-    parameters:
-      - $ref: '#/parameters/fourByFour'
-      - $ref: '#/parameters/recordId'
     put:
-      summary: Approve or Reject Asset
+      summary: Review Asset
       description:
-        This endpoint is used to approve or reject an asset in the approval queue. 
-        We recommend first consulting the guidance endpoint before using this one. Guidance will 
-        return whether the asset is in the queue and if so, guidance will provide this endpoint 
-        along with the appropriate recordId. 
+        This endpoint is used to approve or reject an asset in the approval queue.
+        We recommend first consulting the guidance endpoint before using this one. Guidance will
+        return whether the asset is in the queue and if so, guidance will provide this endpoint
+        along with the appropriate recordId.
       parameters:
-        - name: body
-          required: true
-          in: body
-          schema:
-            $ref: '#/definitions/ReviewObject'
+        - $ref: '#/components/parameters/fourByFour'
+        - $ref: '#/components/parameters/recordId'
+      requestBody:
+        description: Review instructions and notes
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewObject'
       responses:
-        200:
+        "200":
           description: Successful Response
-        400:
+        "400":
           description: Error Response
-          schema:
-            $ref: '#/definitions/CoreError'    
-definitions:
-  Guidance:
-    title: Guidance
-    type: object
-    properties:
-      currentState:
-        description: 
-          The current approval state of the asset. If the asset has been submitted, this is
-          one of 'approved', 'pending' or 'rejected'. If the asset is yet to be submitted, this
-          is one of 'submittable' or 'unsubmittable'. This key is always provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoreError'
+components:
+  parameters:
+    fourByFour:
+      name: fourByFour
+      description: 'The four-by-four identifier of an asset. Example: b5gk-7v6a'
+      in: path
+      required: true
+      schema:
         type: string
-      currentOutcome:
-        description:
-          If the asset has been submitted, this describes what outcome is desired after approval. 
-          This will be one of 'change_audience' or 'update_published_asset'. This key is only
-          provided if the asset has been submitted.
+    assetId:
+      name: assetId
+      description: >
+        The [unique identifier of an asset](/docs/other/discovery#?route=get-/catalog/v1).
+        This is only necessary for drafts which cannot be identified with only a four-by-four. Example: 2z5v-ecg8:7
+      in: query
+      required: false
+      schema:
         type: string
-      currentOutcomeStatus:
-        description: 
-          If the asset has been submitted and approved, the outcome status will be 'in_progress' until
-          the outcome completes, at which point this key will no longer be returned. This key is provided
-          briefly while an approved outcome is being carried out.
-        type: string
-      withdrawlUrl:
-        description:
-          If the asset is currently pending or rejected in the queue, it may be withdrawn from the queue using 
-          a DELETE call to this endpoint. This key is only provided while the asset is pending or rejected.
-        type: string
-      updatelUrl:
-        description:
-          If the asset is currently pending in the queue, it may be approved or rejected using 
-          a PUT call to this endpoint. This endpoint requires a body with your chosen state and optionally
-          any notes you'd like to leave the submitter. For example 
-          
-          
-          {"state":"approved", "notes":"Good job!"}
-          
-          
-          or
-          
-          
-          {"state":"rejected", "notes":"The metadata needs to be filled out."}.
-          
-          
-          This key is only provided while the asset is pending.
-        type: string
-      toChangeAudience:
-        type: object
-        $ref: '#/definitions/SubmissionGuidance'
-      toUpdatePublishedAsset:
-        type: object
-        $ref: '#/definitions/SubmissionGuidance'        
-  SubmissionGuidance:
-    type: object
-    description: 
-      If the asset is submittable, either to change the audience to public or to publish changes
-      to an already public asset, this object contains all of the information needed to sumbit 
-      the asset into the queue. This key is only provided for submittable assets.
-    properties:
-      expectedState:
-        description: 
-          If submitting an asset via this guidance, this would describe its expected state on entering
-          the approval queue. This will be 'approved' if automatic approval is enabled, otherwise it will be
-          'pending'. This key is always provided within the 'toChangeAudience' or 'toUpdatePublishedAsset' 
-          objects.
-        type: string
-      submissionUrl:
-        description:
-          If submitting an asset via this guidance, this is the url you will require. You need only 
-          POST to this endpoint with the body provided in the 'submission' key.
-          This key is always provided within the 'toChangeAudience' or 'toUpdatePublishedAsset' objects.
-        type: string
-      submission:
-        type: object
-        $ref: '#/definitions/SubmissionObject'
-  SubmissionObject:
-    type: object
-    description:
-     If submitting an asset, this is the POST body required by the 'submissionUrl'. 
-     This key is always provided within the 'toChangeAudience' or 'toUpdatePublishedAsset' objects.
-    properties:
-      object:
-        description: 
-          This is an internal label used to determine the type of submission. For assets attempting to become
-          public, it is 'public_audience_request'. For assets attempting to publish changes to an existing
-          public asset, this will be one of 'working_copy', 'revision' or 'draft_story'. The guidance endpoint 
-          is aware of these distinctions and will provide the correct label for your asset. 
-        type: string
-      outcome:
-        description:
-          This describes the desired outcome if the asset is approved; it is one of 'change_audience' or 
-          'update_published_asset'. The guidance endpoint is aware of these outcomes and will provide the 
-          appropriate one for your asset.
-        type: string
-      details:
-        description:
-          This is an internal object used to hold details for carrying out the outcome, should the asset be 
-          approved. For 'change_audience' outcomes, we require which type of permission to add. For 
-          'update_published_asset' outcomes, we require the identifier of the draft. The guidance endpoint is 
-          aware of these details and will provide the correct set for your asset.
-        type: object
-  CoreError:
-    type: object
-    properties:
-      code:
-        description: A label for the type of error 
-        type: string
-      error:
-        description: Whether an error occurred.
-        type: boolean
-        default: true
-      message:
-        description: A message regarding the error that occurred
-        type: string
-  ReviewObject:
-    type: object
-    properties:
-      state:
-        description: 
-          This speficies your choice to approve or reject the asset. Respectively, these states 
-          are 'approved' and 'rejected'.
-        type: string
-      notes:
-        description: 
-          Optionally, you may provide notes to the submitter of the asset. For example, if approving the asset, 
-          you might include notes saying "good job!". If rejecting the asset, you might list the reasons behind
-          the rejection. 
-        type: string
-        
+    submissionId:
+      name: submissionId
+      description: >
+        As an asset is submitted to the approval queue, its submission is given an ID. This ID is necessary
+        to withdraw the asset from the queue. We recommend you consult guidance first. Guidance will tell
+        whether this asset can be withdrawn and additionally will build up the 'withdrawlUrl' with the appropriate
+        submissionId. Example: 4398574.
+      in: path
+      required: true
+      schema:
+        type: integer
+    recordId:
+      name: recordId
+      description: >
+        After an asset is submitted to the approval queue, several records are created to track its state in the
+        queue, each with its own ID. These record IDs are needed to approve and reject assets. We recommend you
+        consult guidance first. Guidance will tell whether this asset can be reviewed and additionally will build
+        up the 'updatelUrl' with the appropriate recordId. Example: 1062658.
+      in: path
+      required: true
+      schema:
+        type: integer
+  schemas:
+    GuidanceSummary:
+      type: object
+      properties:
+        public:
+          $ref: '#/components/schemas/Guidance'
+        internal:
+          $ref: '#/components/schemas/Guidance'
+    Guidance:
+      type: object
+      description: Guidance for working with either the public workflow or the internal workflow.
+      properties:
+        currentState:
+          description:
+            The current approval state of the asset. If the asset has been submitted, this is
+            one of 'approved', 'pending' or 'rejected'. If the asset is yet to be submitted, this
+            is one of 'submittable' or 'unsubmittable'. This key is always provided.
+          type: string
+        currentOutcome:
+          description:
+            If the asset has been submitted, this describes what outcome is desired after approval.
+            This will be one of 'change_audience' or 'update_published_asset'. This key is only
+            provided if the asset has been submitted.
+          type: string
+        currentOutcomeStatus:
+          description:
+            If the asset has been submitted and approved, the outcome status will be 'in_progress' until
+            the outcome completes, at which point this key will no longer be returned. This key is provided
+            briefly while an approved outcome is being carried out.
+          type: string
+        withdrawUrl:
+          description:
+            If the asset is currently pending or rejected in the queue, it may be withdrawn from the queue using
+            a DELETE call to this endpoint. This key is only provided while the asset is pending or rejected.
+          type: string
+        updateUrl:
+          description:
+            If the asset is currently pending in the queue, it may be ["Approved or Rejected"](#?route=put-/views/-fourByFour-/approvals/-recordId-)
+            using a PUT call with the endpoint provided here. This endpoint requires a body with your chosen state and
+            optionally any notes you'd like to leave the submitter. For example
+            
+            
+            {"state":"approved", "notes":"Good job!"}
+            
+            
+            or
+            
+            
+            {"state":"rejected", "notes":"The metadata needs to be filled out."}.
+            
+            
+            This key is only provided while the asset is pending.
+          type: string
+        toChangeAudience:
+          $ref: '#/components/schemas/SubmissionGuidance'
+        toPublishAndChangeAudience:
+          $ref: '#/components/schemas/SubmissionGuidance'
+    SubmissionGuidance:
+      type: object
+      description:
+        If the asset is submittable, either to change the audience to public or to publish changes
+        to an already public asset, this object contains all of the information needed to submit
+        the asset into the queue. This key is only provided for submittable assets.
+      properties:
+        queueOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueueOption'
+        submission:
+          $ref: '#/components/schemas/SubmissionObject'
+    QueueOption:
+      type: object
+      properties:
+        workflowId:
+          description: The internal ID of this workflow option.
+          type: number
+        displayName:
+          description: The name of of this workflow option for easier identification of which workflow.
+          type: string
+        submissionUrl:
+          description: If you choose to ["Submit an Asset"](#?route=post-/views/-fourByFour-/approvals-method-startWorkflowSubmission)
+            to this workflow, this provides you with the correct URL to use.
+          type: string
+        expectedState:
+          description: If submitting an asset via this guidance, this would describe its expected state on entering
+            the approval queue. This will be 'approved' if automatic approval is enabled, otherwise it will be
+            'pending'. This key is always provided within the
+    SubmissionObject:
+      type: object
+      description:
+        If submitting an asset, this is the POST body required by the 'submissionUrl'.
+        This key is always provided within the 'toChangeAudience' or 'toUpdatePublishedAsset' objects.
+      properties:
+        object:
+          description:
+            This is an internal label used to determine the type of submission. For assets attempting to become
+            public, it is 'public_audience_request'. For assets attempting to publish changes to an existing
+            public asset, this will be one of 'working_copy', 'revision' or 'draft_story'. The guidance endpoint
+            is aware of these distinctions and will provide the correct label for your asset.
+          type: string
+        outcome:
+          description:
+            This describes the desired outcome if the asset is approved; it is one of 'change_audience' or
+            'update_published_asset'. The guidance endpoint is aware of these outcomes and will provide the
+            appropriate one for your asset.
+          type: string
+        details:
+          description:
+            This is an internal object used to hold details for carrying out the outcome, should the asset be
+            approved. For 'update_published_asset' outcomes, we require the identifier of the draft. 
+            The guidance endpoint is aware of these details and will provide the correct details for your asset.
+          type: object
+          properties:
+            id:
+              description:
+                This identifies the drafts that would be published upon approval. For working copies, this is a 
+                fourByFour, e.g. 'n7qm-457v'. For revisions, this is the revision number, e.g. 2. For story drafts,
+                there is only ever one draft and thus the literal term "draft" is used.
+              type: string
+      example: {
+        "object": "public_audience_request",
+        "outcome": "change_audience"
+      }
+    CoreError:
+      type: object
+      properties:
+        code:
+          description: A label for the type of error
+          type: string
+        error:
+          description: Whether an error occurred.
+          type: boolean
+          default: true
+        message:
+          description: A message regarding the error that occurred
+          type: string
+    ReviewObject:
+      type: object
+      properties:
+        state:
+          description:
+            This specifies your choice to approve or reject the asset. Respectively, these states
+            are 'approved' and 'rejected'.
+          type: string
+        notes:
+          description:
+            Optionally, you may provide notes to the submitter of the asset. For example, if approving the asset,
+            you might include notes saying "good job!". If rejecting the asset, you might list the reasons behind
+            the rejection.
+          type: string
+      example: {
+        "state": "approved",
+        "notes": "Great Job!"
+      }
