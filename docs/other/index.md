@@ -49,7 +49,6 @@ layout: default
 <div class="section-header">Search and Discovery</div>
 <ul>
   <li><a href="/docs/other/discovery.html">Discovery</a></li>
-  <li><a href="/docs/other/search-suggestion.html">Search Suggestion</a></li>
   <li><a href="/docs/other/team-search.html">Team Search</a></li>
   <li><a href="/docs/other/user-search.html">User Search</a></li>
 </ul>
